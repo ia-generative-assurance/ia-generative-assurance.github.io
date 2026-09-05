@@ -240,8 +240,41 @@
     els.forEach(function(el){ io.observe(el); });
   } else { els.forEach(function(el){ el.classList.add('in'); }); }
 
-  // sommaire lateral : entree active
+  // sommaire lateral : bouton masquer, poignee de reouverture, choix memorise
   var toc = document.querySelector('.toc');
+  var tocWrap = document.querySelector('.with-toc');
+  if (toc && tocWrap) {
+    var title = toc.querySelector('.toc-title');
+    if (title) {
+      var head = document.createElement('div');
+      head.className = 'toc-head';
+      toc.insertBefore(head, title);
+      head.appendChild(title);
+      var hide = document.createElement('button');
+      hide.type = 'button';
+      hide.className = 'toc-btn';
+      hide.title = 'Masquer le sommaire';
+      hide.setAttribute('aria-label', 'Masquer le sommaire');
+      hide.innerHTML = '&#9664;';
+      head.appendChild(hide);
+      var open = document.createElement('button');
+      open.type = 'button';
+      open.className = 'toc-reopen';
+      open.title = 'Afficher le sommaire';
+      open.textContent = 'Sommaire';
+      tocWrap.appendChild(open);
+      var KEY = 'nlpTocOff';
+      var setOff = function(off, persist){
+        tocWrap.classList.toggle('toc-off', off);
+        if (persist) { try { localStorage.setItem(KEY, off ? '1' : '0'); } catch (e) {} }
+      };
+      try { if (localStorage.getItem(KEY) === '1') setOff(true, false); } catch (e) {}
+      hide.addEventListener('click', function(){ setOff(true, true); });
+      open.addEventListener('click', function(){ setOff(false, true); });
+    }
+  }
+
+  // sommaire lateral : entree active
   if (toc) {
     var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
     var targets = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);

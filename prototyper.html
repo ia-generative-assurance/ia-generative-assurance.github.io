@@ -53,7 +53,7 @@
 <section id="processus" class="band" style="padding-top:0">
   <div class="section-head reveal">
     <div class="eyebrow">1 · Le point de départ</div>
-    <div class="h-ico"><div class="ico navy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"/><path d="M5 4h12l-2 4 2 4H5"/></svg></div><h2>Comprendre un processus métier de bout en bout, puis montrer un écran</h2></div>
+    <div class="h-ico"><div class="ico navy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"/><path d="M5 4h12l-2 4 2 4H5"/></svg></div><h2>Un processus de bout en bout, puis un écran</h2></div>
     <p class="lede">Pour un métier donné, les mêmes tâches reviennent chaque jour. Le point de départ d'un outil n'est pas la technique, c'est le processus : qui fait quoi, avec quelles données, quelle décision à la fin. Et la méthode qui marche est contre-intuitive : <strong>l'écran d'abord</strong>. Un métier ne réagit pas à une spécification, il réagit à un écran.</p>
   </div>
 
@@ -92,7 +92,7 @@
 <section id="skills" class="band">
   <div class="section-head reveal">
     <div class="eyebrow">2 · La première forme de prototype</div>
-    <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg></div><h2>Des skills, sans interface : l'agent les utilise pour résoudre mon problème</h2></div>
+    <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg></div><h2>Des skills, sans interface</h2></div>
     <p class="lede">Le prototype le plus léger n'a pas d'écran. C'est une compétence réutilisable que je décris à un agent : comment extraire les champs d'un constat, comment classer un mail, comment vérifier la cohérence d'une facture. Je garde ces skills, et l'agent les enchaîne. Sauvegarder ses bons prompts, c'est déjà construire des outils.</p>
   </div>
 
@@ -154,7 +154,7 @@
 <section id="outils" class="band">
   <div class="section-head reveal">
     <div class="eyebrow">3 · La seconde forme : des exemples réalisés</div>
-    <div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><h2>Un outil avec interface, du plus global au plus granulaire</h2></div>
+    <div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><h2>Un outil avec interface, du global au détail</h2></div>
     <p class="lede">Quand plusieurs personnes doivent l'utiliser, il faut une interface, une base, des règles. Voici des prototypes réalisés, sur des données fictives, qui vont du plus ambitieux au plus ciblé. Chacun est une combinaison des briques vues jusqu'ici.</p>
   </div>
 
@@ -374,7 +374,7 @@
 <section id="limites" class="band">
   <div class="section-head reveal">
     <div class="eyebrow">5 · La ligne à ne pas franchir seul</div>
-    <div class="h-ico"><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h2>Ce qu'un prototype n'est pas : sécurité, normes, industrialisation</h2></div>
+    <div class="h-ico"><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h2>Ce qu'un prototype n'est pas</h2></div>
     <p class="lede">Un prototype prouve la valeur et cadre le projet. Il ne protège pas les données, ne respecte pas seul les normes, ne tient pas la charge, ne se maintient pas. Ces sujets restent un métier de spécialiste. Voici ce qu'il faut savoir pour dialoguer avec eux et passer la main proprement.</p>
   </div>
 
@@ -508,8 +508,41 @@
     els.forEach(function(el){ io.observe(el); });
   } else { els.forEach(function(el){ el.classList.add('in'); }); }
 
-  // sommaire lateral : entree active
+  // sommaire lateral : bouton masquer, poignee de reouverture, choix memorise
   var toc = document.querySelector('.toc');
+  var tocWrap = document.querySelector('.with-toc');
+  if (toc && tocWrap) {
+    var title = toc.querySelector('.toc-title');
+    if (title) {
+      var head = document.createElement('div');
+      head.className = 'toc-head';
+      toc.insertBefore(head, title);
+      head.appendChild(title);
+      var hide = document.createElement('button');
+      hide.type = 'button';
+      hide.className = 'toc-btn';
+      hide.title = 'Masquer le sommaire';
+      hide.setAttribute('aria-label', 'Masquer le sommaire');
+      hide.innerHTML = '&#9664;';
+      head.appendChild(hide);
+      var open = document.createElement('button');
+      open.type = 'button';
+      open.className = 'toc-reopen';
+      open.title = 'Afficher le sommaire';
+      open.textContent = 'Sommaire';
+      tocWrap.appendChild(open);
+      var KEY = 'nlpTocOff';
+      var setOff = function(off, persist){
+        tocWrap.classList.toggle('toc-off', off);
+        if (persist) { try { localStorage.setItem(KEY, off ? '1' : '0'); } catch (e) {} }
+      };
+      try { if (localStorage.getItem(KEY) === '1') setOff(true, false); } catch (e) {}
+      hide.addEventListener('click', function(){ setOff(true, true); });
+      open.addEventListener('click', function(){ setOff(false, true); });
+    }
+  }
+
+  // sommaire lateral : entree active
   if (toc) {
     var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
     var targets = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
