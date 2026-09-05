@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prototype : parcours de souscription auto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#13264A; --crimson:#BA1C3A; --steel:#3B547D; --teal:#1F6F6B; --amber:#92661D;
+    --sand:#E9E4E1; --sand-l:#F7F4F2; --line:#dcd8d4; --ink:#1f2733; --soft:#4a5567; --muted:#78828f;
+    --display:"Manrope","Segoe UI",sans-serif; --sans:"Inter","Segoe UI",Arial,sans-serif;
+    --mono:"JetBrains Mono",Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:var(--sand-l);padding:18px 18px 34px;font-size:15px}
+  .wrap{max-width:1060px;margin:0 auto}
+
+  .steps{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+  .step{display:flex;align-items:center;gap:8px;font-size:.84rem;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+  .step b{width:20px;height:20px;border-radius:50%;background:var(--sand);color:var(--navy);font-family:var(--display);font-size:.72rem;display:grid;place-items:center}
+  .step.on{color:#fff;background:var(--navy);border-color:var(--navy)}
+  .step.on b{background:rgba(255,255,255,.2);color:#fff}
+  .step.done{color:var(--teal);border-color:var(--teal)}
+  .step.done b{background:var(--teal);color:#fff}
+
+  .panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 2px rgba(19,38,74,.05),0 8px 22px rgba(19,38,74,.05)}
+  .panel h3{font-family:var(--display);font-size:1.02rem;margin:0 0 4px;color:var(--navy)}
+  .panel p.sub{margin:0 0 14px;font-size:.86rem;color:var(--muted)}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:820px){.cols{grid-template-columns:1fr}}
+
+  .tag{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;font-weight:700;border-radius:999px;padding:2px 9px;white-space:nowrap}
+  .tag.ia{background:#fbeef1;color:var(--crimson)}
+  .tag.regle{background:#e8f3f2;color:var(--teal)}
+  .tag.humain{background:#fdf3e2;color:var(--amber)}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.78rem;color:var(--muted);margin-bottom:14px;align-items:center}
+
+  .demandes{display:grid;gap:8px;margin-bottom:12px}
+  .dem{text-align:left;font:inherit;font-size:.86rem;line-height:1.5;color:var(--soft);background:var(--sand-l);border:1px solid var(--line);border-left:3px solid var(--line);border-radius:8px;padding:9px 12px;cursor:pointer}
+  .dem:hover{border-left-color:var(--crimson);background:#fff}
+  .dem.on{border-left-color:var(--crimson);background:#fff;color:var(--ink)}
+  .texte{font-size:.92rem;line-height:1.6;background:var(--sand-l);border-radius:8px;padding:12px 14px;min-height:76px}
+  .texte mark{background:#fde7c2;color:var(--navy);border-radius:4px;padding:0 3px}
+
+  .btn{font:inherit;font-family:var(--display);font-weight:800;font-size:.86rem;background:var(--crimson);color:#fff;border:none;border-radius:999px;padding:10px 20px;cursor:pointer}
+  .btn:hover{background:#96162f}
+  .btn[disabled]{background:var(--sand);color:var(--muted);cursor:default}
+  .btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}
+  .btn.ghost:hover{background:var(--sand-l)}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+
+  .fiche{display:grid;gap:8px}
+  .champ{display:grid;grid-template-columns:150px 1fr auto;gap:10px;align-items:center;font-size:.88rem;border-bottom:1px solid var(--line);padding-bottom:7px}
+  .champ:last-child{border-bottom:none}
+  .champ label{color:var(--muted);font-size:.8rem}
+  .champ input,.champ select{font:inherit;font-size:.88rem;border:1px solid var(--line);border-radius:7px;padding:6px 9px;width:100%;background:#fff}
+  .champ.vide input{border-color:var(--amber);background:#fffaf0}
+
+  table{width:100%;border-collapse:collapse;font-size:.86rem}
+  thead th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-family:var(--display);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase}
+  tbody td{padding:9px 12px;border-top:1px solid var(--line)}
+  tbody tr:last-child td{font-weight:700;color:var(--navy);background:var(--sand-l)}
+  td.num{text-align:right;font-family:var(--mono);font-size:.84rem;white-space:nowrap}
+  .prix{font-family:var(--display);font-size:2rem;font-weight:800;color:var(--crimson);line-height:1}
+  .prix small{display:block;font-family:var(--sans);font-size:.76rem;font-weight:400;color:var(--muted);margin-top:3px}
+  .note{font-size:.8rem;color:var(--muted);line-height:1.5;margin:12px 0 0}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="steps">
+    <div class="step on" id="s1"><b>1</b> La demande du client</div>
+    <div class="step" id="s2"><b>2</b> La fiche à valider</div>
+    <div class="step" id="s3"><b>3</b> Le tarif et ses raisons</div>
+  </div>
+  <div class="legend">
+    <span class="tag ia">Brique IA</span> lecture du langage libre
+    <span class="tag regle">Règle</span> calcul, contrôles, tarif
+    <span class="tag humain">Humain</span> validation avant envoi
+  </div>
+
+  <!-- Etape 1 -->
+  <div class="panel" id="p1">
+    <h3>1. Le client écrit ce qu'il veut, en langage libre <span class="tag ia">Brique IA</span></h3>
+    <p class="sub">Choisissez une demande, puis lancez la lecture. Aucun formulaire imposé au client.</p>
+    <div class="demandes" id="demandes"></div>
+    <div class="texte" id="texte">Choisissez une demande ci-dessus.</div>
+    <div class="actions">
+      <button class="btn" id="lire" disabled>Lire la demande</button>
+    </div>
+  </div>
+
+  <!-- Etape 2 -->
+  <div class="panel hidden" id="p2">
+    <h3>2. La fiche extraite, que l'humain valide <span class="tag humain">Humain</span></h3>
+    <p class="sub">Ce qui a été trouvé est repris tel quel. Ce qui manque est signalé en orange, jamais inventé.</p>
+    <div class="cols">
+      <div class="fiche" id="fiche"></div>
+      <div>
+        <div class="panel" style="box-shadow:none;margin:0;background:var(--sand-l)">
+          <h3 style="font-size:.92rem">Ce que la lecture n'a pas trouvé</h3>
+          <ul id="manques" style="margin:8px 0 0;padding-left:18px;font-size:.86rem;color:var(--soft);line-height:1.6"></ul>
+          <p class="note">Un prototype honnête dit ce qu'il ignore. C'est la différence entre une extraction utilisable et une réponse plausible.</p>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="tarifer">Calculer le tarif</button>
+      <button class="btn ghost" id="retour1">Revenir à la demande</button>
+    </div>
+  </div>
+
+  <!-- Etape 3 -->
+  <div class="panel hidden" id="p3">
+    <h3>3. Le tarif, calculé par des règles explicites <span class="tag regle">Règle</span></h3>
+    <p class="sub">Aucun modèle de langue ici : une base par catégorie, des coefficients, un total. Chaque ligne est justifiable devant un client et devant un contrôleur.</p>
+    <div class="cols" style="grid-template-columns:1.6fr 1fr">
+      <div>
+        <table>
+          <thead><tr><th>Ce qui entre dans le prix</th><th>Valeur retenue</th><th class="num">Effet</th></tr></thead>
+          <tbody id="calcul"></tbody>
+        </table>
+      </div>
+      <div>
+        <div class="panel" style="box-shadow:none;margin:0;background:var(--sand-l);text-align:center">
+          <div class="prix" id="prix">-</div>
+          <small style="color:var(--muted);font-size:.76rem">prime annuelle indicative, données fictives</small>
+          <p class="note" style="text-align:left">Le client verrait ce prix avec ses raisons. Le gestionnaire, lui, verrait en plus les champs incertains et pourrait corriger avant l'envoi.</p>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn ghost" id="retour2">Modifier la fiche</button>
+      <button class="btn ghost" id="recommencer">Recommencer</button>
+    </div>
+  </div>
+
+  <p class="note">Prototype de démonstration, données fictives, aucun appel à un modèle depuis cette page. Dans le vrai prototype, seule l'étape 1 appelle un modèle de langue. Tout le reste est du code ordinaire, écrit une fois, vérifiable ligne à ligne.</p>
+</div>
+
+<script>
+// Trois demandes types, ecrites comme un client les ecrirait.
+const DEMANDES = [
+  "Bonjour, je viens d'acheter une Peugeot 208 de 2019, je m'en sers surtout pour aller au travail à Lyon, environ 12 000 km par an. Je n'ai jamais eu d'accident, mon bonus est de 0,68. Vous pouvez me faire un devis tous risques ?",
+  "Je souhaite assurer un Renault Kangoo de 2015 pour mon activité d'artisan plombier, je roule beaucoup, disons 30 000 km, je suis basé à Marseille. Au tiers ça suffit.",
+  "Bonsoir, c'est pour une Tesla Model 3 de 2023, usage privé, je suis à Rennes, je fais peu de route, 6 000 km. J'ai eu un accrochage responsable l'an dernier."
+];
+
+// Dictionnaires : la meme logique deterministe que la cascade du module 03.
+const MARQUES = {"peugeot":"Peugeot","renault":"Renault","tesla":"Tesla","citroen":"Citroën","dacia":"Dacia","volkswagen":"Volkswagen"};
+const MODELES = {"208":"208","kangoo":"Kangoo","model 3":"Model 3","clio":"Clio","sandero":"Sandero"};
+const VILLES  = {"lyon":["Lyon",1.10],"marseille":["Marseille",1.20],"rennes":["Rennes",0.95],"paris":["Paris",1.25],"nantes":["Nantes",0.98]};
+const CATEGORIES = {"Peugeot":["Citadine",380],"Renault":["Utilitaire",520],"Tesla":["Électrique haut de gamme",760],"Citroën":["Citadine",380],"Dacia":["Citadine",330],"Volkswagen":["Berline",470]};
+
+let choix = null, fiche = null;
+
+// --- Etape 1 : lecture du langage libre -------------------------------------
+const hostDem = document.getElementById('demandes');
+DEMANDES.forEach((t, i) => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'dem'; b.textContent = t;
+  b.onclick = () => {
+    choix = i;
+    document.querySelectorAll('.dem').forEach((e, j) => e.classList.toggle('on', j === i));
+    document.getElementById('texte').textContent = t;
+    document.getElementById('lire').disabled = false;
+  };
+  hostDem.appendChild(b);
+});
+
+function lire(txt){
+  const bas = txt.toLowerCase();
+  const trouve = {};
+  const vus = [];
+  for (const [k, v] of Object.entries(MARQUES)) if (bas.includes(k)) { trouve.marque = v; vus.push(k); }
+  for (const [k, v] of Object.entries(MODELES)) if (bas.includes(k)) { trouve.modele = v; vus.push(k); }
+  for (const [k, v] of Object.entries(VILLES))  if (bas.includes(k)) { trouve.ville = v[0]; vus.push(k); }
+  const annee = bas.match(/\b(19|20)\d{2}\b/);
+  if (annee) { trouve.annee = annee[0]; vus.push(annee[0]); }
+  const km = bas.match(/(\d[\d\s]{2,})\s*km/);
+  if (km) { trouve.km = km[1].replace(/\s/g, ''); vus.push(km[0]); }
+  const bonus = bas.match(/0[,.](\d{2})/);
+  if (bonus) { trouve.bonus = bonus[0].replace(',', '.'); vus.push(bonus[0]); }
+  if (/artisan|professionnel|activité|société/.test(bas)) { trouve.usage = "Professionnel"; }
+  else if (/travail|privé|prive|personnel/.test(bas)) { trouve.usage = "Privé, trajets domicile travail"; }
+  trouve.formule = /tous risques/.test(bas) ? "Tous risques" : (/au tiers|le tiers/.test(bas) ? "Au tiers" : null);
+  if (/accident|accrochage|sinistre/.test(bas) && !/jamais/.test(bas)) trouve.sinistre = "Un sinistre responsable déclaré";
+  return {trouve, vus};
+}
+
+function surligne(txt, vus){
+  let out = txt;
+  vus.sort((a, b) => b.length - a.length).forEach(v => {
+    const re = new RegExp('(' + v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'i');
+    out = out.replace(re, '<mark>$1</mark>');
+  });
+  return out;
+}
+
+document.getElementById('lire').onclick = () => {
+  const txt = DEMANDES[choix];
+  const {trouve, vus} = lire(txt);
+  document.getElementById('texte').innerHTML = surligne(txt, vus);
+  fiche = trouve;
+  remplirFiche();
+  montrer(2);
+};
+
+// --- Etape 2 : la fiche, corrigeable ---------------------------------------
+const CHAMPS = [
+  ["marque", "Marque"], ["modele", "Modèle"], ["annee", "Année"],
+  ["usage", "Usage"], ["ville", "Ville"], ["km", "Kilomètres par an"],
+  ["bonus", "Coefficient bonus"], ["formule", "Formule"]
+];
+
+function remplirFiche(){
+  const host = document.getElementById('fiche');
+  host.innerHTML = '';
+  const manquants = [];
+  CHAMPS.forEach(([k, label]) => {
+    const val = fiche[k] || '';
+    const row = document.createElement('div');
+    row.className = 'champ' + (val ? '' : ' vide');
+    row.innerHTML = `<label>${label}</label><input data-k="${k}" value="${val}" placeholder="à compléter">
+      <span class="tag ${val ? 'ia' : 'humain'}">${val ? 'lu' : 'à saisir'}</span>`;
+    host.appendChild(row);
+    if (!val) manquants.push(label);
+  });
+  host.querySelectorAll('input').forEach(inp => {
+    inp.oninput = () => { fiche[inp.dataset.k] = inp.value; };
+  });
+  const ul = document.getElementById('manques');
+  ul.innerHTML = '';
+  if (fiche.sinistre) {
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>${fiche.sinistre}</strong> : à confirmer avec le relevé d'information.`;
+    ul.appendChild(li);
+  }
+  if (!manquants.length && !fiche.sinistre) {
+    ul.innerHTML = '<li>Rien ne manque : la demande contenait tout ce qu'
+      + 'il fallait. C\'est le cas facile, pas le cas courant.</li>';
+  }
+  manquants.forEach(m => {
+    const li = document.createElement('li');
+    li.textContent = m + " : absent de la demande, à demander au client.";
+    ul.appendChild(li);
+  });
+}
+
+// --- Etape 3 : le tarif, en regles explicites -------------------------------
+function tarifer(){
+  const lignes = [];
+  const cat = CATEGORIES[fiche.marque] || ["Non reconnue", 450];
+  let prix = cat[1];
+  lignes.push(["Base par catégorie de véhicule", `${fiche.marque || 'véhicule'} , ${cat[0]}`, cat[1] + " €"]);
+
+  const an = parseInt(fiche.annee, 10);
+  if (an) {
+    const age = 2026 - an;
+    const c = age > 8 ? 0.88 : (age > 4 ? 0.95 : 1.08);
+    prix *= c;
+    lignes.push(["Âge du véhicule", `${age} ans`, "x " + c.toFixed(2)]);
+  }
+  const v = Object.values(VILLES).find(x => x[0] === fiche.ville);
+  if (v) { prix *= v[1]; lignes.push(["Zone géographique", fiche.ville, "x " + v[1].toFixed(2)]); }
+
+  if (/Professionnel/i.test(fiche.usage || '')) { prix *= 1.30; lignes.push(["Usage", "Professionnel", "x 1.30"]); }
+  else if (fiche.usage) { prix *= 1.00; lignes.push(["Usage", fiche.usage, "x 1.00"]); }
+
+  const km = parseInt((fiche.km || '').replace(/\D/g, ''), 10);
+  if (km) {
+    const c = km > 25000 ? 1.22 : (km > 15000 ? 1.10 : 0.94);
+    prix *= c;
+    lignes.push(["Kilométrage annuel", km.toLocaleString('fr-FR') + " km", "x " + c.toFixed(2)]);
+  }
+  const b = parseFloat(fiche.bonus);
+  if (!isNaN(b)) { prix *= b; lignes.push(["Coefficient bonus malus", b.toFixed(2), "x " + b.toFixed(2)]); }
+  else { prix *= 1.00; lignes.push(["Coefficient bonus malus", "inconnu, valeur neutre retenue", "x 1.00"]); }
+
+  if (/Tous risques/i.test(fiche.formule || '')) { prix *= 1.45; lignes.push(["Formule", "Tous risques", "x 1.45"]); }
+  else if (fiche.formule) { lignes.push(["Formule", fiche.formule, "x 1.00"]); }
+
+  if (fiche.sinistre) { prix *= 1.15; lignes.push(["Sinistre déclaré", "Un sinistre responsable", "x 1.15"]); }
+
+  const tb = document.getElementById('calcul');
+  tb.innerHTML = '';
+  lignes.forEach(([a, b2, c]) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${a}</td><td>${b2}</td><td class="num">${c}</td>`;
+    tb.appendChild(tr);
+  });
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>Prime annuelle indicative</td><td></td><td class="num">${Math.round(prix)} €</td>`;
+  tb.appendChild(tr);
+  document.getElementById('prix').textContent = Math.round(prix) + " €";
+}
+
+// --- Navigation -------------------------------------------------------------
+function montrer(n){
+  [1, 2, 3].forEach(i => document.getElementById('p' + i).classList.toggle('hidden', i !== n));
+  [1, 2, 3].forEach(i => {
+    const s = document.getElementById('s' + i);
+    s.classList.toggle('on', i === n);
+    s.classList.toggle('done', i < n);
+  });
+  if (n === 3) tarifer();
+}
+document.getElementById('tarifer').onclick = () => montrer(3);
+document.getElementById('retour1').onclick = () => montrer(1);
+document.getElementById('retour2').onclick = () => montrer(2);
+document.getElementById('recommencer').onclick = () => {
+  choix = null; fiche = null;
+  document.querySelectorAll('.dem').forEach(e => e.classList.remove('on'));
+  document.getElementById('texte').textContent = "Choisissez une demande ci-dessus.";
+  document.getElementById('lire').disabled = true;
+  montrer(1);
+};
+</script>
+</body>
+</html>

@@ -10,20 +10,20 @@
   --navy-300:  #6b7c9c;
   --crimson:   #BA1C3A;
   --crimson-d: #96162f;
-  --crimson-l: #e8536e;
+  --crimson-l: #EA617A;   /* eclairci : 4.20 -> 4.62 sur navy (WCAG AA) */
   --crimson-w: #fbeef1;
   --steel:     #3B547D;
   --steel-l:   #7D92AC;
   --teal:      #1F6F6B;
   --teal-w:    #e8f3f2;
-  --amber:     #9A6B1E;
+  --amber:     #92661D;   /* assombri : 4.25 -> 4.61 sur --amber-w (WCAG AA) */
   --amber-w:   #fdf3e2;
   --sand:      #E9E4E1;
   --sand-l:    #F7F4F2;
   --line:      #dcd8d4;
   --ink:       #1f2733;
   --ink-soft:  #4a5567;
-  --ink-mute:  #78828f;
+  --ink-mute:  #6C7683;   /* assombri : 3.90 -> 4.61 sur blanc (WCAG AA) */
   --white:     #ffffff;
 
   --radius:    18px;
@@ -51,16 +51,19 @@ svg { display: block; }
 /* ---------- Typographie ---------- */
 
 h1, h2, h3, h4 { font-family: var(--display); font-weight: 800; color: var(--navy); line-height: 1.12; margin: 0; letter-spacing: -.02em; }
-h1 { font-size: 3.4rem; }
-h2 { font-size: 2.25rem; }
-h3 { font-size: 1.32rem; font-weight: 700; }
-h4 { font-size: 1.02rem; font-weight: 700; }
+/* echelle typographique : un cran plus bas que la version vitrine, pour un
+   support qui se lit en continu. Le texte courant ne bouge pas, c'est l'ecart
+   entre le titre et le texte qui se resserre. */
+h1 { font-size: 3rem; }
+h2 { font-size: 1.9rem; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+h4 { font-size: .98rem; font-weight: 700; }
 p  { margin: 0 0 1em; }
 a  { color: var(--crimson); text-decoration: none; }
 a:hover { text-decoration: underline; }
 strong { font-weight: 650; color: var(--navy); }
 code { font-family: var(--mono); font-size: .85em; background: var(--sand-l); border: 1px solid var(--line); border-radius: 5px; padding: .08em .38em; color: var(--navy-700); }
-.lede { font-size: 1.2rem; line-height: 1.55; color: var(--ink-soft); }
+.lede { font-size: 1.125rem; line-height: 1.55; color: var(--ink-soft); }
 .eyebrow { font-family: var(--display); font-size: .74rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--crimson); margin-bottom: .8em; }
 .eyebrow-light { color: var(--crimson-l); }
 
@@ -120,8 +123,8 @@ code { font-family: var(--mono); font-size: .85em; background: var(--sand-l); bo
 .hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(1000px 460px at 88% 0%, rgba(186,28,58,.32), transparent 62%), radial-gradient(760px 400px at 0% 110%, rgba(59,84,125,.6), transparent 62%); pointer-events: none; }
 .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; padding: 70px 0 74px; }
 @media (max-width: 940px) { .hero-inner { grid-template-columns: 1fr; } .hero-art { display: none; } }
-.hero h1 { color: #fff; font-size: 3.5rem; }
-.hero .lede { color: #c6d1e2; margin-top: 22px; font-size: 1.2rem; max-width: 56ch; }
+.hero h1 { color: #fff; font-size: 3rem; }
+.hero .lede { color: #c6d1e2; margin-top: 22px; font-size: 1.125rem; max-width: 56ch; }
 .hero-cta { display: flex; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
 .hero-facts { display: flex; gap: 30px; margin-top: 38px; flex-wrap: wrap; }
 .hero-facts div { border-left: 3px solid var(--crimson); padding-left: 14px; }
@@ -138,7 +141,7 @@ code { font-family: var(--mono); font-size: .85em; background: var(--sand-l); bo
 .page-head::before { content: ""; position: absolute; inset: 0; background: radial-gradient(800px 360px at 90% -10%, rgba(186,28,58,.3), transparent 62%); }
 .page-head-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: center; padding: 52px 0 56px; }
 @media (max-width: 940px) { .page-head-inner { grid-template-columns: 1fr; } .page-head-art { display: none; } }
-.page-head h1 { color: #fff; font-size: 2.9rem; max-width: 20ch; }
+.page-head h1 { color: #fff; font-size: 2.4rem; max-width: 20ch; }
 .page-head .lede { color: #c6d1e2; max-width: 66ch; margin-top: 16px; }
 .page-head-art svg { width: 100%; height: auto; }
 
@@ -152,7 +155,7 @@ section.band.tight { padding: 46px 0; }
 .section-head { max-width: 76ch; margin-bottom: 36px; }
 /* titre de section : court (une ligne), plus petit que le h2 de la home ;
    la nuance est dans le chapeau .lede, pas dans le titre */
-.section-head h2 { font-size: 1.7rem; }
+.section-head h2 { font-size: 1.5rem; }
 .section-head .h-ico .ico { width: 46px; height: 46px; border-radius: 12px; }
 .section-head .h-ico .ico svg { width: 23px; height: 23px; }
 .section-head h2 + p { margin-top: 14px; }
@@ -249,6 +252,10 @@ tbody td { padding: 13px 18px; border-top: 1px solid var(--line); vertical-align
 tbody tr:nth-child(even) { background: #fbfaf9; }
 tbody tr:hover { background: var(--crimson-w); }
 td.rowhead { font-weight: 650; color: var(--navy); }
+/* tableau de chiffres (matrice sac de mots) : colonnes serrees, centrees */
+table.compact th, table.compact td { padding: 10px 10px; }
+table.compact .num { text-align: center; font-family: var(--mono); font-size: .88rem; }
+table.compact th.num { font-family: var(--display); font-size: .74rem; }
 .pill { display: inline-block; font-size: .76rem; font-weight: 650; border-radius: 20px; padding: 3px 11px; white-space: nowrap; }
 .pill.good { background: var(--teal-w); color: var(--teal); }
 .pill.warn { background: var(--amber-w); color: var(--amber); }

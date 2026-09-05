@@ -3,185 +3,351 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panorama des chatbots : comparateur</title>
+<title>Panorama des outils : comparateur</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --navy:#13264A; --crimson:#BA1C3A; --steel:#3B547D; --teal:#1F6F6B; --amber:#9A6B1E;
-    --sand:#E9E4E1; --sand-l:#F7F4F2; --line:#dcd8d4; --ink:#1f2733; --muted:#78828f;
+    --violet:#6a4ea0; --sand:#E9E4E1; --sand-l:#F7F4F2; --line:#dcd8d4;
+    --ink:#1f2733; --soft:#4a5567; --muted:#78828f;
     --display:"Manrope","Segoe UI",sans-serif; --sans:"Inter","Segoe UI",Arial,sans-serif;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{font-family:var(--sans);color:var(--ink);background:var(--sand-l);min-height:100vh;padding:22px 22px 150px}
-  .wrap{max-width:1080px;margin:0 auto}
-  .hint{text-align:center;color:var(--muted);font-size:13px;margin:0 0 18px}
+  body{font-family:var(--sans);color:var(--ink);background:var(--sand-l);padding:18px 18px 40px}
+  .wrap{max-width:1120px;margin:0 auto}
+
+  /* barre de commande : filtres, vue, compteur */
+  .bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:14px}
+  .group{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+  .group b{font-family:var(--display);font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+  .chip{font:inherit;font-size:.82rem;font-weight:600;color:var(--soft);background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;transition:.15s}
+  .chip:hover{background:var(--sand)}
+  .chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+  .spacer{flex:1 1 auto}
+  .views{display:flex;gap:4px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:3px}
+  .views button{font:inherit;font-size:.82rem;font-weight:700;color:var(--soft);background:none;border:none;border-radius:7px;padding:6px 14px;cursor:pointer}
+  .views button.on{background:var(--navy);color:#fff}
+  .count{font-size:.8rem;color:var(--muted)}
+  .hint{font-size:.82rem;color:var(--muted);margin:0 0 14px}
   .hint b{color:var(--navy)}
-  .hint kbd{background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 7px;font-size:12px;color:var(--ink)}
 
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media(max-width:700px){.grid{grid-template-columns:1fr}}
-
-  .card{
-    position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;
-    padding:20px 20px 18px;cursor:pointer;overflow:hidden;
-    box-shadow:0 1px 2px rgba(19,38,74,.05),0 10px 30px rgba(19,38,74,.06);
-    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  }
-  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--accent);
-    transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
-  .card.in::before{transform:scaleX(1)}
-  .card:hover{transform:translateY(-3px);box-shadow:0 2px 6px rgba(19,38,74,.06),0 24px 50px rgba(19,38,74,.14)}
-  .card.sel{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent),0 16px 36px rgba(19,38,74,.12)}
-  .head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-  .logo{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:19px;color:#fff;background:var(--accent);flex:0 0 auto}
-  .name{font-family:var(--display);font-size:19px;font-weight:800;color:var(--accent)}
-  .vendor{font-size:12.5px;color:var(--muted);margin-top:1px}
-  .row{font-size:14px;line-height:1.5;margin:6px 0}
-  .row .k{font-weight:700;color:var(--accent)}
-  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
-  .tag{font-size:11.5px;background:color-mix(in srgb,var(--accent) 10%,#fff);color:var(--accent);
-    border:1px solid color-mix(in srgb,var(--accent) 30%,#fff);padding:3px 10px;border-radius:999px;font-weight:600}
-  .pick{position:absolute;top:14px;right:14px;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);
-    display:grid;place-items:center;color:#fff;font-size:14px;transition:.18s}
+  /* vue cartes */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:940px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+  .card{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;cursor:pointer;overflow:hidden;
+    box-shadow:0 1px 2px rgba(19,38,74,.05),0 8px 22px rgba(19,38,74,.05);transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent)}
+  .card:hover{transform:translateY(-2px);box-shadow:0 2px 6px rgba(19,38,74,.06),0 18px 38px rgba(19,38,74,.12)}
+  .card.sel{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+  .head{display:flex;align-items:center;gap:10px;margin:4px 0 10px}
+  .logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:15px;color:#fff;background:var(--accent);flex:0 0 auto}
+  .name{font-family:var(--display);font-size:1.02rem;font-weight:800;color:var(--navy);line-height:1.2}
+  .vendor{font-size:.76rem;color:var(--muted)}
+  .pos{font-size:.86rem;line-height:1.45;color:var(--soft);margin:0 0 10px}
+  .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:.72rem}
+  .fam{font-weight:700;color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,#fff);border:1px solid color-mix(in srgb,var(--accent) 28%,#fff);border-radius:999px;padding:2px 9px}
+  .pill{font-weight:650;border-radius:999px;padding:2px 9px}
+  .pill.good{background:#e8f3f2;color:var(--teal)}
+  .pill.warn{background:#fdf3e2;color:var(--amber)}
+  .pill.neutral{background:var(--sand);color:var(--navy)}
+  .pick{position:absolute;top:12px;right:12px;width:21px;height:21px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;color:#fff;font-size:12px;line-height:1}
   .card.sel .pick{background:var(--accent);border-color:var(--accent)}
 
+  /* vue tableau : la comparaison de tous d'un coup d'oeil */
+  .tablewrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:14px}
+  table{width:100%;border-collapse:collapse;font-size:.84rem}
+  thead th{background:var(--navy);color:#fff;text-align:left;padding:11px 14px;font-family:var(--display);font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+  tbody td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:top;line-height:1.45}
+  tbody tr:nth-child(even){background:#fbfaf9}
+  tbody tr:hover{background:#fbeef1}
+  td.tool{font-weight:700;color:var(--navy);white-space:nowrap}
+  td.tool small{display:block;font-weight:400;color:var(--muted)}
+  .hidden{display:none}
+
   /* tiroir de comparaison */
-  .drawer{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);
-    box-shadow:0 -10px 30px rgba(19,38,74,.12);transform:translateY(110%);transition:transform .3s ease;z-index:30}
+  .drawer{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);box-shadow:0 -10px 30px rgba(19,38,74,.14);transform:translateY(110%);transition:transform .28s ease;z-index:30;max-height:72vh;overflow:auto}
   .drawer.open{transform:translateY(0)}
-  .drawer .inner{max-width:1080px;margin:0 auto;padding:14px 22px 18px}
-  .drawer .bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-  .drawer h3{margin:0;font-family:var(--display);font-size:16px;color:var(--navy)}
-  .cmp{display:grid;grid-template-columns:110px 1fr 1fr;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px}
-  .cmp>div{padding:9px 12px;border-bottom:1px solid var(--line)}
-  .cmp .hd{font-weight:700;color:#fff}
-  .cmp .lab{background:var(--sand-l);font-weight:600;color:var(--muted)}
-  .cmp .corner{background:var(--sand)}
-  .btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 14px;font-size:13px;cursor:pointer;font-weight:600;color:var(--ink);font-family:inherit}
+  .drawer .inner{max-width:1120px;margin:0 auto;padding:14px 18px 18px}
+  .drawer .bar2{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+  .drawer h3{margin:0;font-family:var(--display);font-size:1rem;color:var(--navy)}
+  .btn{font:inherit;border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 13px;font-size:.82rem;cursor:pointer;font-weight:600;color:var(--ink)}
   .btn:hover{background:var(--sand-l)}
-  .count{font-size:12.5px;color:var(--muted);margin-right:8px}
+  .cmp{display:grid;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.84rem}
+  .cmp>div{padding:9px 12px;border-bottom:1px solid var(--line)}
+  .cmp .hd{font-family:var(--display);font-weight:800;color:#fff;font-size:.86rem}
+  .cmp .lab{background:var(--sand-l);font-weight:650;color:var(--muted);font-size:.76rem}
+  .cmp .corner{background:var(--sand)}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <p class="hint">Survolez une carte, <b>cliquez sur deux cartes pour les comparer</b>. Touches <kbd>1</kbd> à <kbd>4</kbd> pour sélectionner, <kbd>Échap</kbd> pour réinitialiser.</p>
+  <div class="bar">
+    <div class="group" id="fam"><b>Famille</b></div>
+    <div class="group" id="ori"><b>Origine</b></div>
+    <div class="spacer"></div>
+    <div class="views">
+      <button type="button" data-view="cards" class="on">Cartes</button>
+      <button type="button" data-view="table">Tableau</button>
+    </div>
+    <span class="count" id="count"></span>
+  </div>
+  <p class="hint">Cliquez sur <b>deux ou trois cartes</b> pour les comparer ligne à ligne. La vue Tableau met tout le panorama côte à côte. <b>Panorama arrêté en septembre 2026</b> : les versions changent tous les deux mois, le rôle de chaque outil bouge beaucoup moins.</p>
+
   <div class="grid" id="grid"></div>
+  <div class="tablewrap hidden" id="tablewrap">
+    <table>
+      <thead><tr><th>Outil</th><th>Famille</th><th>Origine</th><th>Ce qu'il apporte</th><th>Quand y penser</th><th>Données</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
 </div>
 
 <div class="drawer" id="drawer">
   <div class="inner">
-    <div class="bar">
+    <div class="bar2">
       <h3 id="cmpTitle">Comparaison</h3>
-      <div>
-        <span class="count" id="count"></span>
-        <button class="btn" onclick="reset()">Réinitialiser</button>
-      </div>
+      <button class="btn" type="button" onclick="reset()">Fermer</button>
     </div>
     <div class="cmp" id="cmp"></div>
   </div>
 </div>
 
 <script>
+// Un seul fichier, aucune dependance : la donnee, les filtres, les deux vues.
+const C = {gen:"var(--crimson)", bur:"var(--steel)", rec:"var(--amber)",
+           doc:"var(--teal)", code:"var(--navy)", ouv:"var(--violet)"};
+
 const DATA = [
-  { id:"chatgpt", name:"ChatGPT", vendor:"OpenAI", accent:"var(--crimson)", mark:"G",
-    position:"Le pionnier grand public, le point de départ le plus courant",
-    forces:"L'écosystème le plus riche : GPTs, plugins, API, outils intégrés",
-    usage:"Généraliste, création, programmation",
-    tags:["Généraliste","Création","Programmation"] },
-  { id:"claude", name:"Claude", vendor:"Anthropic", accent:"var(--teal)", mark:"C",
-    position:"Le plus utilisé en entreprise pour le code et les longs documents",
-    forces:"Grande fenêtre de contexte, rédaction nuancée, agents de code",
-    usage:"Rédaction pro, analyse de documents, développement",
-    tags:["Documents longs","Analyse","Développement"] },
-  { id:"gemini", name:"Gemini", vendor:"Google", accent:"var(--amber)", mark:"G",
-    position:"Google possède toute la chaîne, et a inventé les Transformers",
-    forces:"Web en temps réel, intégré à Workspace, multimodal",
-    usage:"Recherche avancée, suite Google",
-    tags:["Recherche","Web temps réel","Workspace"] },
-  { id:"copilot", name:"Copilot", vendor:"Microsoft", accent:"var(--steel)", mark:"M",
-    position:"Pas de modèle propre (OpenAI dessous), mais intégré partout",
-    forces:"Office 365 avec le contexte et les droits d'accès de l'entreprise",
-    usage:"Bureautique : Teams, Outlook, Word",
-    tags:["Bureautique","Office 365","Entreprise"] },
+  { id:"chatgpt", name:"ChatGPT", vendor:"OpenAI", mark:"G", fam:"Généraliste", accent:C.gen, origin:"États-Unis",
+    pos:"Le pionnier grand public, le point de départ le plus courant.",
+    forces:"L'écosystème le plus large : outils intégrés, GPTs, API, mode agentique.",
+    usage:"Découvrir, rédiger, analyser, programmer.",
+    sov:{t:"Cloud américain", k:"warn"}, tags:["Généraliste","Agents","API"] },
+  { id:"claude", name:"Claude", vendor:"Anthropic", mark:"C", fam:"Généraliste", accent:C.gen, origin:"États-Unis",
+    pos:"Le plus utilisé en entreprise pour les longs documents et le code.",
+    forces:"Grande fenêtre de contexte, rédaction nuancée, agents de code solides.",
+    usage:"Analyse de contrats, rédaction professionnelle, développement.",
+    sov:{t:"Cloud américain", k:"warn"}, tags:["Documents longs","Rédaction","Code"] },
+  { id:"gemini", name:"Gemini", vendor:"Google", mark:"G", fam:"Généraliste", accent:C.gen, origin:"États-Unis",
+    pos:"Adossé au moteur de recherche, avec des réponses à jour.",
+    forces:"Web en temps réel, multimodal natif, intégration à la suite Google.",
+    usage:"Recherche, images et vidéo, usage bureautique Google.",
+    sov:{t:"Cloud américain", k:"warn"}, tags:["Web","Multimodal","Workspace"] },
+  { id:"vibe", name:"Vibe", vendor:"Mistral AI", mark:"M", fam:"Généraliste", accent:C.gen, origin:"France",
+    pos:"L'option européenne, renommée en 2026 : Le Chat est devenu Vibe.",
+    forces:"Hébergement en Europe, modèles installables sur vos serveurs, un mode chat, un mode agent bureautique, un mode code.",
+    usage:"Données sensibles, exigence réglementaire, déploiement interne.",
+    sov:{t:"Données en Europe", k:"good"}, tags:["Europe","Poids ouverts","Entreprise"] },
+  { id:"grok", name:"Grok", vendor:"xAI", mark:"X", fam:"Généraliste", accent:C.gen, origin:"États-Unis",
+    pos:"Ton plus libre, branché sur le flux du réseau social X.",
+    forces:"Réactivité sur l'actualité, style peu filtré.",
+    usage:"Rarement en entreprise, à connaître pour la culture générale.",
+    sov:{t:"Cloud américain", k:"warn"}, tags:["Actualité","Grand public"] },
+  { id:"metaai", name:"Meta AI", vendor:"Meta", mark:"M", fam:"Généraliste", accent:C.gen, origin:"États-Unis",
+    pos:"L'assistant glissé dans WhatsApp, Instagram et Messenger.",
+    forces:"Une diffusion grand public énorme, sans équivalent.",
+    usage:"Acculturation du grand public. Attention, Meta a quitté l'open source en 2026 pour des modèles fermés : ne comptez plus dessus pour un déploiement interne.",
+    sov:{t:"Cloud américain", k:"warn"}, tags:["Grand public","Modèles fermés"] },
+  { id:"deepseek", name:"DeepSeek", vendor:"DeepSeek", mark:"D", fam:"Généraliste", accent:C.gen, origin:"Chine",
+    pos:"Le choc de 2025 : un niveau proche des meilleurs, à une fraction du coût.",
+    forces:"Poids ouverts, raisonnement solide, prix par appel très bas.",
+    usage:"Réduire un coût d'API, ou installer un bon modèle sur vos machines.",
+    sov:{t:"Origine Chine", k:"warn"}, tags:["Poids ouverts","Coût","Raisonnement"] },
+  { id:"qwen", name:"Qwen", vendor:"Alibaba", mark:"Q", fam:"Généraliste", accent:C.gen, origin:"Chine",
+    pos:"Une famille ouverte très complète, de la petite à la grande taille.",
+    forces:"Beaucoup de tailles disponibles, bon multilingue, licence permissive.",
+    usage:"Choisir la taille juste pour une tâche précise, en local.",
+    sov:{t:"Origine Chine", k:"warn"}, tags:["Poids ouverts","Multilingue","Local"] },
+  { id:"kimi", name:"Kimi", vendor:"Moonshot AI", mark:"K", fam:"Généraliste", accent:C.gen, origin:"Chine",
+    pos:"Réputé pour avaler des documents très longs d'un seul tenant.",
+    forces:"Contexte très large, parmi les plus gros modèles ouverts du marché.",
+    usage:"Lecture de dossiers volumineux, veille technique.",
+    sov:{t:"Origine Chine", k:"warn"}, tags:["Contexte long","Poids ouverts"] },
+  { id:"glm", name:"GLM", vendor:"Z.ai", mark:"Z", fam:"Généraliste", accent:C.gen, origin:"Chine",
+    pos:"L'autre famille ouverte chinoise, très suivie pour le code.",
+    forces:"Bon rapport qualité prix, licence permissive, tailles variées.",
+    usage:"Alternative à comparer quand vous évaluez un modèle ouvert.",
+    sov:{t:"Origine Chine", k:"warn"}, tags:["Poids ouverts","Code","Coût"] },
+
+  { id:"m365", name:"Microsoft 365 Copilot", vendor:"Microsoft", mark:"M", fam:"Bureautique", accent:C.bur, origin:"États-Unis",
+    pos:"L'assistant dans Outlook, Word, Excel et Teams, avec vos droits d'accès.",
+    forces:"Il voit vos mails, vos fichiers et vos réunions, sans copier-coller.",
+    usage:"Le déploiement d'entreprise le plus simple si vous êtes déjà chez Microsoft.",
+    sov:{t:"Cloud éditeur", k:"neutral"}, tags:["Office","Réunions","Licences"] },
+  { id:"workspace", name:"Gemini pour Workspace", vendor:"Google", mark:"W", fam:"Bureautique", accent:C.bur, origin:"États-Unis",
+    pos:"Le même principe dans Gmail, Docs et Drive.",
+    forces:"Rédaction et synthèse là où le document se trouve déjà.",
+    usage:"Entreprises équipées de Google Workspace.",
+    sov:{t:"Cloud éditeur", k:"neutral"}, tags:["Gmail","Docs","Licences"] },
+
+  { id:"perplexity", name:"Perplexity", vendor:"Perplexity", mark:"P", fam:"Recherche", accent:C.rec, origin:"États-Unis",
+    pos:"Un moteur de recherche qui rédige la réponse et cite ses sources.",
+    forces:"Chaque affirmation renvoie à un lien vérifiable.",
+    usage:"Veille, vérification rapide d'un fait, revue de marché.",
+    sov:{t:"Cloud américain", k:"warn"}, tags:["Sources citées","Veille"] },
+
+  { id:"notebooklm", name:"NotebookLM", vendor:"Google", mark:"N", fam:"Documents", accent:C.doc, origin:"États-Unis",
+    pos:"Vous déposez vos documents, il ne répond qu'à partir d'eux.",
+    forces:"Réponses ancrées sur vos fichiers, avec le passage d'origine.",
+    usage:"Interroger un corpus : conditions générales, procédures, comptes rendus.",
+    sov:{t:"Cloud américain", k:"warn"}, tags:["RAG","Sources","Synthèse"] },
+  { id:"anythingllm", name:"AnythingLLM", vendor:"Mintplex Labs", mark:"A", fam:"Documents", accent:C.doc, origin:"Sur votre machine",
+    pos:"Le même usage documentaire, mais installé chez vous.",
+    forces:"Open source, aucun document ne sort, modèle local ou API au choix.",
+    usage:"Documents confidentiels, premier essai de RAG sans projet informatique.",
+    sov:{t:"Rien ne sort", k:"good"}, tags:["Open source","Local","RAG"] },
+
+  { id:"claudecode", name:"Claude Code", vendor:"Anthropic", mark:"CC", fam:"Code", accent:C.code, origin:"États-Unis",
+    pos:"Un agent qui lit un projet entier, modifie, teste et corrige.",
+    forces:"Travaille sur vos fichiers, exécute les commandes, garde le fil.",
+    usage:"Prototyper un outil métier, automatiser une tâche technique.",
+    sov:{t:"Cloud américain", k:"warn"}, tags:["Agent","Prototype","Terminal"] },
+  { id:"ghcopilot", name:"GitHub Copilot", vendor:"Microsoft", mark:"GH", fam:"Code", accent:C.code, origin:"États-Unis",
+    pos:"L'assistant intégré à l'éditeur de code, le plus répandu en entreprise.",
+    forces:"Complétion au fil de la frappe, revue de code, contrats d'entreprise.",
+    usage:"Équipes de développement déjà sur GitHub.",
+    sov:{t:"Cloud éditeur", k:"neutral"}, tags:["IDE","Complétion","Entreprise"] },
+  { id:"cursor", name:"Cursor", vendor:"Anysphere", mark:"CU", fam:"Code", accent:C.code, origin:"États-Unis",
+    pos:"Un éditeur de code entièrement construit autour de l'IA.",
+    forces:"Modification de plusieurs fichiers, dialogue avec le projet.",
+    usage:"Développement quotidien, refonte d'un code existant.",
+    sov:{t:"Cloud américain", k:"warn"}, tags:["Éditeur","Multi-fichiers"] },
+  { id:"codex", name:"Codex", vendor:"OpenAI", mark:"CX", fam:"Code", accent:C.code, origin:"États-Unis",
+    pos:"L'agent de code d'OpenAI, qui traite des tâches en arrière-plan.",
+    forces:"Travail asynchrone : on confie une tâche, on relit le résultat.",
+    usage:"Équipes déjà outillées chez OpenAI.",
+    sov:{t:"Cloud américain", k:"warn"}, tags:["Agent","Asynchrone"] },
+
+  { id:"ollama", name:"Ollama, LM Studio", vendor:"Open source", mark:"O", fam:"Ouvert et local", accent:C.ouv, origin:"Sur votre machine",
+    pos:"De quoi faire tourner un modèle ouvert sur un poste ou un serveur à vous.",
+    forces:"Aucune donnée ne sort, coût nul par requête, choix libre du modèle.",
+    usage:"Données confidentielles, essais, contrainte de souveraineté forte.",
+    sov:{t:"Rien ne sort", k:"good"}, tags:["Local","Gratuit","Souverain"] },
 ];
 
-const grid = document.getElementById('grid');
-let selected = [];
+const FAMS = ["Généraliste","Bureautique","Recherche","Documents","Code","Ouvert et local"];
+const ORIS = ["France","États-Unis","Chine","Sur votre machine"];
+const MAX = 3;
 
-DATA.forEach((d, i) => {
+let fFam = null, fOri = null, view = "cards", selected = [];
+
+function chips(host, values, get, set){
+  const all = document.createElement('button');
+  all.type = 'button'; all.className = 'chip on'; all.textContent = 'Tous';
+  all.onclick = () => { set(null); render(); };
+  host.appendChild(all);
+  values.forEach(v => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip'; b.textContent = v; b.dataset.val = v;
+    b.onclick = () => { set(get() === v ? null : v); render(); };
+    host.appendChild(b);
+  });
+}
+chips(document.getElementById('fam'), FAMS, () => fFam, v => { fFam = v; });
+chips(document.getElementById('ori'), ORIS, () => fOri, v => { fOri = v; });
+
+document.querySelectorAll('.views button').forEach(b => {
+  b.onclick = () => { view = b.dataset.view; render(); };
+});
+
+function shown(){
+  return DATA.filter(d => (!fFam || d.fam === fFam) && (!fOri || d.origin === fOri));
+}
+
+function cardEl(d){
   const el = document.createElement('div');
-  el.className = 'card';
+  el.className = 'card' + (selected.includes(d.id) ? ' sel' : '');
   el.style.setProperty('--accent', d.accent);
   el.dataset.id = d.id;
   el.innerHTML = `
-    <div class="pick">✓</div>
+    <div class="pick">&#10003;</div>
     <div class="head">
       <div class="logo">${d.mark}</div>
-      <div>
-        <div class="name">${d.name}</div>
-        <div class="vendor">${d.vendor}</div>
-      </div>
+      <div><div class="name">${d.name}</div><div class="vendor">${d.vendor}</div></div>
     </div>
-    <div class="row"><span class="k">Position :</span> ${d.position}</div>
-    <div class="row"><span class="k">Forces :</span> ${d.forces}</div>
-    <div class="row"><span class="k">Usage :</span> ${d.usage}</div>
-    <div class="tags">${d.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-  `;
-  el.addEventListener('click', () => toggle(d.id));
-  grid.appendChild(el);
-  setTimeout(()=>el.classList.add('in'), 120 + i*120);
-});
+    <p class="pos">${d.pos}</p>
+    <div class="meta">
+      <span class="fam">${d.fam}</span>
+      <span class="pill ${d.sov.k}">${d.sov.t}</span>
+      <span style="color:var(--muted)">${d.origin}</span>
+    </div>`;
+  el.onclick = () => toggle(d.id);
+  return el;
+}
+
+function rowEl(d){
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="tool">${d.name}<small>${d.vendor}</small></td>
+    <td>${d.fam}</td><td>${d.origin}</td><td>${d.forces}</td><td>${d.usage}</td>
+    <td><span class="pill ${d.sov.k}">${d.sov.t}</span></td>`;
+  return tr;
+}
 
 function toggle(id){
-  const idx = selected.indexOf(id);
-  if(idx>=0){ selected.splice(idx,1); }
-  else { selected.push(id); if(selected.length>2) selected.shift(); }
+  const i = selected.indexOf(id);
+  if (i >= 0) selected.splice(i, 1);
+  else { selected.push(id); if (selected.length > MAX) selected.shift(); }
   render();
 }
-function reset(){ selected=[]; render(); }
+function reset(){ selected = []; render(); }
 
-function render(){
-  document.querySelectorAll('.card').forEach(c=>{
-    c.classList.toggle('sel', selected.includes(c.dataset.id));
-  });
+function renderCompare(){
   const drawer = document.getElementById('drawer');
-  const count = document.getElementById('count');
-  if(selected.length===0){ drawer.classList.remove('open'); return; }
-  if(selected.length===1){
-    count.textContent = "Sélectionnez un deuxième chatbot pour comparer.";
-    drawer.classList.remove('open');
-    return;
-  }
-  count.textContent = "";
-  const a = DATA.find(x=>x.id===selected[0]);
-  const b = DATA.find(x=>x.id===selected[1]);
-  document.getElementById('cmpTitle').textContent = `${a.name} et ${b.name}`;
+  if (selected.length < 2){ drawer.classList.remove('open'); return; }
+  const picked = selected.map(id => DATA.find(d => d.id === id));
+  document.getElementById('cmpTitle').textContent = picked.map(d => d.name).join(' , ');
   const cmp = document.getElementById('cmp');
-  const rows = [["Position","position"],["Forces","forces"],["Usage","usage"]];
+  cmp.style.gridTemplateColumns = `110px repeat(${picked.length}, 1fr)`;
   cmp.innerHTML = '';
-  const head = [
-    {t:'', cls:'lab corner'},
-    {t:`${a.name} (${a.vendor})`, cls:'hd', bg:a.accent},
-    {t:`${b.name} (${b.vendor})`, cls:'hd', bg:b.accent},
-  ];
-  head.forEach(h=>{
-    const c=document.createElement('div'); c.className=h.cls; c.textContent=h.t;
-    if(h.bg) c.style.background=h.bg; cmp.appendChild(c);
-  });
-  rows.forEach(([label,key])=>{
-    const l=document.createElement('div'); l.className='lab'; l.textContent=label; cmp.appendChild(l);
-    const ca=document.createElement('div'); ca.textContent=a[key]; cmp.appendChild(ca);
-    const cb=document.createElement('div'); cb.textContent=b[key]; cmp.appendChild(cb);
-  });
+  const cell = (cls, text, bg) => {
+    const c = document.createElement('div');
+    c.className = cls; c.textContent = text;
+    if (bg) c.style.background = bg;
+    cmp.appendChild(c);
+  };
+  cell('lab corner', '');
+  picked.forEach(d => cell('hd', `${d.name} (${d.vendor})`, d.accent));
+  [["Famille","fam"],["Origine","origin"],["Position","pos"],["Forces","forces"],["Quand y penser","usage"]]
+    .forEach(([label, key]) => {
+      cell('lab', label);
+      picked.forEach(d => cell('', d[key]));
+    });
+  cell('lab', 'Données');
+  picked.forEach(d => cell('', d.sov.t));
   drawer.classList.add('open');
 }
 
-document.addEventListener('keydown', e=>{
-  if(e.key==='Escape') reset();
-  if(['1','2','3','4'].includes(e.key)){ toggle(DATA[+e.key-1].id); }
-});
+function render(){
+  // filtres actifs
+  const mark = (host, cur) => host.querySelectorAll('.chip').forEach(c => {
+    c.classList.toggle('on', c.dataset.val === cur || (!cur && !c.dataset.val));
+  });
+  mark(document.getElementById('fam'), fFam);
+  mark(document.getElementById('ori'), fOri);
+  document.querySelectorAll('.views button').forEach(b => b.classList.toggle('on', b.dataset.view === view));
+
+  const list = shown();
+  document.getElementById('count').textContent =
+    list.length + (list.length > 1 ? ' outils' : ' outil') + ' sur ' + DATA.length;
+
+  const grid = document.getElementById('grid');
+  const tw = document.getElementById('tablewrap');
+  grid.classList.toggle('hidden', view !== 'cards');
+  tw.classList.toggle('hidden', view !== 'table');
+  grid.innerHTML = '';
+  list.forEach(d => grid.appendChild(cardEl(d)));
+  const tb = document.getElementById('tbody');
+  tb.innerHTML = '';
+  list.forEach(d => tb.appendChild(rowEl(d)));
+
+  renderCompare();
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') reset(); });
+render();
 </script>
 </body>
 </html>
