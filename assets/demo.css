@@ -41,9 +41,13 @@
 .demo-embed .print-note { display: none; padding: 16px 18px; font-size: .9rem; color: var(--ink-soft); }
 @media print { .demo-embed { break-inside: avoid; } .demo-embed iframe { display: none; } .demo-embed .print-note { display: block; } }
 
-/* sur telephone, chaque demo est plus haute : on evite un defilement dans le
-   defilement, le comparateur empilant ses quatre cartes */
+/* La hauteur de l'attribut `height` n'est qu'un REPLI : build.py ajuste
+   l'iframe a la hauteur reelle de son contenu, qui change avec les filtres,
+   la bascule cartes/tableau et la largeur. Le repli sert quand l'iframe est
+   une origine opaque, typiquement en ouvrant les fichiers en file://.
+   Ne pas remettre de hauteur fixe plus PETITE que le contenu : c'est ce qui
+   produisait une barre de defilement dans une page qui defile deja. Le
+   panorama fait 1339px en cartes, 1626px en tableau, 3353px sous 760px. */
 @media (max-width: 760px) {
-  .demo-embed iframe[src*="panorama"] { height: 1120px; }
   .demo-embed iframe[src*="snake"] { height: 640px; }
 }

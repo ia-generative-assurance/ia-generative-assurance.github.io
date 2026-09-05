@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novassur : assurance auto en ligne</title>
+<style>
+  /* Genere en un seul prompt pour la formation. Assureur fictif, donnees fictives. */
+  :root{--blue:#2563eb;--blue-d:#1d4ed8;--ink:#0f172a;--muted:#64748b;--bg:#f8fafc;--line:#e2e8f0;--ok:#16a34a}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,"Segoe UI",system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.6}
+  a{color:var(--blue);text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:10}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-weight:800;font-size:1.25rem;color:var(--blue)}
+  nav a{margin-left:22px;color:var(--ink);font-weight:500;font-size:.95rem}
+  .btn{display:inline-block;background:var(--blue);color:#fff;font-weight:600;padding:12px 22px;border-radius:10px;border:none;cursor:pointer;font-size:1rem}
+  .btn:hover{background:var(--blue-d)}
+  .btn.ghost{background:#fff;color:var(--blue);border:1px solid var(--blue)}
+  .hero{background:linear-gradient(135deg,#1e3a8a,#2563eb 60%,#60a5fa);color:#fff;padding:80px 0}
+  .hero h1{font-size:2.8rem;margin:0 0 14px;line-height:1.15}
+  .hero p{font-size:1.15rem;max-width:560px;opacity:.95}
+  .hero .btn{background:#fff;color:var(--blue);margin-top:16px}
+  section{padding:64px 0}
+  section.alt{background:var(--bg)}
+  h2{font-size:2rem;margin:0 0 8px;text-align:center}
+  .sub{text-align:center;color:var(--muted);margin:0 0 36px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:800px){.grid{grid-template-columns:1fr}.hero h1{font-size:2rem}nav{display:none}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:0 4px 16px rgba(15,23,42,.05)}
+  .card h3{margin:0 0 6px;font-size:1.2rem}
+  .price{font-size:2rem;font-weight:800;color:var(--blue)}
+  .price small{font-size:.9rem;color:var(--muted);font-weight:400}
+  .card ul{padding-left:18px;color:var(--muted);margin:14px 0 18px}
+  .card.best{border-color:var(--blue);position:relative}
+  .card.best::before{content:"Le plus choisi";position:absolute;top:-12px;left:20px;background:var(--blue);color:#fff;font-size:.75rem;padding:3px 10px;border-radius:999px}
+  .steps{display:flex;gap:8px;justify-content:center;margin-bottom:26px;flex-wrap:wrap}
+  .step{padding:6px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+  .step.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+  form{max-width:640px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px}
+  .f{display:grid;gap:6px;margin-bottom:16px}
+  .f label{font-weight:600;font-size:.92rem}
+  .f input,.f select{font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:10px;width:100%}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:600px){.row{grid-template-columns:1fr}}
+  .actions{display:flex;justify-content:space-between;gap:10px;margin-top:8px}
+  .hidden{display:none}
+  .quote{max-width:640px;margin:0 auto;text-align:center}
+  .quote .big{font-size:3rem;font-weight:800;color:var(--blue);margin:8px 0}
+  .quote table{width:100%;border-collapse:collapse;margin:18px 0;text-align:left;font-size:.95rem}
+  .quote td{padding:8px 0;border-bottom:1px solid var(--line)}
+  .quote td:last-child{text-align:right;font-weight:600}
+  .ok{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:16px;padding:30px;text-align:center}
+  .ok h3{color:var(--ok);margin:0 0 8px;font-size:1.5rem}
+  .why{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;text-align:center}
+  @media(max-width:800px){.why{grid-template-columns:1fr 1fr}}
+  .why b{display:block;font-size:2rem;color:var(--blue)}
+  .testi{font-style:italic;color:var(--muted)}
+  .testi b{display:block;font-style:normal;color:var(--ink);margin-top:8px}
+  details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px;max-width:760px;margin-left:auto;margin-right:auto}
+  summary{font-weight:600;cursor:pointer}
+  footer{background:var(--ink);color:#cbd5e1;padding:36px 0;font-size:.85rem}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  footer a{color:#e2e8f0}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="logo">Novassur</div>
+    <nav><a href="#offres">Nos offres</a><a href="#devis">Devis</a><a href="#pourquoi">Pourquoi nous</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></nav>
+    <a class="btn" href="#devis">Obtenir un devis</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>L'assurance auto, simple et transparente</h1>
+    <p>Obtenez un devis personnalisé en 2 minutes, souscrivez en ligne, et roulez l'esprit tranquille. Sans engagement, sans paperasse.</p>
+    <a class="btn" href="#devis">Obtenir mon devis</a>
+  </div>
+</section>
+
+<section id="offres">
+  <div class="wrap">
+    <h2>Nos offres</h2>
+    <p class="sub">Trois formules pour tous les profils, résiliables à tout moment.</p>
+    <div class="grid">
+      <div class="card"><h3>Tiers</h3><div class="price">14 €<small> / mois</small></div><ul><li>Responsabilité civile</li><li>Défense et recours</li><li>Assistance 0 km</li></ul><a class="btn ghost" href="#devis">Choisir</a></div>
+      <div class="card best"><h3>Tiers étendu</h3><div class="price">24 €<small> / mois</small></div><ul><li>Tout le Tiers</li><li>Bris de glace</li><li>Vol et incendie</li><li>Catastrophes naturelles</li></ul><a class="btn" href="#devis">Choisir</a></div>
+      <div class="card"><h3>Tous risques</h3><div class="price">39 €<small> / mois</small></div><ul><li>Tout le Tiers étendu</li><li>Dommages tous accidents</li><li>Véhicule de remplacement</li><li>Garantie du conducteur</li></ul><a class="btn ghost" href="#devis">Choisir</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="devis" class="alt">
+  <div class="wrap">
+    <h2>Votre devis en 4 étapes</h2>
+    <p class="sub">Aucune donnée n'est enregistrée : démonstration.</p>
+    <div class="steps"><span class="step on" data-s="1">1. Véhicule</span><span class="step" data-s="2">2. Conducteur</span><span class="step" data-s="3">3. Usage</span><span class="step" data-s="4">4. Coordonnées</span></div>
+    <form id="form" onsubmit="return false">
+      <div class="panel" data-p="1">
+        <div class="row">
+          <div class="f"><label>Marque</label><select id="marque"><option>Peugeot</option><option>Renault</option><option>Citroën</option><option>Volkswagen</option><option>Tesla</option><option>Autre</option></select></div>
+          <div class="f"><label>Modèle</label><input id="modele" placeholder="208, Clio, Golf…" value="208"></div>
+        </div>
+        <div class="row">
+          <div class="f"><label>Année de mise en circulation</label><input id="annee" type="number" value="2019" min="1990" max="2026"></div>
+          <div class="f"><label>Énergie</label><select id="energie"><option>Essence</option><option>Diesel</option><option>Hybride</option><option>Électrique</option></select></div>
+        </div>
+      </div>
+      <div class="panel hidden" data-p="2">
+        <div class="row">
+          <div class="f"><label>Date de naissance</label><input id="naissance" type="date" value="1990-05-12"></div>
+          <div class="f"><label>Date du permis</label><input id="permis" type="date" value="2010-06-01"></div>
+        </div>
+        <div class="row">
+          <div class="f"><label>Coefficient bonus malus</label><input id="bonus" type="number" step="0.01" value="0.80"></div>
+          <div class="f"><label>Sinistres responsables sur 3 ans</label><select id="sinistres"><option>0</option><option>1</option><option>2 ou plus</option></select></div>
+        </div>
+      </div>
+      <div class="panel hidden" data-p="3">
+        <div class="row">
+          <div class="f"><label>Usage</label><select id="usage"><option>Privé</option><option>Trajets domicile travail</option><option>Professionnel</option></select></div>
+          <div class="f"><label>Kilomètres par an</label><select id="km"><option>Moins de 8 000</option><option>8 000 à 15 000</option><option>15 000 à 25 000</option><option>Plus de 25 000</option></select></div>
+        </div>
+        <div class="row">
+          <div class="f"><label>Code postal</label><input id="cp" value="69001" maxlength="5"></div>
+          <div class="f"><label>Stationnement la nuit</label><select id="parking"><option>Garage fermé</option><option>Parking collectif</option><option>Rue</option></select></div>
+        </div>
+        <div class="f"><label>Formule</label><select id="formule"><option>Tiers</option><option selected>Tiers étendu</option><option>Tous risques</option></select></div>
+      </div>
+      <div class="panel hidden" data-p="4">
+        <div class="row">
+          <div class="f"><label>Prénom</label><input id="prenom" value="Camille"></div>
+          <div class="f"><label>Nom</label><input id="nom" value="Martin"></div>
+        </div>
+        <div class="row">
+          <div class="f"><label>Email</label><input id="email" type="email" value="camille.martin@exemple.fr"></div>
+          <div class="f"><label>Téléphone</label><input id="tel" value="06 12 34 56 78"></div>
+        </div>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn ghost" id="prev">Précédent</button>
+        <button type="button" class="btn" id="next">Suivant</button>
+      </div>
+    </form>
+
+    <div class="quote hidden" id="quote">
+      <div class="card">
+        <p class="sub" style="margin:0">Votre tarif indicatif</p>
+        <div class="big" id="prix">-</div>
+        <p class="sub">par mois, formule <span id="q-formule"></span></p>
+        <table id="detail"></table>
+        <button class="btn" id="souscrire">Souscrire maintenant</button>
+        <button class="btn ghost" id="modifier">Modifier mes réponses</button>
+      </div>
+    </div>
+
+    <div class="quote hidden" id="done">
+      <div class="ok">
+        <h3>Félicitations, votre contrat est prêt</h3>
+        <p>Un email de confirmation vient d'être envoyé à <b id="d-email"></b>. Votre carte verte provisoire est disponible dans votre espace client. Bienvenue chez Novassur.</p>
+        <button class="btn" id="restart">Faire un autre devis</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pourquoi">
+  <div class="wrap">
+    <h2>Pourquoi nous choisir</h2>
+    <p class="sub">Une assurance pensée pour vous simplifier la vie.</p>
+    <div class="why">
+      <div><b>2 min</b>pour un devis</div>
+      <div><b>24/7</b>assistance disponible</div>
+      <div><b>0 €</b>de frais de dossier</div>
+      <div><b>4,8/5</b>satisfaction client</div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Ils nous font confiance</h2>
+    <p class="sub">Des milliers de conducteurs assurés en ligne.</p>
+    <div class="grid">
+      <div class="card testi">« Devis en deux minutes, souscription le soir même. Je recommande. »<b>Julie, Lyon</b></div>
+      <div class="card testi">« Le prix le plus compétitif que j'ai trouvé pour ma citadine. »<b>Marc, Nantes</b></div>
+      <div class="card testi">« Service client réactif après mon bris de glace, réglé en 48 h. »<b>Sofia, Lille</b></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2>Questions fréquentes</h2>
+    <p class="sub">Tout ce qu'il faut savoir avant de souscrire.</p>
+    <details><summary>Quels documents dois-je fournir ?</summary><p>Votre permis de conduire, la carte grise du véhicule et votre relevé d'information si vous étiez assuré ailleurs.</p></details>
+    <details><summary>Puis-je résilier à tout moment ?</summary><p>Oui, après la première année, la résiliation est possible à tout moment sans frais, conformément à la loi Hamon.</p></details>
+    <details><summary>Quand suis-je couvert ?</summary><p>Dès la validation de votre souscription en ligne, à la date d'effet que vous choisissez.</p></details>
+    <details><summary>Comment déclarer un sinistre ?</summary><p>Depuis votre espace client ou par téléphone, 24 h sur 24, 7 jours sur 7.</p></details>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div><b style="color:#fff">Novassur</b> · Assureur fictif créé pour une formation. Aucune donnée n'est collectée.</div>
+    <div><a href="#">Mentions légales</a> · <a href="#">Politique de confidentialité</a> · <a href="#">Contact</a></div>
+  </div>
+</footer>
+
+<script>
+let step = 1;
+const panels = document.querySelectorAll('.panel');
+const chips = document.querySelectorAll('.step');
+const g = id => document.getElementById(id);
+function show(){
+  panels.forEach(p => p.classList.toggle('hidden', +p.dataset.p !== step));
+  chips.forEach(c => c.classList.toggle('on', +c.dataset.s <= step));
+  g('prev').style.visibility = step === 1 ? 'hidden' : 'visible';
+  g('next').textContent = step === 4 ? 'Voir mon devis' : 'Suivant';
+}
+function tarif(){
+  let base = {Tiers:14, 'Tiers étendu':24, 'Tous risques':39}[g('formule').value];
+  const lignes = [['Formule ' + g('formule').value, base]];
+  const age = 2026 - +g('annee').value;
+  const cAge = age > 10 ? 0.9 : (age < 3 ? 1.15 : 1);
+  lignes.push(['Ancienneté du véhicule (' + age + ' ans)', 'x ' + cAge.toFixed(2)]);
+  const cUsage = {Privé:1, 'Trajets domicile travail':1.05, Professionnel:1.25}[g('usage').value];
+  lignes.push(['Usage ' + g('usage').value.toLowerCase(), 'x ' + cUsage.toFixed(2)]);
+  const cKm = [0.9, 1, 1.1, 1.2][g('km').selectedIndex];
+  lignes.push(['Kilométrage', 'x ' + cKm.toFixed(2)]);
+  const cPark = {'Garage fermé':0.95, 'Parking collectif':1, Rue:1.1}[g('parking').value];
+  lignes.push(['Stationnement', 'x ' + cPark.toFixed(2)]);
+  const bonus = Math.min(Math.max(+g('bonus').value || 1, 0.5), 3.5);
+  lignes.push(['Bonus malus', 'x ' + bonus.toFixed(2)]);
+  const cSin = [1, 1.2, 1.5][g('sinistres').selectedIndex];
+  lignes.push(['Sinistres responsables', 'x ' + cSin.toFixed(2)]);
+  const total = base * cAge * cUsage * cKm * cPark * bonus * cSin;
+  return {total, lignes};
+}
+g('next').onclick = () => {
+  if (step < 4) { step++; show(); return; }
+  const {total, lignes} = tarif();
+  g('prix').textContent = total.toFixed(2).replace('.', ',') + ' €';
+  g('q-formule').textContent = g('formule').value;
+  g('detail').innerHTML = lignes.map(([a, b]) => `<tr><td>${a}</td><td>${typeof b === 'number' ? b + ' €' : b}</td></tr>`).join('');
+  g('form').classList.add('hidden'); g('quote').classList.remove('hidden');
+  document.querySelector('.steps').classList.add('hidden');
+};
+g('prev').onclick = () => { if (step > 1) { step--; show(); } };
+g('modifier').onclick = () => { g('quote').classList.add('hidden'); g('form').classList.remove('hidden'); document.querySelector('.steps').classList.remove('hidden'); };
+g('souscrire').onclick = () => { g('d-email').textContent = g('email').value; g('quote').classList.add('hidden'); g('done').classList.remove('hidden'); };
+g('restart').onclick = () => { step = 1; show(); g('done').classList.add('hidden'); g('form').classList.remove('hidden'); document.querySelector('.steps').classList.remove('hidden'); };
+show();
+</script>
+</body>
+</html>
