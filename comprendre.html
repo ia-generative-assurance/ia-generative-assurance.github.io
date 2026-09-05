@@ -117,13 +117,19 @@
       <p>Une liste de termes validée par les experts : « sinistre », « résiliation », « ballon », « robinet ». Coût presque nul, résultat maîtrisé, et elle sait des choses qu'aucun modèle générique ne sait.</p>
       <div class="callout" style="margin:0">
         <span class="label">L'exemple qui marque</span>
-        <p><strong>CRM</strong>, en assurance auto, c'est le <em>coefficient de réduction-majoration</em>. Pour un modèle entraîné sur Internet, c'est <em>customer relationship management</em>. Le dictionnaire validé par le métier gagne.</p>
+        <p>« CRM » : qu'est-ce que c'est pour un modèle entraîné sur Internet ? Et pour un gestionnaire auto ?</p>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p><strong>CRM</strong>, en assurance auto, c'est le <em>coefficient de réduction-majoration</em>. Pour un modèle entraîné sur Internet, c'est <em>customer relationship management</em>. Le dictionnaire validé par le métier gagne.</p>
+    </details>
       </div>
     </div>
   </div>
 
   <h3 style="margin:34px 0 8px">1966 : un chatbot sans aucun modèle</h3>
-  <p>ELIZA (Joseph Weizenbaum, MIT) tenait une conversation de psychothérapeute avec trois mécanismes seulement : des <strong>mots-clés</strong> classés par priorité, des <strong>gabarits de réponse</strong> à trous, et le renvoi des pronoms (« my » devient « your »). Aucun apprentissage, aucun réseau de neurones : la reconstruction ci-dessous tient en quelques centaines de lignes de règles. Beaucoup d'utilisateurs de l'époque lui ont prêté une compréhension qu'elle n'avait pas.</p>
+  <p>En 1966, un programme tenait une conversation de psychothérapeute assez bien pour faire illusion. Sans aucun apprentissage. Avec quoi, à votre avis ?</p>
+  <details class="answer"><summary>Voir la réponse</summary>
+    <p>ELIZA (Joseph Weizenbaum, MIT) tenait une conversation de psychothérapeute avec trois mécanismes seulement : des <strong>mots-clés</strong> classés par priorité, des <strong>gabarits de réponse</strong> à trous, et le renvoi des pronoms (« my » devient « your »). Aucun apprentissage, aucun réseau de neurones : la reconstruction ci-dessous tient en quelques centaines de lignes de règles. Beaucoup d'utilisateurs de l'époque lui ont prêté une compréhension qu'elle n'avait pas.</p>
+  </details>
   <div class="demo-embed reveal">
     <div class="demo-head"><span><b>ELIZA</b> · en anglais : essayez « I am sad about work », « my mother is always angry », puis une phrase sans aucun mot-clé</span><a href="demos/eliza.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
     <iframe src="demos/eliza.html" title="ELIZA, le chatbot de 1966" height="460" loading="lazy"></iframe>
@@ -144,7 +150,10 @@
 
   <div class="callout assurance reveal">
     <span class="label">Résultat mesuré sur des contrats d'assurance</span>
-    <p>Sur un corpus de test de 61 données personnelles, une cascade <strong>regex + dictionnaire</strong> en retrouve 77 % avec 98 % de précision. En ajoutant deux modèles de NER, on atteint <strong>100 % de rappel</strong>. En ajoutant un LLM par-dessus : <strong>aucun gain mesurable</strong>. Les couches déterministes sont en plus reproductibles et auditables pour le DPO, ce qu'un pipeline « tout LLM » n'est pas.</p>
+    <p>Une cascade regex + dictionnaire, puis deux modèles de NER, puis un LLM par-dessus. À votre avis, que gagne chaque couche ?</p>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p>Sur un corpus de test de 61 données personnelles, une cascade <strong>regex + dictionnaire</strong> en retrouve 77 % avec 98 % de précision. En ajoutant deux modèles de NER, on atteint <strong>100 % de rappel</strong>. En ajoutant un LLM par-dessus : <strong>aucun gain mesurable</strong>. Les couches déterministes sont en plus reproductibles et auditables pour le DPO, ce qu'un pipeline « tout LLM » n'est pas.</p>
+    </details>
   </div>
 
   <div class="try reveal">
@@ -275,7 +284,10 @@ similarité cosinus : 0,87</div>
 
   <div class="callout warn reveal">
     <span class="label">Le piège à connaître</span>
-    <p>Un embedding mesure une <strong>ressemblance</strong>, pas une réponse. « Capitale de la France ? » est très proche de « Capitale de l'Italie ? » : même forme, réponses différentes. D'où une parade classique du RAG, HyDE : on encode une <em>réponse fictive</em> plutôt que la question. Et d'où une répartition des rôles : les embeddings filtrent vite et pour presque rien, le LLM répond, plus cher. Pour une FAQ, les embeddings seuls suffisent souvent.</p>
+    <p>Pour un embedding, « Capitale de la France ? » et « Capitale de l'Italie ? » sont-elles proches ou éloignées ?</p>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p>Un embedding mesure une <strong>ressemblance</strong>, pas une réponse. « Capitale de la France ? » est très proche de « Capitale de l'Italie ? » : même forme, réponses différentes. D'où une parade classique du RAG, HyDE : on encode une <em>réponse fictive</em> plutôt que la question. Et d'où une répartition des rôles : les embeddings filtrent vite et pour presque rien, le LLM répond, plus cher. Pour une FAQ, les embeddings seuls suffisent souvent.</p>
+    </details>
   </div>
 </section>
 
@@ -414,6 +426,19 @@ similarité cosinus : 0,87</div>
     <div class="card"><div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></div><h4>Motif précis et stable</h4></div><p style="margin:0;font-size:.93rem">Regex et lexiques. Une date, un SIRET, un code de garantie ne demandent aucun modèle.</p></div>
     <div class="card"><div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></div><h4>Corpus annoté disponible</h4></div><p style="margin:0;font-size:.93rem">ML classique ou BERT. Une journée de data scientist et 500 exemples annotés rivalisent souvent avec un LLM, pour 100 fois moins cher à l'inférence.</p></div>
     <div class="card"><div class="h-ico"><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></div><h4>Peu de données, tâches variées</h4></div><p style="margin:0;font-size:.93rem">Le LLM. Et même là, avec un RAG pour l'ancrer et des règles autour pour le contenir.</p></div>
+  </div>
+
+  <div class="try reveal">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg> À votre avis</span>
+    <p>Trois besoins, un niveau chacun. Cherchez dans le tableau avant de déplier.</p>
+    <ol class="steps">
+      <li><strong>Repérer le numéro de contrat dans un mail</strong><p>Le format est fixe : une lettre, trois chiffres, trois chiffres.</p></li>
+      <li><strong>Classer 30 000 mails par an en dix familles</strong><p>Le service dispose de 2 000 mails déjà classés à la main.</p></li>
+      <li><strong>Répondre à des questions libres sur les conditions générales</strong><p>Aucun exemple annoté, des questions différentes chaque jour.</p></li>
+    </ol>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p>Niveau 1 pour le numéro de contrat : une regex, coût nul, aucune erreur inexpliquée. Niveau 3 pour le tri des mails : TF-IDF et un classifieur classique, entraînés sur les 2 000 exemples ; on ne monte au niveau 4 ou 5 que si les synonymes et les mots inconnus font plafonner. Niveau 6 pour les questions libres : un LLM, ancré par un RAG sur les conditions générales, et des règles autour. Sur ces trois besoins, le LLM n'est la bonne réponse qu'une fois.</p>
+    </details>
   </div>
 
   <div class="grid grid-2 reveal" style="margin-top:26px">

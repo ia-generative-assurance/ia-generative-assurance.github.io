@@ -201,7 +201,9 @@
   </figure>
 
   <h3 style="margin:34px 0 14px">L'expérience qui révèle tout : combien de « r » dans strawberry ?</h3>
-  <div class="ba">
+  <p style="margin:0 0 12px">Posez la question telle quelle à un chatbot. Puis recommencez en ajoutant « utilise Python pour compter ». Dépliez ensuite.</p>
+  <details class="answer"><summary>Voir la réponse</summary>
+    <div class="ba">
     <div class="before">
       <div class="ba-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg> Le moteur seul</div>
       <div class="ba-body">
@@ -219,7 +221,7 @@
       <div class="verdict">Une phrase de prompt suffit à basculer sur l'outil.</div>
     </div>
   </div>
-
+  </details>
   <div class="callout">
     <span class="label">Démystification</span>
     <p>Ce n'est pas « l'IA qui sait compter maintenant ». C'est le moteur qui a appris à <strong>déléguer</strong> à un programme classique ce qu'il ne sait pas faire. Toute la suite de la formation tient dans ce geste : combiner le moteur avec les bons outils. Une astuce : formuler une <strong>commande</strong> (« calcule », « cherche ») plutôt qu'une question améliore le routage vers l'outil.</p>
@@ -269,7 +271,18 @@
     <p class="lede">La quatrième pièce est celle qu'on oublie : une base de données, une API, une calculatrice, une règle métier font leur travail sans aucune IA, de manière fiable et pas chère. Le rôle du moteur est de comprendre la demande en langage humain et de la traduire vers ces outils. C'est ce que fait déjà « utilise Python ». C'est ce que fera un agent branché sur votre système de gestion.</p>
   </div>
 
-  <div class="table-wrap">
+  <div class="try">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg> À votre avis</span>
+    <p>Cinq demandes en français. Pour lesquelles le résultat est-il exact sans relecture, et pour lesquelles faut-il vérifier ?</p>
+    <ol class="steps">
+      <li>« Combien de sinistres habitation en Île-de-France en 2024 ? »</li>
+      <li>« Quelle est la prime pour ce profil ? »</li>
+      <li>« Le contrat est-il encore couvert ? »</li>
+      <li>« Résume-moi ces trois avis clients »</li>
+      <li>« Quel article de loi s'applique ? »</li>
+    </ol>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <div class="table-wrap">
     <table>
       <thead><tr><th>La demande, en français</th><th>Ce que fait le moteur</th><th>L'outil classique qui exécute</th><th>Fiabilité</th></tr></thead>
       <tbody>
@@ -280,6 +293,9 @@
         <tr><td>« Quel article de loi s'applique ? »</td><td>Génère de mémoire</td><td class="rowhead">Aucun, sans RAG</td><td><span class="pill bad">À vérifier</span></td></tr>
       </tbody>
     </table>
+  </div>
+      <p>Trois réponses exactes sur cinq : celles où le moteur passe la main à un outil (base de données, tarificateur, règle métier). Les deux autres sortent du moteur seul : un résumé se relit, un article de loi se vérifie.</p>
+    </details>
   </div>
 
   <div class="callout">
@@ -351,7 +367,10 @@
 
   <div class="callout">
     <span class="label">Et les grilles type CO-STAR ?</span>
-    <p>Contexte, objectif, style, ton, audience, réponse. Ces check-lists ont rendu service au début, quand les modèles comblaient mal les trous. Elles gardent une utilité, se rappeler ce qu'on a oublié de dire. Mais retenir l'acronyme n'est plus le sujet. Donnez l'objectif, le contexte que vous êtes seul à connaître, et la sortie attendue. Le reste, le modèle le propose, et vous corrigez.</p>
+    <p>Faut-il encore apprendre une grille de prompt par cœur ?</p>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p>Contexte, objectif, style, ton, audience, réponse. Ces check-lists ont rendu service au début, quand les modèles comblaient mal les trous. Elles gardent une utilité, se rappeler ce qu'on a oublié de dire. Mais retenir l'acronyme n'est plus le sujet. Donnez l'objectif, le contexte que vous êtes seul à connaître, et la sortie attendue. Le reste, le modèle le propose, et vous corrigez.</p>
+    </details>
   </div>
 
   <div class="ba">
