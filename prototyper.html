@@ -133,6 +133,13 @@
     <span class="label">Ce que le terrain enseigne</span>
     <p><strong>Commencer par le faible enjeu et le fort volume</strong> : la fin de la ressaisie (lire et structurer les pièces), les tableaux de bord, avant la souscription et les sinistres. Et se souvenir que dans un portefeuille réel, ce qui rend le plus de service n'est souvent pas génératif : de l'IA classique sur des données structurées, déclenchée par un événement.</p>
   </div>
+  <div class="try reveal">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg> À votre avis</span>
+    <p>Pour chaque dossier de souscription, vous avez besoin de l'activité, de l'adresse et de la situation légale de l'entreprise. Vous recevez son extrait d'immatriculation en PDF. Projet d'extraction par IA, ou autre chose ?</p>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p>Autre chose : l'information existe déjà dans une base officielle, à jour, interrogeable par numéro d'entreprise, gratuite ou de l'ordre de mille euros par an. Un projet d'extraction pour la même information coûte parfois un million, et lit un document qui peut être faux ou périmé. Le réflexe de cadrage : chercher la source avant l'outil. L'extraction garde tout son intérêt pour ce qui n'existe dans aucune base : le constat, la facture, le relevé d'information.</p>
+    </details>
+  </div>
 </section>
 
 <!-- ===================== 2. LA SOUSCRIPTION ===================== -->
@@ -191,6 +198,13 @@
   </div>
   <p>C'est le modèle de tous les prototypes de ce module : l'IA lit ce qui est écrit en langage humain, le code fait le reste, et l'humain valide avant l'envoi.</p>
 
+  <div class="try reveal">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À vous : le même exercice sur votre produit</span>
+    <p>Écrivez le prompt d'une phrase pour un parcours de souscription de votre branche (habitation, santé, RC pro), générez, et cliquez dedans. Puis listez les quatre pouvoirs spécifiques que vous ajouteriez : votre dictionnaire, vos règles de tarif, la demande en langage libre, vos contrôles. Une heure suffit pour le premier temps ; le second est le vrai travail.</p>
+    <details class="answer"><summary>Ce qu'on observe en général</summary>
+      <p>Le site généré est propre et complet, et il ressemble à celui du voisin. Les quatre pouvoirs sont toujours les mêmes de nom, jamais de contenu : c'est votre liste d'exclusions, votre grille de tarif, vos pièces exigées. C'est là que se joue la différence, et rien de cela ne sort d'un prompt d'une phrase.</p>
+    </details>
+  </div>
 </section>
 
 <!-- ===================== 3. D'AUTRES PROTOTYPES ===================== -->
@@ -198,7 +212,7 @@
   <div class="section-head reveal">
     <div class="eyebrow">3 · D'autres prototypes, et leurs motifs communs</div>
     <div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg></div><h2>D'autres prototypes, et ce qu'ils ont en commun</h2></div>
-    <p class="lede">La souscription n'est pas un cas isolé. La même règle, l'IA lit, le code décide, l'humain valide, revient dans tous les prototypes réalisés, du plus global au plus ciblé. Les regarder ensemble fait apparaître leurs motifs communs : trois couches, une échelle d'exposition, cinq archétypes, et un substrat, la GED 2.0.</p>
+    <p class="lede">La souscription n'est pas un cas isolé. La même règle, l'IA lit, le code décide, l'humain valide, revient dans tous les prototypes réalisés, du plus global au plus ciblé. Les regarder ensemble fait apparaître deux choses : ce qu'ils ont en commun (trois couches, une échelle d'exposition), et ce qu'ils préparent, un seul assistant, le chatbot unifié, avec ses cinq archétypes et son substrat, la GED 2.0.</p>
   </div>
 
   <h3 style="margin:0 0 10px">Du plus global au plus ciblé</h3>
@@ -236,7 +250,8 @@
     </div>
   </div>
 
-  <h3 style="margin:36px 0 10px">Comment ces outils sont construits : trois couches, une règle</h3>
+  <h3 style="margin:36px 0 10px">Ce qu'ils ont en commun : trois couches, une échelle d'exposition</h3>
+  <p>Cinq écrans différents, et la même construction dessous. Deux motifs reviennent dans chaque prototype : l'architecture en trois couches, qui décide où vit la logique métier, et la marche d'exposition à laquelle l'outil s'arrête, qui décide de la robustesse exigée.</p>
   <figure class="figure-frame reveal">
     <div class="fig-scroll"><svg viewBox="0 0 1100 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif">
       <g font-size="14">
@@ -287,8 +302,8 @@
   </div>
 
 
-  <h3 style="margin:36px 0 10px">Le spectre du chatbot : deux extrêmes, et la troisième voie</h3>
-  <p>Un assureur qui veut « un chatbot » a aujourd'hui deux options symétriques, et également mauvaises. La troisième est celle que tous les prototypes ci-dessus appliquent.</p>
+  <h3 style="margin:36px 0 10px">Ce qu'ils préparent : un seul assistant, le chatbot unifié</h3>
+  <p>Pris un par un, ces prototypes sont des outils. Mis bout à bout, ils préparent autre chose : un seul assistant qui reconnaît l'intention du client et lance le bon workflow. La fiche 360 vue en tête de section est le contexte que cet assistant partage entre toutes les étapes. Mais un assureur qui veut « un chatbot » a aujourd'hui deux options symétriques, et également mauvaises. La troisième est celle que tous les prototypes ci-dessus appliquent.</p>
   <div class="grid grid-3 reveal">
     <div class="card">
       <div class="tag">Extrême 1</div>
@@ -361,6 +376,41 @@
       <p>Écran 2, la fiche : une action (produire la fiche pré-remplie et la liste des pièces), sans appel au modèle pour l'essentiel. Briques : un gabarit, des règles (pièces exigées par activité, SIRET à quatorze chiffres, cohérence entre effectif et chiffre d'affaires), et le modèle seulement pour reformuler ce que le prospect corrige en texte libre.</p>
       <p>Écran 3, le gestionnaire : une validation, le second avis. Briques : une extraction sur les pièces reçues (le KBIS contre la fiche), une règle qui surligne chaque écart, et une confiance par champ qui décide ce qui est vérifié à la main. Aucun écran ne repose sur l'IA seule : le modèle lit et classe, les règles décident.</p>
     </details>
+  </div>
+
+  <div class="callout reveal">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg> Une trentaine de prototypes à ouvrir</span>
+    <p>Les mêmes motifs, déclinés sur d'autres gestes du métier. Chaque lien ouvre un cas complet : ce qu'on cherchait, la méthode, et la démonstration cliquable sur des documents publics ou synthétiques.</p>
+    <div class="grid grid-3" style="margin-top:14px">
+      <div class="card flat">
+        <h3>Comparer</h3>
+        <ul class="clean" style="font-size:.94rem;margin:0">
+          <li><a href="https://doc-intel.github.io/fr/cas/mrh-comparison.html" target="_blank" rel="noopener">Habitation, six assureurs</a> sur dix-sept critères</li>
+          <li><a href="https://doc-intel.github.io/fr/cas/mutuelle-comparison.html" target="_blank" rel="noopener">Mutuelle santé</a></li>
+          <li><a href="https://doc-intel.github.io/fr/cas/prevoyance-comparison.html" target="_blank" rel="noopener">Prévoyance</a>, décès et invalidité</li>
+          <li><a href="https://doc-intel.github.io/fr/cas/emprunteur-comparison.html" target="_blank" rel="noopener">Emprunteur</a>, équivalence CCSF</li>
+        </ul>
+      </div>
+      <div class="card flat">
+        <h3>Interroger</h3>
+        <ul class="clean" style="font-size:.94rem;margin:0">
+          <li><a href="https://doc-intel.github.io/fr/cas/mrh-qa.html" target="_blank" rel="noopener">Q&amp;R sourcée</a> sur un contrat habitation</li>
+          <li><a href="https://doc-intel.github.io/fr/cas/funds-chatbot.html" target="_blank" rel="noopener">Supports d'investissement</a></li>
+          <li><a href="https://doc-intel.github.io/fr/cas/claims-sql-agent.html" target="_blank" rel="noopener">Agent SQL sinistres</a></li>
+          <li><a href="https://doc-intel.github.io/fr/cas/contexte-360.html" target="_blank" rel="noopener">Contexte 360</a> d'un client</li>
+        </ul>
+      </div>
+      <div class="card flat">
+        <h3>Contrôler</h3>
+        <ul class="clean" style="font-size:.94rem;margin:0">
+          <li><a href="https://doc-intel.github.io/fr/cas/photo-fraude.html" target="_blank" rel="noopener">Photo de reçu recollée</a></li>
+          <li><a href="https://doc-intel.github.io/fr/cas/rib-fraude.html" target="_blank" rel="noopener">IBAN retapé sur un RIB</a></li>
+          <li><a href="https://doc-intel.github.io/fr/cas/compliance-check.html" target="_blank" rel="noopener">Contrôle de conformité</a></li>
+          <li><a href="https://doc-intel.github.io/fr/cas/anonymisation.html" target="_blank" rel="noopener">Anonymisation</a></li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin:14px 0 0"><a href="https://doc-intel.github.io/fr/cas/index.html" target="_blank" rel="noopener"><strong>Le catalogue complet</strong></a>, filtrable par technique et par métier.</p>
   </div>
 </section>
 
@@ -644,6 +694,14 @@ Contrôles avant de rendre : la date est passée, les deux
     <p>Un magasin de petits outils indépendants d'abord, puis l'IA dans le processus existant là où un outil a prouvé sa valeur, puis une application unifiée, un module par cas d'usage. Le générique (l'assistant de tous) et le spécifique (l'outil du métier) ne s'excluent pas : on garde les deux.</p>
   </div>
 
+  <div class="try reveal">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg> À votre avis</span>
+    <p>Deux équipes, le même besoin : un moteur de recherche sur les documents du service. La première déploie le framework RAG standard, avec tous ses composants. La seconde se demande « comment je ferais à la main ? » et code exactement cela. Qui livre, et en combien de temps ?</p>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p>La première : dix mois, 3 000 lignes de code, puis le projet est abandonné. La seconde : un jour, moins de cent lignes, et l'outil tourne. Ce n'est pas une question de talent : le framework résout des problèmes que le service n'a pas, et cache ceux qu'il a. La troisième étape de la méthode, « comment je ferais à la main ? », est là pour ça. La technique la plus simple qui marche, d'abord.</p>
+    </details>
+  </div>
+
   <div class="card reveal">
     <div class="h-ico"><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg></div><h3>Jusqu'où automatiser : quatre niveaux, une marche à la fois</h3></div>
     <ol class="steps crimson cols-2" style="gap:10px 18px">
@@ -684,7 +742,7 @@ Contrôles avant de rendre : la date est passée, les deux
   <div class="grid grid-2 reveal">
     <div class="card">
       <div class="h-ico"><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></div><h3>Le vrai danger n'est pas le modèle</h3></div>
-      <p>Un modèle est un fichier de nombres qui transforme du texte en texte : inerte. Le danger apparaît quand sa sortie est <strong>exécutée automatiquement avec de mauvais droits</strong>. D'où le critère central de tout déploiement : le degré de contrôle, du plus prudent au plus dangereux.</p>
+      <p>Un modèle est un fichier de nombres qui transforme du texte en texte : inerte. Le danger apparaît quand sa sortie est <strong>exécutée automatiquement avec de mauvais droits</strong>. C'est là que frappe l'injection de prompt vue au module 03 : un texte lu par l'agent lui dicte une action, et si rien ne borne ses droits, il l'exécute. D'où le critère central de tout déploiement : le degré de contrôle, du plus prudent au plus dangereux.</p>
       <ol class="steps" style="gap:8px">
         <li><strong>Demander avant chaque action<span class="pill good">par défaut</span></strong><p>L'humain valide tout.</p></li>
         <li><strong>Proposer un plan<span class="pill good">tâches bornées</span></strong><p>L'humain valide le plan, l'agent exécute.</p></li>
@@ -725,6 +783,14 @@ Contrôles avant de rendre : la date est passée, les deux
     <span class="label">Passer la main</span>
     <p>Le bon moment pour passer la main est le moment où le prototype a <strong>prouvé</strong> quelque chose : un taux d'extraction, un temps gagné, un besoin confirmé par ceux qui l'ont utilisé. Vous arrivez alors avec un écran, des mesures, des cas réels et une liste de ce qui reste à faire. C'est le cadrage dont les spécialistes ont besoin, et c'est ce qui fait qu'un projet passe du POC à la production.</p>
   </div>
+
+  <div class="demo-embed reveal">
+    <div class="demo-head"><span><b>Ce qu'un prototype ne voit pas tout seul</b> · une photo de reçu recollée, et ce qu'il faut regarder</span><a href="demos/photo-fraude.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
+    <iframe src="demos/photo-fraude.html" title="Une photo de reçu au total recollé" height="930" loading="lazy"></iframe>
+    <div class="print-note">
+      <p style="margin:0">La démonstration montre une photo de reçu dont le total a été recollé. Le prototype lit le montant sans broncher : ce sont les indices d'image, pas le texte, qui trahissent le montage. Un rappel que la vérification est un métier à part. À voir sur le site.</p>
+    </div>
+  </div>
 </section>
 
 <!-- ===================== CONCLUSION ===================== -->
@@ -734,7 +800,7 @@ Contrôles avant de rendre : la date est passée, les deux
   <p class="lede" style="margin-bottom:22px">Du premier prompt au prototype, un fil : l'IA générative au service du besoin métier, jamais en boîte noire.</p>
   <ol class="steps crimson">
     <li><strong>Je découvre : le moteur anticipe, les outils exécutent.</strong><p>Le LLM prédit du texte, il ne sait pas et ne calcule pas. Sa fiabilité vient de sa combinaison avec des outils déterministes. Bien prompter, c'est cadrer.</p></li>
-    <li><strong>Je comprends : la technique la plus simple qui marche.</strong><p>Des mots-clés aux Transformers, chaque rupture lève une limite sans remplacer la précédente. Le LLM n'est pas toujours nécessaire ; le dictionnaire du métier sait des choses que le générique ignore.</p></li>
+    <li><strong>Je comprends : des modèles successifs, et pas toujours un LLM.</strong><p>Des mots-clés aux Transformers, chaque rupture lève une limite sans remplacer la précédente. Le LLM n'est pas toujours nécessaire ; le dictionnaire du métier sait des choses que le générique ignore.</p></li>
     <li><strong>J'applique : un geste à la fois, la technique la plus simple qui marche.</strong><p>Classer, lire, comparer, chercher, interroger. L'IA à trois endroits : pour réfléchir, pour créer l'outil, dans l'outil ou pas. Le document est l'entrée de presque tout.</p></li>
     <li><strong>Je prototype : un processus complet, l'écran d'abord, sans construire seul.</strong><p>La carte des cas d'usage pour choisir, l'assistant de code pour fabriquer. Des skills, puis un outil en trois couches : la souscription, la file de tri avec ses seuils. Puis passer la main aux spécialistes, avec des mesures. La sécurité se règle autour du modèle, pas dedans.</p></li>
   </ol>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent SQL sinistres — interroger une base de sinistres en langage naturel (question → SQL → réponse)</title>
+<meta name="description" content="Un agent SQL qui traduit des questions en langage naturel vers du SQL sur un portefeuille fictif de 600 sinistres : question → SQL généré → tableau résultat → réponse. Réponses figées d'un vrai run, aucun serveur, aucun appel réseau.">
+
+<style>
+  :root{
+    --amber:#b45309; --amber-bg:#fff8e6; --amber-br:#fde68a;
+    --blue:#1d4ed8;  --blue-bg:#eef4ff;  --blue-br:#bfdbfe;
+    --emerald:#047857; --emerald-bg:#ecfdf5; --emerald-br:#a7f3d0;
+    --slate:#334155; --slate-400:#94a3b8; --line:#e2e8f0;
+  }
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+       color:var(--slate); margin:0; background:#f8fafc; line-height:1.5;}
+  .wrap{max-width:880px; margin:0 auto; padding:32px 20px 80px;}
+  h1{font-size:1.6rem; margin:0 0 4px;}
+  .sub{color:var(--slate-400); margin:0 0 24px; font-size:.95rem;}
+  .banner{background:var(--amber-bg); border:1px solid var(--amber-br);
+          color:var(--amber); padding:10px 14px; border-radius:8px;
+          font-size:.85rem; margin-bottom:24px;}
+  .q{width:100%; text-align:left; cursor:pointer; background:#fff;
+     border:1px solid var(--line); border-radius:10px; padding:14px 16px;
+     margin:10px 0 0; font-size:1rem; color:var(--slate); font-weight:600;
+     display:flex; justify-content:space-between; align-items:center;
+     transition:border-color .15s;}
+  .q:hover{border-color:var(--blue-br);}
+  .q .chev{color:var(--slate-400); font-weight:400; transition:transform .2s;}
+  .q.open .chev{transform:rotate(90deg);}
+  .a{display:none; border:1px solid var(--line); border-top:none;
+     border-radius:0 0 10px 10px; margin:-1px 0 0; padding:0 16px 16px; background:#fff;}
+  .a.open{display:block;}
+  .lbl{font-size:.72rem; text-transform:uppercase; letter-spacing:.04em;
+       color:var(--slate-400); margin:16px 0 6px;}
+  pre{background:#0f172a; color:#e2e8f0; padding:12px 14px; border-radius:8px;
+      overflow-x:auto; font-size:.82rem; margin:0;
+      font-family:"SF Mono",Consolas,Monaco,monospace;}
+  .kw{color:#7dd3fc;} .fn{color:#fca5a5;} .st{color:#86efac;}
+  table{border-collapse:collapse; width:100%; font-size:.88rem; margin:0;}
+  th,td{border:1px solid var(--line); padding:6px 10px; text-align:left;}
+  th{background:var(--blue-bg); color:var(--blue); font-weight:600;}
+  td.num{text-align:right; font-variant-numeric:tabular-nums;}
+  .ans{background:var(--emerald-bg); border:1px solid var(--emerald-br);
+       color:#064e3b; padding:10px 14px; border-radius:8px; margin-top:14px; font-size:.92rem;}
+  .foot{margin-top:40px; font-size:.82rem; color:var(--slate-400); border-top:1px solid var(--line); padding-top:16px;}
+  code{background:#eef2f7; padding:1px 5px; border-radius:4px; font-size:.85em;}
+</style>
+</head>
+<body>
+<div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="https://doc-intel.github.io/fr/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="https://doc-intel.github.io/fr/cas/" style="color:#cbd5e1;text-decoration:none">Études de cas</a><a href="https://doc-intel.github.io/fr/cas/claims-sql-agent.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Retour au cas</a></div>
+<div class="wrap">
+  <h1>Agent SQL sinistres</h1>
+  <p class="sub">Interroger une base de sinistres propre en langage naturel. Question → SQL → tableau → réponse.</p>
+
+  <div class="banner">
+    Démo <strong>statique</strong> : les réponses ci-dessous sont figées (exécutées une fois sur le portefeuille
+    fictif de 600 sinistres). Aucun serveur, aucun appel réseau. Pour l'interactif temps réel, lancez l'app Streamlit
+    dans <code>../app/</code>. Cliquez une question pour dérouler.
+  </div>
+
+  <div id="feed"></div>
+
+  <div class="foot">
+    Base fictive : 600 sinistres, 5 assureurs, 8 régions, 5 garanties, 3 devises.
+    Chaque requête générée est validée en lecture seule (SELECT uniquement, une seule instruction, LIMIT imposé).
+  </div>
+</div>
+
+<script>
+const EXAMPLES = [
+  {
+    q: "Montant total payé par assureur, du plus élevé au plus faible",
+    sql: "SELECT insurer, SUM(payment_amount) AS montant_total\nFROM claims\nGROUP BY insurer\nORDER BY montant_total DESC",
+    cols: ["insurer", "montant_total"],
+    rows: [
+      ["AssurCrédit", "5 776 828"], ["MutuelleAlpine", "5 161 443"],
+      ["CréditProtect", "5 082 539"], ["BâloiseVie", "4 977 076"],
+      ["NordAssur", "4 883 327"]
+    ],
+    num: [1],
+    ans: "AssurCrédit affiche le montant total payé le plus élevé (≈ 5,78 M), devant MutuelleAlpine (≈ 5,16 M) et CréditProtect (≈ 5,08 M)."
+  },
+  {
+    q: "Combien de sinistres covid ont été refusés ?",
+    sql: "SELECT COUNT(*) AS nombre\nFROM claims\nWHERE status = 'Refused' AND covid_flag = 'covid'",
+    cols: ["nombre"], rows: [["15"]], num: [0],
+    ans: "15 sinistres marqués covid ont été refusés."
+  },
+  {
+    q: "Nombre de décès (Death Any Cause) par an, selon la date de survenance",
+    sql: "SELECT strftime('%Y', loss_date) AS annee, COUNT(*) AS nombre_deces\nFROM claims\nWHERE loss_type = 'Death Any Cause'\nGROUP BY annee",
+    cols: ["annee", "nombre_deces"],
+    rows: [["2021", "154"], ["2022", "117"], ["2023", "60"]], num: [1],
+    ans: "En 2021, il y a eu 154 décès, 117 en 2022 et 60 en 2023."
+  },
+  {
+    q: "Top 3 des régions par montant total payé en 2022",
+    sql: "SELECT region, SUM(payment_amount) AS total_paid\nFROM claims\nWHERE strftime('%Y', notification_date) = '2022'\nGROUP BY region\nORDER BY total_paid DESC\nLIMIT 3",
+    cols: ["region", "total_paid"],
+    rows: [["Grand Est", "1 703 468"], ["Île-de-France", "1 670 403"], ["Hauts-de-France", "1 663 477"]],
+    num: [1],
+    ans: "En 2022, les trois régions au montant total payé le plus élevé sont le Grand Est (≈ 1,70 M), l'Île-de-France (≈ 1,67 M) et les Hauts-de-France (≈ 1,66 M)."
+  },
+  {
+    q: "Part des sinistres covid par assureur",
+    sql: "SELECT insurer, 100.0 * SUM(covid_flag = 'covid') / COUNT(*) AS part_covid_pct\nFROM claims\nGROUP BY insurer",
+    cols: ["insurer", "part_covid_pct"],
+    rows: [["AssurCrédit", "21,4 %"], ["BâloiseVie", "29,5 %"], ["CréditProtect", "28,0 %"],
+           ["MutuelleAlpine", "23,3 %"], ["NordAssur", "27,1 %"]],
+    num: [1],
+    ans: "La part de sinistres covid va de 21,4 % (AssurCrédit) à 29,5 % (BâloiseVie)."
+  }
+];
+
+function highlightSql(sql){
+  return sql
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/\b(SELECT|FROM|WHERE|GROUP BY|ORDER BY|LIMIT|AND|OR|AS|DESC|ASC)\b/g,'<span class="kw">$1</span>')
+    .replace(/\b(SUM|COUNT|AVG|strftime)\b/g,'<span class="fn">$1</span>')
+    .replace(/('[^']*')/g,'<span class="st">$1</span>');
+}
+
+function renderTable(ex){
+  let h = "<table><thead><tr>";
+  ex.cols.forEach(c => h += `<th>${c}</th>`);
+  h += "</tr></thead><tbody>";
+  ex.rows.forEach(r => {
+    h += "<tr>";
+    r.forEach((v,i) => h += `<td class="${ex.num.includes(i)?'num':''}">${v}</td>`);
+    h += "</tr>";
+  });
+  return h + "</tbody></table>";
+}
+
+const feed = document.getElementById("feed");
+EXAMPLES.forEach((ex, i) => {
+  const btn = document.createElement("button");
+  btn.className = "q";
+  btn.innerHTML = `<span>${ex.q}</span><span class="chev">▸</span>`;
+  const panel = document.createElement("div");
+  panel.className = "a";
+  panel.innerHTML =
+    `<div class="lbl">Requête SQL générée</div><pre>${highlightSql(ex.sql)}</pre>` +
+    `<div class="lbl">Résultat</div>${renderTable(ex)}` +
+    `<div class="ans"><strong>Réponse.</strong> ${ex.ans}</div>`;
+  btn.addEventListener("click", () => {
+    const open = panel.classList.toggle("open");
+    btn.classList.toggle("open", open);
+  });
+  feed.appendChild(btn);
+  feed.appendChild(panel);
+});
+document.querySelector(".q").click();  // ouvre le premier par défaut
+</script>
+<div style="background:#fff8e6;color:#7a5b08;padding:14px 20px;font:13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;text-align:center;border-top:1px solid #fde68a">Démonstration <b>statique</b> (données figées), <b>pas l'outil dynamique</b>. Pour un outil sur vos propres documents, <b>contactez-nous</b>. · <a href="https://doc-intel.github.io/fr/cas/" style="color:#1d4ed8;text-decoration:none">Études de cas</a></div>
+</body>
+</html>

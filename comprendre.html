@@ -41,7 +41,7 @@
   <ol class="fil">
     <li><a href="#mots-cles"><i>1</i><span class="fil-t"><b>Je sais détecter des mots-clés</b><small>regex, dictionnaire, entités</small></span></a></li>
     <li><em>mais</em><a href="#insuffisant"><i>2</i><span class="fil-t"><b>Ils ne suffisent pas</b><small>fautes, synonymes : trois parades</small></span></a></li>
-    <li><em>et</em><a href="#ordre"><i>3</i><span class="fil-t"><b>L'ordre des mots compte</b><small>CNN, RNN, attention</small></span></a></li>
+    <li><em>et</em><a href="#ordre"><i>3</i><span class="fil-t"><b>L'ordre des mots compte</b><small>RNN, CNN, attention</small></span></a></li>
     <li><em>d'où</em><a href="#modeles"><i>4</i><span class="fil-t"><b>Des modèles successifs</b><small>jusqu'aux LLM</small></span></a></li>
     <li><em>pourtant</em><a href="#choisir"><i>5</i><span class="fil-t"><b>Pas toujours besoin d'un LLM</b><small>six niveaux, partir du bas</small></span></a></li>
   </ol>
@@ -163,6 +163,14 @@
       <p>Une courte liste de mots route la majorité des mails sans se tromper. Elle casse sur trois profils : la faute de frappe (« plonbier »), le synonyme ou la périphrase (« fuite sous l'évier » sans le mot plomberie), et le mail qui décrit le problème sans aucun mot de votre liste. Ce sont les trois parades de la section suivante, de la plus simple à la plus profonde. Le mail qui mélange deux familles est une autre limite, elle arrive plus loin dans le module.</p>
     </details>
   </div>
+
+  <div class="demo-embed reveal">
+    <div class="demo-head"><span><b>Des mots-clés qui font un vrai travail</b> · repérer les données personnelles dans un texte, par motifs</span><a href="demos/anonymisation.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
+    <iframe src="demos/anonymisation.html" title="Détection des données personnelles par motifs" height="920" loading="lazy"></iframe>
+    <div class="print-note">
+      <p style="margin:0">La démonstration surligne, dans un texte, ce qu'une couche de motifs repère seule : noms, adresses, numéros, dates. Aucun modèle n'intervient. C'est exactement le niveau « je sais détecter des mots-clés », appliqué à un cas où il suffit. À voir sur le site.</p>
+    </div>
+  </div>
 </section>
 
 <!-- ===================== 2. INSUFFISANT ===================== -->
@@ -170,7 +178,7 @@
   <div class="section-head reveal">
     <div class="eyebrow">2 · La première limite</div>
     <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></div><h2>Les mots-clés ne suffisent pas</h2></div>
-    <p class="lede">Le monde réel n'écrit pas comme un dictionnaire. « Gros Malhon » devient « Gros Malon », « plombier » devient « plonbier », et « sanitaire » ne contient pas la lettre du mot « plomberie ». Trois parades, de la plus simple à la plus profonde.</p>
+    <p class="lede">Le monde réel n'écrit pas comme un dictionnaire. « Gros Malhon » devient « Gros Malon », « plombier » devient « plonbier », et un texte parle de plomberie sans jamais écrire « plomberie » : « sanitaire », « robinet », « fuite ». Trois parades, de la plus simple à la plus profonde.</p>
   </div>
 
   <div class="grid grid-3 reveal">
@@ -286,7 +294,7 @@ similarité cosinus : 0,87</div>
     <span class="label">Le piège à connaître</span>
     <p>Pour un embedding, « Capitale de la France ? » et « Capitale de l'Italie ? » sont-elles proches ou éloignées ?</p>
     <details class="answer"><summary>Voir la réponse</summary>
-      <p>Un embedding mesure une <strong>ressemblance</strong>, pas une réponse. « Capitale de la France ? » est très proche de « Capitale de l'Italie ? » : même forme, réponses différentes. D'où une parade classique du RAG, HyDE : on encode une <em>réponse fictive</em> plutôt que la question. Et d'où une répartition des rôles : les embeddings filtrent vite et pour presque rien, le LLM répond, plus cher. Pour une FAQ, les embeddings seuls suffisent souvent.</p>
+      <p>Un embedding mesure une <strong>ressemblance</strong>, pas une réponse. « Capitale de la France ? » est très proche de « Capitale de l'Italie ? » : même forme, réponses différentes. La parade, et la répartition des rôles entre embeddings et LLM, sont au module 03, quand on cherche dans un corpus.</p>
     </details>
   </div>
 </section>
@@ -301,14 +309,14 @@ similarité cosinus : 0,87</div>
 
   <div class="grid grid-3 reveal">
     <div class="card">
-      <div class="tag">2014</div>
-      <h3>Le CNN lit par fenêtres</h3>
-      <p>Des filtres glissent sur la séquence et repèrent des motifs locaux de 2 à 5 mots : « n'est pas bon » devient un motif détecté. Rapide, parallèle. Mais aveugle aux dépendances longues.</p>
+      <div class="tag">1990</div>
+      <h3>Le RNN lit dans l'ordre</h3>
+      <p>Un état de mémoire mis à jour mot après mot. Appliqué au texte à grande échelle en 2014, il a inventé la traduction neuronale (encodeur-décodeur). Mais la mémoire s'essouffle sur les longs textes, et rien ne se parallélise : lent à entraîner.</p>
     </div>
     <div class="card">
       <div class="tag">2014</div>
-      <h3>Le RNN lit dans l'ordre</h3>
-      <p>Un état de mémoire mis à jour mot après mot. Il a inventé la traduction neuronale (encodeur-décodeur). Mais la mémoire s'essouffle sur les longs textes, et rien ne se parallélise : lent à entraîner.</p>
+      <h3>Le CNN lit par fenêtres</h3>
+      <p>Des filtres glissent sur la séquence et repèrent des motifs locaux de 2 à 5 mots : « n'est pas bon » devient un motif détecté. Rapide, parallèle. Mais aveugle aux dépendances longues.</p>
     </div>
     <div class="card accent">
       <div class="tag">2017</div>
@@ -368,7 +376,7 @@ similarité cosinus : 0,87</div>
         <g transform="translate(90 0)"><circle cx="0" cy="70" r="9" fill="#fff" stroke="#BA1C3A" stroke-width="3"/><text x="0" y="40" text-anchor="middle" font-weight="800" fill="#13264A" font-size="15">1948</text><text x="0" y="105" text-anchor="middle" font-weight="700" fill="#BA1C3A">n-grammes</text><text x="0" y="125" text-anchor="middle" fill="#4a5567">Shannon : prédire le mot</text><text x="0" y="143" text-anchor="middle" fill="#4a5567">suivant existe déjà</text></g>
         <g transform="translate(300 0)"><circle cx="0" cy="70" r="9" fill="#fff" stroke="#BA1C3A" stroke-width="3"/><text x="0" y="40" text-anchor="middle" font-weight="800" fill="#13264A" font-size="15">1972</text><text x="0" y="105" text-anchor="middle" font-weight="700" fill="#BA1C3A">TF-IDF</text><text x="0" y="125" text-anchor="middle" fill="#4a5567">chaque mot pondéré</text><text x="0" y="143" text-anchor="middle" fill="#4a5567">par sa rareté</text></g>
         <g transform="translate(520 0)"><circle cx="0" cy="70" r="9" fill="#fff" stroke="#BA1C3A" stroke-width="3"/><text x="0" y="40" text-anchor="middle" font-weight="800" fill="#13264A" font-size="15">2013</text><text x="0" y="105" text-anchor="middle" font-weight="700" fill="#BA1C3A">Word2Vec</text><text x="0" y="125" text-anchor="middle" fill="#4a5567">un mot devient</text><text x="0" y="143" text-anchor="middle" fill="#4a5567">un vecteur dense</text></g>
-        <g transform="translate(740 0)"><circle cx="0" cy="70" r="9" fill="#fff" stroke="#BA1C3A" stroke-width="3"/><text x="0" y="40" text-anchor="middle" font-weight="800" fill="#13264A" font-size="15">2014</text><text x="0" y="105" text-anchor="middle" font-weight="700" fill="#BA1C3A">CNN, RNN</text><text x="0" y="125" text-anchor="middle" fill="#4a5567">capter l'ordre</text><text x="0" y="143" text-anchor="middle" fill="#4a5567">des mots</text></g>
+        <g transform="translate(740 0)"><circle cx="0" cy="70" r="9" fill="#fff" stroke="#BA1C3A" stroke-width="3"/><text x="0" y="40" text-anchor="middle" font-weight="800" fill="#13264A" font-size="15">2014</text><text x="0" y="105" text-anchor="middle" font-weight="700" fill="#BA1C3A">RNN, CNN</text><text x="0" y="125" text-anchor="middle" fill="#4a5567">capter l'ordre</text><text x="0" y="143" text-anchor="middle" fill="#4a5567">des mots</text></g>
         <g transform="translate(980 0)"><circle cx="0" cy="70" r="11" fill="#BA1C3A" stroke="#BA1C3A" stroke-width="3"/><text x="0" y="40" text-anchor="middle" font-weight="800" fill="#13264A" font-size="15">2017</text><text x="0" y="105" text-anchor="middle" font-weight="700" fill="#BA1C3A">Transformer</text><text x="0" y="125" text-anchor="middle" fill="#4a5567">l'attention globale,</text><text x="0" y="143" text-anchor="middle" fill="#4a5567">la base des LLM</text></g>
       </g>
       <text x="550" y="190" text-anchor="middle" font-size="13.5" fill="#78828f">regex fragile aux variations → TF-IDF aveugle aux synonymes → embeddings sans ordre → RNN essoufflé sur les longs textes → attention</text>
@@ -445,15 +453,15 @@ similarité cosinus : 0,87</div>
     <div class="card">
       <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div><h3>Le ML classique n'a pas disparu</h3></div>
       <p>Prédire une résiliation, un sinistre, une fraude sur des données <strong>structurées</strong> se fait sans aucune IA générative : un arbre de décision, une forêt, un gradient boosting. Le jeu de données Titanic est un dossier d'assurance déguisé : des caractéristiques, une cible, une règle apprise (« femmes et enfants d'abord » = sexe + âge).</p>
-      <p style="margin:0">Et la leçon de terrain : le data scientist passe <strong>90 % de son temps sur les données</strong>, moins de 1 % sur l'algorithme. Une variable n'est utilisable que si elle est disponible au moment de la prédiction, et « dans le canot de sauvetage » est une fuite : c'est presque la cible elle-même.</p>
+      <p>Pour prédire qui survit, on vous propose ces colonnes : âge, sexe, classe, prix du billet, « monté dans un canot de sauvetage », nombre de canots du navire. Lesquelles sont utilisables ?</p>
+      <details class="answer"><summary>Voir la réponse</summary>
+        <p>Les quatre premières. « Dans un canot » est presque la réponse elle-même, connue trop tard : une fuite. Le nombre de canots est le même pour tous les passagers : il ne dit rien par individu.</p>
+        <p style="margin:0">Et la leçon de terrain : le data scientist passe <strong>90 % de son temps sur les données</strong>, moins de 1 % sur l'algorithme. Une variable n'est utilisable que si elle est disponible au moment de la prédiction, et « dans le canot de sauvetage » est une fuite : c'est presque la cible elle-même.</p>
+      </details>
     </div>
     <div class="card">
       <div class="h-ico"><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></div><h3>Ce qui rend le plus de service n'est pas génératif</h3></div>
-      <p>Dans un portefeuille réel de cas d'usage d'un assureur, rangés selon <strong>qui déclenche</strong> le traitement : l'IA classique déclenchée par un événement (27 cas), le traitement documentaire déclenché par l'arrivée d'une pièce (13), l'assistant déclenché par une personne (30). Parmi les cas déjà en service, la majorité n'est pas générative.</p>
-      <div class="callout warn" style="margin:0">
-        <span class="label">La leçon d'un outil juridique</span>
-        <p>Testé sur un dispositif fiscal récent, un assistant juridique a répondu faux : ses sources n'étaient pas à jour au 1er janvier. Puis il a <strong>changé d'avis quand on l'a contredit</strong>. La fraîcheur des sources est le point de rupture, pas la qualité du modèle. Un outil qui cède sous contradiction ne peut pas servir de référence.</p>
-      </div>
+      <p style="margin:0">Dans un portefeuille réel de cas d'usage d'un assureur, rangés selon <strong>qui déclenche</strong> le traitement : l'IA classique déclenchée par un événement (27 cas), le traitement documentaire déclenché par l'arrivée d'une pièce (13), l'assistant déclenché par une personne (30). Parmi les cas déjà en service, la majorité n'est pas générative.</p>
     </div>
   </div>
 </section>
@@ -465,7 +473,7 @@ similarité cosinus : 0,87</div>
   <ol class="steps crimson">
     <li><strong>Je sais détecter des mots-clés.</strong><p>Regex, listes, dictionnaire métier, entités nommées. Déterministe, gratuit, auditable. Ça règle déjà la moitié des cas.</p></li>
     <li><strong>Ils ne suffisent pas.</strong><p>Fautes et variantes : le fuzzy. Puis on cesse d'écrire les règles : sac de mots, TF-IDF et un classifieur les apprennent sur des exemples. Synonymes et sens : les embeddings, qui placent les mots dans un espace où les sens proches sont proches.</p></li>
-    <li><strong>L'ordre des mots compte.</strong><p>CNN, RNN, puis l'attention : chaque mot regarde tous les autres et se met à jour avec le contexte.</p></li>
+    <li><strong>L'ordre des mots compte.</strong><p>RNN, CNN, puis l'attention : chaque mot regarde tous les autres et se met à jour avec le contexte.</p></li>
     <li><strong>Les modèles se sont succédé sans se remplacer.</strong><p>Jusqu'aux Transformers, entraînés sur tout Internet sans étiquette humaine. Un LLM est un fichier de nombres qui prédit le token suivant.</p></li>
     <li><strong>Pas toujours besoin d'un LLM.</strong><p>Six niveaux, trois règles. Partir du bas, monter quand ça plafonne. Le générique sait moins que le dictionnaire du métier.</p></li>
   </ol>

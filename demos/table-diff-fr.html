@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diff de table - v1 vs v2</title>
+<style>
+ :root{--ink:#0f172a;--muted:#64748b;--line:#e2e8f0}
+ *{box-sizing:border-box} body{margin:0;background:#f8fafc;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;line-height:1.5}
+ .wrap{max-width:760px;margin:0 auto;padding:26px 20px 60px}
+ h1{font-size:1.5rem;margin:.2em 0 .1em} .lede{color:var(--muted);font-size:14px;margin-bottom:14px}
+ .sum{background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;border-radius:12px;padding:12px 16px;font-size:14px;margin:0 0 16px}
+ table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+ th,td{text-align:left;padding:10px 14px;border-top:1px solid var(--line);font-size:14.5px}
+ th{background:#f8fafc;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+ .b{font-weight:800;font-size:12px;letter-spacing:.03em;text-transform:uppercase}
+ .foot{color:var(--muted);font-size:13px;margin-top:20px;font-style:italic}
+</style></head><body>
+<div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="https://doc-intel.github.io/fr/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="https://doc-intel.github.io/fr/cas/" style="color:#cbd5e1;text-decoration:none">Études de cas</a><a href="https://doc-intel.github.io/fr/cas/table-diff-fr.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Retour au cas</a></div>
+<div class="wrap">
+ <h1>Diff de table &mdash; deux versions d'un tableau de garanties</h1>
+ <p class="lede">Deux versions d'un même tableau de garanties, alignées sur la clé (la garantie), pas sur le texte. On lit ce qui a vraiment bougé, ligne par ligne.</p>
+ <div class="sum"><b>4 changements</b> &mdash; 2 modifiés, 1 ajoutés, 1 supprimés ; 1 inchangés.</div>
+ <table><thead><tr><th>Garantie (clé)</th><th>Statut</th><th>Détail</th></tr></thead><tbody><tr><td>Incendie</td><td><span class='b' style='color:#64748b'>inchangé</span></td><td>—</td></tr><tr><td>Dégât des eaux</td><td><span class='b' style='color:#b45309'>modifié</span></td><td>plafond 100 000 € → <b>120 000 €</b></td></tr><tr><td>Vol</td><td><span class='b' style='color:#b45309'>modifié</span></td><td>franchise 300 € → <b>500 €</b></td></tr><tr><td>Bris de glace</td><td><span class='b' style='color:#b91c1c'>supprimé</span></td><td>ligne retirée</td></tr><tr><td>Catastrophe naturelle</td><td><span class='b' style='color:#047857'>ajouté</span></td><td>plafond 500 000 €, franchise 380 €</td></tr></tbody></table>
+ <p class="foot">Tables 100&nbsp;% synthétiques. L'alignement se fait sur la clé métier (la garantie), donc un réordonnancement ou un reformatage ne compte pas : seuls les vrais changements de plafond, de franchise, d'ajout ou de retrait remontent.</p>
+</div><div style="background:#fff8e6;color:#7a5b08;padding:14px 20px;font:13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;text-align:center;border-top:1px solid #fde68a">Démonstration <b>statique</b> sur des tables <b>fictives</b>. Pour un outil sur vos propres données, <b>contactez-nous</b>. · <a href="https://doc-intel.github.io/fr/cas/" style="color:#1d4ed8;text-decoration:none">Études de cas</a></div>
+</body></html>

@@ -315,6 +315,19 @@ details.answer[open] summary { margin-bottom: 8px; }
 details.answer p { margin: 0 0 .6em; font-size: .93rem; color: var(--ink-soft); }
 details.answer > :last-child { margin-bottom: 0; }
 
+/* Sous le capot : un bloc de contenu depliable (figure, cartes) pour le
+   lecteur qui veut le detail, sans l'imposer aux autres. Ouvert dans le PDF
+   (export_pdf.py), comme les reponses. */
+details.deeper { margin: 22px 0 26px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--sand-l); }
+details.deeper > summary { cursor: pointer; list-style: none; display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 16px 22px; font-family: var(--display); font-size: 1.02rem; font-weight: 800; color: var(--navy); }
+details.deeper > summary::-webkit-details-marker { display: none; }
+details.deeper > summary::before { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 1.05rem; line-height: 1; flex: none; }
+details.deeper[open] > summary::before { content: "\2212"; }
+details.deeper > summary small { font-family: var(--sans); font-weight: 500; font-size: .86rem; color: var(--ink-soft); }
+details.deeper[open] > summary { border-bottom: 1px solid var(--line); }
+details.deeper > .deeper-body { padding: 22px 22px 8px; }
+details.deeper .figure-frame { background: #fff; }
+
 /* ---------- Chiffres ---------- */
 
 .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
@@ -506,15 +519,54 @@ ul.clean li::before { content: "\203A"; position: absolute; left: 4px; top: -1px
   .hero h1 { font-size: 2.4rem; } .page-head h1 { font-size: 2.1rem; }
   .with-toc { grid-template-columns: 1fr; }
   .path { grid-template-columns: repeat(4, 1fr); } .path::before { display: block; }
-  .grid-2, .grid-3, .grid-4, .grid-2-1, .grid-1-2, .feat.cols-2, .steps.cols-2 { grid-template-columns: 1fr; }
-  /* rien ne doit etre coupe a l'impression : pas de zone scrollable */
-  .table-wrap { overflow: visible; }
-  table { font-size: 10pt; }
-  thead th, tbody td { padding: 9px 12px; }
-  figure, .card, .table-wrap, .callout, .try, .ba { break-inside: avoid; }
-  h2, h3 { break-after: avoid; }
   body { font-size: 11pt; }
-  section.band { padding: 18px 0; }
-  .card, .tool, .table-wrap { box-shadow: none; }
+  /* l'ombre interieure des blocs defilants (regle sous 760 px, qui vaut
+     aussi pour les 703 px de l'impression) n'a pas de sens sur papier */
+  .card, .tool, .table-wrap, .fig-scroll { box-shadow: none; }
   .reveal { opacity: 1; transform: none; }
+
+  /* 1. Une bande de contenu fait 1 a 7 pages A4 : elle ne peut pas etre
+        insecable. Chromium poussait chaque bande en haut d'une page neuve
+        puis la coupait quand meme, d'ou un quart du document en blanc.
+        `.tight` est cite : `section.band.tight` est plus specifique et
+        gagnerait sinon sur le padding. */
+  section.band, section.band.tight { break-inside: auto; padding: 12px 0; }
+
+  /* 2. Ce qui reste groupe, et seulement cela. Mesure par
+        audit_print_variants.py : rendre les cartes, encarts et blocs
+        « a tester » insecables coute 14 pages et double le blanc perdu
+        (une carte en colonne fait souvent une demi-page) ; coller le bloc
+        de titre a la figure qui le suit coute 2 pages de plus. On protege
+        donc les titres (jamais coupes, jamais orphelins en bas de page),
+        le bloc de titre de section (kicker, titre, chapeau ensemble), les
+        figures et les moities d'un avant/apres. Le reste se coupe comme du
+        texte. Resultat : 74 pages et 6 % de blanc, contre 90 et 17 %. */
+  .section-head { break-inside: avoid; }
+  h2, h3, h4, .h-ico, .tag, .label, .ba-head, .demo-col-head { break-inside: avoid; break-after: avoid; }
+  .feat > div > div > strong, .steps > li > strong { display: block; break-after: avoid; }
+  figure, .ba > *, figcaption, .kpis > div, .demo-mail, .demo-cat, .prompt { break-inside: avoid; }
+  details.deeper { break-inside: auto; background: #fff; }
+  details.deeper > summary { break-inside: avoid; break-after: avoid; }
+  details.deeper > .deeper-body { padding: 14px 14px 4px; }
+  /* la largeur minimale du schema (regle sous 760 px, qui vaut aussi pour
+     les 703 px de l'impression) le ferait deborder d'un bloc a marges */
+  .fig-scroll svg { min-width: 0; }
+
+  /* 3. Un tableau long se coupe, en repetant son en-tete. Rien ne doit etre
+        cache a l'impression : pas de zone scrollable, pas de cellule
+        insecable qui ecrase la colonne descriptive. */
+  .table-wrap { overflow: visible; break-inside: auto; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+  thead th, td.rowhead { white-space: normal; }
+  table { font-size: 9.5pt; }
+  thead th, tbody td { padding: 8px 10px; }
+
+  /* 4. Deux colonnes tiennent a 703 px (340 px par carte, environ 45
+        caracteres par ligne) : la regle 940 px aplatissait tout et triplait
+        la hauteur des grilles. */
+  .grid-2, .grid-2-1, .grid-1-2, .ba, .grid-3, .grid-4, .feat.cols-2, .steps.cols-2 { grid-template-columns: 1fr 1fr; }
+  .kpis { grid-template-columns: repeat(4, 1fr); }
+  .grid { gap: 14px; }
+  .card { padding: 16px 18px; }
 }

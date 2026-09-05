@@ -127,10 +127,11 @@
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
     <p><strong>Trois expériences de deux minutes</strong>, dans n'importe quel chatbot, pour sentir le moteur nu. Faites chaque test avant de déplier la réponse.</p>
     <ol class="steps">
-      <li><strong>Le nombre aléatoire.</strong><p>Demandez « donne-moi un nombre entre 1 et 10 ». Recommencez dans une nouvelle conversation, cinq ou six fois. Quel nombre sort le plus souvent ? Puis demandez « tire un nombre entre 1 et 10 avec Python » et recommencez.</p>
+      <li><strong>Le nombre aléatoire.</strong><p>Demandez « donne-moi un nombre entre 1 et 10 ». Recommencez dans une nouvelle conversation, cinq ou six fois. Quel nombre sort le plus souvent ? Puis la même chose entre 0 et 30. Enfin, demandez « tire un nombre entre 1 et 10 avec Python » et recommencez.</p>
         <details class="answer"><summary>Voir la réponse</summary>
-          <p>Sans outil, c'est très souvent 7. Rien d'aléatoire là-dedans : le moteur donne la suite de mots la plus probable dans ses données, et quand on demande un nombre « au hasard » à des humains, 7 revient plus que les autres. Le modèle reproduit cette préférence. Ce n'est ni logique, ni intelligent, ni aléatoire : c'est fréquent.</p>
+          <p>Sans outil, c'est très souvent 7. Entre 0 et 30, une majorité de 23. Rien d'aléatoire là-dedans : le moteur donne la suite de mots la plus probable dans ses données, et quand on demande un nombre « au hasard » à des humains, 7 revient plus que les autres. Le modèle reproduit cette préférence. Ce n'est ni logique, ni intelligent, ni aléatoire : c'est fréquent.</p>
           <p>Avec « avec Python », le moteur écrit une ligne de code, une machine l'exécute, et le tirage est vraiment aléatoire. Les chatbots récents savent lancer du code, il suffit de le demander. Même réflexe pour un calcul : « calcule avec Python » plutôt que « combien font ».</p>
+          <p>Ce soir, posez la question au chatbot lui-même : « pendant la formation, tout le monde a obtenu 7 à “donne un nombre aléatoire”, pourquoi ? ». Sur un sujet aussi documenté, sa réponse est fiable, et elle vaut une lecture.</p>
         </details>
       </li>
       <li><strong>Le contexte qui change la réponse.</strong><p>Demandez « c'est quoi la Ligue des champions ? » puis, dans une autre conversation, « en tant que passionné de rugby, c'est quoi la Ligue des champions ? ». Comparez les deux réponses.</p>
@@ -226,6 +227,13 @@
     <span class="label">Démystification</span>
     <p>Ce n'est pas « l'IA qui sait compter maintenant ». C'est le moteur qui a appris à <strong>déléguer</strong> à un programme classique ce qu'il ne sait pas faire. Toute la suite de la formation tient dans ce geste : combiner le moteur avec les bons outils. Une astuce : formuler une <strong>commande</strong> (« calcule », « cherche ») plutôt qu'une question améliore le routage vers l'outil.</p>
   </div>
+  <div class="try">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> Un second outil à tester : la recherche</span>
+    <p>Demandez « qui a gagné la Ligue des champions cette année ? ». D'abord dans un chatbot sans accès au web (ou en désactivant la recherche), puis avec la recherche activée. Comparez.</p>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p>Sans outil, le moteur ne peut pas savoir : ses connaissances s'arrêtent à une date, celle de la fin de son entraînement. Un bon chatbot le dit ; un moins bon répond avec la dernière saison qu'il connaît, au présent, comme si c'était cette année. Avec la recherche web, il lit une page récente et répond avec la source. Même mécanisme que pour Python : il n'a pas appris la réponse, il a appris à aller la chercher. Réentraîner un modèle coûte des millions, on ne le refait pas pour un résultat de match.</p>
+    </details>
+  </div>
 </section>
 
 <!-- ===================== 3. MODALITÉS ===================== -->
@@ -247,7 +255,7 @@
       <div class="tag">Image</div>
       <h3>Générer une image</h3>
       <p>Décrire une scène, retoucher (« ajoute une cravate sans changer le visage »), décliner en variantes. La génération et la lecture convergent : on part d'une image existante et on la modifie en mots.</p>
-      <p style="font-size:.9rem;color:var(--ink-mute);margin:0">Le revers : les faux documents deviennent bon marché. On y revient au module 03.</p>
+      <p style="font-size:.9rem;color:var(--ink-mute);margin:0">Le revers : les faux documents deviennent bon marché. On y revient au module 04, avec la fraude documentaire.</p>
     </div>
     <div class="card accent">
       <div class="tag">Voix</div>
@@ -260,6 +268,13 @@
   <div class="callout assurance">
     <span class="label">En assurance</span>
     <p>La vision est la modalité la plus directement utile : elle transforme une <strong>photo de dégât</strong>, un <strong>constat</strong> ou un <strong>justificatif</strong> en données exploitables. La voix ouvre le call center augmenté : transcription en direct, aide à la saisie, résumé d'appel. L'image générée sert surtout la communication, et inquiète la lutte contre la fraude.</p>
+  </div>
+  <div class="try">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
+    <p>Donnez une image au chatbot, une photo ou un logo, et demandez « redonne-moi exactement la même image ». Comparez les deux, de près.</p>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p>Ce n'est jamais exactement la même : un détail bouge, un texte change, une proportion glisse. Le modèle ne copie pas, il génère une nouvelle image à partir d'une description de la vôtre. Même logique que pour le texte : la sortie la plus probable, pas une reproduction. Pour copier un fichier, il y a le copier-coller ; pour créer ou retoucher, il y a le modèle.</p>
+    </details>
   </div>
 </section>
 
@@ -307,7 +322,7 @@
 <!-- ===================== 5. PANORAMA ===================== -->
 <section id="panorama" class="band">
   <div class="section-head reveal">
-    <div class="eyebrow">5 · Le panorama : quel chatbot ?</div>
+    <div class="eyebrow">5 · Le panorama</div>
     <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><h2>Quel chatbot ? Quatre généralistes, des spécialisés</h2></div>
     <p class="lede">Le chatbot est démonté en quatre pièces ; reste à en choisir un pour s'exercer. Les écarts de performance se réduisent d'un modèle à l'autre. Le choix se fait de plus en plus sur l'écosystème dans lequel le chatbot s'intègre, et sur la souveraineté des données.</p>
   </div>
@@ -348,8 +363,8 @@
 <section id="prompter" class="band">
   <div class="section-head reveal">
     <div class="eyebrow">6 · Bien prompter</div>
-    <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1L19 8l-3-3L5 16z"/><path d="M14 7l3 3"/></svg></div><h2>Bien prompter : le moteur ne devine pas</h2></div>
-    <p class="lede">Le chatbot choisi, tout se joue dans la demande. Même outil, résultat sans commune mesure selon la façon de demander. Deux réflexes ont remplacé les recettes : dire l'objectif, et faire écrire le prompt par l'IA elle-même.</p>
+    <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1L19 8l-3-3L5 16z"/><path d="M14 7l3 3"/></svg></div><h2>Bien prompter : il connaît la méthode, pas votre intention</h2></div>
+    <p class="lede">Les grilles, les bonnes pratiques, la façon de structurer une demande : le modèle les connaît mieux que vous, inutile de les retenir par cœur. La seule chose qu'il ne peut pas savoir, c'est ce que vous voulez exactement. Alors lancez-vous vite, et peaufinez : le premier essai sert surtout à découvrir ce que vous vouliez vraiment.</p>
   </div>
 
   <div class="grid grid-2" style="margin-bottom:26px">
@@ -366,10 +381,22 @@
   </div>
 
   <div class="callout">
-    <span class="label">Et les grilles type CO-STAR ?</span>
-    <p>Faut-il encore apprendre une grille de prompt par cœur ?</p>
+    <span class="label">N'apprenez pas la grille par cœur</span>
+    <p>Contexte, objectif, style, ton, audience, réponse : ces check-lists ont rendu service au début, quand les modèles comblaient mal les trous. Aujourd'hui le modèle connaît ces grilles, il les applique tout seul, et il vous dira lesquelles utiliser si vous le lui demandez. <strong>Retenir l'acronyme n'est plus le sujet.</strong></p>
+    <p style="margin:0">Ce qu'aucune grille ne remplacera : le contexte que vous êtes seul à connaître, et ce que vous voulez obtenir. C'est la seule part du travail qui reste à vous.</p>
+  </div>
+
+  <div class="callout">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg> Commencez vite, peaufinez ensuite</span>
+    <p>La bonne demande ne s'écrit pas du premier coup, et ce n'est pas un problème de compétence. On ne sait pas toujours ce qu'on veut avant de voir une première proposition.</p>
+    <p style="margin:0"><strong>Le geste</strong> : lancez une demande courte, regardez ce qui revient, et corrigez ce qui ne va pas. Deux ou trois allers-retours valent mieux qu'un quart d'heure à composer le prompt parfait. Le premier jet sert à découvrir votre besoin, pas à obtenir le résultat.</p>
+  </div>
+
+  <div class="try">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
+    <p>Demandez « combien de secondes dans une heure ? ». Puis « donne-moi juste le nombre ». Puis « réponds au format JSON, avec une clé secondes ». Regardez la forme de chaque réponse.</p>
     <details class="answer"><summary>Voir la réponse</summary>
-      <p>Contexte, objectif, style, ton, audience, réponse. Ces check-lists ont rendu service au début, quand les modèles comblaient mal les trous. Elles gardent une utilité, se rappeler ce qu'on a oublié de dire. Mais retenir l'acronyme n'est plus le sujet. Donnez l'objectif, le contexte que vous êtes seul à connaître, et la sortie attendue. Le reste, le modèle le propose, et vous corrigez.</p>
+      <p>La première réponse est une phrase, parfois un paragraphe avec le calcul : c'est la forme la plus fréquente dans ses données. La deuxième tient en un nombre, 3600. La troisième est un objet qu'un programme peut lire directement. Le contenu n'a pas changé, la forme se demande. C'est ce qu'on appellera plus loin une sortie structurée : la brique qui permet de brancher le moteur sur un outil.</p>
     </details>
   </div>
 
@@ -453,7 +480,7 @@
     <div><b>1</b><span>moteur qui écrit le mot suivant : la révolution, et sa limite</span></div>
     <div><b>3</b><span>outils qui le rendent utile : web, Python, fichiers</span></div>
     <div><b>3</b><span>modalités : vision, image, voix</span></div>
-    <div><b>1</b><span>règle : le moteur coordonne, les outils exécutent</span></div>
+    <div><b>1</b><span>pont vers les outils classiques : le moteur traduit, l'outil exécute</span></div>
   </div>
   <p style="margin:26px 0 0;max-width:70ch">Vous savez maintenant tester un chatbot en connaissance de cause, prompter avec méthode, et reconnaître les trois situations où il faut passer la main à un outil. Il est temps d'ouvrir le capot.</p>
 </section>
