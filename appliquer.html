@@ -469,6 +469,13 @@
       </div>
     </div>
   </div>
+  <div class="try reveal">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
+    <p>Donnez un contrat ou des conditions générales en PDF à un chatbot. Posez d'abord une question dont la réponse est dans le document, en reprenant les mots du texte. Puis la même question avec vos mots à vous, sans aucun terme commun avec le passage. Enfin une question dont la réponse n'est pas dans le document. Notez, pour chacune, si le chatbot cite le passage.</p>
+    <details class="answer"><summary>Ce qu'on observe en général</summary>
+      <p>La première question passe presque toujours : les mots communs suffisent à retrouver le passage. La deuxième est le vrai test de la recherche par le sens : si la réponse se dégrade, c'est la brique 3 du pipeline qui manque, pas le modèle. La troisième révèle le comportement le plus important : un bon RAG répond « je ne trouve pas dans le document », un mauvais invente une clause plausible. Sans passage cité, ne faites pas confiance à la réponse. Les quatre briques du schéma sont les quatre endroits où chercher l'erreur.</p>
+    </details>
+  </div>
 </section>
 
 <!-- ===================== 5. TROIS ENDROITS ===================== -->

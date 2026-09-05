@@ -291,6 +291,11 @@
   <div class="try reveal">
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À vous de prototyper : un chatbot de souscription</span>
     <p>Un prospect artisan arrive sur le site et veut une responsabilité civile professionnelle. Décrivez l'outil en trois écrans : (1) la conversation qui recueille l'activité en langage libre et la classe (le fil rouge de la carte, section 1) ; (2) la fiche pré-remplie que le prospect corrige, avec les pièces demandées ; (3) l'écran du gestionnaire qui reçoit le dossier, avec les champs à vérifier. Pour chaque écran, dites quel archétype il combine (réponse, action, extraction, dispatcher, validation) et listez les briques : quelle règle, quel dictionnaire, quel appel au modèle, quelle sortie structurée. Puis demandez à un assistant de code de générer l'écran 1. Une demi-journée suffit pour un premier prototype.</p>
+    <details class="answer"><summary>Une réponse possible</summary>
+      <p>Écran 1, la conversation : un dispatcher (recueillir l'activité, la reformuler, la classer dans la nomenclature) plus une extraction (activité, chiffre d'affaires, effectif, SIRET). Briques : un appel au modèle avec la liste des activités en contexte, une sortie JSON à quatre champs, un dictionnaire des activités pour rattraper les libellés proches, une règle qui refuse les activités hors périmètre.</p>
+      <p>Écran 2, la fiche : une action (produire la fiche pré-remplie et la liste des pièces), sans appel au modèle pour l'essentiel. Briques : un gabarit, des règles (pièces exigées par activité, SIRET à quatorze chiffres, cohérence entre effectif et chiffre d'affaires), et le modèle seulement pour reformuler ce que le prospect corrige en texte libre.</p>
+      <p>Écran 3, le gestionnaire : une validation, le second avis. Briques : une extraction sur les pièces reçues (le KBIS contre la fiche), une règle qui surligne chaque écart, et une confiance par champ qui décide ce qui est vérifié à la main. Aucun écran ne repose sur l'IA seule : le modèle lit et classe, les règles décident.</p>
+    </details>
   </div>
 </section>
 
@@ -379,6 +384,9 @@
   <div class="try reveal">
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
     <p>Choisissez une tâche répétitive de votre semaine (un reporting, une relance, un tri de pièces). Décrivez-la à un assistant comme vous la décririez à un nouveau collègue : ce qui entre, ce qui sort, ce qu'il faut vérifier. Notez ce que l'assistant demande en retour : ce sont les informations qu'un outil devrait connaître. C'est le point de départ d'un skill, section suivante.</p>
+    <details class="answer"><summary>Ce que l'assistant demande, en général</summary>
+      <p>Presque toujours les mêmes quatre choses : d'où viennent les données (le fichier, le mail, l'outil), à quoi doit ressembler la sortie (un tableau, un mail, un statut), ce qui arrive dans les cas limites (une pièce manquante, un montant hors norme), et qui valide à la fin. Ces quatre réponses sont les rubriques du skill de la section suivante. Si vous ne savez pas répondre à l'une d'elles, l'outil ne le saura pas non plus.</p>
+    </details>
   </div>
 </section>
 
@@ -466,6 +474,9 @@ Contrôles avant de rendre : la date est passée, les deux
   <div class="try reveal">
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À vous : votre premier skill</span>
     <p>Prenez la tâche notée à la section 3. Écrivez le prompt qui la fait, avec un exemple d'entrée et le format de sortie attendu (un JSON de trois ou quatre champs). Testez-le sur cinq cas réels anonymisés. Notez les deux vérifications que vous faites toujours à la main : ce sont les lignes de code déterministe à ajouter. Vous avez un skill.</p>
+    <details class="answer"><summary>Ce que sont ces deux vérifications, en général</summary>
+      <p>La première porte sur la forme : un champ vide, une date impossible, un montant qui n'est pas un nombre, un identifiant à la mauvaise longueur. La seconde porte sur le métier : un montant au-dessus d'un seuil, une date antérieure à la souscription, une pièce qui ne correspond pas au type de dossier. Aucune des deux n'a besoin d'un modèle : ce sont des lignes de code déterministe, elles tournent après l'appel au modèle et arrêtent le dossier avant qu'il parte. C'est là que se gagne la fiabilité, pas dans le prompt.</p>
+    </details>
   </div>
 </section>
 
@@ -521,6 +532,9 @@ Contrôles avant de rendre : la date est passée, les deux
   <div class="try reveal">
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À vous : le même prototype sur votre flux</span>
     <p>Prenez vingt mails réels anonymisés de votre service. Listez les familles, puis pour chacune les cinq mots ou expressions qui la trahissent, et la criticité d'une erreur. Classez les vingt mails avec cette liste, à la main : combien sont sans ambiguïté ? Ceux qui restent sont exactement les cas pour lesquels un modèle se justifie. Vous avez le cadrage, le dictionnaire de départ, l'échantillon de test et la table des seuils.</p>
+    <details class="answer"><summary>Ce qu'on observe en général</summary>
+      <p>Avec une bonne liste de mots, la majorité des mails se classe sans hésiter. Ceux qui restent sont toujours les mêmes : un mail qui parle de deux familles, un mail vague (« j'ai un problème avec mon contrat »), un mail dont l'objet ne correspond pas au corps. C'est sur ceux-là seulement qu'un modèle apporte quelque chose, et c'est sur ceux-là qu'on mesure. La criticité notée par famille donne directement la table des seuils : automatique quand l'erreur coûte peu, relecture humaine quand elle coûte cher.</p>
+    </details>
   </div>
 </section>
 

@@ -104,7 +104,7 @@
       <ul class="clean">
         <li><strong>Il anticipe, il ne sait pas.</strong> Il donne la réponse la plus probable dans le contexte. Quand le contexte est pauvre, la réponse la plus probable peut être fausse.</li>
         <li><strong>L'hallucination n'est pas une panne</strong>, c'est le mécanisme normal. Il « hallucine » tout le temps ; l'erreur dépend du contexte.</li>
-        <li><strong>Il ne calcule rien.</strong> Demandez-lui un nombre au hasard : il répond 7, la réponse majoritaire dans ses données.</li>
+        <li><strong>Il ne calcule rien.</strong> Un « nombre au hasard », une somme, un tri : il produit la suite la plus fréquente dans ses données, pas un résultat calculé.</li>
         <li><strong>Ses poids ne changent pas</strong> quand vous discutez. « Se souvenir » d'une conversation n'est pas « apprendre ».</li>
       </ul>
     </div>
@@ -112,11 +112,24 @@
 
   <div class="try">
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
-    <p><strong>Trois expériences de deux minutes</strong>, dans n'importe quel chatbot, pour sentir le moteur nu :</p>
+    <p><strong>Trois expériences de deux minutes</strong>, dans n'importe quel chatbot, pour sentir le moteur nu. Faites chaque test avant de déplier la réponse.</p>
     <ol class="steps">
-      <li><strong>Le nombre aléatoire.</strong><p>Demandez « donne-moi un nombre entre 1 et 10 ». Recommencez dans une nouvelle conversation. Observez la fréquence du 7.</p></li>
-      <li><strong>Le contexte qui change la réponse.</strong><p>Demandez « c'est quoi la Ligue des champions ? » puis, dans une autre conversation, « en tant que passionné de rugby, c'est quoi la Ligue des champions ? ». Même question, réponse différente.</p></li>
-      <li><strong>La fausse référence.</strong><p>Demandez l'article du Code des assurances qui régit un point précis et vérifiez sur Légifrance. Le numéro d'article a toutes les chances d'être plausible, et faux.</p></li>
+      <li><strong>Le nombre aléatoire.</strong><p>Demandez « donne-moi un nombre entre 1 et 10 ». Recommencez dans une nouvelle conversation, cinq ou six fois. Quel nombre sort le plus souvent ? Puis demandez « tire un nombre entre 1 et 10 avec Python » et recommencez.</p>
+        <details class="answer"><summary>Voir la réponse</summary>
+          <p>Sans outil, c'est très souvent 7. Rien d'aléatoire là-dedans : le moteur donne la suite de mots la plus probable dans ses données, et quand on demande un nombre « au hasard » à des humains, 7 revient plus que les autres. Le modèle reproduit cette préférence. Ce n'est ni logique, ni intelligent, ni aléatoire : c'est fréquent.</p>
+          <p>Avec « avec Python », le moteur écrit une ligne de code, une machine l'exécute, et le tirage est vraiment aléatoire. Les chatbots récents savent lancer du code, il suffit de le demander. Même réflexe pour un calcul : « calcule avec Python » plutôt que « combien font ».</p>
+        </details>
+      </li>
+      <li><strong>Le contexte qui change la réponse.</strong><p>Demandez « c'est quoi la Ligue des champions ? » puis, dans une autre conversation, « en tant que passionné de rugby, c'est quoi la Ligue des champions ? ». Comparez les deux réponses.</p>
+        <details class="answer"><summary>Voir la réponse</summary>
+          <p>Sans précision, le moteur parle football : c'est de loin le sens le plus fréquent dans ses données, il ne pense jamais au handball ni au rugby, qui ont pourtant leur compétition européenne. Avec « passionné de rugby » dans le contexte, la suite la plus probable change, et la réponse bascule vers la coupe d'Europe de rugby. Le moteur n'a rien « compris » de vous : quelques mots ont déplacé les probabilités. C'est tout le principe du prompt, plus bas dans ce module.</p>
+        </details>
+      </li>
+      <li><strong>La fausse référence.</strong><p>Demandez l'article du Code des assurances qui régit un point précis et peu courant, puis vérifiez sur Légifrance.</p>
+        <details class="answer"><summary>Voir la réponse</summary>
+          <p>Sur un article très cité, la référence tombe juste : elle est fréquente dans ses données. Sur un point rare, le numéro a la bonne forme et il est souvent faux. Le moteur ne consulte pas le Code, il produit la suite de caractères la plus probable. La parade : lui donner le texte à lire (c'est le RAG, module 03), et vérifier toute référence avant de la citer.</p>
+        </details>
+      </li>
     </ol>
   </div>
 </section>
@@ -369,6 +382,9 @@
   <div class="try">
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
     <p><strong>Une déclaration de sinistre auto</strong>, en trois versions. D'abord « rédige une déclaration de sinistre ». Puis la même avec l'objectif et le contexte : accident responsable, contrat tous risques, franchise 300 €, limiter l'impact sur le bonus-malus. Enfin, demandez au modèle d'écrire lui-même le prompt idéal pour ce cas, corrigez ce qui ne correspond pas à votre pratique, et relancez. Comparez ce qu'un gestionnaire pourrait faire de chacune des trois.</p>
+    <details class="answer"><summary>Ce qu'on observe en général</summary>
+      <p>La première version est une lettre passe-partout, sans date, sans lieu, sans circonstances : inutilisable telle quelle. La deuxième reprend vos éléments et propose déjà des formulations prudentes sur la responsabilité. La troisième est souvent la meilleure : le prompt écrit par le modèle pense à ce que vous aviez oublié (le constat, les tiers, les photos, le délai de déclaration), et vos corrections lui rendent votre pratique. Le gain ne vient pas d'un meilleur modèle, il vient du contexte que vous lui donnez.</p>
+    </details>
   </div>
 </section>
 

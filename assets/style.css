@@ -304,6 +304,17 @@ table.compact th.num { font-family: var(--display); font-size: .74rem; }
 .steps.cols-2 { grid-template-columns: 1fr 1fr; }
 @media (max-width: 940px) { .steps.cols-2 { grid-template-columns: 1fr; } }
 
+/* ---------- Reponse cachee : l'exercice s'affiche, la reponse se deplie au clic ---------- */
+
+details.answer { margin-top: 12px; border-left: 3px solid var(--steel-l); padding: 2px 0 2px 14px; }
+details.answer summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 8px; font-family: var(--display); font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--crimson); }
+details.answer summary::-webkit-details-marker { display: none; }
+details.answer summary::before { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid currentColor; font-size: .85rem; line-height: 1; }
+details.answer[open] summary::before { content: "\2212"; }
+details.answer[open] summary { margin-bottom: 8px; }
+details.answer p { margin: 0 0 .6em; font-size: .93rem; color: var(--ink-soft); }
+details.answer > :last-child { margin-bottom: 0; }
+
 /* ---------- Chiffres ---------- */
 
 .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }

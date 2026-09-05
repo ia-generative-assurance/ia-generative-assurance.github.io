@@ -139,6 +139,9 @@
   <div class="try reveal">
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
     <p>Prenez trois mails de sinistre. Sur papier, listez les mots-clés qui suffiraient à les router vers le bon service (auto, habitation, santé). Puis cherchez le mail qui met votre liste en échec : une faute, un synonyme, une formulation détournée. C'est la section suivante.</p>
+    <details class="answer"><summary>Ce que vous allez trouver</summary>
+      <p>Une courte liste de mots route la majorité des mails sans se tromper. Elle casse sur trois profils : la faute de frappe (« plonbier »), le synonyme ou la périphrase (« fuite sous l'évier » sans le mot plomberie), et le mail qui décrit le problème sans aucun mot de votre liste. Ce sont les trois parades de la section suivante, de la plus simple à la plus profonde. Le mail qui mélange deux familles est une autre limite, elle arrive plus loin dans le module.</p>
+    </details>
   </div>
 </section>
 
@@ -367,7 +370,10 @@ similarité cosinus : 0,87</div>
 
   <div class="try reveal">
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> Atelier : coder un modèle génératif en vingt lignes</span>
-    <p>Sur un corpus de déclarations de sinistres, on compte les paires de mots : après « dégât », « des » apparaît 412 fois, « important » 87 fois. On normalise en probabilités. La table de comptage <strong>est</strong> le modèle. On génère ensuite en tirant le mot suivant et en recommençant : <em>« suite à un dégât des eaux de la toiture de la déclaration de la fuite… »</em>. Localement plausible, globalement incohérent. Puis on agrandit le contexte à deux mots : la table explose (27 000 milliards de cases pour 30 000 mots). C'est la limite qui appelle un réseau qui compresse et généralise. Le bigramme et GPT partagent la même tâche, la même boucle, les mêmes symptômes ; seule la qualité du contexte change.</p>
+    <p>Sur un corpus de déclarations de sinistres, on compte les paires de mots : après « dégât », « des » apparaît 412 fois, « important » 87 fois. On normalise en probabilités. La table de comptage <strong>est</strong> le modèle. On génère ensuite en tirant le mot suivant et en recommençant : <em>« suite à un dégât des eaux de la toiture de la déclaration de la fuite… »</em>. Localement plausible, globalement incohérent. Puis on agrandit le contexte. Question : avec un vocabulaire de 30 000 mots, combien de cases dans la table avec un mot de contexte ? Avec deux ? Avec trois ?</p>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p>Un mot de contexte : 30 000 × 30 000, soit 900 millions de cases. Deux mots : 30 000 au cube, soit 27 000 milliards. Trois mots : 810 millions de milliards. Aucun corpus ne remplit une table pareille, presque toutes les cases resteraient vides. C'est la limite qui appelle un réseau qui compresse et généralise. Le bigramme et GPT partagent la même tâche, la même boucle, les mêmes symptômes ; seule la qualité du contexte change.</p>
+    </details>
   </div>
 </section>
 
