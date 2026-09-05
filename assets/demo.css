@@ -30,3 +30,13 @@
 .demo-cat span { color: var(--ink-soft); }
 .demo-note { font-size: .8rem; color: var(--ink-mute); margin-top: 12px; line-height: 1.45; }
 @media print { .demo-bar { display: none; } }
+
+/* Demos autonomes (un fichier HTML chacune, dossier demos/) integrees dans
+   une page par iframe. A l'impression, l'iframe est remplacee par un renvoi. */
+.demo-embed { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); background: #fff; margin: 8px 0 26px; }
+.demo-embed .demo-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; background: var(--sand-l); border-bottom: 1px solid var(--line); font-size: .86rem; color: var(--ink-soft); }
+.demo-embed .demo-head b { font-family: var(--display); color: var(--navy); }
+.demo-embed .demo-head a { font-weight: 700; white-space: nowrap; }
+.demo-embed iframe { display: block; width: 100%; border: 0; background: #fff; }
+.demo-embed .print-note { display: none; padding: 16px 18px; font-size: .9rem; color: var(--ink-soft); }
+@media print { .demo-embed { break-inside: avoid; } .demo-embed iframe { display: none; } .demo-embed .print-note { display: block; } }

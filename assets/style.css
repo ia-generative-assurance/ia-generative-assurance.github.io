@@ -185,6 +185,7 @@ section.band.tight { padding: 46px 0; }
 .card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 28px; box-shadow: var(--shadow); transition: transform .2s ease, box-shadow .2s ease; }
 .card > :last-child { margin-bottom: 0; }
 .card h3 { margin-bottom: 10px; }
+.card > h4 { margin-bottom: 8px; }
 a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); text-decoration: none; }
 .card .tag { display: inline-block; font-family: var(--display); font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--crimson); background: var(--crimson-w); border-radius: 20px; padding: 4px 12px; margin-bottom: 12px; }
 .card.accent { border-top: 4px solid var(--crimson); }
@@ -379,7 +380,7 @@ ul.clean li::before { content: "\203A"; position: absolute; left: 4px; top: -1px
   figure, .card, .table-wrap, .callout, .try, .ba { break-inside: avoid; }
   h2, h3 { break-after: avoid; }
   body { font-size: 11pt; }
-  section.band { padding: 18px 0; break-inside: avoid; }
+  section.band { padding: 18px 0; }
   .card, .tool, .table-wrap { box-shadow: none; }
   .reveal { opacity: 1; transform: none; }
 }

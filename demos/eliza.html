@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELIZA: DOCTOR (1966)</title>
+<style>
+  :root { --green:#33ff66; --dim:#1f9c45; --bg:#020a04; }
+  * { box-sizing:border-box; }
+  html,body { height:100%; margin:0; }
+  body {
+    background:radial-gradient(ellipse at center,#04140a 0%,var(--bg) 100%);
+    color:var(--green);
+    font-family:"Consolas","Courier New",monospace;
+    display:flex; flex-direction:column; align-items:center;
+    padding:24px 12px; min-height:100%;
+  }
+  .screen {
+    width:100%; max-width:760px; flex:1; display:flex; flex-direction:column;
+    border:2px solid var(--dim); border-radius:10px;
+    background:rgba(2,16,7,.6);
+    box-shadow:0 0 24px rgba(51,255,102,.18), inset 0 0 60px rgba(51,255,102,.06);
+    overflow:hidden; position:relative;
+  }
+  /* scanlines */
+  .screen::after {
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(transparent 0 2px, rgba(0,0,0,.18) 2px 4px);
+    mix-blend-mode:multiply;
+  }
+  header {
+    padding:10px 16px; border-bottom:1px solid var(--dim);
+    font-size:13px; letter-spacing:2px; text-transform:uppercase;
+    display:flex; justify-content:space-between; opacity:.85;
+  }
+  #log {
+    flex:1; overflow-y:auto; padding:16px; line-height:1.5; font-size:15px;
+    white-space:pre-wrap; word-break:break-word;
+  }
+  #log .you  { color:#aef5c4; }
+  #log .you::before  { content:"YOU:   "; color:var(--dim); }
+  #log .eliza::before{ content:"ELIZA: "; color:var(--dim); }
+  #log .eliza { color:var(--green); text-shadow:0 0 6px rgba(51,255,102,.5); }
+  #log .row { margin:4px 0; }
+  form { display:flex; border-top:1px solid var(--dim); }
+  .prompt { padding:12px 8px 12px 16px; color:var(--dim); }
+  #input {
+    flex:1; background:transparent; border:0; outline:0;
+    color:#aef5c4; font:inherit; font-size:15px; padding:12px 16px 12px 0;
+    text-shadow:0 0 6px rgba(174,245,196,.5);
+  }
+  .cursor { animation:blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+  footer { text-align:center; font-size:11px; opacity:.45; margin-top:10px; max-width:760px; }
+</style>
+</head>
+<body>
+  <div class="screen">
+    <header><span>ELIZA</span><span>DOCTOR script · MIT 1966</span></header>
+    <div id="log" aria-live="polite"></div>
+    <form id="form" autocomplete="off">
+      <span class="prompt">&gt;</span>
+      <input id="input" type="text" aria-label="Type to ELIZA">
+    </form>
+  </div>
+  <footer>
+    Recreation of Joseph Weizenbaum's ELIZA (the DOCTOR script): keyword ranking,
+    decomposition / reassembly rules, pronoun reflection, and memory. No network, no model: pure pattern matching.
+  </footer>
+
+<script>
+// ---------------------------------------------------------------------------
+// ELIZA: faithful reconstruction of the 1966 DOCTOR script.
+// Mechanism: rank keywords found in the input, pick the highest; match the
+// input against that keyword's decomposition patterns ("*" = wildcard); fill
+// the chosen reassembly template, reflecting pronouns in captured fragments.
+// When nothing matches, fall back to content-free prompts or a stored memory.
+// ---------------------------------------------------------------------------
+
+// Pronoun / verb reflection applied to the fragments captured by "*".
+const reflections = {
+  "am":"are","was":"were","i":"you","i'd":"you would","i've":"you have",
+  "i'll":"you will","i'm":"you are","my":"your","me":"you","you've":"I have",
+  "you'll":"I will","you're":"I am","your":"my","yours":"mine","you":"I",
+  "are":"am","were":"was","myself":"yourself","yourself":"myself"
+};
+
+function reflect(fragment){
+  return fragment.trim().split(/\s+/).map(w=>{
+    const key = w.toLowerCase().replace(/[.,!?;:]+$/,"");
+    return reflections.hasOwnProperty(key) ? reflections[key] : w;
+  }).join(" ");
+}
+
+// Each keyword: rank + list of {decomp, reasmb}. "(n)" in reasmb = reflected
+// fragment captured by the n-th "*". Reassemblies cycle so replies vary.
+const script = [
+  { word:"sorry", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Please don't apologize.",
+      "Apologies are not necessary.",
+      "What feelings do you have when you apologize?",
+      "I've told you that apologies are not required." ] } ] },
+
+  { word:"remember", rank:5, rules:[
+    { decomp:"* i remember *", reasmb:[
+      "Do you often think of (2)?",
+      "Does thinking of (2) bring anything else to mind?",
+      "What else do you remember?",
+      "Why do you remember (2) just now?",
+      "What in the present situation reminds you of (2)?",
+      "What is the connection between me and (2)?" ] },
+    { decomp:"* do you remember *", reasmb:[
+      "Did you think I would forget (2)?",
+      "Why do you think I should recall (2) now?",
+      "What about (2)?",
+      "You mentioned (2)?" ] } ] },
+
+  { word:"if", rank:3, rules:[
+    { decomp:"* if *", reasmb:[
+      "Do you think it's likely that (2)?",
+      "Do you wish that (2)?",
+      "What do you know about (2)?",
+      "Really, if (2)?" ] } ] },
+
+  { word:"dreamed", rank:4, rules:[
+    { decomp:"* i dreamed *", reasmb:[
+      "Really, (2)?",
+      "Have you ever fantasized (2) while you were awake?",
+      "Have you ever dreamed (2) before?" ] } ] },
+
+  { word:"dream", rank:3, rules:[
+    { decomp:"*", reasmb:[
+      "What does that dream suggest to you?",
+      "Do you dream often?",
+      "What persons appear in your dreams?",
+      "Do you believe that dreams have something to do with your problem?" ] } ] },
+
+  { word:"perhaps", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "You don't seem quite certain.",
+      "Why the uncertain tone?",
+      "Can't you be more positive?",
+      "You aren't sure?",
+      "Don't you know?" ] } ] },
+
+  { word:"hello", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "How do you do. Please state your problem.",
+      "Hi. What seems to be your problem?" ] } ] },
+
+  { word:"computer", rank:50, rules:[
+    { decomp:"*", reasmb:[
+      "Do computers worry you?",
+      "Why do you mention computers?",
+      "What do you think machines have to do with your problem?",
+      "Don't you think computers can help people?",
+      "What about machines worries you?",
+      "What do you think about machines?" ] } ] },
+
+  { word:"am", rank:0, rules:[
+    { decomp:"* am i *", reasmb:[
+      "Do you believe you are (2)?",
+      "Would you want to be (2)?",
+      "Do you wish I would tell you you are (2)?",
+      "What would it mean if you were (2)?" ] },
+    { decomp:"*", reasmb:[
+      "Why do you say 'am'?",
+      "I don't understand that." ] } ] },
+
+  { word:"are", rank:0, rules:[
+    { decomp:"* are you *", reasmb:[
+      "Why are you interested in whether I am (2) or not?",
+      "Would you prefer if I weren't (2)?",
+      "Perhaps I am (2) in your fantasies.",
+      "Do you sometimes think I am (2)?" ] },
+    { decomp:"* are *", reasmb:[
+      "Did you think they might not be (2)?",
+      "Would you like it if they were not (2)?",
+      "What if they were not (2)?",
+      "Are they always (2)?",
+      "Possibly they are (2)." ] } ] },
+
+  { word:"your", rank:0, rules:[
+    { decomp:"* your *", reasmb:[
+      "Why are you concerned over my (2)?",
+      "What about your own (2)?",
+      "Are you worried about someone else's (2)?",
+      "Really, my (2)?" ] } ] },
+
+  { word:"was", rank:2, rules:[
+    { decomp:"* was i *", reasmb:[
+      "What if you were (2)?",
+      "Do you think you were (2)?",
+      "Were you (2)?",
+      "Would you like to believe you were (2)?" ] },
+    { decomp:"* i was *", reasmb:[
+      "Were you really?",
+      "Why do you tell me you were (2) now?",
+      "Perhaps I already know you were (2)." ] },
+    { decomp:"* was you *", reasmb:[
+      "Would you like to believe I was (2)?",
+      "What suggests that I was (2)?",
+      "Perhaps I was (2).",
+      "What are your feelings now?" ] } ] },
+
+  { word:"i", rank:0, rules:[
+    { decomp:"* i @desire *", reasmb:[
+      "What would it mean to you if you got (3)?",
+      "Why do you want (3)?",
+      "Suppose you got (3) soon.",
+      "What if you never got (3)?",
+      "What would getting (3) mean to you?" ] },
+    { decomp:"* i am * @sad *", reasmb:[
+      "I am sorry to hear that you are (3).",
+      "Do you think coming here will help you not to be (3)?",
+      "I'm sure it's not pleasant to be (3).",
+      "Can you explain what made you (3)?" ] },
+    { decomp:"* i am * @happy *", reasmb:[
+      "How have I helped you to be (3)?",
+      "Has your treatment made you (3)?",
+      "What makes you (3) just now?",
+      "Can you explain why you are suddenly (3)?" ] },
+    { decomp:"* i am *", reasmb:[
+      "Is it because you are (2) that you came to me?",
+      "How long have you been (2)?",
+      "Do you believe it is normal to be (2)?",
+      "Do you enjoy being (2)?" ] },
+    { decomp:"* i @cant *", reasmb:[
+      "How do you know you can't (3)?",
+      "Have you tried?",
+      "Perhaps you could (3) now.",
+      "Do you really want to be able to (3)?" ] },
+    { decomp:"* i feel *", reasmb:[
+      "Tell me more about such feelings.",
+      "Do you often feel (2)?",
+      "Do you enjoy feeling (2)?",
+      "Of what does feeling (2) remind you?" ] },
+    { decomp:"* i *", reasmb:[
+      "You say (1) you (2)?",
+      "Can you elaborate on that?",
+      "Do you say (1) you (2) for some special reason?",
+      "That's quite interesting." ] } ] },
+
+  { word:"you", rank:0, rules:[
+    { decomp:"* you remind me of *", reasmb:[ "In what way?", "What resemblance do you see?" ] },
+    { decomp:"* you are *", reasmb:[
+      "What makes you think I am (2)?",
+      "Does it please you to believe I am (2)?",
+      "Perhaps you would like to be (2).",
+      "Do you sometimes wish you were (2)?" ] },
+    { decomp:"* you* me *", reasmb:[
+      "Why do you think I (2) you?",
+      "You like to think I (2) you, don't you?",
+      "What makes you think I (2) you?",
+      "Really, I (2) you?" ] },
+    { decomp:"* you *", reasmb:[
+      "We were discussing you, not me.",
+      "Oh, I (2)?",
+      "You're not really talking about me, are you?",
+      "What are your feelings now?" ] } ] },
+
+  { word:"yes", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "You seem quite positive.",
+      "You are sure.",
+      "I see.",
+      "I understand." ] } ] },
+
+  { word:"no", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Are you saying no just to be negative?",
+      "You are being a bit negative.",
+      "Why not?",
+      "Why 'no'?" ] } ] },
+
+  { word:"my", rank:2, memory:true, rules:[
+    { decomp:"* my * @family *", reasmb:[
+      "Tell me more about your family.",
+      "Who else in your family (4)?",
+      "Your (3)?",
+      "What else comes to mind when you think of your (3)?" ] },
+    { decomp:"* my *", reasmb:[
+      "Your (2)?",
+      "Why do you say your (2)?",
+      "Does that suggest anything else which belongs to you?",
+      "Is it important to you that your (2)?" ] } ] },
+
+  { word:"can", rank:0, rules:[
+    { decomp:"* can you *", reasmb:[
+      "You believe I can (2), don't you?",
+      "Perhaps you would like to be able to (2) yourself.",
+      "Whether or not you can (2) depends on you more than on me." ] },
+    { decomp:"* can i *", reasmb:[
+      "Whether or not you can (2) depends on you more than on me.",
+      "Do you want to be able to (2)?",
+      "Perhaps you don't want to (2)." ] } ] },
+
+  { word:"what", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Why do you ask?",
+      "Does that question interest you?",
+      "What is it you really want to know?",
+      "What answer would please you most?",
+      "What do you think?",
+      "What comes to your mind when you ask that?" ] } ] },
+
+  { word:"because", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Is that the real reason?",
+      "Don't any other reasons come to mind?",
+      "Does that reason seem to explain anything else?",
+      "What other reasons might there be?" ] } ] },
+
+  { word:"why", rank:0, rules:[
+    { decomp:"* why don't you *", reasmb:[
+      "Do you believe I don't (2)?",
+      "Perhaps I will (2) in good time.",
+      "Should you (2) yourself?" ] },
+    { decomp:"* why can't i *", reasmb:[
+      "Do you think you should be able to (2)?",
+      "Do you want to be able to (2)?",
+      "Do you believe this will help you to (2)?" ] },
+    { decomp:"*", reasmb:[ "Why do you ask that?", "Does that question interest you?" ] } ] },
+
+  { word:"everyone", rank:2, rules:[
+    { decomp:"* @everyone *", reasmb:[
+      "Really, (2)?",
+      "Surely not (2).",
+      "Can you think of anyone in particular?",
+      "Who, for example?",
+      "Whom are you thinking of?" ] } ] },
+
+  { word:"always", rank:1, rules:[
+    { decomp:"*", reasmb:[
+      "Can you think of a specific example?",
+      "When?",
+      "What incident are you thinking of?",
+      "Really, always?" ] } ] },
+
+  { word:"like", rank:10, rules:[
+    { decomp:"* @be *like *", reasmb:[
+      "In what way?",
+      "What resemblance do you see?",
+      "What does that similarity suggest to you?",
+      "What other connections do you see?" ] } ] }
+];
+
+// Synonym groups used by "@name" tokens inside decomposition patterns.
+const synonyms = {
+  desire:["want","need","desire","wish"],
+  sad:["sad","unhappy","depressed","sick","upset","miserable"],
+  happy:["happy","elated","glad","better","good"],
+  cant:["can't","cannot","cant"],
+  family:["mother","mom","father","dad","sister","brother","wife","husband","children","son","daughter","family"],
+  everyone:["everyone","everybody","nobody","noone","no-one"],
+  be:["am","is","are","was","be"]
+};
+
+// Content-free fallbacks when no keyword matches and no memory is queued.
+const xnone = [
+  "I'm not sure I understand you fully.",
+  "Please go on.",
+  "What does that suggest to you?",
+  "Do you feel strongly about discussing such things?",
+  "That is interesting. Please continue.",
+  "Tell me more about that.",
+  "Does talking about this bother you?",
+  "Can you elaborate on that?"
+];
+
+// Build a regex from a decomposition pattern: "*" -> capture group,
+// "@name" -> alternation of its synonyms (also captured), words literal.
+function decompToRegex(decomp){
+  const parts = decomp.trim().split(/\s+/).map(tok=>{
+    if(tok === "*") return "(.*)";
+    if(tok.startsWith("@")){
+      const grp = synonyms[tok.slice(1)] || [tok.slice(1)];
+      return "(" + grp.map(escapeRe).join("|") + ")";
+    }
+    return escapeRe(tok);
+  });
+  // tolerate flexible spacing/punctuation between tokens
+  return new RegExp("^\\s*" + parts.join("\\s*") + "\\s*$", "i");
+}
+function escapeRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
+
+function fill(template, groups){
+  return template.replace(/\((\d+)\)/g, (_,n)=>{
+    const g = groups[Number(n)] || "";
+    return reflect(g);
+  }).replace(/\s+([.?!,])/g,"$1");
+}
+
+// Cursor used by the reassembly cycler to vary replies per rule.
+const cursor = new Map();
+function pickReasmb(rule){
+  const key = rule.decomp;
+  const i = cursor.get(key) || 0;
+  cursor.set(key, (i+1) % rule.reasmb.length);
+  return rule.reasmb[i];
+}
+
+const memory = [];
+
+function cleanInput(text){
+  // ELIZA split on punctuation and kept the first clause with a keyword;
+  // we keep it simple: strip trailing punctuation, collapse spaces.
+  return text.replace(/[.!?;]+/g," ").replace(/\s+/g," ").trim();
+}
+
+function respond(raw){
+  const input = cleanInput(raw);
+  if(!input) return "Say whatever comes to mind.";
+  const lower = " " + input.toLowerCase() + " ";
+
+  // collect matching keywords; highest rank first, then the keyword that
+  // appears earliest in the sentence (as the original ELIZA scanned).
+  const found = script
+    .map((k,idx)=>{
+      const m = lower.match(new RegExp("\\b"+escapeRe(k.word)+"\\b","i"));
+      return { k, idx, pos: m ? m.index : -1 };
+    })
+    .filter(o=> o.pos>=0)
+    .sort((a,b)=> (b.k.rank-a.k.rank) || (a.pos-b.pos) || (a.idx-b.idx));
+
+  for(const {k} of found){
+    for(const rule of k.rules){
+      const m = input.match(decompToRegex(rule.decomp));
+      if(m){
+        // store a memory line when a "my ..." statement is seen
+        if(k.memory && m[2]){
+          memory.push("Earlier you said your " + reflect(m[2]) + ".");
+          if(memory.length>5) memory.shift();
+        }
+        return fill(pickReasmb(rule), m);
+      }
+    }
+  }
+
+  // no keyword matched: sometimes recall a memory, else a neutral prompt
+  if(memory.length && Math.random()<0.4) return memory.shift();
+  const i = cursor.get("xnone") || 0;
+  cursor.set("xnone",(i+1)%xnone.length);
+  return xnone[i];
+}
+
+// ---- UI -------------------------------------------------------------------
+const log = document.getElementById("log");
+const form = document.getElementById("form");
+const input = document.getElementById("input");
+
+function add(text, cls){
+  const row = document.createElement("div");
+  row.className = "row " + cls;
+  row.textContent = text;
+  log.appendChild(row);
+  log.scrollTop = log.scrollHeight;
+}
+
+function elizaSay(text){
+  // tiny typing delay for the period feel
+  const row = document.createElement("div");
+  row.className = "row eliza";
+  log.appendChild(row);
+  let i = 0;
+  const timer = setInterval(()=>{
+    row.textContent = text.slice(0,++i);
+    log.scrollTop = log.scrollHeight;
+    if(i>=text.length){ clearInterval(timer); }
+  }, 12);
+}
+
+form.addEventListener("submit", e=>{
+  e.preventDefault();
+  const text = input.value.trim();
+  if(!text) return;
+  add(text,"you");
+  input.value = "";
+  setTimeout(()=> elizaSay(respond(text)), 250);
+});
+
+elizaSay("How do you do. I am ELIZA. Please tell me your problem.");
+input.focus();
+</script>
+</body>
+</html>

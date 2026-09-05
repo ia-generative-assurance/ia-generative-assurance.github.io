@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panorama des chatbots : comparateur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#13264A; --crimson:#BA1C3A; --steel:#3B547D; --teal:#1F6F6B; --amber:#9A6B1E;
+    --sand:#E9E4E1; --sand-l:#F7F4F2; --line:#dcd8d4; --ink:#1f2733; --muted:#78828f;
+    --display:"Manrope","Segoe UI",sans-serif; --sans:"Inter","Segoe UI",Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:var(--sand-l);min-height:100vh;padding:22px 22px 150px}
+  .wrap{max-width:1080px;margin:0 auto}
+  .hint{text-align:center;color:var(--muted);font-size:13px;margin:0 0 18px}
+  .hint b{color:var(--navy)}
+  .hint kbd{background:#fff;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 7px;font-size:12px;color:var(--ink)}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:700px){.grid{grid-template-columns:1fr}}
+
+  .card{
+    position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:20px 20px 18px;cursor:pointer;overflow:hidden;
+    box-shadow:0 1px 2px rgba(19,38,74,.05),0 10px 30px rgba(19,38,74,.06);
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--accent);
+    transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+  .card.in::before{transform:scaleX(1)}
+  .card:hover{transform:translateY(-3px);box-shadow:0 2px 6px rgba(19,38,74,.06),0 24px 50px rgba(19,38,74,.14)}
+  .card.sel{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent),0 16px 36px rgba(19,38,74,.12)}
+  .head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .logo{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:19px;color:#fff;background:var(--accent);flex:0 0 auto}
+  .name{font-family:var(--display);font-size:19px;font-weight:800;color:var(--accent)}
+  .vendor{font-size:12.5px;color:var(--muted);margin-top:1px}
+  .row{font-size:14px;line-height:1.5;margin:6px 0}
+  .row .k{font-weight:700;color:var(--accent)}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+  .tag{font-size:11.5px;background:color-mix(in srgb,var(--accent) 10%,#fff);color:var(--accent);
+    border:1px solid color-mix(in srgb,var(--accent) 30%,#fff);padding:3px 10px;border-radius:999px;font-weight:600}
+  .pick{position:absolute;top:14px;right:14px;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);
+    display:grid;place-items:center;color:#fff;font-size:14px;transition:.18s}
+  .card.sel .pick{background:var(--accent);border-color:var(--accent)}
+
+  /* tiroir de comparaison */
+  .drawer{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);
+    box-shadow:0 -10px 30px rgba(19,38,74,.12);transform:translateY(110%);transition:transform .3s ease;z-index:30}
+  .drawer.open{transform:translateY(0)}
+  .drawer .inner{max-width:1080px;margin:0 auto;padding:14px 22px 18px}
+  .drawer .bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .drawer h3{margin:0;font-family:var(--display);font-size:16px;color:var(--navy)}
+  .cmp{display:grid;grid-template-columns:110px 1fr 1fr;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px}
+  .cmp>div{padding:9px 12px;border-bottom:1px solid var(--line)}
+  .cmp .hd{font-weight:700;color:#fff}
+  .cmp .lab{background:var(--sand-l);font-weight:600;color:var(--muted)}
+  .cmp .corner{background:var(--sand)}
+  .btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 14px;font-size:13px;cursor:pointer;font-weight:600;color:var(--ink);font-family:inherit}
+  .btn:hover{background:var(--sand-l)}
+  .count{font-size:12.5px;color:var(--muted);margin-right:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="hint">Survolez une carte, <b>cliquez sur deux cartes pour les comparer</b>. Touches <kbd>1</kbd> à <kbd>4</kbd> pour sélectionner, <kbd>Échap</kbd> pour réinitialiser.</p>
+  <div class="grid" id="grid"></div>
+</div>
+
+<div class="drawer" id="drawer">
+  <div class="inner">
+    <div class="bar">
+      <h3 id="cmpTitle">Comparaison</h3>
+      <div>
+        <span class="count" id="count"></span>
+        <button class="btn" onclick="reset()">Réinitialiser</button>
+      </div>
+    </div>
+    <div class="cmp" id="cmp"></div>
+  </div>
+</div>
+
+<script>
+const DATA = [
+  { id:"chatgpt", name:"ChatGPT", vendor:"OpenAI", accent:"var(--crimson)", mark:"G",
+    position:"Le pionnier grand public, le point de départ le plus courant",
+    forces:"L'écosystème le plus riche : GPTs, plugins, API, outils intégrés",
+    usage:"Généraliste, création, programmation",
+    tags:["Généraliste","Création","Programmation"] },
+  { id:"claude", name:"Claude", vendor:"Anthropic", accent:"var(--teal)", mark:"C",
+    position:"Le plus utilisé en entreprise pour le code et les longs documents",
+    forces:"Grande fenêtre de contexte, rédaction nuancée, agents de code",
+    usage:"Rédaction pro, analyse de documents, développement",
+    tags:["Documents longs","Analyse","Développement"] },
+  { id:"gemini", name:"Gemini", vendor:"Google", accent:"var(--amber)", mark:"G",
+    position:"Google possède toute la chaîne, et a inventé les Transformers",
+    forces:"Web en temps réel, intégré à Workspace, multimodal",
+    usage:"Recherche avancée, suite Google",
+    tags:["Recherche","Web temps réel","Workspace"] },
+  { id:"copilot", name:"Copilot", vendor:"Microsoft", accent:"var(--steel)", mark:"M",
+    position:"Pas de modèle propre (OpenAI dessous), mais intégré partout",
+    forces:"Office 365 avec le contexte et les droits d'accès de l'entreprise",
+    usage:"Bureautique : Teams, Outlook, Word",
+    tags:["Bureautique","Office 365","Entreprise"] },
+];
+
+const grid = document.getElementById('grid');
+let selected = [];
+
+DATA.forEach((d, i) => {
+  const el = document.createElement('div');
+  el.className = 'card';
+  el.style.setProperty('--accent', d.accent);
+  el.dataset.id = d.id;
+  el.innerHTML = `
+    <div class="pick">✓</div>
+    <div class="head">
+      <div class="logo">${d.mark}</div>
+      <div>
+        <div class="name">${d.name}</div>
+        <div class="vendor">${d.vendor}</div>
+      </div>
+    </div>
+    <div class="row"><span class="k">Position :</span> ${d.position}</div>
+    <div class="row"><span class="k">Forces :</span> ${d.forces}</div>
+    <div class="row"><span class="k">Usage :</span> ${d.usage}</div>
+    <div class="tags">${d.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+  `;
+  el.addEventListener('click', () => toggle(d.id));
+  grid.appendChild(el);
+  setTimeout(()=>el.classList.add('in'), 120 + i*120);
+});
+
+function toggle(id){
+  const idx = selected.indexOf(id);
+  if(idx>=0){ selected.splice(idx,1); }
+  else { selected.push(id); if(selected.length>2) selected.shift(); }
+  render();
+}
+function reset(){ selected=[]; render(); }
+
+function render(){
+  document.querySelectorAll('.card').forEach(c=>{
+    c.classList.toggle('sel', selected.includes(c.dataset.id));
+  });
+  const drawer = document.getElementById('drawer');
+  const count = document.getElementById('count');
+  if(selected.length===0){ drawer.classList.remove('open'); return; }
+  if(selected.length===1){
+    count.textContent = "Sélectionnez un deuxième chatbot pour comparer.";
+    drawer.classList.remove('open');
+    return;
+  }
+  count.textContent = "";
+  const a = DATA.find(x=>x.id===selected[0]);
+  const b = DATA.find(x=>x.id===selected[1]);
+  document.getElementById('cmpTitle').textContent = `${a.name} et ${b.name}`;
+  const cmp = document.getElementById('cmp');
+  const rows = [["Position","position"],["Forces","forces"],["Usage","usage"]];
+  cmp.innerHTML = '';
+  const head = [
+    {t:'', cls:'lab corner'},
+    {t:`${a.name} (${a.vendor})`, cls:'hd', bg:a.accent},
+    {t:`${b.name} (${b.vendor})`, cls:'hd', bg:b.accent},
+  ];
+  head.forEach(h=>{
+    const c=document.createElement('div'); c.className=h.cls; c.textContent=h.t;
+    if(h.bg) c.style.background=h.bg; cmp.appendChild(c);
+  });
+  rows.forEach(([label,key])=>{
+    const l=document.createElement('div'); l.className='lab'; l.textContent=label; cmp.appendChild(l);
+    const ca=document.createElement('div'); ca.textContent=a[key]; cmp.appendChild(ca);
+    const cb=document.createElement('div'); cb.textContent=b[key]; cmp.appendChild(cb);
+  });
+  drawer.classList.add('open');
+}
+
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') reset();
+  if(['1','2','3','4'].includes(e.key)){ toggle(DATA[+e.key-1].id); }
+});
+</script>
+</body>
+</html>
