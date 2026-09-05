@@ -399,6 +399,35 @@ ul.clean li::before { content: "\203A"; position: absolute; left: 4px; top: -1px
 .site-footer .wrap { display: flex; justify-content: space-between; gap: 22px; flex-wrap: wrap; }
 .site-footer a { color: #c6d1e2; }
 
+/* ---------- Le fil du module : la logique des sections en une ligne ----------
+   Sous l'en-tete de chaque module. Chaque section est une puce numerotee ;
+   entre deux puces, le mot qui porte la logique (mais, et, d'ou, puis, enfin)
+   ou un « + » quand les pieces s'additionnent. Passe a la ligne sans deborder. */
+.fil-wrap { margin-top: 26px; }
+.fil-wrap .eyebrow { margin-bottom: 10px; }
+.fil { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px 0; }
+.fil > li { display: flex; align-items: center; }
+.fil em { font-style: normal; font-family: var(--display); font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--crimson); padding: 0 8px 0 10px; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
+.fil em::after { content: "\2192"; font-size: 1rem; letter-spacing: 0; color: var(--steel-l); }
+.fil em.plus { font-size: 1.05rem; color: var(--steel-l); padding: 0 12px; }
+.fil em.plus::after { content: none; }
+.fil a { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 8px 14px 8px 9px; color: var(--ink); text-decoration: none; min-height: 54px; box-shadow: 0 1px 2px rgba(19,38,74,.04); }
+.fil a:hover { border-color: var(--crimson); text-decoration: none; }
+.fil a i { font-style: normal; width: 26px; height: 26px; border-radius: 50%; background: var(--navy); color: #fff; font-family: var(--display); font-size: .8rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex: none; }
+.fil-t { display: flex; flex-direction: column; line-height: 1.2; }
+.fil a b { font-family: var(--display); font-size: .92rem; color: var(--navy); }
+.fil a small { font-size: .76rem; color: var(--ink-soft); }
+@media (max-width: 560px) {
+  .fil > li { width: 100%; }
+  .fil em { min-width: 92px; justify-content: flex-end; }
+  .fil em.plus { min-width: 92px; }
+  .fil a { flex: 1; }
+}
+@media print {
+  .fil { break-inside: avoid; }
+  .fil a { box-shadow: none; }
+}
+
 /* ==========================================================================
    Responsive : tablette et telephone
    Deux principes. Le contenu ne subit jamais la largeur d'un voisin (le
