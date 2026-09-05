@@ -76,8 +76,8 @@ code { font-family: var(--mono); font-size: .85em; background: var(--sand-l); bo
 .nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 1rem; height: 66px; padding: 0 28px; background: rgba(255,255,255,.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); box-shadow: 0 1px 14px rgba(19,38,74,.06); }
 .nav .brand { display: flex; align-items: center; gap: 14px; font-family: var(--display); font-weight: 800; color: var(--navy); font-size: .98rem; white-space: nowrap; }
 .nav .brand:hover { text-decoration: none; }
-.nav .brand img { height: 26px; display: block; background: #fff; padding: 5px 9px; border: 1px solid var(--line); border-radius: 7px; }
-.nav .brand span { border-left: 1px solid var(--line); padding-left: 14px; }
+.nav .brand .mark { width: 32px; height: 32px; border-radius: 9px; background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: center; flex: none; }
+.nav .brand .mark svg { width: 19px; height: 19px; }
 .nav .hamb { display: none; margin-left: auto; background: none; border: 1px solid var(--line); border-radius: 8px; width: 44px; height: 38px; cursor: pointer; padding: 0; flex-direction: column; gap: 4px; align-items: center; justify-content: center; }
 .nav .hamb span { display: block; width: 20px; height: 2px; background: var(--navy); border-radius: 2px; }
 .navlinks { display: flex; align-items: center; gap: .15rem; margin-left: auto; }
@@ -380,6 +380,75 @@ ul.clean li::before { content: "\203A"; position: absolute; left: 4px; top: -1px
 .site-footer { background: var(--navy-800); color: #93a2ba; padding: 44px 0; margin-top: 76px; font-size: .88rem; }
 .site-footer .wrap { display: flex; justify-content: space-between; gap: 22px; flex-wrap: wrap; }
 .site-footer a { color: #c6d1e2; }
+
+/* ==========================================================================
+   Responsive : tablette et telephone
+   Deux principes. Le contenu ne subit jamais la largeur d'un voisin (le
+   sommaire, un tableau). Un schema large defile au doigt dans son cadre
+   plutot que de retrecir jusqu'a devenir illisible.
+   ========================================================================== */
+
+.with-toc > * { min-width: 0; }
+.fig-scroll { min-width: 0; }
+
+@media (max-width: 900px) {
+  .next-step { grid-template-columns: 1fr; gap: 18px; padding: 26px 24px; }
+  .next-step .btn { justify-self: start; }
+}
+
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .wrap, .wrap-narrow { padding: 0 18px; }
+  h1 { font-size: 2.3rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.2rem; }
+  .lede { font-size: 1.05rem; }
+  .hero h1 { font-size: 2.4rem; }
+  .hero .lede, .page-head .lede { font-size: 1.05rem; }
+  .hero-inner { padding: 46px 0 50px; }
+  .page-head h1 { font-size: 2rem; }
+  .page-head-inner { padding: 36px 0 40px; }
+  section.band { padding: 44px 0; }
+  .with-toc section.band { padding: 28px 0 32px; }
+  .section-head { margin-bottom: 24px; }
+  .section-head h2 { font-size: 1.4rem; }
+  .grid { gap: 16px; }
+  .card { padding: 20px 18px; }
+  .figure-frame { padding: 16px; }
+  .callout { padding: 16px 18px; margin: 22px 0; }
+  .try { padding: 18px 18px; margin: 22px 0; }
+  .h-ico { gap: 12px; }
+  .h-ico .ico, .section-head .h-ico .ico { width: 40px; height: 40px; border-radius: 11px; }
+  .h-ico .ico svg, .section-head .h-ico .ico svg { width: 20px; height: 20px; }
+  .steps > li { padding: 14px 16px 14px 50px; }
+  .steps > li::before { left: 14px; }
+  table { font-size: .88rem; }
+  thead th, tbody td { padding: 10px 12px; }
+  figcaption { font-size: .82rem; }
+  /* le schema garde une largeur lisible et defile horizontalement ; l'ombre
+     interieure a droite signale qu'il reste du contenu a faire glisser */
+  .fig-scroll { overflow-x: auto; }
+  .fig-scroll svg { min-width: 620px; }
+  .fig-scroll, .table-wrap { box-shadow: inset -16px 0 14px -14px rgba(19,38,74,.45); }
+  .demo-embed .demo-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .demo-embed .demo-head a { white-space: normal; }
+}
+
+@media (max-width: 560px) {
+  .nav { padding: 10px 16px; }
+  .nav .brand { font-size: .86rem; gap: 10px; }
+  .nav .brand .mark { width: 28px; height: 28px; border-radius: 8px; }
+  .nav .brand .mark svg { width: 16px; height: 16px; }
+  h1, .hero h1 { font-size: 1.95rem; }
+  .kpis { grid-template-columns: 1fr; }
+  .kpis > div { display: flex; align-items: baseline; gap: 12px; text-align: left; padding: 14px 16px; }
+  .kpis b { font-size: 1.8rem; }
+  .hero-facts { gap: 16px 22px; }
+  .btn { padding: 11px 20px; font-size: .9rem; }
+  .module { padding: 24px 22px; }
+  .module .m-num { font-size: 3.2rem; }
+  .site-footer { padding: 30px 0; }
+}
 
 @media print {
   .nav, .site-header, .site-footer, .next-step, .toc, .toc-reopen, .hero-cta { display: none !important; }

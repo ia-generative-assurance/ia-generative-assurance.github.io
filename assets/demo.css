@@ -40,3 +40,10 @@
 .demo-embed iframe { display: block; width: 100%; border: 0; background: #fff; }
 .demo-embed .print-note { display: none; padding: 16px 18px; font-size: .9rem; color: var(--ink-soft); }
 @media print { .demo-embed { break-inside: avoid; } .demo-embed iframe { display: none; } .demo-embed .print-note { display: block; } }
+
+/* sur telephone, chaque demo est plus haute : on evite un defilement dans le
+   defilement, le comparateur empilant ses quatre cartes */
+@media (max-width: 760px) {
+  .demo-embed iframe[src*="panorama"] { height: 1120px; }
+  .demo-embed iframe[src*="snake"] { height: 640px; }
+}
