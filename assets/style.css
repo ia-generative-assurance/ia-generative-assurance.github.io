@@ -452,6 +452,16 @@ ul.clean li::before { content: "\203A"; position: absolute; left: 4px; top: -1px
   .fil a { box-shadow: none; }
 }
 
+/* ---------- Le fil du module, en schema : noeuds cliquables, liaisons, cadres ---------- */
+.fil-map { margin-top: 4px; }
+.fil-map svg { display: block; width: 100%; height: auto; }
+.fil-map a { text-decoration: none; }
+.fil-map a:hover .fm-box, .fil-map a:focus-visible .fm-box { stroke: var(--crimson); stroke-width: 1.6; }
+.fil-map a:hover .fm-num { fill: var(--crimson); }
+/* sur telephone, .fig-scroll le fait defiler ; les titres restent lisibles a 900 px */
+@media (max-width: 760px) { .fil-map.fig-scroll svg { min-width: 900px; } }
+@media print { .fil-map.fig-scroll svg { min-width: 0; } }
+
 /* ==========================================================================
    Responsive : tablette et telephone
    Deux principes. Le contenu ne subit jamais la largeur d'un voisin (le
