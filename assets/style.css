@@ -363,6 +363,11 @@ figcaption { font-size: .86rem; color: var(--ink-mute); margin-top: 12px; }
 .figure-frame { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); }
 .figure-frame.dark { background: var(--navy); border-color: var(--navy); }
 .figure-frame.dark figcaption { color: #a9b7cc; }
+/* Schema dessine sur une toile etroite (660 unites, voir SCHEMAS.md) : sans
+   plafond il s'etire a la largeur de la colonne, soit 1050 px, et tout grossit
+   de 60 %. On le cale a sa taille naturelle, centre. Le schema sort alors a la
+   meme taille a l'ecran et sur le papier. */
+.figure-frame svg.etroit { max-width: 560px; margin: 0 auto; }
 
 /* ---------- Deroule horaire (discret, injecte par build.py depuis PLANNING) ---------- */
 .timing { display: flex; align-items: center; gap: 8px; margin: 14px 0 0; font-size: .86rem; color: #a9b7cc; }
