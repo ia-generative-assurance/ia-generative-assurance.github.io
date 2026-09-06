@@ -43,6 +43,20 @@
 .demo-embed .print-note { display: none; padding: 16px 18px; font-size: .9rem; color: var(--ink-soft); }
 @media print { .demo-embed { break-inside: avoid; } .demo-embed iframe { display: none; } .demo-embed .print-note { display: block; } }
 
+/* Une demo trop haute pour un cadre (un site entier : accueil, offres, devis,
+   temoignages) n'est pas mise en iframe : on scrollerait dans une fenetre au
+   milieu du texte. A la place, l'image du haut de la demo (capture_demos.py),
+   cliquable, qui ouvre la demo en plein ecran. A l'impression, l'image reste :
+   le PDF y gagne une capture au lieu d'un simple renvoi. */
+.demo-shot .demo-img { display: block; position: relative; line-height: 0; }
+.demo-shot .demo-img img { width: 100%; height: auto; }
+.demo-shot .demo-go { position: absolute; right: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 8px;
+  background: var(--crimson); color: #fff; font-weight: 700; font-size: .9rem; line-height: 1; padding: 11px 18px;
+  border-radius: 999px; box-shadow: 0 6px 18px rgba(19,38,74,.28); }
+.demo-shot .demo-img:hover .demo-go { background: var(--crimson-d); }
+.demo-shot .demo-go svg { width: 16px; height: 16px; }
+@media print { .demo-shot .demo-go { display: none; } }
+
 /* La hauteur de l'attribut `height` n'est qu'un REPLI : build.py ajuste
    l'iframe a la hauteur reelle de son contenu, qui change avec les filtres,
    la bascule cartes/tableau et la largeur. Le repli sert quand l'iframe est

@@ -67,59 +67,55 @@
   </div>
 
   <figure class="figure-frame">
-    <div class="fig-scroll"><svg viewBox="0 0 1100 360" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif">
-      <!-- Convention des schemas : voir nlp/site/SCHEMAS.md. Ce qui entre en
-           sable, ce qui calcule en navy, ce qui sort en vert, la boucle en
-           bordeaux ; une pastille blanche sur chaque fleche nomme ce qui circule. -->
+    <div class="fig-scroll"><svg viewBox="0 0 660 580" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Le moteur seul : le texte entre, le modèle note chaque mot possible, le mot choisi ressort et repart en entrée">
+      <!-- Convention des schemas : voir nlp/site/SCHEMAS.md. Toile etroite (660)
+           pour rester lisible a l'impression, ou la page ne fait que 703 px.
+           Ce qui entre en sable, ce qui calcule en navy, ce qui sort en vert,
+           la boucle en bordeaux ; une pastille nomme ce qui circule. -->
       <defs>
         <marker id="ar" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#13264A"/></marker>
         <marker id="ar2" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#BA1C3A"/></marker>
         <filter id="omb" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="1.5" dy="2" stdDeviation="2" flood-color="#13264A" flood-opacity="0.16"/></filter>
       </defs>
 
-      <!-- les trois zones -->
-      <rect x="20" y="52" width="264" height="196" rx="14" fill="#fdf3e2"/>
-      <rect x="314" y="52" width="472" height="196" rx="14" fill="#eef1f6"/>
-      <rect x="816" y="52" width="264" height="196" rx="14" fill="#e8f3f2"/>
-      <g font-size="13" font-weight="800" letter-spacing=".1em" fill="#6C7683">
-        <text x="152" y="80" text-anchor="middle">CE QUI ENTRE</text>
-        <text x="550" y="80" text-anchor="middle">CE QUI CALCULE</text>
-        <text x="948" y="80" text-anchor="middle">CE QUI SORT</text>
-      </g>
+      <!-- ce qui entre -->
+      <rect x="120" y="20" width="520" height="118" rx="14" fill="#fdf3e2"/>
+      <text x="144" y="46" font-size="14" font-weight="800" letter-spacing=".1em" fill="#6C7683">CE QUI ENTRE</text>
+      <g filter="url(#omb)"><rect x="144" y="58" width="472" height="62" rx="11" fill="#f6e3bf" stroke="#92661D" stroke-width="2"/></g>
+      <text x="168" y="84" font-size="19" font-weight="700" fill="#78500f">Votre texte</text>
+      <text x="168" y="108" font-size="15.5" font-style="italic" fill="#7a5a22">« Suite à un dégât des eaux, je souhaite… »</text>
 
-      <!-- votre texte -->
-      <g filter="url(#omb)"><rect x="44" y="100" width="216" height="120" rx="12" fill="#f6e3bf" stroke="#92661D" stroke-width="2"/></g>
-      <text x="152" y="134" text-anchor="middle" font-size="18" font-weight="700" fill="#78500f">Votre texte</text>
-      <text x="152" y="166" text-anchor="middle" font-size="14.5" fill="#7a5a22" font-style="italic">« Suite à un dégât</text>
-      <text x="152" y="188" text-anchor="middle" font-size="14.5" fill="#7a5a22" font-style="italic">des eaux, je souhaite… »</text>
+      <path d="M 380 142 L 380 178" stroke="#13264A" stroke-width="2.5" marker-end="url(#ar)"/>
+      <g filter="url(#omb)"><rect x="396" y="146" width="104" height="28" rx="14" fill="#fff" stroke="#dcd8d4"/></g>
+      <text x="448" y="165" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">en tokens</text>
 
-      <path d="M 268 160 L 346 160" stroke="#13264A" stroke-width="2.5" marker-end="url(#ar)"/>
-      <g filter="url(#omb)"><rect x="264" y="112" width="88" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
-      <text x="308" y="130" text-anchor="middle" font-size="13.5" font-style="italic" font-weight="700" fill="#4a5567">en tokens</text>
+      <!-- ce qui calcule -->
+      <rect x="120" y="188" width="520" height="150" rx="14" fill="#eef1f6"/>
+      <text x="144" y="214" font-size="14" font-weight="800" letter-spacing=".1em" fill="#6C7683">CE QUI CALCULE</text>
+      <g filter="url(#omb)"><rect x="144" y="226" width="472" height="94" rx="12" fill="#13264A"/></g>
+      <text x="168" y="254" font-size="19" font-weight="700" fill="#fff">Le moteur : un LLM</text>
+      <text x="168" y="278" font-size="15.5" fill="#c6d1e2">140 Go de nombres, appris sur 10 To de texte.</text>
+      <text x="168" y="300" font-size="15.5" fill="#c6d1e2">Il note chaque mot possible, et rien d'autre.</text>
+      <text x="168" y="332" font-size="13.5" font-weight="800" letter-spacing=".05em" fill="#BA1C3A">PRÉDIT · NE COMPREND PAS · NE CALCULE PAS</text>
 
-      <!-- le moteur -->
-      <g filter="url(#omb)"><rect x="356" y="100" width="388" height="120" rx="14" fill="#13264A"/></g>
-      <text x="550" y="134" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">Le moteur : un LLM</text>
-      <text x="550" y="162" text-anchor="middle" font-size="14.5" fill="#c6d1e2">140 Go de nombres, appris sur 10 To de texte</text>
-      <text x="550" y="186" text-anchor="middle" font-size="14.5" fill="#c6d1e2">il note chaque mot possible, et rien d'autre</text>
-      <text x="550" y="210" text-anchor="middle" font-size="12.5" font-weight="800" letter-spacing=".06em" fill="#EA617A">PRÉDIT · NE COMPREND PAS · NE CALCULE PAS</text>
+      <path d="M 380 344 L 380 380" stroke="#13264A" stroke-width="2.5" marker-end="url(#ar)"/>
+      <g filter="url(#omb)"><rect x="396" y="348" width="118" height="28" rx="14" fill="#fff" stroke="#dcd8d4"/></g>
+      <text x="455" y="367" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">probabilités</text>
 
-      <path d="M 754 160 L 832 160" stroke="#13264A" stroke-width="2.5" marker-end="url(#ar)"/>
-      <g filter="url(#omb)"><rect x="756" y="112" width="88" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
-      <text x="800" y="130" text-anchor="middle" font-size="13" font-style="italic" font-weight="700" fill="#4a5567">probabilités</text>
+      <!-- ce qui sort -->
+      <rect x="120" y="390" width="520" height="130" rx="14" fill="#e8f3f2"/>
+      <text x="144" y="416" font-size="14" font-weight="800" letter-spacing=".1em" fill="#6C7683">CE QUI SORT</text>
+      <g filter="url(#omb)"><rect x="144" y="428" width="472" height="74" rx="11" fill="#bfe0dd" stroke="#1F6F6B" stroke-width="2"/></g>
+      <text x="168" y="454" font-size="19" font-weight="700" fill="#0f4b48">Le mot suivant</text>
+      <text x="168" y="480" font-size="15.5" fill="#14554f">« déclarer » 62 % · « signaler » 21 % · « obtenir » 9 %</text>
 
-      <!-- le mot suivant -->
-      <g filter="url(#omb)"><rect x="840" y="100" width="216" height="120" rx="12" fill="#bfe0dd" stroke="#1F6F6B" stroke-width="2"/></g>
-      <text x="948" y="130" text-anchor="middle" font-size="18" font-weight="700" fill="#0f4b48">Le mot suivant</text>
-      <text x="948" y="160" text-anchor="middle" font-size="14.5" fill="#14554f">« déclarer » 62 %</text>
-      <text x="948" y="182" text-anchor="middle" font-size="14.5" fill="#14554f">« signaler » 21 %</text>
-      <text x="948" y="204" text-anchor="middle" font-size="14.5" fill="#14554f">« obtenir » 9 %</text>
-
-      <!-- la boucle -->
-      <path d="M 948 232 C 948 296, 152 296, 152 232" stroke="#BA1C3A" stroke-width="2.5" fill="none" stroke-dasharray="7 5" marker-end="url(#ar2)"/>
-      <g filter="url(#omb)"><rect x="490" y="278" width="120" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
-      <text x="550" y="296" text-anchor="middle" font-size="13.5" font-style="italic" font-weight="700" fill="#BA1C3A">le mot choisi</text>
-      <text x="550" y="338" text-anchor="middle" font-size="14.5" fill="#4a5567">Le mot choisi est ajouté au texte, et tout recommence : un tour de calcul par mot écrit.</text>
+      <!-- la boucle, sur la gauche -->
+      <path d="M 132 465 L 60 465 L 60 89 L 132 89" fill="none" stroke="#BA1C3A" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#ar2)"/>
+      <g filter="url(#omb)"><rect x="12" y="248" width="96" height="60" rx="12" fill="#fff" stroke="#dcd8d4"/></g>
+      <text x="60" y="272" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#BA1C3A">le mot</text>
+      <text x="60" y="292" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#BA1C3A">choisi</text>
+      <text x="380" y="542" text-anchor="middle" font-size="15" fill="#4a5567">Le mot choisi est ajouté au texte, et tout recommence :</text>
+      <text x="380" y="566" text-anchor="middle" font-size="15" fill="#4a5567">un tour de calcul par mot écrit.</text>
     </svg></div>
     <figcaption>Le moteur seul : votre texte entre, le mot le plus probable sort, il est ajouté au texte, et la boucle recommence. Toute la « conversation » est cette boucle.</figcaption>
   </figure>
