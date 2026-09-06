@@ -567,6 +567,9 @@ ul.clean li::before { content: "\203A"; position: absolute; left: 4px; top: -1px
   /* rangee de deux blocs trop haute pour tenir entiere sur une page : empilee
      sur une colonne par export_pdf.py, ses blocs redeviennent entiers */
   .grid.pstack, .ba.pstack { grid-template-columns: 1fr; }
+  /* les quatre cartes de module de l'accueil (70 % de page au plus) restent entieres :
+     coupees sous leur icone, elles etaient le premier bloc casse du document */
+  .card.module { break-inside: avoid; }
   p, li { orphans: 3; widows: 3; }
   details.deeper { break-inside: auto; background: #fff; }
   details.deeper > summary { break-inside: avoid; break-after: avoid; }
