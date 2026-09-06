@@ -343,12 +343,135 @@ const script = [
       "In what way?",
       "What resemblance do you see?",
       "What does that similarity suggest to you?",
-      "What other connections do you see?" ] } ] }
+      "What other connections do you see?" ] } ] },
+
+  { word:"name", rank:15, rules:[
+    { decomp:"*", reasmb:[
+      "I am not interested in names.",
+      "I've told you before, I don't care about names. Please continue." ] } ] },
+
+  { word:"bonjour", rank:15, rules:[
+    { decomp:"*", reasmb:[
+      "I am sorry, I speak only English.",
+      "Please speak English. I understand nothing else." ] } ] },
+
+  { word:"deutsch", rank:15, rules:[
+    { decomp:"*", reasmb:[
+      "I am sorry, I speak only English." ] } ] },
+
+  { word:"francais", rank:15, rules:[
+    { decomp:"*", reasmb:[
+      "I am sorry, I speak only English.",
+      "Please speak English. I understand nothing else." ] } ] },
+
+  { word:"hola", rank:15, rules:[
+    { decomp:"*", reasmb:[
+      "I am sorry, I speak only English." ] } ] },
+
+  { word:"think", rank:0, rules:[
+    { decomp:"* i think *", reasmb:[
+      "Do you doubt (2)?",
+      "Do you really think so?",
+      "But you are not sure (2)." ] },
+    { decomp:"* you think *", reasmb:[
+      "What makes you ask that?",
+      "Why does it matter what I think?" ] } ] },
+
+  { word:"believe", rank:0, rules:[
+    { decomp:"* i believe *", reasmb:[
+      "Do you really believe (2)?",
+      "Have you ever doubted (2)?" ] },
+    { decomp:"*", reasmb:[
+      "What makes you believe that?",
+      "Does anyone else believe it?" ] } ] },
+
+  { word:"friend", rank:2, rules:[
+    { decomp:"* my friend *", reasmb:[
+      "Tell me more about your friend.",
+      "Does that friend worry you?",
+      "Do your friends often come up when you talk?" ] },
+    { decomp:"*", reasmb:[
+      "Why do you bring up the subject of friends?",
+      "Do your friends give you trouble?" ] } ] },
+
+  { word:"money", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Does money worry you?",
+      "Why does money come up now?",
+      "What would change if money were not a problem?" ] } ] },
+
+  { word:"work", rank:0, rules:[
+    { decomp:"* my work *", reasmb:[
+      "Tell me more about your work.",
+      "Does your work bother you?",
+      "How long have you felt this way about your work?" ] },
+    { decomp:"*", reasmb:[
+      "Why do you mention work?",
+      "Does work often come to mind?" ] } ] },
+
+  { word:"time", rank:0, rules:[
+    { decomp:"* no time *", reasmb:[
+      "What would you do with more time?",
+      "Who decides how your time is spent?" ] },
+    { decomp:"*", reasmb:[
+      "Does time press on you?",
+      "What about time troubles you?" ] } ] },
+
+  { word:"afraid", rank:4, rules:[
+    { decomp:"* @afraid of *", reasmb:[
+      "What is it about (3) that frightens you?",
+      "How long have you feared (3)?",
+      "What would happen if (3) really came true?" ] },
+    { decomp:"*", reasmb:[
+      "What are you afraid of?",
+      "Fear is worth talking about. Go on.",
+      "What frightens you most about it?" ] } ] },
+
+  { word:"angry", rank:4, rules:[
+    { decomp:"*", reasmb:[
+      "Who makes you angry?",
+      "What happens when you get angry?",
+      "Does anger help you?" ] } ] },
+
+  { word:"tired", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "What tires you?",
+      "How long have you felt tired?",
+      "Does rest help?" ] } ] },
+
+  { word:"never", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Never?",
+      "Are you sure, never?",
+      "Can you think of a single exception?" ] } ] },
+
+  { word:"nothing", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Nothing at all?",
+      "That sounds like a lot to carry.",
+      "Say a little more about nothing." ] } ] },
+
+  { word:"help", rank:0, rules:[
+    { decomp:"* i @desire help *", reasmb:[
+      "What kind of help would you like?",
+      "Who could help you?" ] },
+    { decomp:"*", reasmb:[
+      "What sort of help do you have in mind?",
+      "Do you often ask for help?" ] } ] },
+
+  { word:"sure", rank:0, rules:[
+    { decomp:"* not sure *", reasmb:[
+      "What makes you unsure?",
+      "What would make you sure?" ] },
+    { decomp:"*", reasmb:[
+      "How certain are you?",
+      "You sound sure. What convinced you?" ] } ] }
 ];
 
 // Synonym groups used by "@name" tokens inside decomposition patterns.
 const synonyms = {
   desire:["want","need","desire","wish"],
+  afraid:["afraid","scared","frightened","anxious","worried"],
   sad:["sad","unhappy","depressed","sick","upset","miserable"],
   happy:["happy","elated","glad","better","good"],
   cant:["can't","cannot","cant"],

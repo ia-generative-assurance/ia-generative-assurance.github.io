@@ -90,8 +90,10 @@ code { font-family: var(--mono); font-size: .85em; background: var(--sand-l); bo
 .nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 1rem; height: 66px; padding: 0 28px; background: rgba(255,255,255,.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); box-shadow: 0 1px 14px rgba(19,38,74,.06); }
 .nav .brand { display: flex; align-items: center; gap: 14px; font-family: var(--display); font-weight: 800; color: var(--navy); font-size: .98rem; white-space: nowrap; }
 .nav .brand:hover { text-decoration: none; }
-.nav .brand .mark { width: 32px; height: 32px; border-radius: 9px; background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: center; flex: none; }
-.nav .brand .mark svg { width: 19px; height: 19px; }
+.nav .brand .mark { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(140deg, #1c3563, var(--navy) 65%); color: #fff; display: flex; align-items: center; justify-content: center; flex: none; box-shadow: 0 2px 8px rgba(19,38,74,.22); }
+.nav .brand .mark svg { width: 20px; height: 20px; }
+.nav .brand .brand-txt { display: flex; flex-direction: column; gap: 1px; line-height: 1.16; }
+.nav .brand .sub { font-family: var(--sans); font-size: .715rem; font-weight: 600; color: var(--ink-mute); letter-spacing: .015em; }
 .nav .hamb { display: none; margin-left: auto; background: none; border: 1px solid var(--line); border-radius: 8px; width: 44px; height: 38px; cursor: pointer; padding: 0; flex-direction: column; gap: 4px; align-items: center; justify-content: center; }
 .nav .hamb span { display: block; width: 20px; height: 2px; background: var(--navy); border-radius: 2px; }
 .navlinks { display: flex; align-items: center; gap: .15rem; margin-left: auto; }
@@ -368,6 +370,24 @@ figcaption { font-size: .86rem; color: var(--ink-mute); margin-top: 12px; }
 .toc .toc-pause { display: block; margin: 4px 0 4px 12px; padding: 3px 10px; border-radius: 8px; font-size: .72rem; color: var(--amber); background: var(--amber-w); }
 .pause-mark { display: flex; align-items: center; gap: 14px; margin: 4px 0 26px; font-size: .8rem; color: var(--ink-mute); }
 .pause-mark::before, .pause-mark::after { content: ""; flex: 1; border-top: 1px dashed var(--line); }
+.exo-mark { display: flex; align-items: center; gap: 14px; margin: 30px 0 4px; font-size: .8rem; color: var(--steel); }
+.exo-mark::before, .exo-mark::after { content: ""; flex: 1; border-top: 1px dashed var(--steel-l); }
+.exo-mark span { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border-radius: 20px; background: #eef2f7; }
+.exo-mark svg { width: 14px; height: 14px; flex: none; }
+
+/* Reponses fermees par un code : le contenu reste dans la page, il n'est pas
+   montre tant que le formateur n'a pas donne le code. A l'impression, tout
+   s'affiche (le PDF est le support du formateur), d'ou le @media screen. */
+@media screen {
+  details.answer.locked[open] > *:not(summary):not(.answer-lock) { display: none; }
+}
+.answer-lock { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; margin-top: 8px; font-size: .86rem; color: var(--ink-soft); }
+.answer-lock input { width: 130px; padding: 5px 10px; border: 1px solid var(--line); border-radius: 8px; font: inherit; font-size: .86rem; }
+.answer-lock input:focus { outline: none; border-color: var(--crimson); }
+.answer-lock button { padding: 5px 14px; border: 0; border-radius: 8px; background: var(--navy); color: #fff; font-family: var(--display); font-size: .78rem; font-weight: 800; cursor: pointer; }
+.answer-lock button:hover { background: var(--crimson); }
+.answer-lock em { color: var(--crimson); font-style: normal; font-size: .82rem; }
+@media print { .answer-lock { display: none; } }
 .schedule { margin-top: 26px; padding: 18px 22px; border-radius: var(--radius); background: var(--sand-l); border: 1px solid var(--line); }
 .schedule .eyebrow { margin-bottom: 12px; }
 .schedule-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
@@ -532,6 +552,8 @@ ul.clean li::before { content: "\203A"; position: absolute; left: 4px; top: -1px
   .demo-embed .demo-head { flex-direction: column; align-items: flex-start; gap: 4px; }
   .demo-embed .demo-head a { white-space: normal; }
 }
+
+@media (max-width: 760px) { .nav .brand .sub { display: none; } }
 
 @media (max-width: 560px) {
   .nav { padding: 10px 16px; }
