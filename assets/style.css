@@ -538,7 +538,21 @@ ul.clean li::before { content: "\203A"; position: absolute; left: 4px; top: -1px
 .fil-map a:hover .fm-num { fill: var(--crimson); }
 /* sur telephone, .fig-scroll le fait defiler ; les titres restent lisibles a 900 px */
 @media (max-width: 760px) { .fil-map.fig-scroll svg { min-width: 900px; } }
-@media print { .fil-map.fig-scroll svg { min-width: 0; } }
+/* Le fil d'un module existe en deux formes, produites ensemble par
+   fil_schema.py : le schema pour l'ecran, parce que la logique n'est pas
+   lineaire et qu'un dessin le montre ; la liste pour le papier, parce qu'a
+   65 % de reduction le texte du schema tombe a 5 pt. */
+.fil-liste { display: none; }
+@media print {
+  .fil-map { display: none; }
+  .fil-liste { display: block; counter-reset: fil; list-style: none; padding: 0; margin: 4px 0 0; }
+  .fil-liste li { counter-increment: fil; position: relative; padding: 4px 0 4px 30px; break-inside: avoid; }
+  .fil-liste li::before { content: counter(fil); position: absolute; left: 0; top: 4px;
+    width: 20px; height: 20px; border-radius: 50%; background: var(--navy); color: #fff;
+    font-family: var(--display); font-weight: 800; font-size: .72rem; display: flex;
+    align-items: center; justify-content: center; }
+  .fil-liste a { color: var(--navy); text-decoration: none; }
+}
 
 /* ==========================================================================
    Responsive : tablette et telephone

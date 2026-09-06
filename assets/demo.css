@@ -72,7 +72,10 @@
 .an-note { display: none; font-size: .9rem; color: var(--ink-mute); margin: 8px 0 0; }
 @media print {
   .an-bar { display: none; }
-  .an-panels { max-width: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  /* Une colonne a l'impression, pas deux : sur deux colonnes chaque schema
+     ne fait que 338 px sur la page, son texte tombe a 5,4 pt et devient
+     illisible. En pleine largeur il passe a 10 pt sans rien redessiner. */
+  .an-panels { max-width: none; display: grid; grid-template-columns: 1fr; gap: 16px; }
   .an-panel { display: block; }
   .an-s.is-off { opacity: 1; }
   .an-q { display: none; }
