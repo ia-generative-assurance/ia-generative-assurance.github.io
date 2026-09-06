@@ -370,6 +370,46 @@ figcaption { font-size: .86rem; color: var(--ink-mute); margin-top: 12px; }
 .toc .toc-pause { display: block; margin: 4px 0 4px 12px; padding: 3px 10px; border-radius: 8px; font-size: .72rem; color: var(--amber); background: var(--amber-w); }
 .pause-mark { display: flex; align-items: center; gap: 14px; margin: 4px 0 26px; font-size: .8rem; color: var(--ink-mute); }
 .pause-mark::before, .pause-mark::after { content: ""; flex: 1; border-top: 1px dashed var(--line); }
+/* ---------- Recit defilant : un schema fixe, des etapes qui defilent ----------
+   Le dessin reste en place pendant que le texte descend, et il change d'etape
+   au passage de chaque bloc. Les etapes d'un meme schema sont superposees dans
+   le SVG (memes coordonnees) : une seule est visible a la fois. A l'impression
+   et sans JavaScript, tout s'affiche a la suite, en pleine largeur. */
+.scrolly { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: start; margin: 26px 0 8px; }
+.scrolly-figure { position: sticky; top: 92px; }
+.scrolly-figure .figure-frame { margin: 0; }
+.scrolly-step { min-height: 58vh; display: flex; flex-direction: column; justify-content: center; padding: 8px 0; }
+.scrolly-step h4 { font-size: 1.06rem; margin-bottom: 8px; }
+.scrolly-step p { margin: 0 0 .7em; color: var(--ink-soft); }
+.scrolly-step p:last-child { margin-bottom: 0; }
+.scrolly.js-on .scrolly-step { opacity: .3; transition: opacity .35s ease; }
+.scrolly.js-on .scrolly-step.is-on { opacity: 1; }
+/* la vignette courante est cadree par le viewBox, pose par le script */
+.scrolly-ticks { display: none; gap: 6px; margin-top: 12px; }
+.scrolly.js-on .scrolly-ticks { display: flex; }
+.scrolly-ticks span { flex: 1; height: 3px; border-radius: 2px; background: var(--line); transition: background .35s ease; }
+.scrolly-ticks span.is-on { background: var(--crimson); }
+@media (max-width: 900px) {
+  .scrolly { grid-template-columns: 1fr; gap: 10px; }
+  .scrolly-figure { top: 76px; z-index: 2; background: var(--white); padding-bottom: 8px; }
+  .scrolly-step { min-height: 44vh; }
+}
+/* Une vignette de recit est dessinee compacte : elle se reduit avec l'ecran au
+   lieu de defiler comme les grands schemas (regle .fig-scroll plus bas). */
+@media (max-width: 760px) {
+  .scrolly .fig-scroll { overflow-x: visible; box-shadow: none; }
+  .scrolly .fig-scroll svg { min-width: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scrolly.js-on .scrolly-step, .scrolly.js-on svg > g[data-step] { transition: none; }
+}
+@media print {
+  .scrolly { display: block; }
+  .scrolly-figure { position: static; }
+  .scrolly-step { min-height: 0; opacity: 1 !important; display: block; break-inside: avoid; padding: 10px 0 0; }
+  .scrolly-ticks { display: none !important; }
+}
+
 .exo-mark { display: flex; align-items: center; gap: 14px; margin: 30px 0 4px; font-size: .8rem; color: var(--steel); }
 .exo-mark::before, .exo-mark::after { content: ""; flex: 1; border-top: 1px dashed var(--steel-l); }
 .exo-mark span { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border-radius: 20px; background: #eef2f7; }
