@@ -896,16 +896,34 @@ Contrôles avant de rendre : la date est passée, les deux
   // une barre de defilement dans l'iframe, dans une page qui defile deja.
   // Sur file:// l'iframe est une origine opaque : on garde alors la hauteur
   // de l'attribut, sans casser.
+  //
+  // Piege : une demo qui remplit son cadre (html,body{height:100%}, comme
+  // ELIZA) a un scrollHeight toujours egal a la hauteur de l'iframe. Une
+  // version precedente relevait l'iframe a scrollHeight + 2 a chaque mesure,
+  // et l'observateur relancait la mesure a chaque changement : l'iframe
+  // grandissait sans fin, 2px par tour. D'ou les deux garde-fous ci-dessous :
+  // on mesure la hauteur naturelle du document (offsetHeight, independante
+  // du cadre) tant que rien ne deborde, et on ne touche a l'iframe que si
+  // l'ecart avec sa hauteur actuelle est reel.
   var frames = document.querySelectorAll('.demo-embed iframe');
+  var mesurer = function(d){
+    var html = d.documentElement, body = d.body;
+    var cadre = html.clientHeight;
+    var deborde = Math.max(body.scrollHeight, html.scrollHeight);
+    var naturelle = Math.max(html.offsetHeight, body.offsetHeight);
+    return deborde > cadre ? deborde : naturelle;
+  };
+  var ajuster = function(f){
+    try {
+      var d = f.contentDocument;
+      if (!d || !d.body) return;
+      var h = mesurer(d);
+      if (h <= 80 || Math.abs(h - f.clientHeight) <= 4) return;
+      f.style.height = (h + 2) + 'px';
+    } catch (e) { /* origine opaque : hauteur statique conservee */ }
+  };
   frames.forEach(function(f){
-    var fit = function(){
-      try {
-        var d = f.contentDocument;
-        if (!d || !d.body) return;
-        var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight);
-        if (h > 80) f.style.height = (h + 2) + 'px';
-      } catch (e) { /* origine opaque : hauteur statique conservee */ }
-    };
+    var fit = function(){ ajuster(f); };
     var brancher = function(){
       fit();
       try {
@@ -924,17 +942,7 @@ Contrôles avant de rendre : la date est passée, les deux
     var minuteur;
     window.addEventListener('resize', function(){
       clearTimeout(minuteur);
-      minuteur = setTimeout(function(){
-        frames.forEach(function(f){
-          try {
-            var d = f.contentDocument;
-            if (!d || !d.body) return;
-            f.style.height = 'auto';
-            var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight);
-            if (h > 80) f.style.height = (h + 2) + 'px';
-          } catch (e) {}
-        });
-      }, 180);
+      minuteur = setTimeout(function(){ frames.forEach(ajuster); }, 180);
     });
   }
 })();
