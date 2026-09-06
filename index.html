@@ -499,6 +499,46 @@
       });
     }
   }
+
+  // Les captures d'une demo defilent une par une : la serie complete tenait
+  // trop de place. A l'impression, le bloc @media print les remet toutes,
+  // en petit, sur trois colonnes : le PDF montre le parcours d'un coup d'oeil.
+  document.querySelectorAll('.demo-steps').forEach(function(gal){
+    var figs = [].slice.call(gal.querySelectorAll('figure'));
+    if (figs.length < 2) return;
+    var i = 0;
+    var nav = document.createElement('div');
+    nav.className = 'demo-nav';
+    nav.innerHTML = '<button type="button" class="demo-arrow" data-pas="-1" aria-label="Capture precedente">‹</button>'
+      + '<span class="demo-dots"></span>'
+      + '<button type="button" class="demo-arrow" data-pas="1" aria-label="Capture suivante">›</button>'
+      + '<span class="demo-rang"></span>';
+    gal.parentNode.insertBefore(nav, gal.nextSibling);
+    var cta = nav.parentNode.querySelector('.demo-cta');
+    if (cta) nav.appendChild(cta);
+    var dots = nav.querySelector('.demo-dots'), rang = nav.querySelector('.demo-rang');
+    var puces = figs.map(function(_, n){
+      var d = document.createElement('button');
+      d.type = 'button'; d.className = 'demo-dot';
+      d.setAttribute('aria-label', 'Capture ' + (n + 1));
+      d.addEventListener('click', function(){ i = n; peindre(); });
+      dots.appendChild(d);
+      return d;
+    });
+    function peindre(){
+      figs.forEach(function(f, n){ f.classList.toggle('is-on', n === i); });
+      puces.forEach(function(d, n){ d.classList.toggle('is-on', n === i); });
+      rang.textContent = (i + 1) + ' / ' + figs.length;
+    }
+    nav.querySelectorAll('.demo-arrow').forEach(function(b){
+      b.addEventListener('click', function(){
+        i = (i + (+b.dataset.pas) + figs.length) % figs.length;
+        peindre();
+      });
+    });
+    gal.classList.add('carrousel');
+    peindre();
+  });
 })();
 </script>
 

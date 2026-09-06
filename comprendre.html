@@ -632,6 +632,7 @@ similarité cosinus : 0,87</div>
     <div class="scrolly-figure">
       <figure class="figure-frame">
         <div class="fig-scroll"><svg viewBox="0 0 620 1650" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Les cinq étapes du calcul, du texte au mot suivant">
+          <defs><marker id="fl2" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#13264A"/></marker></defs>
           <!-- pellicule : cinq vignettes de 620x400 empilees. A l'ecran, le script
                cadre la vignette de l'etape courante en changeant le viewBox ;
                sans script et a l'impression, les cinq se lisent a la suite. -->
@@ -658,38 +659,47 @@ similarité cosinus : 0,87</div>
           <g data-step="2" transform="translate(0 330)">
             <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">2 · CHAQUE NUMÉRO DEVIENT UN VECTEUR</text>
             <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
-            <text x="20" y="76" font-size="14" fill="#4a5567">Chaque numéro est remplacé par une ligne de nombres.</text>
-            <rect x="20" y="100" width="270" height="92" rx="10" fill="#F7F4F2" stroke="#dcd8d4"/>
-            <text x="38" y="126" font-size="15" font-weight="700" fill="#13264A">dégât</text>
-            <text x="38" y="150" font-size="13" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">[ 0.42 -1.03 0.88 … ]</text>
-            <text x="38" y="174" font-size="12" fill="#6C7683">4 096 nombres, appris à l'entraînement</text>
-            <text x="302" y="152" font-size="22" font-weight="700" fill="#BA1C3A">+</text>
-            <rect x="330" y="100" width="270" height="92" rx="10" fill="#F7F4F2" stroke="#dcd8d4"/>
-            <text x="348" y="126" font-size="15" font-weight="700" fill="#13264A">position 2</text>
-            <text x="348" y="150" font-size="13" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">[ 0.00 0.91 -0.41 … ]</text>
-            <text x="348" y="174" font-size="12" fill="#6C7683">le rang du mot dans la phrase</text>
-            <text x="20" y="240" font-size="14" font-style="italic" fill="#6C7683">Deux mots de sens proche ont des lignes proches.</text>
-            <text x="20" y="266" font-size="14" font-style="italic" fill="#6C7683">Sans la position, « chien mord homme » = « homme mord chien ».</text>
+            <text x="20" y="70" font-size="14" fill="#4a5567">Le numéro va chercher une colonne de nombres, apprise à l'entraînement.</text>
+            <text x="20" y="94" font-size="12.5" fill="#6C7683">une case = un nombre ; ici dix cases, 4 096 en vrai</text>
+            <rect x="40" y="104" width="30" height="12" fill="#55a9a2"/><rect x="40" y="116" width="30" height="12" fill="#e58a9b"/><rect x="40" y="128" width="30" height="12" fill="#bfe0dd"/><rect x="40" y="140" width="30" height="12" fill="#efece9"/><rect x="40" y="152" width="30" height="12" fill="#d4536b"/><rect x="40" y="164" width="30" height="12" fill="#8ec9c4"/><rect x="40" y="176" width="30" height="12" fill="#1F6F6B"/><rect x="40" y="188" width="30" height="12" fill="#f2c3cd"/><rect x="40" y="200" width="30" height="12" fill="#efece9"/><rect x="40" y="212" width="30" height="12" fill="#8ec9c4"/><rect x="40" y="104" width="30" height="120" fill="none" stroke="#dcd8d4"/>
+            <text x="55" y="252" text-anchor="middle" font-size="13.5" font-weight="700" fill="#13264A">dégât</text>
+            <text x="98" y="172" text-anchor="middle" font-size="20" font-weight="700" fill="#BA1C3A">+</text>
+            <rect x="126" y="104" width="30" height="12" fill="#efece9"/><rect x="126" y="116" width="30" height="12" fill="#8ec9c4"/><rect x="126" y="128" width="30" height="12" fill="#f2c3cd"/><rect x="126" y="140" width="30" height="12" fill="#bfe0dd"/><rect x="126" y="152" width="30" height="12" fill="#efece9"/><rect x="126" y="164" width="30" height="12" fill="#e58a9b"/><rect x="126" y="176" width="30" height="12" fill="#bfe0dd"/><rect x="126" y="188" width="30" height="12" fill="#efece9"/><rect x="126" y="200" width="30" height="12" fill="#8ec9c4"/><rect x="126" y="212" width="30" height="12" fill="#f2c3cd"/><rect x="126" y="104" width="30" height="120" fill="none" stroke="#dcd8d4"/>
+            <text x="141" y="252" text-anchor="middle" font-size="13.5" font-weight="700" fill="#13264A">position 2</text>
+            <text x="184" y="172" text-anchor="middle" font-size="20" font-weight="700" fill="#BA1C3A">=</text>
+            <rect x="212" y="104" width="30" height="12" fill="#55a9a2"/><rect x="212" y="116" width="30" height="12" fill="#efece9"/><rect x="212" y="128" width="30" height="12" fill="#efece9"/><rect x="212" y="140" width="30" height="12" fill="#bfe0dd"/><rect x="212" y="152" width="30" height="12" fill="#d4536b"/><rect x="212" y="164" width="30" height="12" fill="#efece9"/><rect x="212" y="176" width="30" height="12" fill="#1F6F6B"/><rect x="212" y="188" width="30" height="12" fill="#f2c3cd"/><rect x="212" y="200" width="30" height="12" fill="#8ec9c4"/><rect x="212" y="212" width="30" height="12" fill="#bfe0dd"/><rect x="212" y="104" width="30" height="120" fill="none" stroke="#dcd8d4"/>
+            <text x="227" y="252" text-anchor="middle" font-size="13.5" font-weight="700" fill="#13264A">ce qui entre</text>
+            <line x1="300" y1="104" x2="300" y2="240" stroke="#dcd8d4"/>
+            <text x="330" y="118" font-size="13" font-weight="700" fill="#13264A">Deux mots de sens proche</text>
+            <text x="330" y="136" font-size="13" fill="#4a5567">ont des colonnes qui se ressemblent.</text>
+            <rect x="340" y="152" width="34" height="12" fill="#55a9a2"/><rect x="340" y="164" width="34" height="12" fill="#e58a9b"/><rect x="340" y="176" width="34" height="12" fill="#bfe0dd"/><rect x="340" y="188" width="34" height="12" fill="#efece9"/><rect x="340" y="200" width="34" height="12" fill="#d4536b"/><rect x="340" y="212" width="34" height="12" fill="#8ec9c4"/><rect x="340" y="224" width="34" height="12" fill="#1F6F6B"/><rect x="340" y="236" width="34" height="12" fill="#f2c3cd"/><rect x="340" y="248" width="34" height="12" fill="#efece9"/><rect x="340" y="260" width="34" height="12" fill="#8ec9c4"/><rect x="340" y="152" width="34" height="120" fill="none" stroke="#dcd8d4"/>
+            <text x="357" y="290" text-anchor="middle" font-size="13" fill="#13264A">dégât</text>
+            <rect x="392" y="152" width="34" height="12" fill="#55a9a2"/><rect x="392" y="164" width="34" height="12" fill="#f2c3cd"/><rect x="392" y="176" width="34" height="12" fill="#bfe0dd"/><rect x="392" y="188" width="34" height="12" fill="#efece9"/><rect x="392" y="200" width="34" height="12" fill="#e58a9b"/><rect x="392" y="212" width="34" height="12" fill="#8ec9c4"/><rect x="392" y="224" width="34" height="12" fill="#55a9a2"/><rect x="392" y="236" width="34" height="12" fill="#f2c3cd"/><rect x="392" y="248" width="34" height="12" fill="#bfe0dd"/><rect x="392" y="260" width="34" height="12" fill="#8ec9c4"/><rect x="392" y="152" width="34" height="120" fill="none" stroke="#dcd8d4"/>
+            <text x="409" y="290" text-anchor="middle" font-size="13" fill="#13264A">sinistre</text>
+            <rect x="462" y="152" width="34" height="12" fill="#d4536b"/><rect x="462" y="164" width="34" height="12" fill="#8ec9c4"/><rect x="462" y="176" width="34" height="12" fill="#f2c3cd"/><rect x="462" y="188" width="34" height="12" fill="#55a9a2"/><rect x="462" y="200" width="34" height="12" fill="#bfe0dd"/><rect x="462" y="212" width="34" height="12" fill="#BA1C3A"/><rect x="462" y="224" width="34" height="12" fill="#efece9"/><rect x="462" y="236" width="34" height="12" fill="#8ec9c4"/><rect x="462" y="248" width="34" height="12" fill="#e58a9b"/><rect x="462" y="260" width="34" height="12" fill="#f2c3cd"/><rect x="462" y="152" width="34" height="120" fill="none" stroke="#dcd8d4"/>
+            <text x="479" y="290" text-anchor="middle" font-size="13" fill="#13264A">toiture</text>
+            <text x="20" y="290" font-size="13.5" font-style="italic" fill="#6C7683">Sans la position, « chien mord</text>
+            <text x="20" y="308" font-size="13.5" font-style="italic" fill="#6C7683">homme » = « homme mord chien ».</text>
           </g>
 
           <!-- 3. les couches -->
           <g data-step="3" transform="translate(0 660)">
-            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">3 · LES COUCHES, RÉPÉTÉES</text>
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">3 · LA COUCHE : REGARDER, PUIS RANGER</text>
             <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
-            <text x="20" y="76" font-size="14" fill="#4a5567">Les lignes traversent la même couche, des dizaines de fois.</text>
-            <rect x="44" y="112" width="530" height="96" rx="12" fill="#6b7c9c" opacity=".35"/>
-            <rect x="32" y="104" width="530" height="96" rx="12" fill="#3B547D" opacity=".5"/>
-            <rect x="20" y="96" width="530" height="96" rx="12" fill="#13264A"/>
-            <rect x="36" y="112" width="240" height="64" rx="10" fill="rgba(255,255,255,.12)"/>
-            <text x="156" y="136" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">Attention</text>
-            <text x="156" y="158" text-anchor="middle" font-size="12.5" fill="#c6d1e2">chaque mot regarde les autres</text>
-            <text x="292" y="150" text-anchor="middle" font-size="18" fill="#EA617A">→</text>
-            <rect x="308" y="112" width="226" height="64" rx="10" fill="rgba(255,255,255,.12)"/>
-            <text x="421" y="136" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">Réseau dense</text>
-            <text x="421" y="158" text-anchor="middle" font-size="12.5" fill="#c6d1e2">chaque mot passe seul, et se range</text>
-            <text x="566" y="150" text-anchor="end" font-size="15" font-weight="800" fill="#BA1C3A">× 32</text>
-            <text x="20" y="248" font-size="14" font-style="italic" fill="#6C7683">La sortie de l'une est l'entrée de la suivante.</text>
-            <text x="20" y="274" font-size="14" font-style="italic" fill="#6C7683">Ce sont ces couches qui pèsent les 140 Go du fichier.</text>
+            <path d="M 68 96 C 68 56, 284 56, 284 96" fill="none" stroke="#BA1C3A" stroke-width="1.5" opacity="0.35"/><path d="M 140 96 C 140 56, 284 56, 284 96" fill="none" stroke="#BA1C3A" stroke-width="5" opacity="0.95"/><path d="M 212 96 C 212 56, 284 56, 284 96" fill="none" stroke="#BA1C3A" stroke-width="2" opacity="0.45"/><path d="M 356 96 C 356 56, 284 56, 284 96" fill="none" stroke="#BA1C3A" stroke-width="3.5" opacity="0.75"/>
+            <rect x="46" y="100" width="44" height="9" fill="#55a9a2"/><rect x="46" y="109" width="44" height="9" fill="#e58a9b"/><rect x="46" y="118" width="44" height="9" fill="#bfe0dd"/><rect x="46" y="127" width="44" height="9" fill="#efece9"/><rect x="46" y="136" width="44" height="9" fill="#d4536b"/><rect x="46" y="145" width="44" height="9" fill="#8ec9c4"/><rect x="46" y="100" width="44" height="54" fill="none" stroke="#dcd8d4"/><rect x="118" y="100" width="44" height="9" fill="#55a9a2"/><rect x="118" y="109" width="44" height="9" fill="#f2c3cd"/><rect x="118" y="118" width="44" height="9" fill="#bfe0dd"/><rect x="118" y="127" width="44" height="9" fill="#efece9"/><rect x="118" y="136" width="44" height="9" fill="#e58a9b"/><rect x="118" y="145" width="44" height="9" fill="#8ec9c4"/><rect x="118" y="100" width="44" height="54" fill="none" stroke="#dcd8d4"/><rect x="190" y="100" width="44" height="9" fill="#efece9"/><rect x="190" y="109" width="44" height="9" fill="#8ec9c4"/><rect x="190" y="118" width="44" height="9" fill="#f2c3cd"/><rect x="190" y="127" width="44" height="9" fill="#bfe0dd"/><rect x="190" y="136" width="44" height="9" fill="#efece9"/><rect x="190" y="145" width="44" height="9" fill="#e58a9b"/><rect x="190" y="100" width="44" height="54" fill="none" stroke="#dcd8d4"/><rect x="262" y="100" width="44" height="9" fill="#d4536b"/><rect x="262" y="109" width="44" height="9" fill="#8ec9c4"/><rect x="262" y="118" width="44" height="9" fill="#f2c3cd"/><rect x="262" y="127" width="44" height="9" fill="#55a9a2"/><rect x="262" y="136" width="44" height="9" fill="#bfe0dd"/><rect x="262" y="145" width="44" height="9" fill="#BA1C3A"/><rect x="262" y="100" width="44" height="54" fill="none" stroke="#dcd8d4"/><rect x="334" y="100" width="44" height="9" fill="#55a9a2"/><rect x="334" y="109" width="44" height="9" fill="#efece9"/><rect x="334" y="118" width="44" height="9" fill="#efece9"/><rect x="334" y="127" width="44" height="9" fill="#bfe0dd"/><rect x="334" y="136" width="44" height="9" fill="#d4536b"/><rect x="334" y="145" width="44" height="9" fill="#efece9"/><rect x="334" y="100" width="44" height="54" fill="none" stroke="#dcd8d4"/>
+            <text x="68" y="172" text-anchor="middle" font-size="13" fill="#13264A">Un</text><text x="140" y="172" text-anchor="middle" font-size="13" fill="#13264A">dégât</text><text x="212" y="172" text-anchor="middle" font-size="13" fill="#13264A">des</text><text x="284" y="172" text-anchor="middle" font-size="13" fill="#13264A">eaux</text><text x="356" y="172" text-anchor="middle" font-size="13" fill="#13264A">touché</text>
+            <rect x="262" y="96" width="44" height="58" fill="none" stroke="#BA1C3A" stroke-width="2.5"/>
+            <text x="404" y="112" font-size="13.5" font-weight="700" fill="#BA1C3A">Attention</text>
+            <text x="404" y="132" font-size="13" fill="#4a5567">« eaux » regarde les autres mots.</text>
+            <text x="404" y="150" font-size="13" fill="#4a5567">Le trait épais : celui qui compte.</text>
+            <path d="M 284 178 L 284 202" stroke="#13264A" stroke-width="2.5" marker-end="url(#fl2)"/>
+            <rect x="262" y="208" width="44" height="9" fill="#1F6F6B"/><rect x="262" y="217" width="44" height="9" fill="#f2c3cd"/><rect x="262" y="226" width="44" height="9" fill="#8ec9c4"/><rect x="262" y="235" width="44" height="9" fill="#efece9"/><rect x="262" y="244" width="44" height="9" fill="#e58a9b"/><rect x="262" y="253" width="44" height="9" fill="#55a9a2"/><rect x="262" y="208" width="44" height="54" fill="none" stroke="#dcd8d4"/>
+            <text x="284" y="284" text-anchor="middle" font-size="13" font-weight="700" fill="#13264A">« eaux » rechargé</text>
+            <text x="404" y="222" font-size="13.5" font-weight="700" fill="#13264A">Puis le réseau dense</text>
+            <text x="404" y="242" font-size="13" fill="#4a5567">chaque colonne passe seule</text>
+            <text x="404" y="260" font-size="13" fill="#4a5567">dans une grille de poids.</text>
+            <text x="404" y="284" font-size="14" font-weight="800" fill="#BA1C3A">Le tout, 32 fois.</text>
           </g>
 
           <!-- 4. probabilites -->
@@ -736,8 +746,8 @@ similarité cosinus : 0,87</div>
       </div>
       <div class="scrolly-step" data-step="2">
         <h4>Chaque numéro devient une ligne de nombres</h4>
-        <p>Le numéro sert à aller chercher une ligne de quelques milliers de nombres, apprise pendant l'entraînement. C'est le vecteur du mot, celui de la section précédente : deux mots de sens proche ont des lignes proches.</p>
-        <p>On ajoute une seconde ligne qui code la position dans la phrase. Sans elle, tous les mots arriveraient en vrac et « le gestionnaire n'a pas été réactif » ressemblerait à son contraire.</p>
+        <p>Le numéro sert à aller chercher une colonne de quelques milliers de nombres, apprise pendant l'entraînement. C'est le vecteur du mot, celui de la section précédente : deux mots de sens proche ont des colonnes qui se ressemblent, case par case.</p>
+        <p>On ajoute une seconde colonne qui code la position dans la phrase. Sans elle, tous les mots arriveraient en vrac et « le gestionnaire n'a pas été réactif » ressemblerait à son contraire.</p>
       </div>
       <div class="scrolly-step" data-step="3">
         <h4>La même couche, répétée des dizaines de fois</h4>
@@ -1229,6 +1239,46 @@ similarité cosinus : 0,87</div>
       });
     }
   }
+
+  // Les captures d'une demo defilent une par une : la serie complete tenait
+  // trop de place. A l'impression, le bloc @media print les remet toutes,
+  // en petit, sur trois colonnes : le PDF montre le parcours d'un coup d'oeil.
+  document.querySelectorAll('.demo-steps').forEach(function(gal){
+    var figs = [].slice.call(gal.querySelectorAll('figure'));
+    if (figs.length < 2) return;
+    var i = 0;
+    var nav = document.createElement('div');
+    nav.className = 'demo-nav';
+    nav.innerHTML = '<button type="button" class="demo-arrow" data-pas="-1" aria-label="Capture precedente">‹</button>'
+      + '<span class="demo-dots"></span>'
+      + '<button type="button" class="demo-arrow" data-pas="1" aria-label="Capture suivante">›</button>'
+      + '<span class="demo-rang"></span>';
+    gal.parentNode.insertBefore(nav, gal.nextSibling);
+    var cta = nav.parentNode.querySelector('.demo-cta');
+    if (cta) nav.appendChild(cta);
+    var dots = nav.querySelector('.demo-dots'), rang = nav.querySelector('.demo-rang');
+    var puces = figs.map(function(_, n){
+      var d = document.createElement('button');
+      d.type = 'button'; d.className = 'demo-dot';
+      d.setAttribute('aria-label', 'Capture ' + (n + 1));
+      d.addEventListener('click', function(){ i = n; peindre(); });
+      dots.appendChild(d);
+      return d;
+    });
+    function peindre(){
+      figs.forEach(function(f, n){ f.classList.toggle('is-on', n === i); });
+      puces.forEach(function(d, n){ d.classList.toggle('is-on', n === i); });
+      rang.textContent = (i + 1) + ' / ' + figs.length;
+    }
+    nav.querySelectorAll('.demo-arrow').forEach(function(b){
+      b.addEventListener('click', function(){
+        i = (i + (+b.dataset.pas) + figs.length) % figs.length;
+        peindre();
+      });
+    });
+    gal.classList.add('carrousel');
+    peindre();
+  });
 })();
 </script>
 
