@@ -545,6 +545,18 @@ ul.clean li::before { content: "\203A"; position: absolute; left: 4px; top: -1px
   h2, h3, h4, .h-ico, .tag, .label, .ba-head, .demo-col-head { break-inside: avoid; break-after: avoid; }
   .feat > div > div > strong, .steps > li > strong { display: block; break-after: avoid; }
   figure, .ba > *, figcaption, .kpis > div, .demo-mail, .demo-cat, .prompt { break-inside: avoid; }
+  /* 2b. Retour de lecture (ticket 006) : un bloc coupe en deux ne se lit pas
+        sur papier. Deux niveaux. Les atomes de lecture sont toujours entiers :
+        une puce a icone, une etape numerotee, un element de liste, la note
+        d'une demo. Les conteneurs (carte, encart, « a tester », reponse
+        depliee) recoivent la classe .pk a l'export (export_pdf.py les mesure
+        en emulation print) quand ils font moins de 45 % de la hauteur utile :
+        entiers eux aussi. Au-dela, ils se coupent, mais entre leurs atomes. */
+  .feat > div, .steps > li, ul.clean > li, .demo-embed .print-note, .fil-wrap, .pk { break-inside: avoid; }
+  p, li { orphans: 3; widows: 3; }
+  /* la demo de classement : ses compteurs valent zero tant qu'on n'a pas clique,
+     ils n'ont rien a dire sur papier */
+  .demo-kpis { display: none; }
   details.deeper { break-inside: auto; background: #fff; }
   details.deeper > summary { break-inside: avoid; break-after: avoid; }
   details.deeper > .deeper-body { padding: 14px 14px 4px; }
