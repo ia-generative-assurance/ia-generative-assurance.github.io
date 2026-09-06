@@ -292,43 +292,66 @@
     <figcaption>Une seule dimension, le sentiment. Un vrai embedding fait exactement cela sur 200 à 6 000 dimensions à la fois : sentiment, technicité, registre, domaine. Un mot = une liste de nombres.</figcaption>
   </figure>
 
-  <div class="grid grid-2 reveal">
-    <figure class="figure-frame" style="margin:0">
-      <img src="assets/emb_sentiment_1d.png" alt="Embedding entraîné en une dimension sur des avis">
-      <figcaption>La preuve sur données réelles : un embedding entraîné en <strong>une seule dimension</strong> sur des avis place « worst », « awful » à gauche et « excellent », « amazing » à droite. Personne n'a écrit de dictionnaire : la position vient des contextes d'apparition.</figcaption>
-    </figure>
-    <figure class="figure-frame" style="margin:0">
-      <div class="fig-scroll"><svg viewBox="0 0 640 330" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="L'analogie classique de word2vec : roi moins homme plus femme égale reine, les quatre mots forment un parallélogramme">
+  <figure class="figure-frame reveal">
+    <img src="assets/emb_sentiment_1d.png" alt="Embedding entraîné en une dimension sur des avis">
+    <figcaption>La preuve sur données réelles : un embedding entraîné en <strong>une seule dimension</strong> sur des avis place « worst », « awful » à gauche et « excellent », « amazing » à droite. Personne n'a écrit de dictionnaire : la position vient des contextes d'apparition.</figcaption>
+  </figure>
+  <figure class="figure-frame reveal">
+      <div class="fig-scroll"><svg viewBox="0 0 1100 336" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Deux analogies lexicales en parallélogramme : roi moins homme plus femme égale reine ; électricien moins domotique plus sanitaire égale plombier">
         <defs>
           <marker id="an-c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#BA1C3A"/></marker>
           <marker id="an-n" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3B547D"/></marker>
         </defs>
-        <line x1="40" y1="250" x2="600" y2="250" stroke="#dcd8d4"/>
-        <line x1="40" y1="250" x2="40" y2="30" stroke="#dcd8d4"/>
-        <text x="600" y="268" text-anchor="end" font-size="12" fill="#6C7683">masculin, féminin</text>
-        <text x="-30" y="28" transform="rotate(-90)" text-anchor="end" font-size="12" fill="#6C7683">personne, souverain</text>
-        <!-- le même déplacement « féminin », en bas et en haut -->
-        <line x1="166" y1="220" x2="374" y2="220" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c)"/>
-        <text x="270" y="241" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">+ féminin</text>
-        <line x1="246" y1="80" x2="454" y2="80" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c)"/>
-        <text x="350" y="70" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">+ féminin</text>
-        <!-- le même déplacement « royauté », à gauche et à droite -->
-        <line x1="158" y1="206" x2="222" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n)"/>
-        <text x="176" y="154" text-anchor="end" font-size="12.5" font-weight="700" fill="#3B547D">+ royauté</text>
-        <line x1="398" y1="206" x2="462" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n)"/>
-        <text x="446" y="154" font-size="12.5" font-weight="700" fill="#3B547D">+ royauté</text>
-        <g font-size="17" font-weight="800" fill="#13264A" text-anchor="middle">
-          <circle cx="150" cy="220" r="7" fill="#13264A"/><text x="150" y="247">homme</text>
-          <circle cx="390" cy="220" r="7" fill="#13264A"/><text x="390" y="247">femme</text>
-          <circle cx="230" cy="80" r="7" fill="#13264A"/><text x="230" y="60">roi</text>
-          <circle cx="470" cy="80" r="7" fill="#BA1C3A"/><text x="470" y="60" fill="#BA1C3A">reine</text>
+        <line x1="550" y1="20" x2="550" y2="316" stroke="#dcd8d4" stroke-dasharray="4 4"/>
+        <g transform="translate(0 0)">
+          <text x="40" y="26" font-size="11" font-weight="800" letter-spacing=".12em" fill="#3B547D">L'EXEMPLE CLASSIQUE</text>
+          <line x1="40" y1="250" x2="520" y2="250" stroke="#dcd8d4"/>
+          <line x1="40" y1="250" x2="40" y2="40" stroke="#dcd8d4"/>
+          <text x="520" y="268" text-anchor="end" font-size="12" fill="#6C7683">masculin, féminin</text>
+          <text x="-40" y="28" transform="rotate(-90)" text-anchor="end" font-size="12" fill="#6C7683">personne, souverain</text>
+          <line x1="146" y1="220" x2="354" y2="220" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c)"/>
+          <text x="250" y="241" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">+ féminin</text>
+          <line x1="226" y1="80" x2="434" y2="80" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c)"/>
+          <text x="330" y="70" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">+ féminin</text>
+          <line x1="138" y1="206" x2="202" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n)"/>
+          <text x="156" y="154" text-anchor="end" font-size="12.5" font-weight="700" fill="#3B547D">+ royauté</text>
+          <line x1="378" y1="206" x2="442" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n)"/>
+          <text x="426" y="154" font-size="12.5" font-weight="700" fill="#3B547D">+ royauté</text>
+          <g font-size="16" font-weight="800" fill="#13264A" text-anchor="middle">
+            <circle cx="130" cy="220" r="7" fill="#13264A"/><text x="130" y="247">homme</text>
+            <circle cx="370" cy="220" r="7" fill="#13264A"/><text x="370" y="247">femme</text>
+            <circle cx="210" cy="80" r="7" fill="#13264A"/><text x="210" y="60">roi</text>
+            <circle cx="450" cy="80" r="7" fill="#BA1C3A"/><text x="450" y="60" fill="#BA1C3A">reine</text>
+          </g>
+          <text x="280" y="302" text-anchor="middle" font-size="18" font-weight="800" fill="#13264A">roi − homme + femme = reine</text>
+          <text x="280" y="323" text-anchor="middle" font-size="12.5" fill="#6C7683">et de même : Paris − France + Italie = Rome</text>
         </g>
-        <text x="320" y="302" text-anchor="middle" font-size="19" font-weight="800" fill="#13264A">roi − homme + femme = reine</text>
-        <text x="320" y="323" text-anchor="middle" font-size="13" fill="#6C7683">et de même : Paris − France + Italie = Rome</text>
+        <g transform="translate(560 0)">
+          <text x="40" y="26" font-size="11" font-weight="800" letter-spacing=".12em" fill="#3B547D">EN ASSURANCE : CODER L'ACTIVITÉ À LA SOUSCRIPTION</text>
+          <line x1="40" y1="250" x2="520" y2="250" stroke="#dcd8d4"/>
+          <line x1="40" y1="250" x2="40" y2="40" stroke="#dcd8d4"/>
+          <text x="520" y="268" text-anchor="end" font-size="12" fill="#6C7683">électricité, plomberie</text>
+          <text x="-40" y="28" transform="rotate(-90)" text-anchor="end" font-size="12" fill="#6C7683">prestation, métier</text>
+          <line x1="146" y1="220" x2="354" y2="220" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c)"/>
+          <text x="250" y="241" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">+ plomberie</text>
+          <line x1="226" y1="80" x2="434" y2="80" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c)"/>
+          <text x="330" y="70" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">+ plomberie</text>
+          <line x1="138" y1="206" x2="202" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n)"/>
+          <text x="156" y="154" text-anchor="end" font-size="12.5" font-weight="700" fill="#3B547D">+ métier</text>
+          <line x1="378" y1="206" x2="442" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n)"/>
+          <text x="426" y="154" font-size="12.5" font-weight="700" fill="#3B547D">+ métier</text>
+          <g font-size="16" font-weight="800" fill="#13264A" text-anchor="middle">
+            <circle cx="130" cy="220" r="7" fill="#13264A"/><text x="130" y="247">domotique</text>
+            <circle cx="370" cy="220" r="7" fill="#13264A"/><text x="370" y="247">sanitaire</text>
+            <circle cx="210" cy="80" r="7" fill="#13264A"/><text x="210" y="60">électricien</text>
+            <circle cx="450" cy="80" r="7" fill="#BA1C3A"/><text x="450" y="60" fill="#BA1C3A">plombier</text>
+          </g>
+          <text x="280" y="302" text-anchor="middle" font-size="18" font-weight="800" fill="#13264A">électricien − domotique + sanitaire = plombier</text>
+          <text x="280" y="323" text-anchor="middle" font-size="12.5" fill="#6C7683">« installation de chaudière », jamais vu, atterrit près de « plombier »</text>
+        </g>
       </svg></div>
-      <figcaption>L'exemple classique de word2vec : <strong>roi − homme + femme = reine</strong>. Le même déplacement mène d'homme à femme et de roi à reine : « féminin » est une direction de l'espace, « royauté » une autre. Sur un corpus de descriptions d'activités, la même mécanique donne électricien − domotique + sanitaire = plombier.</figcaption>
-    </figure>
-  </div>
+    <figcaption>Deux analogies, une seule mécanique. À gauche, l'exemple classique de word2vec : « féminin » est une direction de l'espace, « royauté » une autre, et le même déplacement mène d'homme à femme et de roi à reine. À droite, la même mécanique sur un corpus de descriptions d'activités : la direction « métier » et la direction « plomberie » se combinent, et une description jamais vue se place près du bon métier. C'est ce qui code l'activité d'un artisan depuis son texte libre, le geste de la souscription pro, sans dictionnaire à maintenir.</figcaption>
+  </figure>
 
   <h3 style="margin:36px 0 12px">La parade 3, appliquée : chercher sans mots communs</h3>
   <div class="ba reveal">
