@@ -481,7 +481,16 @@ form.addEventListener("submit", e=>{
 });
 
 elizaSay("How do you do. I am ELIZA. Please tell me your problem.");
-input.focus();
+
+// Le curseur ne se place tout seul que si la demo est ouverte seule. Dans une
+// iframe, donner le focus a un champ fait defiler la page hote jusqu'a lui :
+// on arrivait sur comprendre.html directement sur ELIZA, au milieu de la page.
+// Integree, la demo attend donc un clic pour prendre le curseur.
+if (window.top === window.self) {
+  input.focus();
+} else {
+  document.addEventListener("click", () => input.focus());
+}
 </script>
 </body>
 </html>

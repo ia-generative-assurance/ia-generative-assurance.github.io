@@ -296,62 +296,183 @@
     <img src="assets/emb_sentiment_1d.png" alt="Embedding entraîné en une dimension sur des avis">
     <figcaption>La preuve sur données réelles : un embedding entraîné en <strong>une seule dimension</strong> sur des avis place « worst », « awful » à gauche et « excellent », « amazing » à droite. Personne n'a écrit de dictionnaire : la position vient des contextes d'apparition.</figcaption>
   </figure>
-  <figure class="figure-frame reveal">
-      <div class="fig-scroll"><svg viewBox="0 0 1100 336" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Deux analogies lexicales en parallélogramme : roi moins homme plus femme égale reine ; électricien moins domotique plus sanitaire égale plombier">
+  <p>L'analogie, à construire soi-même. Choisissez un cas, puis cliquez sur le schéma : deux mots, un troisième, le même déplacement, et le mot qui apparaît. Les deux derniers cas sont ceux de l'assurance.</p>
+<!-- analogie -->
+  <div class="demo reveal" id="demo-analogie">
+    <div class="demo-bar an-tabs" role="tablist" aria-label="Choisir un cas">
+      <button class="an-tab is-on" data-case="classique" type="button">Le classique</button>
+      <button class="an-tab" data-case="geo" type="button">Les capitales</button>
+      <button class="an-tab" data-case="souscription" type="button">Souscription : l'activité</button>
+      <button class="an-tab" data-case="sinistres" type="button">Sinistres : la branche</button>
+    </div>
+    <div class="an-panels">
+    <div class="an-panel" data-case="classique" title="Cliquer pour l'étape suivante">
+      <svg viewBox="0 0 560 336" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="roi − homme + femme = reine">
         <defs>
-          <marker id="an-c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#BA1C3A"/></marker>
-          <marker id="an-n" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3B547D"/></marker>
+          <marker id="an-c-classique" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#BA1C3A"/></marker>
+          <marker id="an-n-classique" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3B547D"/></marker>
         </defs>
-        <line x1="550" y1="20" x2="550" y2="316" stroke="#dcd8d4" stroke-dasharray="4 4"/>
-        <g transform="translate(0 0)">
-          <text x="40" y="26" font-size="11" font-weight="800" letter-spacing=".12em" fill="#3B547D">L'EXEMPLE CLASSIQUE</text>
-          <line x1="40" y1="250" x2="520" y2="250" stroke="#dcd8d4"/>
-          <line x1="40" y1="250" x2="40" y2="40" stroke="#dcd8d4"/>
-          <text x="520" y="268" text-anchor="end" font-size="12" fill="#6C7683">masculin, féminin</text>
-          <text x="-40" y="28" transform="rotate(-90)" text-anchor="end" font-size="12" fill="#6C7683">personne, souverain</text>
-          <line x1="146" y1="220" x2="354" y2="220" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c)"/>
+        <text x="40" y="26" font-size="11" font-weight="800" letter-spacing=".12em" fill="#3B547D">L'EXEMPLE CLASSIQUE</text>
+        <line x1="40" y1="250" x2="520" y2="250" stroke="#dcd8d4"/>
+        <line x1="40" y1="250" x2="40" y2="40" stroke="#dcd8d4"/>
+        <text x="520" y="268" text-anchor="end" font-size="12" fill="#6C7683">masculin, féminin</text>
+        <text x="-40" y="28" transform="rotate(-90)" text-anchor="end" font-size="12" fill="#6C7683">personne, souverain</text>
+        <g class="an-s" data-s="0">
+          <line x1="146" y1="220" x2="354" y2="220" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c-classique)"/>
           <text x="250" y="241" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">+ féminin</text>
-          <line x1="226" y1="80" x2="434" y2="80" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c)"/>
-          <text x="330" y="70" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">+ féminin</text>
-          <line x1="138" y1="206" x2="202" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n)"/>
-          <text x="156" y="154" text-anchor="end" font-size="12.5" font-weight="700" fill="#3B547D">+ royauté</text>
-          <line x1="378" y1="206" x2="442" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n)"/>
-          <text x="426" y="154" font-size="12.5" font-weight="700" fill="#3B547D">+ royauté</text>
-          <g font-size="16" font-weight="800" fill="#13264A" text-anchor="middle">
-            <circle cx="130" cy="220" r="7" fill="#13264A"/><text x="130" y="247">homme</text>
-            <circle cx="370" cy="220" r="7" fill="#13264A"/><text x="370" y="247">femme</text>
-            <circle cx="210" cy="80" r="7" fill="#13264A"/><text x="210" y="60">roi</text>
-            <circle cx="450" cy="80" r="7" fill="#BA1C3A"/><text x="450" y="60" fill="#BA1C3A">reine</text>
-          </g>
-          <text x="280" y="302" text-anchor="middle" font-size="18" font-weight="800" fill="#13264A">roi − homme + femme = reine</text>
-          <text x="280" y="323" text-anchor="middle" font-size="12.5" fill="#6C7683">et de même : Paris − France + Italie = Rome</text>
+          <circle cx="130" cy="220" r="7" fill="#13264A"/><text x="130" y="247" text-anchor="middle" font-size="16" font-weight="800" fill="#13264A">homme</text>
+          <circle cx="370" cy="220" r="7" fill="#13264A"/><text x="370" y="247" text-anchor="middle" font-size="16" font-weight="800" fill="#13264A">femme</text>
         </g>
-        <g transform="translate(560 0)">
-          <text x="40" y="26" font-size="11" font-weight="800" letter-spacing=".12em" fill="#3B547D">EN ASSURANCE : CODER L'ACTIVITÉ À LA SOUSCRIPTION</text>
-          <line x1="40" y1="250" x2="520" y2="250" stroke="#dcd8d4"/>
-          <line x1="40" y1="250" x2="40" y2="40" stroke="#dcd8d4"/>
-          <text x="520" y="268" text-anchor="end" font-size="12" fill="#6C7683">électricité, plomberie</text>
-          <text x="-40" y="28" transform="rotate(-90)" text-anchor="end" font-size="12" fill="#6C7683">prestation, métier</text>
-          <line x1="146" y1="220" x2="354" y2="220" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c)"/>
+        <g class="an-s" data-s="1">
+          <line x1="138" y1="206" x2="202" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n-classique)"/>
+          <text x="156" y="154" text-anchor="end" font-size="12.5" font-weight="700" fill="#3B547D">+ royauté</text>
+          <circle cx="210" cy="80" r="7" fill="#13264A"/><text x="210" y="60" text-anchor="middle" font-size="16" font-weight="800" fill="#13264A">roi</text>
+        </g>
+        <g class="an-s" data-s="2">
+          <line x1="226" y1="80" x2="434" y2="80" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c-classique)"/>
+          <text x="330" y="70" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">+ féminin</text>
+        </g>
+        <g class="an-q">
+          <circle cx="450" cy="80" r="14" fill="#fff" stroke="#BA1C3A" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="450" y="86" text-anchor="middle" font-size="17" font-weight="800" fill="#BA1C3A">?</text>
+        </g>
+        <g class="an-s" data-s="3">
+          <line x1="378" y1="206" x2="442" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n-classique)"/>
+          <text x="426" y="154" font-size="12.5" font-weight="700" fill="#3B547D">+ royauté</text>
+          <circle cx="450" cy="80" r="7" fill="#BA1C3A"/><text x="450" y="60" text-anchor="middle" font-size="16" font-weight="800" fill="#BA1C3A">reine</text>
+          <text class="an-eq" x="280" y="302" text-anchor="middle" font-size="18" font-weight="800" fill="#13264A">roi − homme + femme = reine</text>
+          <text x="280" y="323" text-anchor="middle" font-size="12.5" fill="#6C7683">le résultat le plus cité de word2vec</text>
+        </g>
+      </svg>
+    </div>
+    <div class="an-panel" data-case="geo" title="Cliquer pour l'étape suivante">
+      <svg viewBox="0 0 560 336" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Paris − France + Italie = Rome">
+        <defs>
+          <marker id="an-c-geo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#BA1C3A"/></marker>
+          <marker id="an-n-geo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3B547D"/></marker>
+        </defs>
+        <text x="40" y="26" font-size="11" font-weight="800" letter-spacing=".12em" fill="#3B547D">LES CAPITALES</text>
+        <line x1="40" y1="250" x2="520" y2="250" stroke="#dcd8d4"/>
+        <line x1="40" y1="250" x2="40" y2="40" stroke="#dcd8d4"/>
+        <text x="520" y="268" text-anchor="end" font-size="12" fill="#6C7683">France, Italie</text>
+        <text x="-40" y="28" transform="rotate(-90)" text-anchor="end" font-size="12" fill="#6C7683">pays, capitale</text>
+        <g class="an-s" data-s="0">
+          <line x1="146" y1="220" x2="354" y2="220" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c-geo)"/>
+          <text x="250" y="241" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">changer de pays</text>
+          <circle cx="130" cy="220" r="7" fill="#13264A"/><text x="130" y="247" text-anchor="middle" font-size="16" font-weight="800" fill="#13264A">France</text>
+          <circle cx="370" cy="220" r="7" fill="#13264A"/><text x="370" y="247" text-anchor="middle" font-size="16" font-weight="800" fill="#13264A">Italie</text>
+        </g>
+        <g class="an-s" data-s="1">
+          <line x1="138" y1="206" x2="202" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n-geo)"/>
+          <text x="156" y="154" text-anchor="end" font-size="12.5" font-weight="700" fill="#3B547D">+ capitale</text>
+          <circle cx="210" cy="80" r="7" fill="#13264A"/><text x="210" y="60" text-anchor="middle" font-size="16" font-weight="800" fill="#13264A">Paris</text>
+        </g>
+        <g class="an-s" data-s="2">
+          <line x1="226" y1="80" x2="434" y2="80" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c-geo)"/>
+          <text x="330" y="70" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">changer de pays</text>
+        </g>
+        <g class="an-q">
+          <circle cx="450" cy="80" r="14" fill="#fff" stroke="#BA1C3A" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="450" y="86" text-anchor="middle" font-size="17" font-weight="800" fill="#BA1C3A">?</text>
+        </g>
+        <g class="an-s" data-s="3">
+          <line x1="378" y1="206" x2="442" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n-geo)"/>
+          <text x="426" y="154" font-size="12.5" font-weight="700" fill="#3B547D">+ capitale</text>
+          <circle cx="450" cy="80" r="7" fill="#BA1C3A"/><text x="450" y="60" text-anchor="middle" font-size="16" font-weight="800" fill="#BA1C3A">Rome</text>
+          <text class="an-eq" x="280" y="302" text-anchor="middle" font-size="18" font-weight="800" fill="#13264A">Paris − France + Italie = Rome</text>
+          <text x="280" y="323" text-anchor="middle" font-size="12.5" fill="#6C7683">le vecteur « capitale » est le même pour tous les pays</text>
+        </g>
+      </svg>
+    </div>
+    <div class="an-panel" data-case="souscription" title="Cliquer pour l'étape suivante">
+      <svg viewBox="0 0 560 336" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="électricien − domotique + sanitaire = plombier">
+        <defs>
+          <marker id="an-c-souscription" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#BA1C3A"/></marker>
+          <marker id="an-n-souscription" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3B547D"/></marker>
+        </defs>
+        <text x="40" y="26" font-size="11" font-weight="800" letter-spacing=".12em" fill="#3B547D">EN ASSURANCE : CODER L'ACTIVITÉ À LA SOUSCRIPTION</text>
+        <line x1="40" y1="250" x2="520" y2="250" stroke="#dcd8d4"/>
+        <line x1="40" y1="250" x2="40" y2="40" stroke="#dcd8d4"/>
+        <text x="520" y="268" text-anchor="end" font-size="12" fill="#6C7683">électricité, plomberie</text>
+        <text x="-40" y="28" transform="rotate(-90)" text-anchor="end" font-size="12" fill="#6C7683">prestation, métier</text>
+        <g class="an-s" data-s="0">
+          <line x1="146" y1="220" x2="354" y2="220" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c-souscription)"/>
           <text x="250" y="241" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">+ plomberie</text>
-          <line x1="226" y1="80" x2="434" y2="80" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c)"/>
-          <text x="330" y="70" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">+ plomberie</text>
-          <line x1="138" y1="206" x2="202" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n)"/>
+          <circle cx="130" cy="220" r="7" fill="#13264A"/><text x="130" y="247" text-anchor="middle" font-size="16" font-weight="800" fill="#13264A">domotique</text>
+          <circle cx="370" cy="220" r="7" fill="#13264A"/><text x="370" y="247" text-anchor="middle" font-size="16" font-weight="800" fill="#13264A">sanitaire</text>
+        </g>
+        <g class="an-s" data-s="1">
+          <line x1="138" y1="206" x2="202" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n-souscription)"/>
           <text x="156" y="154" text-anchor="end" font-size="12.5" font-weight="700" fill="#3B547D">+ métier</text>
-          <line x1="378" y1="206" x2="442" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n)"/>
+          <circle cx="210" cy="80" r="7" fill="#13264A"/><text x="210" y="60" text-anchor="middle" font-size="16" font-weight="800" fill="#13264A">électricien</text>
+        </g>
+        <g class="an-s" data-s="2">
+          <line x1="226" y1="80" x2="434" y2="80" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c-souscription)"/>
+          <text x="330" y="70" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">+ plomberie</text>
+        </g>
+        <g class="an-q">
+          <circle cx="450" cy="80" r="14" fill="#fff" stroke="#BA1C3A" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="450" y="86" text-anchor="middle" font-size="17" font-weight="800" fill="#BA1C3A">?</text>
+        </g>
+        <g class="an-s" data-s="3">
+          <line x1="378" y1="206" x2="442" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n-souscription)"/>
           <text x="426" y="154" font-size="12.5" font-weight="700" fill="#3B547D">+ métier</text>
-          <g font-size="16" font-weight="800" fill="#13264A" text-anchor="middle">
-            <circle cx="130" cy="220" r="7" fill="#13264A"/><text x="130" y="247">domotique</text>
-            <circle cx="370" cy="220" r="7" fill="#13264A"/><text x="370" y="247">sanitaire</text>
-            <circle cx="210" cy="80" r="7" fill="#13264A"/><text x="210" y="60">électricien</text>
-            <circle cx="450" cy="80" r="7" fill="#BA1C3A"/><text x="450" y="60" fill="#BA1C3A">plombier</text>
-          </g>
-          <text x="280" y="302" text-anchor="middle" font-size="18" font-weight="800" fill="#13264A">électricien − domotique + sanitaire = plombier</text>
+          <circle cx="450" cy="80" r="7" fill="#BA1C3A"/><text x="450" y="60" text-anchor="middle" font-size="16" font-weight="800" fill="#BA1C3A">plombier</text>
+          <text class="an-eq" x="280" y="302" text-anchor="middle" font-size="18" font-weight="800" fill="#13264A">électricien − domotique + sanitaire = plombier</text>
           <text x="280" y="323" text-anchor="middle" font-size="12.5" fill="#6C7683">« installation de chaudière », jamais vu, atterrit près de « plombier »</text>
         </g>
-      </svg></div>
-    <figcaption>Deux analogies, une seule mécanique. À gauche, l'exemple classique de word2vec : « féminin » est une direction de l'espace, « royauté » une autre, et le même déplacement mène d'homme à femme et de roi à reine. À droite, la même mécanique sur un corpus de descriptions d'activités : la direction « métier » et la direction « plomberie » se combinent, et une description jamais vue se place près du bon métier. C'est ce qui code l'activité d'un artisan depuis son texte libre, le geste de la souscription pro, sans dictionnaire à maintenir.</figcaption>
-  </figure>
+      </svg>
+    </div>
+    <div class="an-panel" data-case="sinistres" title="Cliquer pour l'étape suivante">
+      <svg viewBox="0 0 560 336" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="collision − auto + habitation = dégât des eaux">
+        <defs>
+          <marker id="an-c-sinistres" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#BA1C3A"/></marker>
+          <marker id="an-n-sinistres" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3B547D"/></marker>
+        </defs>
+        <text x="40" y="26" font-size="11" font-weight="800" letter-spacing=".12em" fill="#3B547D">EN ASSURANCE : ROUTER UNE DÉCLARATION DE SINISTRE</text>
+        <line x1="40" y1="250" x2="520" y2="250" stroke="#dcd8d4"/>
+        <line x1="40" y1="250" x2="40" y2="40" stroke="#dcd8d4"/>
+        <text x="520" y="268" text-anchor="end" font-size="12" fill="#6C7683">auto, habitation</text>
+        <text x="-40" y="28" transform="rotate(-90)" text-anchor="end" font-size="12" fill="#6C7683">branche, sinistre</text>
+        <g class="an-s" data-s="0">
+          <line x1="146" y1="220" x2="354" y2="220" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c-sinistres)"/>
+          <text x="250" y="241" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">changer de branche</text>
+          <circle cx="130" cy="220" r="7" fill="#13264A"/><text x="130" y="247" text-anchor="middle" font-size="16" font-weight="800" fill="#13264A">auto</text>
+          <circle cx="370" cy="220" r="7" fill="#13264A"/><text x="370" y="247" text-anchor="middle" font-size="16" font-weight="800" fill="#13264A">habitation</text>
+        </g>
+        <g class="an-s" data-s="1">
+          <line x1="138" y1="206" x2="202" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n-sinistres)"/>
+          <text x="156" y="154" text-anchor="end" font-size="12.5" font-weight="700" fill="#3B547D">+ sinistre</text>
+          <circle cx="210" cy="80" r="7" fill="#13264A"/><text x="210" y="60" text-anchor="middle" font-size="16" font-weight="800" fill="#13264A">collision</text>
+        </g>
+        <g class="an-s" data-s="2">
+          <line x1="226" y1="80" x2="434" y2="80" stroke="#BA1C3A" stroke-width="2.2" marker-end="url(#an-c-sinistres)"/>
+          <text x="330" y="70" text-anchor="middle" font-size="12.5" font-weight="700" fill="#BA1C3A">changer de branche</text>
+        </g>
+        <g class="an-q">
+          <circle cx="450" cy="80" r="14" fill="#fff" stroke="#BA1C3A" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="450" y="86" text-anchor="middle" font-size="17" font-weight="800" fill="#BA1C3A">?</text>
+        </g>
+        <g class="an-s" data-s="3">
+          <line x1="378" y1="206" x2="442" y2="94" stroke="#3B547D" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#an-n-sinistres)"/>
+          <text x="426" y="154" font-size="12.5" font-weight="700" fill="#3B547D">+ sinistre</text>
+          <circle cx="450" cy="80" r="7" fill="#BA1C3A"/><text x="450" y="60" text-anchor="middle" font-size="16" font-weight="800" fill="#BA1C3A">dégât des eaux</text>
+          <text class="an-eq" x="280" y="302" text-anchor="middle" font-size="18" font-weight="800" fill="#13264A">collision − auto + habitation = dégât des eaux</text>
+          <text x="280" y="323" text-anchor="middle" font-size="12.5" fill="#6C7683">la branche et le type de sinistre s'apprennent seuls sur les déclarations</text>
+        </g>
+      </svg>
+    </div>
+    </div>
+    <div class="an-bar">
+      <p class="an-text" id="an-text">« homme » et « femme ». Le déplacement de l'un à l'autre, c'est la direction « féminin ». Cliquez sur le schéma pour continuer.</p>
+      <div class="an-actions">
+        <button class="btn" id="an-next" type="button"><span>Étape suivante</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <button class="btn ghost-dark" id="an-reset" type="button">Recommencer</button>
+      </div>
+    </div>
+    <p class="an-note">Sur le site, chaque analogie se construit clic par clic : les deux mots du bas, le troisième, le même déplacement, le résultat.</p>
+  </div>
+<!-- /analogie -->
 
   <h3 style="margin:36px 0 12px">La parade 3, appliquée : chercher sans mots communs</h3>
   <div class="ba reveal">
@@ -661,6 +782,34 @@ similarité cosinus : 0,87</div>
 
 </div>
 </div>
+
+<!-- analogie-js -->
+<script>
+(function(){
+  var root = document.getElementById("demo-analogie"); if (!root) return;
+  var TEXTS = {"classique": ["« homme » et « femme ». Le déplacement de l'un à l'autre, c'est la direction « féminin ». Cliquez sur le schéma pour continuer.", "Un troisième mot, « roi ». De « homme » à « roi », c'est une autre direction : « royauté ».", "On applique à « roi » le même déplacement « féminin ». Où arrive-t-on ?", "Sur « reine ». roi − homme + femme = reine : les deux directions se combinent, et personne ne les a écrites, elles viennent des contextes d'apparition."], "geo": ["« France » et « Italie ». De l'une à l'autre : on change de pays.", "« Paris », la capitale. De « France » à « Paris », c'est la direction « capitale ».", "On change de pays depuis « Paris ». Où arrive-t-on ?", "À « Rome ». Paris − France + Italie = Rome. Le même vecteur « capitale » relie Berlin à l'Allemagne, Madrid à l'Espagne : une régularité apprise sur le texte, jamais déclarée."], "souscription": ["« domotique » et « sanitaire », deux prestations. De l'une à l'autre : la direction « plomberie ».", "« électricien », le métier qui fait la domotique. De la prestation au métier : la direction « métier ».", "On applique à « électricien » le même déplacement « plomberie ». Quel métier trouve-t-on ?", "« plombier ». électricien − domotique + sanitaire = plombier. Une description jamais vue, « installation de chaudière », se place près de « plombier » : c'est ce qui code l'activité d'un artisan depuis son texte libre, sans dictionnaire à maintenir."], "sinistres": ["« auto » et « habitation », deux branches. De l'une à l'autre : on change de branche.", "« collision », le sinistre typique de l'auto. De la branche au sinistre : la direction « sinistre ».", "On change de branche depuis « collision ». Quel sinistre trouve-t-on ?", "« dégât des eaux ». collision − auto + habitation = dégât des eaux. Un embedding entraîné sur des déclarations apprend la branche et le type de sinistre sans qu'on les lui donne : de quoi router une déclaration écrite en mots libres."]};
+  var cur = "classique", step = 0;
+  var tabs = root.querySelectorAll(".an-tab"), panels = root.querySelectorAll(".an-panel");
+  var text = document.getElementById("an-text"), next = document.getElementById("an-next"), reset = document.getElementById("an-reset");
+  function paint(){
+    tabs.forEach(function(t){ t.classList.toggle("is-on", t.dataset.case === cur); t.setAttribute("aria-selected", t.dataset.case === cur); });
+    panels.forEach(function(p){
+      p.classList.toggle("is-on", p.dataset.case === cur);
+      p.querySelectorAll(".an-s").forEach(function(g){ g.classList.toggle("is-off", +g.dataset.s > step); });
+      p.querySelectorAll(".an-q").forEach(function(g){ g.classList.toggle("is-off", step !== 2); });
+    });
+    text.textContent = TEXTS[cur][step];
+    next.querySelector("span").textContent = step < 3 ? "Étape suivante" : "Recommencer";
+  }
+  function advance(){ step = step < 3 ? step + 1 : 0; paint(); }
+  tabs.forEach(function(t){ t.addEventListener("click", function(){ cur = t.dataset.case; step = 0; paint(); }); });
+  panels.forEach(function(p){ p.addEventListener("click", advance); });
+  next.addEventListener("click", advance);
+  reset.addEventListener("click", function(){ step = 0; paint(); });
+  paint();
+})();
+</script>
+<!-- /analogie-js -->
 
 
 <footer class="site-footer">

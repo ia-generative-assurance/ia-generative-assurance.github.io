@@ -53,3 +53,29 @@
 @media (max-width: 760px) {
   .demo-embed iframe[src*="snake"] { height: 640px; }
 }
+
+/* L'analogie lexicale pas a pas (module 02, _analogie_widget.py) : quatre cas,
+   un panneau visible, quatre etapes revelees au clic. A l'impression, les
+   quatre panneaux en grille, toutes les etapes visibles, le « ? » masque. */
+.an-tabs { gap: 8px; }
+.an-tab { font: inherit; font-size: .86rem; font-weight: 700; border-radius: 20px; border: 1.5px solid var(--line); background: #fff; color: var(--navy); padding: 6px 14px; cursor: pointer; }
+.an-tab:hover { background: var(--sand-l); }
+.an-tab.is-on { background: var(--navy); border-color: var(--navy); color: #fff; }
+.an-panels { max-width: 680px; margin: 0 auto; }
+.an-panel { display: none; cursor: pointer; }
+.an-panel.is-on { display: block; }
+.an-s, .an-q { transition: opacity .35s; }
+.an-s.is-off, .an-q.is-off { opacity: 0; }
+.an-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 10px; }
+.an-text { margin: 0; flex: 1 1 320px; font-size: .95rem; color: var(--ink-soft); min-height: 2.6em; }
+.an-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.an-note { display: none; font-size: .9rem; color: var(--ink-mute); margin: 8px 0 0; }
+@media print {
+  .an-bar { display: none; }
+  .an-panels { max-width: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .an-panel { display: block; }
+  .an-s.is-off { opacity: 1; }
+  .an-q { display: none; }
+  .an-note { display: block; }
+  #demo-analogie { break-inside: avoid; }
+}
