@@ -29,7 +29,9 @@
 .demo-cat b { display: block; color: var(--navy); margin-bottom: 2px; }
 .demo-cat span { color: var(--ink-soft); }
 .demo-note { font-size: .8rem; color: var(--ink-mute); margin-top: 12px; line-height: 1.45; }
-@media print { .demo-bar { display: none; } }
+/* a l'impression : ni la barre de commande, ni les compteurs (ils valent zero
+   tant qu'on n'a pas clique) ; un mail ou une famille du dictionnaire reste entier */
+@media print { .demo-bar, .demo-kpis { display: none; } .demo-mail, .demo-cat { break-inside: avoid; } }
 
 /* Demos autonomes (un fichier HTML chacune, dossier demos/) integrees dans
    une page par iframe. A l'impression, l'iframe est remplacee par un renvoi. */

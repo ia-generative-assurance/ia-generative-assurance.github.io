@@ -47,6 +47,17 @@ body {
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 28px; }
 .wrap-narrow { max-width: 880px; margin: 0 auto; padding: 0 28px; }
 svg { display: block; }
+/* Filet de securite. Les icones sont dimensionnees par leur enveloppe (.ico,
+   .mark, .p-ico). Une icone posee DIRECTEMENT dans du texte n'a aucune
+   largeur et prend donc toute celle de son conteneur : on l'a vue a 894px de
+   cote dans un `.label`. On la ramene a la taille du texte. Les selecteurs
+   sont en enfant direct pour ne pas toucher aux svg sous enveloppe ni aux
+   schemas de `figure`. */
+.label > svg, p > svg, li > svg, td > svg, th > svg,
+h2 > svg, h3 > svg, h4 > svg, summary > svg, .lede > svg, .eyebrow > svg {
+  width: 1.05em; height: 1.05em; display: inline-block;
+  vertical-align: -.14em; margin-right: .28em; flex: none;
+}
 
 /* ---------- Typographie ---------- */
 
@@ -550,13 +561,13 @@ ul.clean li::before { content: "\203A"; position: absolute; left: 4px; top: -1px
         une puce a icone, une etape numerotee, un element de liste, la note
         d'une demo. Les conteneurs (carte, encart, « a tester », reponse
         depliee) recoivent la classe .pk a l'export (export_pdf.py les mesure
-        en emulation print) quand ils font moins de 45 % de la hauteur utile :
+        en emulation print) quand ils font moins de 60 % de la hauteur utile :
         entiers eux aussi. Au-dela, ils se coupent, mais entre leurs atomes. */
   .feat > div, .steps > li, ul.clean > li, .demo-embed .print-note, .fil-wrap, .pk { break-inside: avoid; }
+  /* rangee de deux blocs trop haute pour tenir entiere sur une page : empilee
+     sur une colonne par export_pdf.py, ses blocs redeviennent entiers */
+  .grid.pstack, .ba.pstack { grid-template-columns: 1fr; }
   p, li { orphans: 3; widows: 3; }
-  /* la demo de classement : ses compteurs valent zero tant qu'on n'a pas clique,
-     ils n'ont rien a dire sur papier */
-  .demo-kpis { display: none; }
   details.deeper { break-inside: auto; background: #fff; }
   details.deeper > summary { break-inside: avoid; break-after: avoid; }
   details.deeper > .deeper-body { padding: 14px 14px 4px; }
