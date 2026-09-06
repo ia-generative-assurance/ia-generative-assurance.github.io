@@ -166,50 +166,138 @@
     <p class="lede">Depuis 2023, le chatbot n'est plus seulement le moteur. Il détecte votre intention et route vers un outil : recherche sur le web, exécution de code Python, lecture de vos fichiers. C'est là que la plupart des usages quotidiens prennent leur valeur.</p>
   </div>
 
-  <figure class="figure-frame">
-    <div class="fig-scroll"><svg viewBox="0 0 1100 480" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
-      <defs>
-        <marker id="a3" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#BA1C3A"/></marker>
-        <marker id="a4" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#3B547D"/></marker>
-      </defs>
-      <!-- vous -->
-      <rect x="20" y="195" width="170" height="90" rx="14" fill="#F7F4F2" stroke="#dcd8d4"/>
-      <text x="105" y="232" text-anchor="middle" font-size="15" font-weight="700" fill="#13264A">Vous</text>
-      <text x="105" y="256" text-anchor="middle" font-size="13" fill="#4a5567">texte, image, voix</text>
-      <path d="M 195 240 L 285 240" stroke="#BA1C3A" stroke-width="3" marker-end="url(#a3)"/>
-      <!-- moteur -->
-      <rect x="295" y="165" width="300" height="150" rx="18" fill="#13264A"/>
-      <text x="445" y="205" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">Le moteur (LLM)</text>
-      <text x="445" y="232" text-anchor="middle" font-size="13.5" fill="#c6d1e2">comprend l'intention,</text>
-      <text x="445" y="252" text-anchor="middle" font-size="13.5" fill="#c6d1e2">choisit l'outil, écrit la requête,</text>
-      <text x="445" y="272" text-anchor="middle" font-size="13.5" fill="#c6d1e2">met en forme le résultat</text>
-      <text x="445" y="300" text-anchor="middle" font-size="12" fill="#e8536e" font-weight="700">IL COORDONNE · LES OUTILS EXÉCUTENT</text>
-      <!-- outils -->
-      <g font-size="13.5">
-        <path d="M 600 205 L 690 90" stroke="#3B547D" stroke-width="2.5" fill="none" marker-end="url(#a4)"/>
-        <rect x="700" y="40" width="380" height="82" rx="12" fill="#fff" stroke="#3B547D" stroke-width="2"/>
-        <text x="720" y="68" font-weight="700" fill="#13264A" font-size="14.5">Recherche sur le web</text>
-        <text x="720" y="90" fill="#4a5567">actualités, faits récents, sources citées :</text>
-        <text x="720" y="108" fill="#4a5567">la parade au « je ne sais pas ce qui s'est passé après 2024 »</text>
+  <p>Suivons une demande du début à la fin, avec deux contrats en pièce jointe. Descendez : le dessin avance d'un temps à chaque étape.</p>
 
-        <path d="M 600 240 L 690 240" stroke="#3B547D" stroke-width="2.5" fill="none" marker-end="url(#a4)"/>
-        <rect x="700" y="199" width="380" height="82" rx="12" fill="#fff" stroke="#BA1C3A" stroke-width="2.5"/>
-        <text x="720" y="227" font-weight="700" fill="#BA1C3A" font-size="14.5">Exécution de code Python</text>
-        <text x="720" y="249" fill="#4a5567">calcul exact, statistiques, graphiques, tri :</text>
-        <text x="720" y="267" fill="#4a5567">le moteur écrit le code, une machine l'exécute</text>
+  <div class="scrolly reveal" data-step="1">
+    <div class="scrolly-figure">
+      <figure class="figure-frame">
+        <div class="fig-scroll"><svg viewBox="0 0 620 1650" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Une demande traitée par le moteur et ses outils, en cinq temps">
+          <!-- pellicule de cinq vignettes de 620x330 : le script cadre l'etape
+               courante, le PDF montre les cinq a la suite. -->
+          <defs><marker id="ch" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#BA1C3A"/></marker></defs>
 
-        <path d="M 600 275 L 690 390" stroke="#3B547D" stroke-width="2.5" fill="none" marker-end="url(#a4)"/>
-        <rect x="700" y="358" width="380" height="82" rx="12" fill="#fff" stroke="#3B547D" stroke-width="2"/>
-        <text x="720" y="386" font-weight="700" fill="#13264A" font-size="14.5">Lecture de vos fichiers</text>
-        <text x="720" y="408" fill="#4a5567">PDF, Word : le texte est extrait puis indexé ;</text>
-        <text x="720" y="426" fill="#4a5567">Excel, CSV : du code est généré pour analyser</text>
-      </g>
-      <!-- retour -->
-      <path d="M 445 320 C 445 400, 200 420, 105 300" stroke="#7D92AC" stroke-width="2" fill="none" stroke-dasharray="6 5" marker-end="url(#a4)"/>
-      <text x="250" y="420" text-anchor="middle" font-size="12.5" fill="#3B547D" font-weight="600">réponse mise en forme, avec le résultat de l'outil</text>
-    </svg></div>
-    <figcaption>Le chatbot moderne : le moteur au centre comprend et coordonne, les outils exécutent. Un PDF n'est pas « lu » comme par un humain : son texte est extrait et indexé. Un Excel n'est pas analysé directement : c'est du code généré qui le traite.</figcaption>
-  </figure>
+          <!-- 1. la demande -->
+          <g data-step="1" transform="translate(0 0)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">1 · CE QUE VOUS DEMANDEZ</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="66" width="580" height="72" rx="12" fill="#F7F4F2" stroke="#dcd8d4"/>
+            <text x="38" y="92" font-size="14" fill="#13264A">« Voici deux contrats. Compare les franchises</text>
+            <text x="38" y="114" font-size="14" fill="#13264A">et calcule l'écart. »</text>
+            <text x="38" y="130" font-size="12" fill="#6C7683">deux PDF joints, 48 et 52 pages</text>
+            <g font-size="12.5" font-weight="700">
+              <rect x="20" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="75" y="181" text-anchor="middle" fill="#13264A">texte</text>
+              <rect x="140" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="195" y="181" text-anchor="middle" fill="#13264A">fichiers</text>
+              <rect x="260" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="315" y="181" text-anchor="middle" fill="#13264A">image</text>
+              <rect x="380" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="435" y="181" text-anchor="middle" fill="#13264A">voix</text>
+            </g>
+            <text x="20" y="240" font-size="14" font-style="italic" fill="#6C7683">Une demande en langage libre, comme à un collègue.</text>
+            <text x="20" y="264" font-size="14" font-style="italic" fill="#6C7683">Vous ne dites pas quel outil utiliser : c'est justement la question.</text>
+          </g>
+
+          <!-- 2. le moteur choisit -->
+          <g data-step="2" transform="translate(0 330)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">2 · LE MOTEUR DÉCIDE, IL NE FAIT PAS</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="200" height="96" rx="14" fill="#13264A"/>
+            <text x="120" y="98" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">Le moteur</text>
+            <text x="120" y="120" text-anchor="middle" font-size="12.5" fill="#c6d1e2">lit la demande,</text>
+            <text x="120" y="138" text-anchor="middle" font-size="12.5" fill="#c6d1e2">choisit les outils</text>
+            <g font-size="12.5">
+              <path d="M228 82 L268 82" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+              <rect x="278" y="62" width="322" height="38" rx="9" fill="#fbeef1" stroke="#BA1C3A" stroke-width="1.5"/>
+              <text x="294" y="86" font-weight="700" fill="#BA1C3A">Lire les fichiers joints</text>
+              <path d="M228 128 L268 128" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+              <rect x="278" y="108" width="322" height="38" rx="9" fill="#fbeef1" stroke="#BA1C3A" stroke-width="1.5"/>
+              <text x="294" y="132" font-weight="700" fill="#BA1C3A">Exécuter du code pour calculer</text>
+              <rect x="278" y="154" width="322" height="38" rx="9" fill="#fff" stroke="#dcd8d4"/>
+              <text x="294" y="178" fill="#6C7683">Chercher sur le web : pas utile ici</text>
+            </g>
+            <text x="20" y="240" font-size="14" font-style="italic" fill="#6C7683">Il a compris l'intention : lire, puis calculer.</text>
+            <text x="20" y="264" font-size="14" font-style="italic" fill="#6C7683">C'est un chef d'orchestre, pas un musicien.</text>
+          </g>
+
+          <!-- 3. les outils executent -->
+          <g data-step="3" transform="translate(0 660)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">3 · LES OUTILS EXÉCUTENT</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="285" height="104" rx="12" fill="#fff" stroke="#3B547D" stroke-width="1.5"/>
+            <text x="36" y="86" font-size="13.5" font-weight="700" fill="#13264A">Lecture des PDF</text>
+            <text x="36" y="108" font-size="12.5" fill="#4a5567">le texte est extrait, page par page</text>
+            <text x="36" y="126" font-size="12.5" fill="#4a5567">contrat A : franchise 90 €</text>
+            <text x="36" y="144" font-size="12.5" fill="#4a5567">contrat B : franchise 150 €</text>
+            <rect x="315" y="62" width="285" height="104" rx="12" fill="#fff" stroke="#BA1C3A" stroke-width="1.5"/>
+            <text x="331" y="86" font-size="13.5" font-weight="700" fill="#BA1C3A">Code exécuté</text>
+            <text x="331" y="110" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">ecart = 150 - 90</text>
+            <text x="331" y="132" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">print(ecart)</text>
+            <text x="331" y="152" font-size="12.5" font-weight="700" fill="#13264A">→ 60</text>
+            <text x="20" y="212" font-size="14" font-style="italic" fill="#6C7683">Un PDF n'est pas lu comme par un humain : son texte est extrait.</text>
+            <text x="20" y="236" font-size="14" font-style="italic" fill="#6C7683">Un calcul n'est pas deviné : le moteur écrit le code,</text>
+            <text x="20" y="260" font-size="14" font-style="italic" fill="#6C7683">et une vraie machine l'exécute.</text>
+          </g>
+
+          <!-- 4. le retour -->
+          <g data-step="4" transform="translate(0 990)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">4 · LE RÉSULTAT REVIENT AU MOTEUR</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="330" y="66" width="270" height="76" rx="12" fill="#fff" stroke="#3B547D" stroke-width="1.5"/>
+            <text x="348" y="90" font-size="13" font-weight="700" fill="#13264A">Ce que les outils renvoient</text>
+            <text x="348" y="112" font-size="12.5" fill="#4a5567">deux montants, un écart de 60 €,</text>
+            <text x="348" y="130" font-size="12.5" fill="#4a5567">et les pages d'où ils viennent</text>
+            <path d="M322 104 L262 104" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+            <rect x="20" y="66" width="232" height="76" rx="14" fill="#13264A"/>
+            <text x="136" y="98" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">Le moteur, à nouveau</text>
+            <text x="136" y="122" text-anchor="middle" font-size="12.5" fill="#c6d1e2">il relit tout, avec le résultat</text>
+            <text x="20" y="196" font-size="14" fill="#4a5567">Le résultat de l'outil rentre dans la conversation</text>
+            <text x="20" y="218" font-size="14" fill="#4a5567">comme un texte de plus. Rien d'autre.</text>
+            <text x="20" y="266" font-size="14" font-style="italic" fill="#6C7683">C'est pour cela qu'un outil qui se trompe ne se voit pas :</text>
+            <text x="20" y="290" font-size="14" font-style="italic" fill="#6C7683">le moteur reçoit son résultat comme une vérité.</text>
+          </g>
+
+          <!-- 5. la reponse -->
+          <g data-step="5" transform="translate(0 1320)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">5 · LA RÉPONSE, MISE EN FORME</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="580" height="96" rx="12" fill="#e8f3f2" stroke="#1F6F6B"/>
+            <text x="38" y="88" font-size="13.5" fill="#13264A">« Le contrat B a une franchise de 150 €, contre 90 € pour</text>
+            <text x="38" y="110" font-size="13.5" fill="#13264A">le contrat A : 60 € d'écart, soit 67 % de plus. »</text>
+            <text x="38" y="136" font-size="12.5" font-weight="700" fill="#1F6F6B">Article 5 des deux contrats, pages 13 et 15.</text>
+            <rect x="20" y="176" width="580" height="70" rx="12" fill="#fdf3e2" stroke="#92661D"/>
+            <text x="38" y="202" font-size="13" font-weight="700" fill="#92661D">Sans outil, la même question</text>
+            <text x="38" y="224" font-size="12.5" fill="#4a5567">un écart plausible, écrit avec le même aplomb, et faux</text>
+            <text x="20" y="292" font-size="14" font-style="italic" fill="#6C7683">La différence entre les deux réponses ne se voit pas à l'œil.</text>
+          </g>
+        </svg></div>
+        <figcaption>Une demande, du début à la fin. Le moteur comprend et coordonne, les outils exécutent, et la réponse revient mise en forme.</figcaption>
+      </figure>
+    </div>
+    <div class="scrolly-steps">
+      <div class="scrolly-step" data-step="1">
+        <h4>Vous demandez, en langage libre</h4>
+        <p>Deux contrats en pièce jointe, une phrase de consigne. Vous ne dites pas quel outil employer, ni comment lire un PDF, ni comment faire la soustraction. C'est le point de départ de tout usage quotidien.</p>
+        <p>La demande peut arriver en texte, en fichier, en photo ou à la voix. Ce sont les modalités : plusieurs portes d'entrée vers le même moteur.</p>
+      </div>
+      <div class="scrolly-step" data-step="2">
+        <h4>Le moteur décide, il ne fait pas</h4>
+        <p>Il lit la demande, reconnaît deux intentions, lire des fichiers et calculer, et appelle les outils correspondants. La recherche sur le web ne sert à rien ici, il ne l'appelle pas.</p>
+        <p>C'est le renversement de 2023. Le moteur n'est plus celui qui répond tout seul, il est celui qui coordonne. Un chef d'orchestre, pas un musicien.</p>
+      </div>
+      <div class="scrolly-step" data-step="3">
+        <h4>Les outils exécutent, chacun son métier</h4>
+        <p>La lecture de fichiers extrait le texte des PDF, page par page. Elle ne les comprend pas, elle les transcrit. Puis le moteur écrit trois lignes de code, et une vraie machine les exécute pour obtenir l'écart.</p>
+        <p>Retenez les deux : un PDF n'est pas lu comme par un humain, son texte est extrait. Un Excel n'est pas analysé directement, c'est du code généré qui le traite. Un tableau scanné de travers casse ici, pas plus loin.</p>
+      </div>
+      <div class="scrolly-step" data-step="4">
+        <h4>Le résultat revient dans la conversation</h4>
+        <p>Ce que les outils renvoient rentre dans la conversation comme un texte de plus, et le moteur relit l'ensemble. Il n'y a pas de mémoire cachée ni de canal spécial.</p>
+        <p>Conséquence à connaître : le moteur reçoit le résultat d'un outil comme une vérité. Si l'extraction a mal lu un tableau, la réponse sera fausse, et rien dans son ton ne le signalera.</p>
+      </div>
+      <div class="scrolly-step" data-step="5">
+        <h4>La réponse est mise en forme, avec ses sources</h4>
+        <p>Le moteur rédige la réponse à partir du résultat, et cite les articles et les pages. C'est cette dernière étape qui donne l'impression qu'il a lu les contrats, alors qu'il a surtout su qui appeler.</p>
+        <p>Posez la même question sans les outils : vous obtiendrez un écart plausible, écrit avec le même aplomb, et faux. La différence entre les deux réponses ne se voit pas à l'œil, elle se vérifie par les sources.</p>
+      </div>
+    </div>
+  </div>
 
   <h3 style="margin:34px 0 14px">L'expérience qui révèle tout : combien de « r » dans strawberry ?</h3>
   <p style="margin:0 0 12px">Posez la question telle quelle à un chatbot. Puis recommencez en ajoutant « utilise Python pour compter ». Dépliez ensuite.</p>

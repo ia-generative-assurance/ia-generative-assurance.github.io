@@ -440,24 +440,117 @@
     <figcaption>L'architecture standard d'un outil IA. Le package se teste seul ; on peut changer de modèle sans casser le reste.</figcaption>
   </figure>
 
-  <div class="grid grid-2 reveal">
-    <div class="card">
-      <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg></div><h3>L'échelle d'exposition : à qui montre-t-on l'outil ?</h3></div>
-      <ol class="steps">
-        <li><strong>Plateforme interne, équipe restreinte</strong><p>Hallucinations tolérables, humain dans la boucle, on apprend.</p></li>
-        <li><strong>Outil des gestionnaires</strong><p>Sortie structurée, sources citées, revue par exception.</p></li>
-        <li><strong>Espace client authentifié</strong><p>Périmètre fermé, refus propre du hors-sujet, escalade humaine.</p></li>
-        <li><strong>Site public</strong><p>Le niveau le plus exigeant : garde-fous, tests adverses, responsabilité de marque.</p></li>
-      </ol>
-      <p style="margin:6px 0 0;font-size:.93rem;color:var(--ink-soft)">La robustesse exigée croît à chaque marche. On monte une marche à la fois.</p>
+  <h3 style="margin:36px 0 10px">L'échelle d'exposition : à qui montre-t-on l'outil ?</h3>
+  <p>Le même outil, montré à quatre publics différents, n'est pas le même produit. Descendez d'une marche à l'autre : ce qui change, c'est la robustesse exigée.</p>
+
+  <div class="scrolly reveal" data-step="1">
+    <div class="scrolly-figure">
+      <figure class="figure-frame">
+        <div class="fig-scroll"><svg viewBox="0 0 620 1320" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="L'échelle d'exposition, de la plateforme interne au site public">
+          <!-- pellicule de quatre vignettes de 620x330 : la marche courante est
+               en couleur, les autres en gris. Le PDF montre les quatre a la suite. -->
+
+          <!-- 1. interne -->
+          <g data-step="1" transform="translate(0 0)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">MARCHE 1 · LA PLATEFORME INTERNE</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <g font-size="12.5" font-weight="700">
+              <rect x="20" y="150" width="136" height="36" rx="8" fill="#BA1C3A"/><text x="88" y="173" text-anchor="middle" fill="#fff">1 · Interne</text>
+              <rect x="166" y="118" width="136" height="36" rx="8" fill="#fff" stroke="#dcd8d4"/><text x="234" y="141" text-anchor="middle" fill="#6C7683">2 · Gestionnaires</text>
+              <rect x="312" y="86" width="136" height="36" rx="8" fill="#fff" stroke="#dcd8d4"/><text x="380" y="109" text-anchor="middle" fill="#6C7683">3 · Espace client</text>
+              <rect x="458" y="54" width="136" height="36" rx="8" fill="#fff" stroke="#dcd8d4"/><text x="526" y="77" text-anchor="middle" fill="#6C7683">4 · Site public</text>
+            </g>
+            <rect x="20" y="206" width="580" height="98" rx="10" fill="#fbeef1" stroke="#BA1C3A"/>
+            <text x="38" y="230" font-size="13" font-weight="700" fill="#BA1C3A">Une équipe restreinte, qui sait ce qu'elle regarde</text>
+            <text x="38" y="254" font-size="12.5" fill="#4a5567">Ce qu'on tolère : des réponses fausses, un outil qui tombe, une interface moche.</text>
+            <text x="38" y="274" font-size="12.5" fill="#4a5567">Ce qu'il faut : un humain qui relit tout, et de quoi noter ce qui rate.</text>
+            <text x="38" y="294" font-size="12.5" fill="#4a5567">Ce qu'on y gagne : apprendre vite, pour presque rien.</text>
+          </g>
+
+          <!-- 2. gestionnaires -->
+          <g data-step="2" transform="translate(0 330)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">MARCHE 2 · L'OUTIL DES GESTIONNAIRES</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <g font-size="12.5" font-weight="700">
+              <rect x="20" y="150" width="136" height="36" rx="8" fill="#F7F4F2" stroke="#dcd8d4"/><text x="88" y="173" text-anchor="middle" fill="#6C7683">1 · Interne</text>
+              <rect x="166" y="118" width="136" height="36" rx="8" fill="#BA1C3A"/><text x="234" y="141" text-anchor="middle" fill="#fff">2 · Gestionnaires</text>
+              <rect x="312" y="86" width="136" height="36" rx="8" fill="#fff" stroke="#dcd8d4"/><text x="380" y="109" text-anchor="middle" fill="#6C7683">3 · Espace client</text>
+              <rect x="458" y="54" width="136" height="36" rx="8" fill="#fff" stroke="#dcd8d4"/><text x="526" y="77" text-anchor="middle" fill="#6C7683">4 · Site public</text>
+            </g>
+            <rect x="20" y="206" width="580" height="98" rx="10" fill="#fbeef1" stroke="#BA1C3A"/>
+            <text x="38" y="230" font-size="13" font-weight="700" fill="#BA1C3A">Des collègues, sur leur travail réel, toute la journée</text>
+            <text x="38" y="254" font-size="12.5" fill="#4a5567">Ce qu'on tolère : une erreur visible, si elle est signalée et corrigeable.</text>
+            <text x="38" y="274" font-size="12.5" fill="#4a5567">Ce qu'il faut : une sortie structurée, les sources citées, un score de confiance.</text>
+            <text x="38" y="294" font-size="12.5" fill="#4a5567">La revue devient une exception, plus une relecture systématique.</text>
+          </g>
+
+          <!-- 3. espace client -->
+          <g data-step="3" transform="translate(0 660)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">MARCHE 3 · L'ESPACE CLIENT</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <g font-size="12.5" font-weight="700">
+              <rect x="20" y="150" width="136" height="36" rx="8" fill="#F7F4F2" stroke="#dcd8d4"/><text x="88" y="173" text-anchor="middle" fill="#6C7683">1 · Interne</text>
+              <rect x="166" y="118" width="136" height="36" rx="8" fill="#F7F4F2" stroke="#dcd8d4"/><text x="234" y="141" text-anchor="middle" fill="#6C7683">2 · Gestionnaires</text>
+              <rect x="312" y="86" width="136" height="36" rx="8" fill="#BA1C3A"/><text x="380" y="109" text-anchor="middle" fill="#fff">3 · Espace client</text>
+              <rect x="458" y="54" width="136" height="36" rx="8" fill="#fff" stroke="#dcd8d4"/><text x="526" y="77" text-anchor="middle" fill="#6C7683">4 · Site public</text>
+            </g>
+            <rect x="20" y="206" width="580" height="98" rx="10" fill="#fbeef1" stroke="#BA1C3A"/>
+            <text x="38" y="230" font-size="13" font-weight="700" fill="#BA1C3A">Un assuré connecté, qui parle de son contrat</text>
+            <text x="38" y="254" font-size="12.5" fill="#4a5567">Ce qu'on ne tolère plus : répondre à côté du périmètre, ou pour un autre assuré.</text>
+            <text x="38" y="274" font-size="12.5" fill="#4a5567">Ce qu'il faut : les droits filtrés avant l'appel, un refus propre, une escalade humaine.</text>
+            <text x="38" y="294" font-size="12.5" fill="#4a5567">Une réponse fausse devient un engagement contractuel discuté.</text>
+          </g>
+
+          <!-- 4. site public -->
+          <g data-step="4" transform="translate(0 990)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">MARCHE 4 · LE SITE PUBLIC</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <g font-size="12.5" font-weight="700">
+              <rect x="20" y="150" width="136" height="36" rx="8" fill="#F7F4F2" stroke="#dcd8d4"/><text x="88" y="173" text-anchor="middle" fill="#6C7683">1 · Interne</text>
+              <rect x="166" y="118" width="136" height="36" rx="8" fill="#F7F4F2" stroke="#dcd8d4"/><text x="234" y="141" text-anchor="middle" fill="#6C7683">2 · Gestionnaires</text>
+              <rect x="312" y="86" width="136" height="36" rx="8" fill="#F7F4F2" stroke="#dcd8d4"/><text x="380" y="109" text-anchor="middle" fill="#6C7683">3 · Espace client</text>
+              <rect x="458" y="54" width="136" height="36" rx="8" fill="#BA1C3A"/><text x="526" y="77" text-anchor="middle" fill="#fff">4 · Site public</text>
+            </g>
+            <rect x="20" y="206" width="580" height="98" rx="10" fill="#fbeef1" stroke="#BA1C3A"/>
+            <text x="38" y="230" font-size="13" font-weight="700" fill="#BA1C3A">N'importe qui, y compris quelqu'un qui cherche la faille</text>
+            <text x="38" y="254" font-size="12.5" fill="#4a5567">Ce qu'on ne tolère plus : rien de ce qui précède, et la capture d'écran qui circule.</text>
+            <text x="38" y="274" font-size="12.5" fill="#4a5567">Ce qu'il faut : des tests adverses, des garde-fous, un périmètre étroit assumé.</text>
+            <text x="38" y="294" font-size="12.5" fill="#4a5567">C'est la marche où l'on met une marque en jeu, pas seulement un outil.</text>
+          </g>
+        </svg></div>
+        <figcaption>Quatre marches, quatre niveaux d'exigence. Le même moteur, la même chaîne, et un produit différent à chaque fois.</figcaption>
+      </figure>
     </div>
-    <div class="card">
-      <div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6.1L12 16.8 6.6 19.7l1.2-6.1L3.3 9.4l6.1-.8z"/></svg></div><h3>Le magasin d'outils, par verbe</h3></div>
-      <p>Une trentaine de petits outils rangés en six verbes suffisent à couvrir un service : <strong>questionner</strong> un document, <strong>extraire</strong>, <strong>comparer</strong>, <strong>transformer</strong>, <strong>contrôler</strong>, et les outils pour développeurs. Chacun a une vue utilisateur et une vue « voir le détail » qui montre le pipeline.</p>
-      <div class="callout" style="margin:0">
-        <span class="label">UX par exception</span>
-        <p>Le gain s'évapore si l'utilisateur doit « décrocher » pour vérifier. Voir OK ou KO sans changer d'onglet, ne relire que ce que le score de confiance signale : c'est ce qui fait qu'un outil est adopté.</p>
+    <div class="scrolly-steps">
+      <div class="scrolly-step" data-step="1">
+        <h4>Marche 1 : la plateforme interne</h4>
+        <p>Quelques personnes qui savent ce qu'elles regardent, sur leurs propres dossiers. Une réponse fausse n'a aucune conséquence, elle est repérée et notée. C'est la marche où l'on apprend, et elle coûte presque rien.</p>
+        <p>La faute classique est de vouloir la sauter, parce qu'un outil interne « ne se montre pas ». C'est pourtant là qu'on découvre ce que le métier attend vraiment.</p>
       </div>
+      <div class="scrolly-step" data-step="2">
+        <h4>Marche 2 : l'outil des gestionnaires</h4>
+        <p>Des collègues l'utilisent sur leur travail réel, toute la journée. L'erreur reste acceptable, à condition d'être visible et corrigeable en un geste. D'où la sortie structurée, les sources citées, le score de confiance.</p>
+        <p>C'est ici que la revue par exception commence à payer. Si le gestionnaire doit tout relire, le gain disparaît et l'outil est abandonné en trois semaines.</p>
+      </div>
+      <div class="scrolly-step" data-step="3">
+        <h4>Marche 3 : l'espace client authentifié</h4>
+        <p>L'assuré parle de son contrat, donc deux choses deviennent interdites : sortir du périmètre, et répondre avec les données de quelqu'un d'autre. Les droits se filtrent avant l'appel au modèle, jamais après.</p>
+        <p>Une réponse fausse ne coûte plus du temps, elle devient un engagement que le client vous opposera. Le refus propre et l'escalade vers un humain ne sont plus des options.</p>
+      </div>
+      <div class="scrolly-step" data-step="4">
+        <h4>Marche 4 : le site public</h4>
+        <p>N'importe qui, y compris quelqu'un qui cherche la faille pour la capture d'écran. C'est la marche la plus exigeante, et celle où l'on met une marque en jeu, pas seulement un outil.</p>
+        <p>Elle demande des tests adverses, des garde-fous, et un périmètre étroit assumé. La question à se poser avant de la monter n'est pas « est-ce que ça marche », mais « qu'est-ce qui se passe le jour où quelqu'un essaie de le faire dérailler ».</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card reveal">
+    <div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6.1L12 16.8 6.6 19.7l1.2-6.1L3.3 9.4l6.1-.8z"/></svg></div><h3>Le magasin d'outils, par verbe</h3></div>
+    <p>Une trentaine de petits outils rangés en six verbes suffisent à couvrir un service : <strong>questionner</strong> un document, <strong>extraire</strong>, <strong>comparer</strong>, <strong>transformer</strong>, <strong>contrôler</strong>, et les outils pour développeurs. Chacun a une vue utilisateur et une vue « voir le détail » qui montre le pipeline.</p>
+    <div class="callout" style="margin:0">
+      <span class="label">UX par exception</span>
+      <p>Le gain s'évapore si l'utilisateur doit « décrocher » pour vérifier. Voir OK ou KO sans changer d'onglet, ne relire que ce que le score de confiance signale : c'est ce qui fait qu'un outil est adopté.</p>
     </div>
   </div>
 

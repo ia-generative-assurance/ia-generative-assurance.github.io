@@ -391,32 +391,175 @@
     <p class="lede">Après le mail, le document. Contrats scannés jamais relus, photos de sinistres, factures, constats, attestations : les documents sont l'entrée la plus fréquente d'un traitement en entreprise, et le gisement le moins exploité. C'est la <strong>dark data</strong>. Une chaîne en six étapes la transforme en données interrogeables.</p>
   </div>
 
-  <figure class="figure-frame reveal">
-    <div class="fig-scroll"><svg viewBox="0 0 1100 250" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif">
-      <defs><marker id="dc" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#BA1C3A"/></marker></defs>
-      <g font-size="12.5">
-        <g transform="translate(15 30)"><rect width="160" height="78" rx="12" fill="#fff" stroke="#3B547D" stroke-width="2"/><text x="80" y="28" text-anchor="middle" font-weight="800" fill="#13264A" font-size="14">1 · Source</text><text x="80" y="50" text-anchor="middle" fill="#4a5567">PDF natif, scan,</text><text x="80" y="66" text-anchor="middle" fill="#4a5567">photo, mail</text></g>
-        <path d="M178 69 L198 69" stroke="#BA1C3A" stroke-width="3" marker-end="url(#dc)"/>
-        <g transform="translate(200 30)"><rect width="160" height="78" rx="12" fill="#13264A"/><text x="80" y="28" text-anchor="middle" font-weight="800" fill="#fff" font-size="14">2 · Parsing</text><text x="80" y="50" text-anchor="middle" fill="#c6d1e2">texte, structure,</text><text x="80" y="66" text-anchor="middle" fill="#c6d1e2">OCR si scanné</text></g>
-        <path d="M363 69 L383 69" stroke="#BA1C3A" stroke-width="3" marker-end="url(#dc)"/>
-        <g transform="translate(385 30)"><rect width="160" height="78" rx="12" fill="#BA1C3A"/><text x="80" y="28" text-anchor="middle" font-weight="800" fill="#fff" font-size="14">3 · Extraction</text><text x="80" y="50" text-anchor="middle" fill="#fbeef1">les champs utiles,</text><text x="80" y="66" text-anchor="middle" fill="#fbeef1">avec leur source</text></g>
-        <path d="M548 69 L568 69" stroke="#BA1C3A" stroke-width="3" marker-end="url(#dc)"/>
-        <g transform="translate(570 30)"><rect width="160" height="78" rx="12" fill="#fff" stroke="#3B547D" stroke-width="2"/><text x="80" y="28" text-anchor="middle" font-weight="800" fill="#13264A" font-size="14">4 · Rattachement</text><text x="80" y="50" text-anchor="middle" fill="#4a5567">au client, au contrat,</text><text x="80" y="66" text-anchor="middle" fill="#4a5567">au sinistre</text></g>
-        <path d="M733 69 L753 69" stroke="#BA1C3A" stroke-width="3" marker-end="url(#dc)"/>
-        <g transform="translate(755 30)"><rect width="160" height="78" rx="12" fill="#fff" stroke="#3B547D" stroke-width="2"/><text x="80" y="28" text-anchor="middle" font-weight="800" fill="#13264A" font-size="14">5 · Consolidation</text><text x="80" y="50" text-anchor="middle" fill="#4a5567">contrôles, cohérence,</text><text x="80" y="66" text-anchor="middle" fill="#4a5567">score de confiance</text></g>
-        <path d="M918 69 L938 69" stroke="#BA1C3A" stroke-width="3" marker-end="url(#dc)"/>
-        <g transform="translate(940 30)"><rect width="145" height="78" rx="12" fill="#fff" stroke="#3B547D" stroke-width="2"/><text x="72" y="28" text-anchor="middle" font-weight="800" fill="#13264A" font-size="14">6 · Restitution</text><text x="72" y="50" text-anchor="middle" fill="#4a5567">écran, base,</text><text x="72" y="66" text-anchor="middle" fill="#4a5567">PDF annoté</text></g>
-      </g>
-      <rect x="200" y="130" width="345" height="56" rx="10" fill="#F7F4F2" stroke="#dcd8d4"/>
-      <text x="372" y="152" text-anchor="middle" font-size="13" fill="#13264A" font-weight="700">Parsing et extraction ne se mélangent pas</text>
-      <text x="372" y="172" text-anchor="middle" font-size="12.5" fill="#4a5567">le parsing est coûteux et stable ; l'extraction change avec les besoins</text>
-      <rect x="570" y="130" width="515" height="56" rx="10" fill="#F7F4F2" stroke="#dcd8d4"/>
-      <text x="827" y="152" text-anchor="middle" font-size="13" fill="#13264A" font-weight="700">L'échec de rattachement est une valeur</text>
-      <text x="827" y="172" text-anchor="middle" font-size="12.5" fill="#4a5567">le taux de pièces non rattachées est un indicateur à suivre, pas une erreur à cacher</text>
-      <text x="550" y="230" text-anchor="middle" font-size="13" fill="#78828f">Une septième étape, invisible sur le schéma : mesurer. Taux d'extraction, taux de rattachement, taux de revue humaine.</text>
-    </svg></div>
-    <figcaption>La chaîne documentaire. Les mélanger, parsing et extraction, oblige à re-parser tout le corpus à chaque nouveau champ demandé.</figcaption>
-  </figure>
+  <p>Suivons une attestation qui arrive par mail, jusqu'à l'écran du gestionnaire. Descendez : chaque étape prend le relais de la précédente.</p>
+
+  <div class="scrolly reveal" data-step="1">
+    <div class="scrolly-figure">
+      <figure class="figure-frame">
+        <div class="fig-scroll"><svg viewBox="0 0 620 1980" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="La chaîne documentaire en six étapes, sur une attestation">
+          <!-- pellicule de six vignettes de 620x330 : le script cadre l'etape
+               courante, le PDF montre les six a la suite. -->
+          <defs><marker id="dc" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#BA1C3A"/></marker></defs>
+
+          <!-- 1. source -->
+          <g data-step="1" transform="translate(0 0)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">1 · LA SOURCE, TELLE QU'ELLE ARRIVE</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <g font-size="12.5">
+              <rect x="20" y="66" width="136" height="76" rx="10" fill="#fff" stroke="#3B547D"/>
+              <text x="88" y="94" text-anchor="middle" font-size="13.5" font-weight="700" fill="#13264A">PDF natif</text>
+              <text x="88" y="116" text-anchor="middle" fill="#4a5567">le texte est dedans,</text>
+              <text x="88" y="132" text-anchor="middle" fill="#4a5567">tout va bien</text>
+              <rect x="168" y="66" width="136" height="76" rx="10" fill="#fdf3e2" stroke="#92661D"/>
+              <text x="236" y="94" text-anchor="middle" font-size="13.5" font-weight="700" fill="#92661D">Scan</text>
+              <text x="236" y="116" text-anchor="middle" fill="#4a5567">une image de page,</text>
+              <text x="236" y="132" text-anchor="middle" fill="#4a5567">aucun texte</text>
+              <rect x="316" y="66" width="136" height="76" rx="10" fill="#fdf3e2" stroke="#92661D"/>
+              <text x="384" y="94" text-anchor="middle" font-size="13.5" font-weight="700" fill="#92661D">Photo</text>
+              <text x="384" y="116" text-anchor="middle" fill="#4a5567">de travers, ombre,</text>
+              <text x="384" y="132" text-anchor="middle" fill="#4a5567">doigt sur le coin</text>
+              <rect x="464" y="66" width="136" height="76" rx="10" fill="#fff" stroke="#3B547D"/>
+              <text x="532" y="94" text-anchor="middle" font-size="13.5" font-weight="700" fill="#13264A">Mail</text>
+              <text x="532" y="116" text-anchor="middle" fill="#4a5567">le corps compte</text>
+              <text x="532" y="132" text-anchor="middle" fill="#4a5567">autant que la pièce</text>
+            </g>
+            <text x="20" y="196" font-size="14" fill="#4a5567">Notre cas : une attestation photographiée, envoyée par mail.</text>
+            <text x="20" y="248" font-size="14" font-style="italic" fill="#6C7683">Un PDF fusionné par la GED n'est plus l'original :</text>
+            <text x="20" y="272" font-size="14" font-style="italic" fill="#6C7683">on y perd la séparation entre les pièces.</text>
+          </g>
+
+          <!-- 2. parsing -->
+          <g data-step="2" transform="translate(0 330)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">2 · PARSING : OBTENIR DU TEXTE</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="66" width="130" height="120" rx="10" fill="#fdf3e2" stroke="#92661D"/>
+            <text x="85" y="92" text-anchor="middle" font-size="13" font-weight="700" fill="#92661D">La photo</text>
+            <g stroke="#92661D" opacity=".5"><line x1="38" y1="112" x2="132" y2="116"/><line x1="38" y1="130" x2="132" y2="134"/><line x1="38" y1="148" x2="112" y2="151"/></g>
+            <text x="85" y="176" text-anchor="middle" font-size="11.5" fill="#6C7683">une image, rien d'autre</text>
+            <path d="M158 126 L196 126" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#dc)"/>
+            <rect x="206" y="66" width="120" height="120" rx="10" fill="#13264A"/>
+            <text x="266" y="112" text-anchor="middle" font-size="13.5" font-weight="700" fill="#fff">OCR</text>
+            <text x="266" y="134" text-anchor="middle" font-size="12" fill="#c6d1e2">reconnaissance</text>
+            <text x="266" y="150" text-anchor="middle" font-size="12" fill="#c6d1e2">de caractères</text>
+            <path d="M334 126 L372 126" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#dc)"/>
+            <rect x="382" y="66" width="218" height="120" rx="10" fill="#F7F4F2" stroke="#dcd8d4"/>
+            <text x="400" y="92" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">ATTESTATION D'ASSURANCE</text>
+            <text x="400" y="114" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">Titulaire : SARL DUPONT</text>
+            <text x="400" y="136" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">Valable du 01/01 au 31/12</text>
+            <text x="400" y="164" font-size="11.5" fill="#6C7683">du texte, plus la position de chaque ligne</text>
+            <text x="20" y="230" font-size="14" font-style="italic" fill="#6C7683">Coûteux, mais fait une seule fois par document.</text>
+            <text x="20" y="254" font-size="14" font-style="italic" fill="#6C7683">Le parsing ne cherche rien : il transcrit.</text>
+          </g>
+
+          <!-- 3. extraction -->
+          <g data-step="3" transform="translate(0 660)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">3 · EXTRACTION : LES CHAMPS UTILES</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <g font-size="12.5">
+              <rect x="20" y="66" width="580" height="34" rx="8" fill="#fff" stroke="#dcd8d4"/>
+              <text x="36" y="88" font-weight="700" fill="#13264A">Titulaire</text><text x="220" y="88" fill="#4a5567">SARL DUPONT</text><text x="584" y="88" text-anchor="end" fill="#1F6F6B" font-weight="700">0,98</text>
+              <rect x="20" y="106" width="580" height="34" rx="8" fill="#fff" stroke="#dcd8d4"/>
+              <text x="36" y="128" font-weight="700" fill="#13264A">Fin de validité</text><text x="220" y="128" fill="#4a5567">31/12/2026</text><text x="584" y="128" text-anchor="end" fill="#1F6F6B" font-weight="700">0,95</text>
+              <rect x="20" y="146" width="580" height="34" rx="8" fill="#fdf3e2" stroke="#92661D"/>
+              <text x="36" y="168" font-weight="700" fill="#92661D">Numéro de contrat</text><text x="220" y="168" fill="#4a5567">A1?4-882</text><text x="584" y="168" text-anchor="end" fill="#92661D" font-weight="700">0,41</text>
+            </g>
+            <text x="20" y="212" font-size="13.5" fill="#4a5567">Sous un seuil de confiance, la pièce part en revue humaine.</text>
+            <text x="20" y="252" font-size="14" font-style="italic" fill="#6C7683">Ne pas mélanger avec le parsing : l'extraction change à chaque</text>
+            <text x="20" y="276" font-size="14" font-style="italic" fill="#6C7683">nouveau besoin. Mélangées, un champ de plus oblige à tout re-parser.</text>
+          </g>
+
+          <!-- 4. rattachement -->
+          <g data-step="4" transform="translate(0 990)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">4 · RATTACHEMENT : À QUI, À QUOI</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="66" width="200" height="76" rx="10" fill="#F7F4F2" stroke="#dcd8d4"/>
+            <text x="38" y="92" font-size="13" font-weight="700" fill="#13264A">SARL DUPONT</text>
+            <text x="38" y="114" font-size="12" fill="#4a5567">contrat A1?4-882</text>
+            <text x="38" y="132" font-size="12" fill="#6C7683">un caractère illisible</text>
+            <path d="M228 104 L266 104" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#dc)"/>
+            <g font-size="12.5">
+              <rect x="276" y="66" width="324" height="34" rx="8" fill="#e8f3f2" stroke="#1F6F6B"/>
+              <text x="292" y="88" fill="#13264A" font-weight="700">A134-882 · SARL DUPONT · actif</text>
+              <rect x="276" y="106" width="324" height="34" rx="8" fill="#fff" stroke="#dcd8d4"/>
+              <text x="292" y="128" fill="#6C7683">A174-882 · DUPONT ET FILS · résilié</text>
+            </g>
+            <text x="20" y="196" font-size="13.5" fill="#4a5567">Le nom et la période tranchent : c'est le premier.</text>
+            <text x="20" y="248" font-size="14" font-style="italic" fill="#6C7683">Le taux de pièces non rattachées est un indicateur à suivre,</text>
+            <text x="20" y="272" font-size="14" font-style="italic" fill="#6C7683">pas une erreur à cacher. Il dit où le processus fuit.</text>
+          </g>
+
+          <!-- 5. consolidation -->
+          <g data-step="5" transform="translate(0 1320)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">5 · CONSOLIDATION : LES CONTRÔLES</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <g font-size="12.5">
+              <rect x="20" y="66" width="580" height="34" rx="8" fill="#e8f3f2" stroke="#1F6F6B"/>
+              <text x="36" y="88" fill="#13264A">La période couvre bien la date du chantier</text><text x="584" y="88" text-anchor="end" fill="#1F6F6B" font-weight="700">conforme</text>
+              <rect x="20" y="106" width="580" height="34" rx="8" fill="#e8f3f2" stroke="#1F6F6B"/>
+              <text x="36" y="128" fill="#13264A">L'activité déclarée correspond au contrat</text><text x="584" y="128" text-anchor="end" fill="#1F6F6B" font-weight="700">conforme</text>
+              <rect x="20" y="146" width="580" height="34" rx="8" fill="#fbeef1" stroke="#BA1C3A"/>
+              <text x="36" y="168" fill="#13264A">L'attestation date de plus de douze mois</text><text x="584" y="168" text-anchor="end" fill="#BA1C3A" font-weight="700">à revoir</text>
+            </g>
+            <text x="20" y="212" font-size="13.5" fill="#4a5567">Un score de confiance global, et la raison de l'alerte.</text>
+            <text x="20" y="252" font-size="14" font-style="italic" fill="#6C7683">Ces contrôles sont des règles métier, pas de l'IA.</text>
+            <text x="20" y="276" font-size="14" font-style="italic" fill="#6C7683">C'est le gestionnaire qui les écrit, et c'est très bien ainsi.</text>
+          </g>
+
+          <!-- 6. restitution -->
+          <g data-step="6" transform="translate(0 1650)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">6 · RESTITUTION : CE QUE VOIT LE GESTIONNAIRE</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="66" width="270" height="130" rx="10" fill="#fff" stroke="#dcd8d4"/>
+            <text x="38" y="90" font-size="12.5" font-weight="700" fill="#13264A">Le document, à droite</text>
+            <rect x="38" y="102" width="234" height="20" rx="4" fill="#fdf3e2" stroke="#92661D"/>
+            <text x="46" y="117" font-size="11" fill="#92661D">le champ surligné dans la page</text>
+            <g stroke="#dcd8d4"><line x1="38" y1="136" x2="272" y2="136"/><line x1="38" y1="152" x2="272" y2="152"/><line x1="38" y1="168" x2="240" y2="168"/></g>
+            <rect x="310" y="66" width="290" height="130" rx="10" fill="#F7F4F2" stroke="#dcd8d4"/>
+            <text x="328" y="90" font-size="12.5" font-weight="700" fill="#13264A">La fiche, à gauche</text>
+            <text x="328" y="114" font-size="12" fill="#4a5567">Titulaire, dates, contrat rattaché</text>
+            <text x="328" y="136" font-size="12" fill="#4a5567">une alerte, avec sa raison</text>
+            <text x="328" y="160" font-size="12" fill="#4a5567">deux boutons : valider, corriger</text>
+            <text x="328" y="182" font-size="11.5" fill="#6C7683">chaque champ renvoie à sa page</text>
+            <text x="20" y="248" font-size="14" font-style="italic" fill="#6C7683">Une septième étape n'apparaît sur aucun schéma : mesurer.</text>
+            <text x="20" y="272" font-size="14" font-style="italic" fill="#6C7683">Taux d'extraction, de rattachement, de revue humaine.</text>
+          </g>
+        </svg></div>
+        <figcaption>La chaîne documentaire sur une attestation photographiée. Chaque étape a son métier, et son taux d'échec à suivre.</figcaption>
+      </figure>
+    </div>
+    <div class="scrolly-steps">
+      <div class="scrolly-step" data-step="1">
+        <h4>La source, telle qu'elle arrive</h4>
+        <p>Un PDF né numérique porte son texte, tout va bien. Un scan et une photo ne sont que des images, et c'est le cas le plus fréquent : un artisan photographie son attestation en biais, avec une ombre et un doigt dans le coin.</p>
+        <p>Regardez aussi d'où vient la pièce. Un PDF fusionné par la gestion électronique de documents n'est plus l'original : la séparation entre les pièces est perdue, et il faut la retrouver.</p>
+      </div>
+      <div class="scrolly-step" data-step="2">
+        <h4>Parsing : obtenir du texte, rien de plus</h4>
+        <p>La reconnaissance de caractères transforme l'image en texte, avec la position de chaque ligne. Elle ne cherche rien, elle transcrit. C'est coûteux, et c'est fait une seule fois par document.</p>
+        <p>La qualité d'ici commande tout le reste. Un tableau mal lu à cette étape est perdu pour toutes les suivantes, quel que soit le modèle qu'on mettra derrière.</p>
+      </div>
+      <div class="scrolly-step" data-step="3">
+        <h4>Extraction : les champs dont vous avez besoin</h4>
+        <p>On demande cette fois des valeurs précises : le titulaire, les dates de validité, le numéro de contrat. Chaque champ revient avec un score de confiance, et sous un seuil la pièce part en revue humaine plutôt que d'entrer fausse dans le système.</p>
+        <p>Ne mélangez jamais cette étape avec la précédente. Le parsing est stable, l'extraction change à chaque nouveau besoin. Mélangés, un champ de plus oblige à re-parser tout le corpus.</p>
+      </div>
+      <div class="scrolly-step" data-step="4">
+        <h4>Rattachement : à quel client, à quel contrat</h4>
+        <p>Une donnée qui flotte ne sert à rien. Il faut relier la pièce à un client, un contrat, parfois un sinistre. Ici le numéro a un caractère illisible, et deux contrats pourraient convenir : le nom et la période tranchent.</p>
+        <p>Quand rien ne tranche, la pièce reste non rattachée, et c'est une information. Le taux de pièces non rattachées est un indicateur à suivre, pas une erreur à cacher : il dit exactement où le processus fuit.</p>
+      </div>
+      <div class="scrolly-step" data-step="5">
+        <h4>Consolidation : croiser et contrôler</h4>
+        <p>On vérifie que la période couvre la date du chantier, que l'activité déclarée correspond au contrat, que l'attestation n'est pas périmée. Chaque contrôle passe ou alerte, avec sa raison.</p>
+        <p>Ces règles ne sont pas de l'IA, et c'est très bien ainsi. Elles sont écrites par le métier, elles se lisent, elles s'auditent, et elles rattrapent une bonne part des erreurs des étapes précédentes.</p>
+      </div>
+      <div class="scrolly-step" data-step="6">
+        <h4>Restitution : l'écran du gestionnaire</h4>
+        <p>Le document d'un côté, la fiche de l'autre, et chaque champ qui renvoie à l'endroit exact de la page d'où il vient. Deux boutons seulement : valider, corriger. Le gestionnaire ne relit que ce qui est signalé.</p>
+        <p>Une septième étape n'apparaît sur aucun schéma, et décide pourtant du succès : mesurer. Taux d'extraction, taux de rattachement, taux de revue humaine. Sans ces trois chiffres, personne ne sait si la chaîne rend service.</p>
+      </div>
+    </div>
+  </div>
 
   <div class="grid grid-2 reveal">
     <div class="card">
