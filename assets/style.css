@@ -362,6 +362,26 @@ figcaption { font-size: .86rem; color: var(--ink-mute); margin-top: 12px; }
 .figure-frame.dark { background: var(--navy); border-color: var(--navy); }
 .figure-frame.dark figcaption { color: #a9b7cc; }
 
+/* ---------- Deroule horaire (discret, injecte par build.py depuis PLANNING) ---------- */
+.timing { display: flex; align-items: center; gap: 8px; margin: 14px 0 0; font-size: .86rem; color: #a9b7cc; }
+.timing svg { width: 15px; height: 15px; flex: none; }
+.toc a .min { float: right; margin-left: 10px; font-size: .72rem; color: var(--ink-mute); font-variant-numeric: tabular-nums; }
+.toc .toc-pause { display: block; margin: 4px 0 4px 12px; padding: 3px 10px; border-radius: 8px; font-size: .72rem; color: var(--amber); background: var(--amber-w); }
+.eyebrow .dur { margin-left: 10px; color: var(--ink-mute); letter-spacing: 0; text-transform: none; font-weight: 600; }
+.pause-mark { display: flex; align-items: center; gap: 14px; margin: 4px 0 26px; font-size: .8rem; color: var(--ink-mute); }
+.pause-mark::before, .pause-mark::after { content: ""; flex: 1; border-top: 1px dashed var(--line); }
+.schedule { margin-top: 26px; padding: 18px 22px; border-radius: var(--radius); background: var(--sand-l); border: 1px solid var(--line); }
+.schedule .eyebrow { margin-bottom: 12px; }
+.schedule-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.schedule-grid a { display: block; padding: 10px 14px; border-radius: var(--radius-s); background: #fff; border: 1px solid var(--line); color: var(--ink); font-size: .84rem; line-height: 1.45; }
+.schedule-grid a:hover { text-decoration: none; border-color: var(--crimson); }
+.schedule-grid small { display: block; font-family: var(--display); font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--steel); }
+.schedule-grid b { display: block; color: var(--navy); margin: 2px 0; }
+.schedule-grid span { display: block; color: var(--ink-mute); font-size: .78rem; }
+.schedule > p { margin: 12px 0 0; font-size: .84rem; color: var(--ink-soft); }
+@media (max-width: 900px) { .schedule-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .schedule-grid { grid-template-columns: 1fr; } }
+
 /* ---------- Listes ---------- */
 
 ul.clean { list-style: none; padding: 0; margin: 0 0 1em; }
