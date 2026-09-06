@@ -307,10 +307,29 @@
   <div class="prompt" style="font-family:var(--mono);font-size:.84rem;line-height:1.6;background:var(--sand-l);border-left:3px solid var(--crimson);padding:14px 16px;border-radius:0 10px 10px 0;white-space:pre-wrap;margin-bottom:14px">Crée un site complet de souscription d'assurance auto pour un assureur fictif, Novassur, en un seul fichier HTML : une page d'accueil avec trois offres, un parcours de devis en quatre étapes (véhicule, conducteur, usage, coordonnées), un tarif indicatif calculé et détaillé, une page de confirmation, une section « pourquoi nous », des témoignages, une FAQ et un pied de page. Design moderne et responsive, en français, données fictives, aucune donnée enregistrée.</div>
   <div class="demo-embed demo-shot reveal">
     <div class="demo-head"><span><b>Novassur, généré en un prompt</b> · le site entier, à parcourir : offres, devis en quatre étapes, confirmation</span><a href="demos/novassur.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
-    <a class="demo-img" href="demos/novassur.html" target="_blank" rel="noopener">
-      <img src="assets/demo_novassur.png" alt="Le site Novassur généré en un prompt : barre de navigation, accroche, bouton de devis, début des offres" loading="lazy">
-      <span class="demo-go">Ouvrir la démonstration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a>
+    <div class="demo-steps">
+      <figure>
+        <a href="demos/novassur.html" target="_blank" rel="noopener"><img src="assets/demo_novassur_1.png" alt="L'accueil, comme sur un vrai site" loading="lazy"></a>
+        <figcaption><b>1</b> L'accueil, comme sur un vrai site</figcaption>
+      </figure>
+      <figure>
+        <a href="demos/novassur.html" target="_blank" rel="noopener"><img src="assets/demo_novassur_2.png" alt="Les trois formules, avec leurs garanties" loading="lazy"></a>
+        <figcaption><b>2</b> Les trois formules, avec leurs garanties</figcaption>
+      </figure>
+      <figure>
+        <a href="demos/novassur.html" target="_blank" rel="noopener"><img src="assets/demo_novassur_3.png" alt="Le devis, en quatre étapes" loading="lazy"></a>
+        <figcaption><b>3</b> Le devis, en quatre étapes</figcaption>
+      </figure>
+      <figure>
+        <a href="demos/novassur.html" target="_blank" rel="noopener"><img src="assets/demo_novassur_4.png" alt="Le tarif, détaillé ligne par ligne" loading="lazy"></a>
+        <figcaption><b>4</b> Le tarif, détaillé ligne par ligne</figcaption>
+      </figure>
+      <figure>
+        <a href="demos/novassur.html" target="_blank" rel="noopener"><img src="assets/demo_novassur_5.png" alt="La confirmation, contrat prêt" loading="lazy"></a>
+        <figcaption><b>5</b> La confirmation, contrat prêt</figcaption>
+      </figure>
+    </div>
+    <a class="demo-cta" href="demos/novassur.html" target="_blank" rel="noopener">Ouvrir la démonstration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     <div class="print-note">Le site est cliquable sur le site de la formation (demos/novassur.html) : accueil, trois offres, devis en quatre étapes, tarif détaillé, confirmation, témoignages, FAQ. Produit en un seul prompt, sans retouche.</div>
   </div>
 
@@ -339,14 +358,15 @@
   </div>
 
   <div class="grid grid-2 reveal" style="margin-top:22px">
-    <figure class="figure-frame" style="margin:0">
-      <img src="assets/proto_lecteur_chat.png" alt="Lecteur documentaire avec chat, réponse sourcée, confiance et accès au pipeline">
-      <figcaption><strong>Interroger un corpus.</strong> Le chat n'est pas seul : chaque réponse pointe la page, affiche une confiance, et un lien ouvre le pipeline qui l'a produite. On sait à quelle brique regarder quand la réponse est fausse.</figcaption>
-    </figure>
     <div class="card">
       <div class="h-ico"><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Le plus granulaire : une facture, un contrôle</h3></div>
-      <p>Une facture de garage, synthétique, comme en reçoit un service sinistres. Le prototype de fraude documentaire ne « détecte pas la fraude » : il applique des contrôles nommés (total cohérent avec les lignes, SIRET existant, artisan identique au devis, tampon plausible) et produit un <strong>dossier scoré avec les motifs et la zone du document</strong>.</p>
-      <img src="assets/proto_facture_demo.png" alt="Facture synthétique utilisée par le prototype de fraude" style="width:46%;border:1px solid var(--line);border-radius:10px;display:block;margin:6px 0 0">
+      <p>Une facture de garage, comme en reçoit un service sinistres. Le prototype de fraude documentaire ne « détecte pas la fraude » : il applique des contrôles nommés, total cohérent avec les lignes, SIRET existant, artisan identique au devis, tampon plausible, et produit un <strong>dossier scoré avec les motifs et la zone du document</strong>. Un gestionnaire tranche derrière, avec de quoi motiver sa décision.</p>
+      <p style="margin:0;font-size:.92rem;color:var(--ink-mute)">La démonstration de la section 8 montre le même geste sur une photo de reçu : les indices, puis un verdict motivé.</p>
+    </div>
+    <div class="card">
+      <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg></div><h3>Ce qu'ils ont tous en commun</h3></div>
+      <p>Un écran métier, pas un chatbot. L'IA lit et propose, le code calcule et vérifie, l'humain valide. Chaque champ dit d'où il vient, et l'outil dit ce qu'il n'a pas trouvé au lieu d'inventer.</p>
+      <p style="margin:0;font-size:.92rem;color:var(--ink-mute)">Interroger un corpus de documents est un geste du module 03 : ici, ce qui compte est de le poser dans un processus, avec des écrans et une décision au bout.</p>
     </div>
   </div>
 
@@ -394,10 +414,21 @@
   <p>Le parcours ci-dessous reprend le même processus, avec les pouvoirs spécifiques ajoutés. Il a lui aussi été produit avec un assistant de code, mais à partir d'un cahier des charges métier, pas d'un prompt d'une phrase. Il montre surtout le partage du travail. <strong>Une seule étape appelle un modèle</strong>, la lecture de la demande écrite en langage libre. Le tarif, lui, sort de règles explicites.</p>
   <div class="demo-embed demo-shot reveal">
     <div class="demo-head"><span><b>Souscription auto, peaufinée</b> · choisissez une demande, lisez-la, corrigez la fiche, calculez le tarif</span><a href="demos/souscription.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
-    <a class="demo-img" href="demos/souscription.html" target="_blank" rel="noopener">
-      <img src="assets/demo_souscription.png" alt="Prototype : parcours de souscription auto" loading="lazy">
-      <span class="demo-go">Ouvrir la démonstration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a>
+    <div class="demo-steps">
+      <figure>
+        <a href="demos/souscription.html" target="_blank" rel="noopener"><img src="assets/demo_souscription_1.png" alt="La demande du client, en langage libre" loading="lazy"></a>
+        <figcaption><b>1</b> La demande du client, en langage libre</figcaption>
+      </figure>
+      <figure>
+        <a href="demos/souscription.html" target="_blank" rel="noopener"><img src="assets/demo_souscription_2.png" alt="La fiche extraite, et ce qui manque" loading="lazy"></a>
+        <figcaption><b>2</b> La fiche extraite, et ce qui manque</figcaption>
+      </figure>
+      <figure>
+        <a href="demos/souscription.html" target="_blank" rel="noopener"><img src="assets/demo_souscription_3.png" alt="Le tarif, calculé par des règles explicites" loading="lazy"></a>
+        <figcaption><b>3</b> Le tarif, calculé par des règles explicites</figcaption>
+      </figure>
+    </div>
+    <a class="demo-cta" href="demos/souscription.html" target="_blank" rel="noopener">Ouvrir la démonstration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     <div class="print-note">Prototype cliquable sur le site (demos/souscription.html), données fictives. Trois écrans : la demande du client en langage libre, la fiche extraite avec ses champs manquants signalés en orange, puis le tarif détaillé ligne à ligne. Seule la première étape relève de l'IA.</div>
   </div>
   <p>C'est le modèle de tous les prototypes de ce module : l'IA lit ce qui est écrit en langage humain, le code fait le reste, et l'humain valide avant l'envoi.</p>
@@ -1099,10 +1130,21 @@ Contrôles avant de rendre : la date est passée, les deux
 
   <div class="demo-embed demo-shot reveal">
     <div class="demo-head"><span><b>Ce qu'un prototype ne voit pas tout seul</b> · une photo de reçu recollée, et ce qu'il faut regarder</span><a href="demos/photo-fraude.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
-    <a class="demo-img" href="demos/photo-fraude.html" target="_blank" rel="noopener">
-      <img src="assets/demo_photo_fraude.png" alt="Une photo de reçu au total recollé" loading="lazy">
-      <span class="demo-go">Ouvrir la démonstration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a>
+    <div class="demo-steps">
+      <figure>
+        <a href="demos/photo-fraude.html" target="_blank" rel="noopener"><img src="assets/demo_photo_fraude_1.png" alt="La pièce reçue, une photo de reçu" loading="lazy"></a>
+        <figcaption><b>1</b> La pièce reçue, une photo de reçu</figcaption>
+      </figure>
+      <figure>
+        <a href="demos/photo-fraude.html" target="_blank" rel="noopener"><img src="assets/demo_photo_fraude_2.png" alt="Ce qui la trahit, indice par indice" loading="lazy"></a>
+        <figcaption><b>2</b> Ce qui la trahit, indice par indice</figcaption>
+      </figure>
+      <figure>
+        <a href="demos/photo-fraude.html" target="_blank" rel="noopener"><img src="assets/demo_photo_fraude_3.png" alt="Le verdict, motivé, et ce qu'il ne dit pas" loading="lazy"></a>
+        <figcaption><b>3</b> Le verdict, motivé, et ce qu'il ne dit pas</figcaption>
+      </figure>
+    </div>
+    <a class="demo-cta" href="demos/photo-fraude.html" target="_blank" rel="noopener">Ouvrir la démonstration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     <div class="print-note">
       <p style="margin:0">La démonstration montre une photo de reçu dont le total a été recollé. Le prototype lit le montant sans broncher : ce sont les indices d'image, pas le texte, qui trahissent le montage. Un rappel que la vérification est un métier à part. À voir sur le site.</p>
     </div>
