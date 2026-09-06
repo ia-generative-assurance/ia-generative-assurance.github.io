@@ -365,10 +365,7 @@ figcaption { font-size: .86rem; color: var(--ink-mute); margin-top: 12px; }
 /* ---------- Deroule horaire (discret, injecte par build.py depuis PLANNING) ---------- */
 .timing { display: flex; align-items: center; gap: 8px; margin: 14px 0 0; font-size: .86rem; color: #a9b7cc; }
 .timing svg { width: 15px; height: 15px; flex: none; }
-.toc a .min { margin-left: 6px; font-size: .72rem; color: var(--ink-mute); white-space: nowrap; }
-.toc a .min::before { content: "· "; }
 .toc .toc-pause { display: block; margin: 4px 0 4px 12px; padding: 3px 10px; border-radius: 8px; font-size: .72rem; color: var(--amber); background: var(--amber-w); }
-.eyebrow .dur { margin-left: 10px; color: var(--ink-mute); letter-spacing: 0; text-transform: none; font-weight: 600; }
 .pause-mark { display: flex; align-items: center; gap: 14px; margin: 4px 0 26px; font-size: .8rem; color: var(--ink-mute); }
 .pause-mark::before, .pause-mark::after { content: ""; flex: 1; border-top: 1px dashed var(--line); }
 .schedule { margin-top: 26px; padding: 18px 22px; border-radius: var(--radius); background: var(--sand-l); border: 1px solid var(--line); }
