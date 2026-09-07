@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ELIZA: DOCTOR (1966)</title>
+<title>ELIZA · script DOCTOR (1966)</title>
 <style>
   :root { --green:#33ff66; --dim:#1f9c45; --bg:#020a04; }
   * { box-sizing:border-box; }
@@ -38,8 +38,8 @@
     white-space:pre-wrap; word-break:break-word;
   }
   #log .you  { color:#aef5c4; }
-  #log .you::before  { content:"YOU:   "; color:var(--dim); }
-  #log .eliza::before{ content:"ELIZA: "; color:var(--dim); }
+  #log .you::before  { content:attr(data-qui); color:var(--dim); }
+  #log .eliza::before{ content:attr(data-qui); color:var(--dim); }
   #log .eliza { color:var(--green); text-shadow:0 0 6px rgba(51,255,102,.5); }
   #log .row { margin:4px 0; }
   form { display:flex; border-top:1px solid var(--dim); }
@@ -52,21 +52,26 @@
   .cursor { animation:blink 1s steps(1) infinite; }
   @keyframes blink { 50% { opacity:0; } }
   footer { text-align:center; font-size:11px; opacity:.45; margin-top:10px; max-width:760px; }
+  header select { background:#02160a; border:1px solid var(--dim); color:var(--green);
+                  font:inherit; font-size:11px; letter-spacing:1px; padding:2px 6px;
+                  border-radius:4px; cursor:pointer; }
 </style>
 </head>
 <body>
   <div class="screen">
-    <header><span>ELIZA</span><span>DOCTOR script · MIT 1966</span></header>
+    <header><span>ELIZA</span><span id="sstitre"></span>
+      <select id="version" aria-label="Choisir la version">
+        <option value="fr">Français</option>
+        <option value="assur">Français · guichet sinistres</option>
+        <option value="en">English · 1966</option>
+      </select></header>
     <div id="log" aria-live="polite"></div>
     <form id="form" autocomplete="off">
       <span class="prompt">&gt;</span>
-      <input id="input" type="text" aria-label="Type to ELIZA">
+      <input id="input" type="text" aria-label="Écrire à ELIZA">
     </form>
   </div>
-  <footer>
-    Recreation of Joseph Weizenbaum's ELIZA (the DOCTOR script): keyword ranking,
-    decomposition / reassembly rules, pronoun reflection, and memory. No network, no model: pure pattern matching.
-  </footer>
+  <footer id="pied"></footer>
 
 <script>
 // ---------------------------------------------------------------------------
@@ -78,7 +83,7 @@
 // ---------------------------------------------------------------------------
 
 // Pronoun / verb reflection applied to the fragments captured by "*".
-const reflections = {
+const reflectionsEN = {
   "am":"are","was":"were","i":"you","i'd":"you would","i've":"you have",
   "i'll":"you will","i'm":"you are","my":"your","me":"you","you've":"I have",
   "you'll":"I will","you're":"I am","your":"my","yours":"mine","you":"I",
@@ -86,15 +91,16 @@ const reflections = {
 };
 
 function reflect(fragment){
+  const table = P().reflections;
   return fragment.trim().split(/\s+/).map(w=>{
     const key = w.toLowerCase().replace(/[.,!?;:]+$/,"");
-    return reflections.hasOwnProperty(key) ? reflections[key] : w;
+    return Object.prototype.hasOwnProperty.call(table, key) ? table[key] : w;
   }).join(" ");
 }
 
 // Each keyword: rank + list of {decomp, reasmb}. "(n)" in reasmb = reflected
 // fragment captured by the n-th "*". Reassemblies cycle so replies vary.
-const script = [
+const scriptEN = [
   { word:"sorry", rank:0, rules:[
     { decomp:"*", reasmb:[
       "Please don't apologize.",
@@ -469,7 +475,7 @@ const script = [
 ];
 
 // Synonym groups used by "@name" tokens inside decomposition patterns.
-const synonyms = {
+const synonymsEN = {
   desire:["want","need","desire","wish"],
   afraid:["afraid","scared","frightened","anxious","worried"],
   sad:["sad","unhappy","depressed","sick","upset","miserable"],
@@ -481,7 +487,7 @@ const synonyms = {
 };
 
 // Content-free fallbacks when no keyword matches and no memory is queued.
-const xnone = [
+const xnoneEN = [
   "I'm not sure I understand you fully.",
   "Please go on.",
   "What does that suggest to you?",
@@ -492,13 +498,506 @@ const xnone = [
   "Can you elaborate on that?"
 ];
 
+
+// ---------------------------------------------------------------------------
+// Version francaise. Meme mecanique, regles reecrites. Les motifs sont tailles
+// pour que le fragment capture soit un groupe nominal ou un adjectif, jamais
+// une proposition entiere : le francais conjugue, et une table de reflexion
+// mot a mot ne sait pas conjuguer.
+// ---------------------------------------------------------------------------
+const reflectionsFR = {
+  "je":"vous","j'ai":"vous avez","moi":"vous","me":"vous",
+  "mon":"votre","ma":"votre","mes":"vos","mien":"votre","mienne":"votre",
+  "moi-meme":"vous-meme","moi-m\u00eame":"vous-m\u00eame",
+  "vous":"je","votre":"mon","vos":"mes",
+  "suis":"\u00eates","\u00e9tais":"\u00e9tiez","ai":"avez","avais":"aviez","serai":"serez",
+  "\u00eates":"suis","\u00e9tiez":"\u00e9tais","avez":"ai","aviez":"avais","serez":"serai"
+};
+
+const scriptFR = [
+  { word:"d\u00e9sol\u00e9", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Ne vous excusez pas.",
+      "Les excuses ne sont pas n\u00e9cessaires.",
+      "Que ressentez-vous quand vous vous excusez ?",
+      "Je vous l'ai dit, vous n'avez pas \u00e0 vous excuser." ] } ] },
+
+  { word:"souviens", rank:5, rules:[
+    { decomp:"* je me souviens de *", reasmb:[
+      "Pensez-vous souvent \u00e0 (2) ?",
+      "Qu'est-ce que (2) vous \u00e9voque d'autre ?",
+      "Pourquoi vous souvenez-vous de (2) maintenant ?",
+      "Qu'est-ce qui, aujourd'hui, vous rappelle (2) ?" ] },
+    { decomp:"* je me souviens *", reasmb:[
+      "De quoi vous souvenez-vous encore ?",
+      "Pourquoi ce souvenir revient-il maintenant ?" ] } ] },
+
+  { word:"oubli\u00e9", rank:4, rules:[
+    { decomp:"* j'ai oubli\u00e9 *", reasmb:[
+      "Cet oubli vous g\u00eane-t-il ?",
+      "Pourquoi avoir oubli\u00e9 (2), \u00e0 votre avis ?",
+      "Oubliez-vous souvent ce genre de chose ?" ] } ] },
+
+  { word:"r\u00eav\u00e9", rank:4, rules:[
+    { decomp:"* j'ai r\u00eav\u00e9 *", reasmb:[
+      "Vraiment, (2) ?",
+      "Avez-vous d\u00e9j\u00e0 imagin\u00e9 (2) \u00e9veill\u00e9 ?",
+      "Aviez-vous d\u00e9j\u00e0 r\u00eav\u00e9 (2) ?" ] } ] },
+
+  { word:"r\u00eave", rank:3, rules:[
+    { decomp:"*", reasmb:[
+      "Que vous sugg\u00e8re ce r\u00eave ?",
+      "R\u00eavez-vous souvent ?",
+      "Qui appara\u00eet dans vos r\u00eaves ?",
+      "Pensez-vous que vos r\u00eaves aient un rapport avec ce qui vous pr\u00e9occupe ?" ] } ] },
+
+  { word:"peut-\u00eatre", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Vous n'avez pas l'air tr\u00e8s s\u00fbr.",
+      "Pourquoi ce ton h\u00e9sitant ?",
+      "Ne pouvez-vous pas \u00eatre plus affirmatif ?",
+      "Vous n'en \u00eates pas certain ?" ] } ] },
+
+  { word:"bonjour", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Bonjour. Dites-moi ce qui vous pr\u00e9occupe.",
+      "Bonjour. Qu'est-ce qui vous am\u00e8ne ?" ] } ] },
+
+  { word:"ordinateur", rank:50, rules:[
+    { decomp:"*", reasmb:[
+      "Les ordinateurs vous inqui\u00e8tent-ils ?",
+      "Pourquoi parlez-vous d'ordinateurs ?",
+      "Que viennent faire les machines dans ce qui vous pr\u00e9occupe ?",
+      "Ne pensez-vous pas que les machines puissent aider ?",
+      "Qu'est-ce qui vous d\u00e9range, dans les machines ?" ] } ] },
+
+  { word:"suis", rank:2, rules:[
+    { decomp:"* je suis * @triste *", reasmb:[
+      "Je suis d\u00e9sol\u00e9e de vous savoir (3).",
+      "Pensez-vous que venir ici vous aidera \u00e0 ne plus \u00eatre (3) ?",
+      "Ce n'est s\u00fbrement pas agr\u00e9able d'\u00eatre (3).",
+      "Pouvez-vous m'expliquer ce qui vous rend (3) ?" ] },
+    { decomp:"* je suis * @heureux *", reasmb:[
+      "En quoi vous ai-je aid\u00e9 \u00e0 \u00eatre (3) ?",
+      "Qu'est-ce qui vous rend (3) en ce moment ?",
+      "Pouvez-vous m'expliquer pourquoi vous \u00eates soudain (3) ?" ] },
+    { decomp:"* je suis *", reasmb:[
+      "Depuis combien de temps \u00eates-vous (2) ?",
+      "Est-ce parce que vous \u00eates (2) que vous venez me voir ?",
+      "Trouvez-vous normal d'\u00eatre (2) ?",
+      "Cela vous pla\u00eet-il, d'\u00eatre (2) ?" ] },
+    { decomp:"* suis-je *", reasmb:[
+      "Croyez-vous \u00eatre (2) ?",
+      "Aimeriez-vous \u00eatre (2) ?",
+      "Que signifierait pour vous d'\u00eatre (2) ?" ] } ] },
+
+  { word:"je", rank:0, rules:[
+    { decomp:"* je @vouloir *", reasmb:[
+      "Que signifierait pour vous d'obtenir (3) ?",
+      "Pourquoi voulez-vous (3) ?",
+      "Supposons que vous obteniez (3) bient\u00f4t.",
+      "Et si vous n'obteniez jamais (3) ?" ] },
+    { decomp:"* je ne peux pas *", reasmb:[
+      "Comment savez-vous que vous ne pouvez pas (2) ?",
+      "Avez-vous essay\u00e9 ?",
+      "Peut-\u00eatre pourriez-vous (2), maintenant.",
+      "Voulez-vous vraiment pouvoir (2) ?" ] },
+    { decomp:"* je n'arrive pas \u00e0 *", reasmb:[
+      "Qu'est-ce qui vous en emp\u00eache ?",
+      "Avez-vous d\u00e9j\u00e0 r\u00e9ussi \u00e0 (2) ?",
+      "Depuis quand n'y arrivez-vous plus ?" ] },
+    { decomp:"* je me sens *", reasmb:[
+      "Parlez-moi de ce que vous ressentez.",
+      "Vous sentez-vous souvent (2) ?",
+      "Que vous rappelle ce sentiment ?" ] },
+    { decomp:"* je dois *", reasmb:[
+      "Qui vous y oblige ?",
+      "Que se passerait-il si vous ne le faisiez pas ?",
+      "Devez-vous vraiment (2) ?" ] },
+    { decomp:"* je *", reasmb:[
+      "Vous dites que vous (2) ?",
+      "Pouvez-vous pr\u00e9ciser ?",
+      "Pourquoi me dites-vous que vous (2) ?",
+      "C'est int\u00e9ressant. Continuez." ] } ] },
+
+  { word:"vous", rank:0, rules:[
+    { decomp:"* vous me rappelez *", reasmb:[ "En quoi ?", "Quelle ressemblance voyez-vous ?" ] },
+    { decomp:"* vous \u00eates *", reasmb:[
+      "Qu'est-ce qui vous fait penser que je suis (2) ?",
+      "Cela vous pla\u00eet-il de croire que je suis (2) ?",
+      "Peut-\u00eatre aimeriez-vous \u00eatre (2).",
+      "Pensez-vous parfois que je suis (2) ?" ] },
+    { decomp:"* vous *", reasmb:[
+      "Nous parlions de vous, pas de moi.",
+      "Vous ne parlez pas vraiment de moi, n'est-ce pas ?",
+      "Que ressentez-vous, \u00e0 cet instant ?",
+      "Revenons \u00e0 vous." ] } ] },
+
+  { word:"oui", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Vous semblez tr\u00e8s s\u00fbr.",
+      "Vous en \u00eates certain.",
+      "Je vois.",
+      "Je comprends." ] } ] },
+
+  { word:"non", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Dites-vous non pour dire non ?",
+      "Vous \u00eates un peu n\u00e9gatif.",
+      "Pourquoi pas ?",
+      "Pourquoi non ?" ] } ] },
+
+  { word:"mon", rank:2, memory:true, rules:[
+    { decomp:"* @possessif * @famille *", reasmb:[
+      "Parlez-moi de votre famille.",
+      "Qui d'autre, dans votre famille, (4) ?",
+      "Votre (3) ?",
+      "Que vous vient-il \u00e0 l'esprit quand vous pensez \u00e0 votre (3) ?" ] },
+    { decomp:"* @possessif *", reasmb:[
+      "Votre (3) ?",
+      "Pourquoi dites-vous votre (3) ?",
+      "Est-ce important pour vous, votre (3) ?",
+      "Cela vous fait-il penser \u00e0 autre chose qui vous appartient ?" ] } ] },
+
+  { word:"pourquoi", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Pourquoi cette question ?",
+      "Cette question vous int\u00e9resse-t-elle ?",
+      "Que voulez-vous vraiment savoir ?",
+      "Quelle r\u00e9ponse vous plairait le plus ?" ] } ] },
+
+  { word:"comment", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Qu'en pensez-vous vous-m\u00eame ?",
+      "Que vous vient-il \u00e0 l'esprit quand vous posez cette question ?",
+      "Pourquoi cette question maintenant ?" ] } ] },
+
+  { word:"parce", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Est-ce la vraie raison ?",
+      "Ne voyez-vous pas d'autre raison ?",
+      "Cette raison explique-t-elle autre chose ?",
+      "Quelles autres raisons pourrait-il y avoir ?" ] } ] },
+
+  { word:"monde", rank:2, rules:[
+    { decomp:"* tout le monde *", reasmb:[
+      "Vraiment, tout le monde ?",
+      "S\u00fbrement pas tout le monde.",
+      "\u00c0 qui pensez-vous en particulier ?",
+      "Qui, par exemple ?" ] } ] },
+
+  { word:"personne", rank:2, rules:[
+    { decomp:"*", reasmb:[
+      "Vraiment, personne ?",
+      "\u00c0 qui pensez-vous en particulier ?",
+      "Pouvez-vous penser \u00e0 une seule exception ?" ] } ] },
+
+  { word:"toujours", rank:1, rules:[
+    { decomp:"*", reasmb:[
+      "Pouvez-vous donner un exemple pr\u00e9cis ?",
+      "Quand ?",
+      "\u00c0 quel \u00e9pisode pensez-vous ?",
+      "Vraiment, toujours ?" ] } ] },
+
+  { word:"ressemble", rank:10, rules:[
+    { decomp:"*", reasmb:[
+      "En quoi ?",
+      "Quelle ressemblance voyez-vous ?",
+      "Que vous sugg\u00e8re cette ressemblance ?" ] } ] },
+
+  { word:"nom", rank:15, rules:[
+    { decomp:"*", reasmb:[
+      "Les noms ne m'int\u00e9ressent pas.",
+      "Je vous l'ai dit, les noms me sont indiff\u00e9rents. Continuez." ] } ] },
+
+  { word:"hello", rank:15, rules:[
+    { decomp:"*", reasmb:[
+      "Je suis d\u00e9sol\u00e9e, je ne parle que le fran\u00e7ais.",
+      "En fran\u00e7ais, s'il vous pla\u00eet. Je ne comprends rien d'autre." ] } ] },
+
+  { word:"pense", rank:0, rules:[
+    { decomp:"* je pense *", reasmb:[
+      "En doutez-vous ?",
+      "Le pensez-vous vraiment ?",
+      "Vous n'en \u00eates donc pas s\u00fbr." ] },
+    { decomp:"* vous pensez *", reasmb:[
+      "Pourquoi cette question ?",
+      "Qu'importe ce que je pense ?" ] } ] },
+
+  { word:"crois", rank:0, rules:[
+    { decomp:"* je crois *", reasmb:[
+      "Le croyez-vous vraiment ?",
+      "En avez-vous d\u00e9j\u00e0 dout\u00e9 ?",
+      "Qu'est-ce qui vous le fait croire ?" ] } ] },
+
+  { word:"ami", rank:2, rules:[
+    { decomp:"* mon ami *", reasmb:[
+      "Parlez-moi de cet ami.",
+      "Cet ami vous inqui\u00e8te-t-il ?",
+      "Vos amis reviennent souvent dans ce que vous dites." ] },
+    { decomp:"*", reasmb:[
+      "Pourquoi parlez-vous d'amis ?",
+      "Vos amis vous causent-ils du souci ?" ] } ] },
+
+  { word:"argent", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "L'argent vous inqui\u00e8te-t-il ?",
+      "Pourquoi l'argent revient-il maintenant ?",
+      "Que changerait-il si l'argent n'\u00e9tait pas un probl\u00e8me ?" ] } ] },
+
+  { word:"travail", rank:0, rules:[
+    { decomp:"* mon travail *", reasmb:[
+      "Parlez-moi de votre travail.",
+      "Votre travail vous p\u00e8se-t-il ?",
+      "Depuis quand ressentez-vous cela pour votre travail ?" ] },
+    { decomp:"*", reasmb:[
+      "Pourquoi parlez-vous du travail ?",
+      "Le travail vous revient-il souvent \u00e0 l'esprit ?" ] } ] },
+
+  { word:"temps", rank:0, rules:[
+    { decomp:"* pas le temps *", reasmb:[
+      "Que feriez-vous avec plus de temps ?",
+      "Qui d\u00e9cide de l'emploi de votre temps ?" ] },
+    { decomp:"*", reasmb:[
+      "Le temps vous presse-t-il ?",
+      "Qu'est-ce qui vous d\u00e9range, dans le temps ?" ] } ] },
+
+  { word:"peur", rank:4, rules:[
+    { decomp:"* peur de *", reasmb:[
+      "Qu'est-ce qui vous fait peur, dans (2) ?",
+      "Depuis quand craignez-vous (2) ?",
+      "Que se passerait-il si (2) arrivait vraiment ?" ] },
+    { decomp:"*", reasmb:[
+      "De quoi avez-vous peur ?",
+      "La peur m\u00e9rite qu'on en parle. Continuez.",
+      "Qu'est-ce qui vous effraie le plus, l\u00e0-dedans ?" ] } ] },
+
+  { word:"col\u00e8re", rank:4, rules:[
+    { decomp:"*", reasmb:[
+      "Qui vous met en col\u00e8re ?",
+      "Que se passe-t-il quand vous vous mettez en col\u00e8re ?",
+      "La col\u00e8re vous aide-t-elle ?" ] } ] },
+
+  { word:"fatigu\u00e9", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Qu'est-ce qui vous fatigue ?",
+      "Depuis quand vous sentez-vous fatigu\u00e9 ?",
+      "Le repos vous aide-t-il ?" ] } ] },
+
+  { word:"jamais", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Jamais ?",
+      "En \u00eates-vous s\u00fbr, jamais ?",
+      "Pouvez-vous penser \u00e0 une seule exception ?" ] } ] },
+
+  { word:"rien", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Rien du tout ?",
+      "Cela fait beaucoup \u00e0 porter.",
+      "Dites-m'en un peu plus." ] } ] },
+
+  { word:"aide", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Quel genre d'aide souhaiteriez-vous ?",
+      "Qui pourrait vous aider ?",
+      "Demandez-vous souvent de l'aide ?" ] } ] },
+
+  { word:"s\u00fbr", rank:0, rules:[
+    { decomp:"* pas s\u00fbr *", reasmb:[
+      "Qu'est-ce qui vous rend incertain ?",
+      "Qu'est-ce qui vous rendrait s\u00fbr ?" ] },
+    { decomp:"*", reasmb:[
+      "\u00c0 quel point en \u00eates-vous s\u00fbr ?",
+      "Vous avez l'air certain. Qu'est-ce qui vous en a convaincu ?" ] } ] }
+];
+
+const synonymsFR = {
+  vouloir:["veux","voudrais","souhaite","d\u00e9sire","aimerais","voulais"],
+  triste:["triste","malheureux","malheureuse","d\u00e9prim\u00e9","d\u00e9prim\u00e9e","mal","d\u00e9\u00e7u","d\u00e9\u00e7ue","perdu","perdue","\u00e9puis\u00e9","\u00e9puis\u00e9e","seul","seule"],
+  heureux:["heureux","heureuse","content","contente","mieux","ravi","ravie","soulag\u00e9","soulag\u00e9e"],
+  famille:["m\u00e8re","maman","p\u00e8re","papa","s\u0153ur","soeur","fr\u00e8re","femme","mari","enfants","fils","fille","famille","parents"],
+  possessif:["mon","ma","mes"]
+};
+
+const xnoneFR = [
+  "Je ne suis pas s\u00fbre de bien vous comprendre.",
+  "Continuez, je vous en prie.",
+  "Que cela vous \u00e9voque-t-il ?",
+  "Cela vous tient-il \u00e0 c\u0153ur, d'en parler ?",
+  "C'est int\u00e9ressant. Continuez.",
+  "Parlez-m'en davantage.",
+  "Cela vous g\u00eane-t-il d'en parler ?",
+  "Pouvez-vous pr\u00e9ciser ?"
+];
+
+// ---------------------------------------------------------------------------
+// Le meme moteur, pointe sur un guichet de sinistres. Les regles du metier
+// remplacent celles du psychotherapeute : c'est exactement le travail qu'on
+// faisait avant les modeles de langue, et c'est aussi la ou l'illusion casse
+// le plus vite, parce qu'un assure pose des questions qui attendent une
+// reponse, pas une relance.
+// ---------------------------------------------------------------------------
+const scriptASSUR = [
+  { word:"bonjour", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Bonjour. Quel est l'objet de votre appel ?",
+      "Bonjour. De quel dossier s'agit-il ?" ] } ] },
+
+  { word:"d\u00e9gat", rank:8, rules:[
+    { decomp:"*", reasmb:[
+      "Un d\u00e9g\u00e2t des eaux. La fuite est-elle arr\u00eat\u00e9e ?",
+      "Depuis combien de temps avez-vous constat\u00e9 le d\u00e9g\u00e2t ?" ] } ] },
+
+  { word:"eaux", rank:8, rules:[
+    { decomp:"*", reasmb:[
+      "Un d\u00e9g\u00e2t des eaux. Avez-vous pu identifier l'origine de la fuite ?",
+      "Votre voisin est-il concern\u00e9 par ce d\u00e9g\u00e2t des eaux ?",
+      "Un constat amiable a-t-il \u00e9t\u00e9 rempli ?" ] } ] },
+
+  { word:"sinistre", rank:7, rules:[
+    { decomp:"* mon sinistre *", reasmb:[
+      "Votre sinistre (2) ?",
+      "Depuis quand votre sinistre (2) ?",
+      "Avez-vous le num\u00e9ro de votre d\u00e9claration ?" ] },
+    { decomp:"*", reasmb:[
+      "De quel type de sinistre s'agit-il ?",
+      "\u00c0 quelle date le sinistre est-il survenu ?",
+      "Le sinistre a-t-il d\u00e9j\u00e0 \u00e9t\u00e9 d\u00e9clar\u00e9 ?" ] } ] },
+
+  { word:"expert", rank:7, rules:[
+    { decomp:"*", reasmb:[
+      "L'expert est-il d\u00e9j\u00e0 pass\u00e9 chez vous ?",
+      "Que dit le rapport de l'expert ?",
+      "Souhaitez-vous contester les conclusions de l'expert ?" ] } ] },
+
+  { word:"franchise", rank:7, rules:[
+    { decomp:"*", reasmb:[
+      "La franchise figure aux conditions particuli\u00e8res de votre contrat.",
+      "Souhaitez-vous que je v\u00e9rifie le montant de votre franchise ?" ] } ] },
+
+  { word:"garantie", rank:7, rules:[
+    { decomp:"* ma garantie *", reasmb:[
+      "Votre garantie (2) ?",
+      "Quelle formule avez-vous souscrite ?" ] },
+    { decomp:"*", reasmb:[
+      "Quelle garantie pensez-vous mobiliser ?",
+      "Avez-vous vos conditions g\u00e9n\u00e9rales sous les yeux ?" ] } ] },
+
+  { word:"rembours", rank:7, rules:[
+    { decomp:"*", reasmb:[
+      "Le remboursement d\u00e9pend des conclusions de l'expertise.",
+      "Dans quel d\u00e9lai attendiez-vous ce remboursement ?",
+      "Avez-vous re\u00e7u le d\u00e9compte d'indemnisation ?" ] } ] },
+
+  { word:"contrat", rank:6, rules:[
+    { decomp:"* mon contrat *", reasmb:[
+      "Votre contrat (2) ?",
+      "Avez-vous votre num\u00e9ro de contrat ?",
+      "Depuis quand \u00eates-vous assur\u00e9 chez nous ?" ] },
+    { decomp:"*", reasmb:[
+      "De quel contrat parlons-nous ?",
+      "Habitation, automobile, ou autre ?" ] } ] },
+
+  { word:"r\u00e9silier", rank:6, rules:[
+    { decomp:"*", reasmb:[
+      "Vous souhaitez r\u00e9silier. Pour quelle raison ?",
+      "La r\u00e9siliation se demande par \u00e9crit. Voulez-vous que je vous indique l'adresse ?" ] } ] },
+
+  { word:"d\u00e9lai", rank:6, rules:[
+    { decomp:"*", reasmb:[
+      "Quel d\u00e9lai vous a-t-on annonc\u00e9 ?",
+      "Depuis combien de temps attendez-vous ?" ] } ] },
+
+  { word:"inadmissible", rank:9, rules:[
+    { decomp:"*", reasmb:[
+      "Je comprends votre m\u00e9contentement. Que s'est-il pass\u00e9 exactement ?",
+      "Souhaitez-vous d\u00e9poser une r\u00e9clamation ?" ] } ] },
+
+  { word:"scandaleux", rank:9, rules:[
+    { decomp:"*", reasmb:[
+      "Je comprends votre m\u00e9contentement. Reprenons depuis le d\u00e9but.",
+      "Souhaitez-vous d\u00e9poser une r\u00e9clamation ?" ] } ] },
+
+  { word:"toujours", rank:5, rules:[
+    { decomp:"* toujours pas *", reasmb:[
+      "Depuis quand attendez-vous ?",
+      "Avez-vous une trace \u00e9crite de votre derni\u00e8re demande ?" ] },
+    { decomp:"*", reasmb:[
+      "Pouvez-vous me donner une date pr\u00e9cise ?" ] } ] },
+
+  { word:"combien", rank:4, rules:[
+    { decomp:"*", reasmb:[
+      "Le montant d\u00e9pend de votre contrat et de l'expertise.",
+      "Je ne peux pas vous donner de montant sans le dossier." ] } ] },
+
+  { word:"je", rank:0, rules:[
+    { decomp:"* je @vouloir *", reasmb:[
+      "Vous voulez (3). Avez-vous d\u00e9j\u00e0 fait la demande par \u00e9crit ?",
+      "Pour (3), il me faut d'abord votre num\u00e9ro de dossier." ] },
+    { decomp:"* je n'ai pas *", reasmb:[
+      "Vous n'avez pas (2) ? Depuis quand ?",
+      "Cela a-t-il \u00e9t\u00e9 signal\u00e9 \u00e0 votre conseiller ?" ] },
+    { decomp:"* je *", reasmb:[
+      "Vous (2) ?",
+      "Pouvez-vous pr\u00e9ciser ?",
+      "Notons cela. Autre chose ?" ] } ] },
+
+  { word:"mon", rank:2, memory:true, rules:[
+    { decomp:"* @possessif *", reasmb:[
+      "Votre (3) ?",
+      "Pouvez-vous m'en dire plus sur votre (3) ?" ] } ] },
+
+  { word:"merci", rank:0, rules:[
+    { decomp:"*", reasmb:[
+      "Je vous en prie. Autre chose ?",
+      "\u00c0 votre service. Autre chose ?" ] } ] }
+];
+
+const xnoneASSUR = [
+  "Pouvez-vous reformuler votre demande ?",
+  "Je n'ai pas cette information. Autre chose ?",
+  "Pouvez-vous me donner votre num\u00e9ro de dossier ?",
+  "Notons cela. Autre chose ?",
+  "Je transmets votre demande au service concern\u00e9."
+];
+
+// Les paquets, et celui qui est actif.
+const PACKS = {
+  en: { script:scriptEN, synonyms:synonymsEN, reflections:reflectionsEN, xnone:xnoneEN,
+        vide:"Say whatever comes to mind.",
+        bonjour:"How do you do. I am ELIZA. Please tell me your problem.",
+        souvenir:(x)=>"Earlier you said your " + x + ".",
+        moi:"YOU:   ", elle:"ELIZA: ",
+        sstitre:"script DOCTOR \u00b7 MIT 1966",
+        pied:"Reconstitution de l'ELIZA de Joseph Weizenbaum, script DOCTOR d'origine, en anglais. "
+           + "Mots-cl\u00e9s class\u00e9s par rang, r\u00e8gles de d\u00e9composition et de recomposition, inversion des pronoms, m\u00e9moire." },
+  fr: { script:scriptFR, synonyms:synonymsFR, reflections:reflectionsFR, xnone:xnoneFR,
+        vide:"Dites ce qui vous vient.",
+        bonjour:"Bonjour. Je suis ELIZA. Dites-moi ce qui vous pr\u00e9occupe.",
+        souvenir:(x)=>"Tout \u00e0 l'heure, vous parliez de votre " + x + ".",
+        moi:"VOUS : ", elle:"ELIZA : ",
+        sstitre:"script DOCTOR \u00b7 fran\u00e7ais",
+        pied:"Les m\u00eames m\u00e9canismes qu'en 1966, avec des r\u00e8gles \u00e9crites en fran\u00e7ais. "
+           + "Aucun r\u00e9seau, aucun mod\u00e8le : de la reconnaissance de motifs." },
+  assur: { script:scriptASSUR, synonyms:synonymsFR, reflections:reflectionsFR, xnone:xnoneASSUR,
+        vide:"Je vous \u00e9coute.",
+        bonjour:"Assurance Novassur, bonjour. Que puis-je pour vous ?",
+        souvenir:(x)=>"Vous avez mentionn\u00e9 votre " + x + " tout \u00e0 l'heure.",
+        moi:"VOUS : ", elle:"NOVA\u00a0: ",
+        sstitre:"guichet sinistres \u00b7 m\u00eame moteur",
+        pied:"Le moteur de 1966 avec des r\u00e8gles de gestion de sinistres. "
+           + "Il tient trois \u00e9changes, puis il tourne en rond : il n'a acc\u00e8s \u00e0 aucun dossier." }
+};
+let LANG = "fr";
+const P = () => PACKS[LANG];
+
 // Build a regex from a decomposition pattern: "*" -> capture group,
 // "@name" -> alternation of its synonyms (also captured), words literal.
 function decompToRegex(decomp){
   const parts = decomp.trim().split(/\s+/).map(tok=>{
     if(tok === "*") return "(.*)";
     if(tok.startsWith("@")){
-      const grp = synonyms[tok.slice(1)] || [tok.slice(1)];
+      const grp = P().synonyms[tok.slice(1)] || [tok.slice(1)];
       return "(" + grp.map(escapeRe).join("|") + ")";
     }
     return escapeRe(tok);
@@ -529,19 +1028,23 @@ const memory = [];
 function cleanInput(text){
   // ELIZA split on punctuation and kept the first clause with a keyword;
   // we keep it simple: strip trailing punctuation, collapse spaces.
-  return text.replace(/[.!?;]+/g," ").replace(/\s+/g," ").trim();
+  // l'apostrophe typographique devient droite : les motifs ecrivent j'ai
+  return text.replace(/[\u2019\u02bc]/g,"'").replace(/[.!?;]+/g," ").replace(/\s+/g," ").trim();
 }
 
 function respond(raw){
   const input = cleanInput(raw);
-  if(!input) return "Say whatever comes to mind.";
+  if(!input) return P().vide;
   const lower = " " + input.toLowerCase() + " ";
 
   // collect matching keywords; highest rank first, then the keyword that
   // appears earliest in the sentence (as the original ELIZA scanned).
-  const found = script
+  const found = P().script
     .map((k,idx)=>{
-      const m = lower.match(new RegExp("\\b"+escapeRe(k.word)+"\\b","i"));
+      // \b est ASCII : « \bcolere\b » avec un accent ne matcherait jamais,
+      // les lettres accentuees n'etant pas des caracteres de mot pour lui.
+      // On borne donc sur les lettres Unicode.
+      const m = lower.match(new RegExp("(?<![\\p{L}\\p{N}])"+escapeRe(k.word)+"(?![\\p{L}\\p{N}])","iu"));
       return { k, idx, pos: m ? m.index : -1 };
     })
     .filter(o=> o.pos>=0)
@@ -553,7 +1056,7 @@ function respond(raw){
       if(m){
         // store a memory line when a "my ..." statement is seen
         if(k.memory && m[2]){
-          memory.push("Earlier you said your " + reflect(m[2]) + ".");
+          memory.push(P().souvenir(reflect(m[2])));
           if(memory.length>5) memory.shift();
         }
         return fill(pickReasmb(rule), m);
@@ -563,9 +1066,10 @@ function respond(raw){
 
   // no keyword matched: sometimes recall a memory, else a neutral prompt
   if(memory.length && Math.random()<0.4) return memory.shift();
+  const liste = P().xnone;
   const i = cursor.get("xnone") || 0;
-  cursor.set("xnone",(i+1)%xnone.length);
-  return xnone[i];
+  cursor.set("xnone",(i+1)%liste.length);
+  return liste[i];
 }
 
 // ---- UI -------------------------------------------------------------------
@@ -576,6 +1080,7 @@ const input = document.getElementById("input");
 function add(text, cls){
   const row = document.createElement("div");
   row.className = "row " + cls;
+  row.setAttribute("data-qui", cls === "you" ? P().moi : P().elle);
   row.textContent = text;
   log.appendChild(row);
   log.scrollTop = log.scrollHeight;
@@ -585,6 +1090,7 @@ function elizaSay(text){
   // tiny typing delay for the period feel
   const row = document.createElement("div");
   row.className = "row eliza";
+  row.setAttribute("data-qui", P().elle);
   log.appendChild(row);
   let i = 0;
   const timer = setInterval(()=>{
@@ -603,7 +1109,20 @@ form.addEventListener("submit", e=>{
   setTimeout(()=> elizaSay(respond(text)), 250);
 });
 
-elizaSay("How do you do. I am ELIZA. Please tell me your problem.");
+// Changer de version repart d'un ecran vide : sinon deux jeux de regles se
+// melangent dans le meme fil et la demonstration devient illisible.
+const selVersion = document.getElementById("version");
+function poser(){
+  document.documentElement.lang = LANG === "en" ? "en" : "fr";
+  document.getElementById("sstitre").textContent = P().sstitre;
+  document.getElementById("pied").textContent = P().pied;
+  log.innerHTML = "";
+  memory.length = 0;
+  cursor.clear();
+  elizaSay(P().bonjour);
+}
+selVersion.addEventListener("change", ()=>{ LANG = selVersion.value; poser(); input.focus(); });
+poser();
 
 // Le curseur ne se place tout seul que si la demo est ouverte seule. Dans une
 // iframe, donner le focus a un champ fait defiler la page hote jusqu'a lui :
