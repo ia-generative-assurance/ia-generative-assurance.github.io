@@ -78,19 +78,24 @@
    image s'y inscrit en entier grace a object-fit, centree. D'une vue a
    l'autre, rien ne bouge. */
 .demo-shot .demo-steps.carrousel { display: block; position: relative; padding: 18px 18px 0;
-  --scene: 460px; }
+  --scene: 400px;
+  /* et jamais plus de la moitie de l'ecran : sur un portable, une capture qui
+     prend toute la hauteur cache le texte qui l'explique */
+  --h: min(var(--scene), 52vh); }
 .demo-shot .demo-steps.carrousel:focus-visible { outline: 2px solid var(--crimson); outline-offset: 3px; }
 .demo-shot .demo-steps.carrousel figure { display: none; }
 .demo-shot .demo-steps.carrousel figure.is-on { display: block; animation: demo-fondu .3s ease both; }
-.demo-shot .demo-steps.carrousel figure img { height: var(--scene); object-fit: contain;
-  object-position: center; background: var(--sand-l); }
+/* la capture garde sa proportion et se centre : pas de bandes vides sur les
+   cotes, c'est le fond de la carte qui les remplace */
+.demo-shot .demo-steps.carrousel figure img { height: var(--h); width: auto; max-width: 100%;
+  margin: 0 auto; object-fit: contain; }
 /* une legende d'une ligne et une legende de deux ne doivent pas non plus
    deplacer ce qui suit : le bandeau de legende a une hauteur plancher */
 .demo-shot .demo-steps.carrousel figcaption { min-height: 2.7em; }
 @keyframes demo-fondu { from { opacity: 0; } to { opacity: 1; } }
 
 /* les fleches sont posees sur les bords de la scene, a mi-hauteur */
-.demo-fleches { position: absolute; left: 0; right: 0; top: 18px; height: var(--scene);
+.demo-fleches { position: absolute; left: 0; right: 0; top: 18px; height: var(--h);
   pointer-events: none; }
 .demo-arrow { position: absolute; top: 50%; transform: translateY(-50%); pointer-events: auto;
   width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
