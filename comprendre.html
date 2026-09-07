@@ -822,71 +822,63 @@ similarité cosinus : 0,87</div>
   <p class="reveal">Un modèle ne sort pas de l'usine en sachant répondre. Il passe par des entraînements successifs, et chacun produit un modèle utilisable, publié à part. C'est ce que veut dire le mot <code>instruct</code> qu'on lit dans le nom de presque tous les modèles téléchargeables.</p>
 
   <figure class="figure-frame reveal">
-    <div class="fig-scroll"><svg class="etroit" viewBox="0 0 660 656" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Les trois entraînements successifs, du modèle de base au modèle aligné">
+    <div class="fig-scroll"><svg viewBox="0 0 660 430" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Les trois entraînements successifs, du modèle de base au modèle aligné">
       <defs>
-        <marker id="flEnt" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#13264A"/></marker>
-        <filter id="ombEnt" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="1.5" dy="2" stdDeviation="2" flood-color="#13264A" flood-opacity="0.16"/></filter>
+      <marker id="flPas" markerWidth="8" markerHeight="8" refX="7" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#3B547D"/></marker>
+      <marker id="flEnt" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#13264A"/></marker>
+      <filter id="ombEnt" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="1.5" dy="2" stdDeviation="2" flood-color="#13264A" flood-opacity="0.16"/></filter>
       </defs>
-
       <text x="20" y="30" font-size="19" font-weight="800" fill="#13264A">Trois entraînements successifs</text>
       <text x="20" y="55" font-size="14.5" font-style="italic" fill="#6C7683">La même boucle à chaque fois. Seules les données changent, et le prix.</text>
-
-      <!-- 1. pre-entrainement -->
-      <rect x="20" y="76" width="620" height="162" rx="14" fill="#F7F4F2"/>
-      <text x="44" y="102" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">1 · PRÉ-ENTRAÎNEMENT</text>
-      <g filter="url(#ombEnt)"><rect x="44" y="112" width="216" height="86" rx="12" fill="#f6e3bf" stroke="#92661D"/></g>
-      <text x="152" y="141" text-anchor="middle" font-size="14.5" font-weight="700" fill="#78500f">10 To de texte</text>
-      <text x="152" y="163" text-anchor="middle" font-size="13" fill="#78500f">pris sur Internet</text>
-      <text x="152" y="183" text-anchor="middle" font-size="13" fill="#78500f">personne n'annote</text>
-      <line x1="264" y1="155" x2="400" y2="155" stroke="#13264A" stroke-width="2.5" marker-end="url(#flEnt)"/>
-      <g filter="url(#ombEnt)"><rect x="272" y="142" width="120" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
-      <text x="332" y="160" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">le mot suivant</text>
-      <g filter="url(#ombEnt)"><rect x="408" y="112" width="208" height="86" rx="12" fill="#13264A"/></g>
-      <text x="512" y="141" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">Modèle de base</text>
-      <text x="512" y="163" text-anchor="middle" font-size="13" fill="#c6d1e2">il continue le texte,</text>
-      <text x="512" y="183" text-anchor="middle" font-size="13" fill="#c6d1e2">il ne répond pas</text>
-      <text x="44" y="224" font-size="13" font-style="italic" fill="#6C7683">12 jours sur 6 000 cartes graphiques, quelques millions de dollars.</text>
-
-      <line x1="512" y1="198" x2="512" y2="286" stroke="#3B547D" stroke-width="2" stroke-dasharray="5 5"/>
-      <text x="522" y="250" font-size="12.8" fill="#3B547D">les mêmes poids</text>
-
-      <!-- 2. ajustement aux instructions -->
-      <rect x="20" y="252" width="620" height="162" rx="14" fill="#F7F4F2"/>
-      <text x="44" y="278" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">2 · AJUSTEMENT AUX INSTRUCTIONS</text>
-      <g filter="url(#ombEnt)"><rect x="44" y="288" width="216" height="86" rx="12" fill="#f6e3bf" stroke="#92661D"/></g>
-      <text x="152" y="317" text-anchor="middle" font-size="14.5" font-weight="700" fill="#78500f">50 000 paires</text>
-      <text x="152" y="339" text-anchor="middle" font-size="13" fill="#78500f">question, bonne réponse,</text>
-      <text x="152" y="359" text-anchor="middle" font-size="13" fill="#78500f">écrites par des humains</text>
-      <line x1="264" y1="331" x2="400" y2="331" stroke="#13264A" stroke-width="2.5" marker-end="url(#flEnt)"/>
-      <g filter="url(#ombEnt)"><rect x="286" y="318" width="92" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
-      <text x="332" y="336" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">répondre</text>
-      <g filter="url(#ombEnt)"><rect x="408" y="288" width="208" height="86" rx="12" fill="#13264A"/></g>
-      <text x="512" y="317" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">Modèle instruct</text>
-      <text x="512" y="339" text-anchor="middle" font-size="13" fill="#c6d1e2">il suit une consigne,</text>
-      <text x="512" y="359" text-anchor="middle" font-size="13" fill="#c6d1e2">il tient un dialogue</text>
-      <text x="44" y="400" font-size="13" font-style="italic" fill="#6C7683">Quelques heures de calcul. Le coût est dans l'écriture des exemples.</text>
-
-      <line x1="512" y1="374" x2="512" y2="462" stroke="#3B547D" stroke-width="2" stroke-dasharray="5 5"/>
-      <text x="522" y="426" font-size="12.8" fill="#3B547D">les mêmes poids</text>
-
-      <!-- 3. preferences humaines -->
-      <rect x="20" y="428" width="620" height="162" rx="14" fill="#F7F4F2"/>
-      <text x="44" y="454" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">3 · PRÉFÉRENCES HUMAINES</text>
-      <g filter="url(#ombEnt)"><rect x="44" y="464" width="216" height="86" rx="12" fill="#f6e3bf" stroke="#92661D"/></g>
-      <text x="152" y="493" text-anchor="middle" font-size="14.5" font-weight="700" fill="#78500f">Des milliers de choix</text>
-      <text x="152" y="515" text-anchor="middle" font-size="13" fill="#78500f">deux réponses proposées,</text>
-      <text x="152" y="535" text-anchor="middle" font-size="13" fill="#78500f">un humain préfère</text>
-      <line x1="264" y1="507" x2="400" y2="507" stroke="#13264A" stroke-width="2.5" marker-end="url(#flEnt)"/>
-      <g filter="url(#ombEnt)"><rect x="294" y="494" width="76" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
-      <text x="332" y="512" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">le ton</text>
-      <g filter="url(#ombEnt)"><rect x="408" y="464" width="208" height="86" rx="12" fill="#bfe0dd" stroke="#1F6F6B"/></g>
-      <text x="512" y="493" text-anchor="middle" font-size="14.5" font-weight="700" fill="#0f4b48">Modèle aligné</text>
-      <text x="512" y="515" text-anchor="middle" font-size="13" fill="#0f4b48">celui du chatbot,</text>
-      <text x="512" y="535" text-anchor="middle" font-size="13" fill="#0f4b48">poli, prudent, prêt à refuser</text>
-      <text x="44" y="576" font-size="13" font-style="italic" fill="#6C7683">De là viennent les refus, la politesse, et le style qu'on reconnaît.</text>
-
-      <text x="20" y="618" font-size="15" fill="#4a5567">Sur Hugging Face, l'étape 1 donne le dépôt de base.</text>
-      <text x="20" y="642" font-size="15" fill="#4a5567">Les étapes 2 et 3 sont publiées ensemble, sous le nom instruct.</text>
+      <rect x="20" y="76" width="196" height="284" rx="14" fill="#F7F4F2"/>
+      <text x="32" y="100" font-size="12.5" font-weight="800" letter-spacing=".08em" fill="#6C7683">1 · PRÉ-ENTRAÎNEMENT</text>
+      <g filter="url(#ombEnt)"><rect x="32" y="110" width="172" height="86" rx="12" fill="#f6e3bf" stroke="#92661D"/></g>
+      <text x="118.0" y="139" text-anchor="middle" font-size="14.5" font-weight="700" fill="#78500f">10 To de texte</text>
+      <text x="118.0" y="160" text-anchor="middle" font-size="13" fill="#78500f">pris sur Internet</text>
+      <text x="118.0" y="179" text-anchor="middle" font-size="13" fill="#78500f">personne n'annote</text>
+      <line x1="118.0" y1="196" x2="118.0" y2="232" stroke="#13264A" stroke-width="2.5" marker-end="url(#flEnt)"/>
+      <g filter="url(#ombEnt)"><rect x="60" y="201" width="116" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
+      <text x="118.0" y="219" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">le mot suivant</text>
+      <g filter="url(#ombEnt)"><rect x="32" y="232" width="172" height="86" rx="12" fill="#13264A"/></g>
+      <text x="118.0" y="261" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">Modèle de base</text>
+      <text x="118.0" y="282" text-anchor="middle" font-size="13" fill="#c6d1e2">il continue le texte,</text>
+      <text x="118.0" y="301" text-anchor="middle" font-size="13" fill="#c6d1e2">il ne répond pas</text>
+      <text x="32" y="334" font-size="12.8" font-style="italic" fill="#6C7683">12 jours sur 6 000 cartes,</text>
+      <text x="32" y="350" font-size="12.8" font-style="italic" fill="#6C7683">quelques millions de dollars.</text>
+      <rect x="232" y="76" width="196" height="284" rx="14" fill="#F7F4F2"/>
+      <text x="244" y="100" font-size="12.5" font-weight="800" letter-spacing=".08em" fill="#6C7683">2 · INSTRUCTIONS</text>
+      <g filter="url(#ombEnt)"><rect x="244" y="110" width="172" height="86" rx="12" fill="#f6e3bf" stroke="#92661D"/></g>
+      <text x="330.0" y="139" text-anchor="middle" font-size="14.5" font-weight="700" fill="#78500f">50 000 paires</text>
+      <text x="330.0" y="160" text-anchor="middle" font-size="13" fill="#78500f">question, bonne réponse,</text>
+      <text x="330.0" y="179" text-anchor="middle" font-size="13" fill="#78500f">écrites par des humains</text>
+      <line x1="330.0" y1="196" x2="330.0" y2="232" stroke="#13264A" stroke-width="2.5" marker-end="url(#flEnt)"/>
+      <g filter="url(#ombEnt)"><rect x="293" y="201" width="74" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
+      <text x="330.0" y="219" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">répondre</text>
+      <g filter="url(#ombEnt)"><rect x="244" y="232" width="172" height="86" rx="12" fill="#13264A"/></g>
+      <text x="330.0" y="261" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">Modèle instruct</text>
+      <text x="330.0" y="282" text-anchor="middle" font-size="13" fill="#c6d1e2">il suit une consigne,</text>
+      <text x="330.0" y="301" text-anchor="middle" font-size="13" fill="#c6d1e2">il tient un dialogue</text>
+      <text x="244" y="334" font-size="12.8" font-style="italic" fill="#6C7683">Quelques heures de calcul.</text>
+      <text x="244" y="350" font-size="12.8" font-style="italic" fill="#6C7683">Le coût est dans l'écriture.</text>
+      <rect x="444" y="76" width="196" height="284" rx="14" fill="#F7F4F2"/>
+      <text x="456" y="100" font-size="12.5" font-weight="800" letter-spacing=".08em" fill="#6C7683">3 · PRÉFÉRENCES</text>
+      <g filter="url(#ombEnt)"><rect x="456" y="110" width="172" height="86" rx="12" fill="#f6e3bf" stroke="#92661D"/></g>
+      <text x="542.0" y="139" text-anchor="middle" font-size="14.5" font-weight="700" fill="#78500f">Des milliers de choix</text>
+      <text x="542.0" y="160" text-anchor="middle" font-size="13" fill="#78500f">deux réponses proposées,</text>
+      <text x="542.0" y="179" text-anchor="middle" font-size="13" fill="#78500f">un humain préfère</text>
+      <line x1="542.0" y1="196" x2="542.0" y2="232" stroke="#13264A" stroke-width="2.5" marker-end="url(#flEnt)"/>
+      <g filter="url(#ombEnt)"><rect x="512" y="201" width="60" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
+      <text x="542.0" y="219" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">le ton</text>
+      <g filter="url(#ombEnt)"><rect x="456" y="232" width="172" height="86" rx="12" fill="#bfe0dd" stroke="#1F6F6B"/></g>
+      <text x="542.0" y="261" text-anchor="middle" font-size="14.5" font-weight="700" fill="#0f4b48">Modèle aligné</text>
+      <text x="542.0" y="282" text-anchor="middle" font-size="13" fill="#0f4b48">celui du chatbot,</text>
+      <text x="542.0" y="301" text-anchor="middle" font-size="13" fill="#0f4b48">poli, prudent, sait refuser</text>
+      <text x="456" y="334" font-size="12.8" font-style="italic" fill="#6C7683">De là viennent les refus,</text>
+      <text x="456" y="350" font-size="12.8" font-style="italic" fill="#6C7683">la politesse, le style.</text>
+      <line x1="216" y1="275" x2="232" y2="275" stroke="#3B547D" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#flPas)"/>
+      <line x1="428" y1="275" x2="444" y2="275" stroke="#3B547D" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#flPas)"/>
+      <text x="20" y="384" font-size="13" font-style="italic" fill="#3B547D">D'une étape à l'autre, ce sont les mêmes poids qu'on ajuste : un seul modèle, trois passages.</text>
+      <text x="20" y="414" font-size="15" fill="#4a5567">Sur Hugging Face : l'étape 1 donne le dépôt de base, les étapes 2 et 3 le modèle instruct.</text>
     </svg></div>
     <figcaption>Le modèle de base est un moteur de complétion, pas un assistant. Tout ce qui fait le chatbot, la question suivie d'une réponse et le ton, vient des deux étapes du bas.</figcaption>
   </figure>
