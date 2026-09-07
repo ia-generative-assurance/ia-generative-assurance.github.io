@@ -66,41 +66,66 @@
 .demo-shot .demo-cta svg { width: 16px; height: 16px; }
 @media (max-width: 700px) { .demo-shot .demo-steps { grid-template-columns: 1fr; } }
 
-/* A l'ecran, les captures defilent : une seule visible, des fleches et des
-   numeros pour naviguer (le script est dans build.py, il pose .carrousel et la
+/* A l'ecran, les captures defilent : une seule visible, une fleche de chaque
+   cote (le script est dans build.py, il pose .carrousel, les fleches et la
    barre .demo-nav). Toute la serie affichee d'un coup faisait un mur d'images.
 
-   Deux captures n'ont jamais la meme hauteur : celle du panorama passe de 1120
-   a 838 pixels entre la vue 1 et la vue 2. Sans precaution, cliquer sur un
-   numero fait remonter d'un coup tout ce qui suit, et le lecteur perd sa
-   place. Le cadre change donc de hauteur en glissant, et la capture arrive en
-   fondu. La hauteur est posee par le script, ici on ne fait que l'animer. */
-.demo-shot .demo-steps.carrousel { display: block; padding: 18px 18px 0; overflow: hidden;
-  transition: height .34s cubic-bezier(.4, 0, .2, 1); }
+   Deux captures n'ont jamais la meme hauteur : dans « une facture, un
+   controle », la premiere fait 236 pixels de haut et la deuxieme 854. Tant que
+   le cadre suivait la capture, les fleches se deplacaient a chaque vue et il
+   fallait les rechercher apres chaque clic. La scene a donc une hauteur fixe,
+   --scene, posee par le script sur la plus haute capture de la serie ; chaque
+   image s'y inscrit en entier grace a object-fit, centree. D'une vue a
+   l'autre, rien ne bouge. */
+.demo-shot .demo-steps.carrousel { display: block; position: relative; padding: 18px 18px 0;
+  --scene: 460px; }
+.demo-shot .demo-steps.carrousel:focus-visible { outline: 2px solid var(--crimson); outline-offset: 3px; }
 .demo-shot .demo-steps.carrousel figure { display: none; }
-.demo-shot .demo-steps.carrousel figure.is-on { display: block; animation: demo-fondu .34s ease both; }
+.demo-shot .demo-steps.carrousel figure.is-on { display: block; animation: demo-fondu .3s ease both; }
+.demo-shot .demo-steps.carrousel figure img { height: var(--scene); object-fit: contain;
+  object-position: center; background: var(--sand-l); }
+/* une legende d'une ligne et une legende de deux ne doivent pas non plus
+   deplacer ce qui suit : le bandeau de legende a une hauteur plancher */
+.demo-shot .demo-steps.carrousel figcaption { min-height: 2.7em; }
 @keyframes demo-fondu { from { opacity: 0; } to { opacity: 1; } }
-.demo-nav { display: flex; align-items: center; gap: 10px; padding: 12px 18px 18px; }
-.demo-arrow { width: 34px; height: 34px; flex: none; border-radius: 50%; border: 1px solid var(--line);
-  background: #fff; color: var(--navy); font-size: 1.25rem; line-height: 1; cursor: pointer; }
-.demo-arrow:hover { background: var(--sand-l); border-color: var(--steel-l); }
+
+/* les fleches sont posees sur les bords de la scene, a mi-hauteur */
+.demo-fleches { position: absolute; left: 0; right: 0; top: 18px; height: var(--scene);
+  pointer-events: none; }
+.demo-arrow { position: absolute; top: 50%; transform: translateY(-50%); pointer-events: auto;
+  width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; border: 1px solid var(--line); background: rgba(255,255,255,.94);
+  color: var(--navy); cursor: pointer; box-shadow: var(--shadow);
+  transition: background .15s ease, border-color .15s ease, transform .15s ease; }
+.demo-arrow svg { width: 20px; height: 20px; }
+.demo-arrow.prec { left: 10px; }
+.demo-arrow.suiv { right: 10px; }
+.demo-arrow:hover { background: #fff; border-color: var(--crimson); color: var(--crimson); }
+.demo-arrow:active { transform: translateY(-50%) scale(.93); }
+
+/* sous la scene : le rang de la vue, et le bouton plein ecran */
+.demo-nav { display: flex; align-items: center; gap: 10px; padding: 4px 18px 18px; }
 .demo-dots { display: flex; align-items: center; gap: 6px; }
 /* des numeros plutot que des points : la legende parle de la capture 1, 2, 3,
-   autant pouvoir cliquer dessus par son numero */
+   autant pouvoir y aller directement */
 .demo-dot { min-width: 27px; height: 27px; padding: 0 8px; border: 1px solid var(--line); border-radius: 9px;
   background: #fff; color: var(--ink-mute); font-family: var(--display); font-size: .78rem; font-weight: 800;
   line-height: 1; cursor: pointer; transition: background .15s ease, color .15s ease, border-color .15s ease; }
 .demo-dot:hover { border-color: var(--steel-l); color: var(--navy); }
 .demo-dot.is-on { background: var(--navy); border-color: var(--navy); color: #fff; }
 .demo-nav .demo-cta { margin: 0 0 0 auto; }
-/* sous 560 px, le bouton ne tient plus sur la ligne des fleches */
+/* sous 560 px, le bouton ne tient plus sur la ligne des numeros */
 @media (max-width: 560px) {
   .demo-nav { flex-wrap: wrap; }
   .demo-nav .demo-cta { margin: 8px 0 0; width: 100%; justify-content: center; }
+  .demo-arrow { width: 36px; height: 36px; }
+  .demo-arrow.prec { left: 4px; }
+  .demo-arrow.suiv { right: 4px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .demo-shot .demo-steps.carrousel { transition: none; }
   .demo-shot .demo-steps.carrousel figure.is-on { animation: none; }
+  .demo-arrow { transition: none; }
+}
 }
 
 /* Sur le papier, pas de defilement possible : toutes les captures, en petit,
@@ -108,11 +133,16 @@
 @media print {
   /* le lien « ouvrir en plein ecran » ne sert a rien sur papier : le chemin
      de la demo est rappele par la note d'impression */
-  .demo-shot .demo-cta, .demo-nav, .demo-shot .demo-head a { display: none; }
+  .demo-shot .demo-cta, .demo-nav, .demo-fleches, .demo-shot .demo-head a { display: none; }
   .demo-shot .demo-steps, .demo-shot .demo-steps.carrousel {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 10px; padding: 12px;
     height: auto !important; overflow: visible; }
   .demo-shot .demo-steps figure, .demo-shot .demo-steps.carrousel figure { display: block; break-inside: avoid; }
+  /* sur papier la scene n'a plus de raison d'etre : chaque capture reprend sa
+     proportion, et la legende sa hauteur reelle */
+  .demo-shot .demo-steps.carrousel figure img { height: auto; object-fit: fill; background: none; }
+  .demo-shot .demo-steps.carrousel figcaption { min-height: 0; }
+  .demo-fleches { display: none; }
   .demo-shot .demo-steps figcaption { font-size: .68rem; margin-top: 4px; line-height: 1.3; }
   .demo-shot .demo-steps figcaption b { width: 14px; height: 14px; font-size: .58rem; margin-right: 4px; }
 }

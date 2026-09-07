@@ -461,7 +461,7 @@
         <figcaption><b>1</b> Vingt outils, filtrables par famille et par origine</figcaption>
       </figure>
       <figure>
-        <a href="demos/panorama_chatbots.html" target="_blank" rel="noopener"><img src="assets/demo_panorama_chatbots_2.png" width="1640" height="838" alt="Deux ou trois outils mis côte à côte" loading="lazy"></a>
+        <a href="demos/panorama_chatbots.html" target="_blank" rel="noopener"><img src="assets/demo_panorama_chatbots_2.png" width="1640" height="1120" alt="Deux ou trois outils mis côte à côte" loading="lazy"></a>
         <figcaption><b>2</b> Deux ou trois outils mis côte à côte</figcaption>
       </figure>
       <figure>
@@ -880,29 +880,71 @@
   // trop de place. A l'impression, le bloc @media print les remet toutes,
   // en petit, sur trois colonnes : le PDF montre le parcours d'un coup d'oeil.
   //
-  // Deux captures n'ont jamais la meme hauteur. En passant de l'une a l'autre,
-  // le cadre changeait de taille d'un coup et toute la page sautait sous les
-  // yeux. Deux precautions : les images du carrousel sont chargees tout de
-  // suite (une image encore absente se mesure a zero, et la hauteur visee
-  // serait fausse), et le cadre glisse de l'ancienne hauteur a la nouvelle.
+  // Deux captures n'ont jamais la meme hauteur. Dans « une facture, un
+  // controle », la premiere fait 236 pixels de haut et la deuxieme 854 : tant
+  // que le cadre suivait la capture, les fleches changeaient de place a chaque
+  // vue, et il fallait les rechercher apres chaque clic. Le cadre a donc une
+  // hauteur fixe, celle de la plus haute capture de la serie, plafonnee a ce
+  // qui tient dans un ecran ; chaque capture s'y inscrit en entier, centree ;
+  // les fleches sont posees sur les cotes, a mi-hauteur de la scene. D'une vue
+  // a l'autre, plus rien ne bouge : ni le cadre, ni les fleches, ni la suite
+  // de la page.
+  var SCENE_MAX = 620;      // px : au-dela, une capture deborde de l'ecran
+  var SCENE_MIN = 220;      // px : en deca, une serie de bandeaux fait timbre-poste
+
   document.querySelectorAll('.demo-steps').forEach(function(gal){
     var figs = [].slice.call(gal.querySelectorAll('figure'));
     if (figs.length < 2) return;
-    var i = 0, fin = null;
-    figs.forEach(function(f){
-      var img = f.querySelector('img');
-      if (!img) return;
-      img.loading = 'eager';
-      var proportion = function(){
-        if (img.naturalWidth) img.style.aspectRatio = img.naturalWidth + ' / ' + img.naturalHeight;
-      };
-      if (img.complete) proportion(); else img.addEventListener('load', proportion);
+    var i = 0;
+    var imgs = figs.map(function(f){ return f.querySelector('img'); });
+    // une image encore absente se mesure a zero : sans chargement immediat,
+    // la hauteur de la scene serait calculee sur une serie incomplete
+    imgs.forEach(function(img){ if (img) img.loading = 'eager'; });
+
+    // la scene fait la hauteur de la plus haute capture, a la largeur du cadre
+    function poser(){
+      var large = gal.clientWidth - 36;          // 18 px de marge de chaque cote
+      if (large <= 0) return false;
+      var haut = 0, connues = 0;
+      imgs.forEach(function(img){
+        if (img && img.naturalWidth) {
+          connues++;
+          haut = Math.max(haut, img.naturalHeight * large / img.naturalWidth);
+        }
+      });
+      if (connues < imgs.length) return false;   // on repassera au chargement
+      haut = Math.max(SCENE_MIN, Math.min(haut, SCENE_MAX));
+      gal.style.setProperty('--scene', Math.round(haut) + 'px');
+      return true;
+    }
+    if (!poser()) {
+      imgs.forEach(function(img){
+        if (img && !img.complete) img.addEventListener('load', poser, {once: true});
+      });
+    }
+    var minute;
+    window.addEventListener('resize', function(){
+      clearTimeout(minute);
+      minute = setTimeout(poser, 150);
     });
+
+    // les fleches vivent dans le cadre, a mi-hauteur de la scene : elles sont
+    // au bord de l'image, la ou l'oeil les cherche, et elles ne bougent plus
+    var fleches = document.createElement('div');
+    fleches.className = 'demo-fleches';
+    fleches.innerHTML =
+      '<button type="button" class="demo-arrow prec" data-pas="-1" aria-label="Capture precedente">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" '
+      + 'stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>'
+      + '<button type="button" class="demo-arrow suiv" data-pas="1" aria-label="Capture suivante">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" '
+      + 'stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>';
+    gal.appendChild(fleches);
+
+    // sous les captures : le rang de la vue, et le bouton plein ecran
     var nav = document.createElement('div');
     nav.className = 'demo-nav';
-    nav.innerHTML = '<button type="button" class="demo-arrow" data-pas="-1" aria-label="Capture precedente">‹</button>'
-      + '<span class="demo-dots"></span>'
-      + '<button type="button" class="demo-arrow" data-pas="1" aria-label="Capture suivante">›</button>';
+    nav.innerHTML = '<span class="demo-dots"></span>';
     gal.parentNode.insertBefore(nav, gal.nextSibling);
     var cta = nav.parentNode.querySelector('.demo-cta');
     if (cta) nav.appendChild(cta);
@@ -916,6 +958,7 @@
       dots.appendChild(d);
       return d;
     });
+
     function peindre(){
       figs.forEach(function(f, n){ f.classList.toggle('is-on', n === i); });
       puces.forEach(function(d, n){
@@ -925,21 +968,19 @@
     }
     function aller(n){
       if (n === i) return;
-      var avant = gal.offsetHeight;
       i = n;
       peindre();
-      var apres = gal.offsetHeight;
-      if (avant === apres) return;
-      clearTimeout(fin);
-      gal.style.height = avant + 'px';
-      void gal.offsetHeight;            // sans cette lecture, le navigateur saute directement a la fin
-      gal.style.height = apres + 'px';
-      fin = setTimeout(function(){ gal.style.height = ''; }, 380);
     }
-    nav.querySelectorAll('.demo-arrow').forEach(function(b){
+    fleches.querySelectorAll('.demo-arrow').forEach(function(b){
       b.addEventListener('click', function(){
         aller((i + (+b.dataset.pas) + figs.length) % figs.length);
       });
+    });
+    // les fleches du clavier marchent quand le cadre a le focus
+    gal.tabIndex = 0;
+    gal.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); aller((i - 1 + figs.length) % figs.length); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); aller((i + 1) % figs.length); }
     });
     gal.classList.add('carrousel');
     peindre();

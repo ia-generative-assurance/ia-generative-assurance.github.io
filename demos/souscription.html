@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prototype : parcours de souscription auto</title>
+<title>Prototype : poste du souscripteur, auto</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --navy:#13264A; --crimson:#BA1C3A; --steel:#3B547D; --teal:#1F6F6B; --amber:#92661D;
@@ -15,310 +15,475 @@
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{font-family:var(--sans);color:var(--ink);background:var(--sand-l);padding:18px 18px 34px;font-size:15px}
-  .wrap{max-width:1060px;margin:0 auto}
+  body{font-family:var(--sans);color:var(--ink);background:var(--sand-l);padding:14px 14px 26px;font-size:14.5px}
+  .wrap{max-width:1080px;margin:0 auto}
 
-  .steps{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-  .step{display:flex;align-items:center;gap:8px;font-size:.84rem;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 14px}
-  .step b{width:20px;height:20px;border-radius:50%;background:var(--sand);color:var(--navy);font-family:var(--display);font-size:.72rem;display:grid;place-items:center}
-  .step.on{color:#fff;background:var(--navy);border-color:var(--navy)}
-  .step.on b{background:rgba(255,255,255,.2);color:#fff}
-  .step.done{color:var(--teal);border-color:var(--teal)}
-  .step.done b{background:var(--teal);color:#fff}
+  /* barre du haut : on est dans un outil interne, pas sur un site vitrine */
+  .top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--navy);color:#fff;
+       border-radius:12px;padding:11px 16px;margin-bottom:12px}
+  .top .logo{width:30px;height:30px;border-radius:8px;background:var(--crimson);color:#fff;display:grid;
+             place-items:center;font-family:var(--display);font-weight:800;font-size:.95rem;flex:none}
+  .top .qui{display:flex;align-items:center;gap:10px}
+  .top b{font-family:var(--display);font-size:.98rem;display:block;line-height:1.15}
+  .top .qui span{font-size:.76rem;color:#a9b7cc}
+  .legende{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-left:auto;font-size:.76rem;color:#c6d1e2}
+  .legende .tag{margin-left:4px}
 
-  .panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 2px rgba(19,38,74,.05),0 8px 22px rgba(19,38,74,.05)}
-  .panel h3{font-family:var(--display);font-size:1.02rem;margin:0 0 4px;color:var(--navy)}
-  .panel p.sub{margin:0 0 14px;font-size:.86rem;color:var(--muted)}
-  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media(max-width:820px){.cols{grid-template-columns:1fr}}
-
-  .tag{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;font-weight:700;border-radius:999px;padding:2px 9px;white-space:nowrap}
+  .tag{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:700;border-radius:999px;
+       padding:2px 9px;white-space:nowrap}
   .tag.ia{background:#fbeef1;color:var(--crimson)}
   .tag.regle{background:#e8f3f2;color:var(--teal)}
   .tag.humain{background:#fdf3e2;color:var(--amber)}
-  .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.78rem;color:var(--muted);margin-bottom:14px;align-items:center}
 
-  .demandes{display:grid;gap:8px;margin-bottom:12px}
-  .dem{text-align:left;font:inherit;font-size:.86rem;line-height:1.5;color:var(--soft);background:var(--sand-l);border:1px solid var(--line);border-left:3px solid var(--line);border-radius:8px;padding:9px 12px;cursor:pointer}
-  .dem:hover{border-left-color:var(--crimson);background:#fff}
-  .dem.on{border-left-color:var(--crimson);background:#fff;color:var(--ink)}
-  .texte{font-size:.92rem;line-height:1.6;background:var(--sand-l);border-radius:8px;padding:12px 14px;min-height:76px}
-  .texte mark{background:#fde7c2;color:var(--navy);border-radius:4px;padding:0 3px}
+  /* les demandes en attente, comme une file de travail */
+  .file{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .file .lab{font-family:var(--display);font-size:.68rem;font-weight:800;letter-spacing:.12em;
+             text-transform:uppercase;color:var(--muted)}
+  .dem{font:inherit;font-size:.82rem;background:#fff;border:1px solid var(--line);border-radius:999px;
+       padding:7px 14px;cursor:pointer;color:var(--soft);display:flex;align-items:center;gap:8px}
+  .dem:hover{border-color:var(--steel)}
+  .dem.on{background:var(--navy);border-color:var(--navy);color:#fff}
+  .dem .num{font-family:var(--mono);font-size:.72rem;opacity:.75}
 
-  .btn{font:inherit;font-family:var(--display);font-weight:800;font-size:.86rem;background:var(--crimson);color:#fff;border:none;border-radius:999px;padding:10px 20px;cursor:pointer}
-  .btn:hover{background:#96162f}
-  .btn[disabled]{background:var(--sand);color:var(--muted);cursor:default}
-  .btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}
-  .btn.ghost:hover{background:var(--sand-l)}
-  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .grille{display:grid;grid-template-columns:1.02fr 1fr;gap:12px;align-items:start}
+  @media(max-width:760px){.grille{grid-template-columns:1fr}}
+  .col{display:grid;gap:12px;align-content:start}
 
-  .fiche{display:grid;gap:8px}
-  .champ{display:grid;grid-template-columns:150px 1fr auto;gap:10px;align-items:center;font-size:.88rem;border-bottom:1px solid var(--line);padding-bottom:7px}
-  .champ:last-child{border-bottom:none}
-  .champ label{color:var(--muted);font-size:.8rem}
-  .champ input,.champ select{font:inherit;font-size:.88rem;border:1px solid var(--line);border-radius:7px;padding:6px 9px;width:100%;background:#fff}
+  .carte{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+         box-shadow:0 1px 2px rgba(19,38,74,.05),0 6px 18px rgba(19,38,74,.045)}
+  .carte h2{font-family:var(--display);font-size:.95rem;margin:0 0 3px;color:var(--navy);
+            display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .carte .sub{margin:0 0 11px;font-size:.79rem;color:var(--muted);line-height:1.45}
+
+  .texte{font-size:.88rem;line-height:1.65;background:var(--sand-l);border-radius:9px;padding:11px 13px;
+         border-left:3px solid var(--sand)}
+  .texte mark{background:#fde7c2;color:var(--navy);border-radius:4px;padding:1px 3px;font-weight:600}
+
+  /* le dictionnaire maison : ce qu'aucun modele generique ne sait */
+  .dico{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+  .dico li{display:grid;grid-template-columns:auto 1fr;gap:9px;align-items:baseline;font-size:.81rem;
+           color:var(--soft);line-height:1.45}
+  .dico code{font-family:var(--mono);font-size:.76rem;background:var(--sand-l);border:1px solid var(--line);
+             border-radius:5px;padding:1px 6px;color:var(--navy);white-space:nowrap}
+  .dico b{color:var(--navy);font-weight:600}
+
+  /* onze champs en une colonne faisaient une fiche deux fois plus haute que le
+     tarif d'en face : deux colonnes, et les deux moities de l'ecran se repondent */
+  .fiche{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+  .champ{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;
+         padding:7px 0;border-top:1px solid var(--line)}
+  .champ:nth-child(-n+2){border-top:none}
+  @media(max-width:520px){.fiche{grid-template-columns:1fr}.champ:nth-child(2){border-top:1px solid var(--line)}}
+  .champ label{grid-column:1/3;font-size:.72rem;color:var(--muted);letter-spacing:.02em}
+  .champ input{font:inherit;font-size:.86rem;border:1px solid var(--line);border-radius:7px;padding:5px 9px;
+               width:100%;background:#fff;color:var(--ink)}
+  .champ input:focus{outline:none;border-color:var(--steel);box-shadow:0 0 0 3px rgba(59,84,125,.12)}
   .champ.vide input{border-color:var(--amber);background:#fffaf0}
+  .prov{font-size:.66rem;font-weight:700;border-radius:999px;padding:2px 8px;white-space:nowrap}
+  .prov.lu{background:#fbeef1;color:var(--crimson)}
+  .prov.deduit{background:#eef1f6;color:var(--steel)}
+  .prov.saisir{background:#fdf3e2;color:var(--amber)}
 
-  table{width:100%;border-collapse:collapse;font-size:.86rem}
-  thead th{background:var(--navy);color:#fff;text-align:left;padding:9px 12px;font-family:var(--display);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase}
-  tbody td{padding:9px 12px;border-top:1px solid var(--line)}
-  tbody tr:last-child td{font-weight:700;color:var(--navy);background:var(--sand-l)}
-  td.num{text-align:right;font-family:var(--mono);font-size:.84rem;white-space:nowrap}
-  .prix{font-family:var(--display);font-size:2rem;font-weight:800;color:var(--crimson);line-height:1}
-  .prix small{display:block;font-family:var(--sans);font-size:.76rem;font-weight:400;color:var(--muted);margin-top:3px}
-  .note{font-size:.8rem;color:var(--muted);line-height:1.5;margin:12px 0 0}
-  .hidden{display:none}
+  /* le prix et la decision : ce que le poste sort vraiment */
+  .sortie{background:var(--navy);border-color:var(--navy);color:#d9e1ee;position:relative;overflow:hidden}
+  .sortie::before{content:"";position:absolute;inset:0;
+                  background:radial-gradient(420px 180px at 100% 0%,rgba(186,28,58,.38),transparent 62%)}
+  .sortie > *{position:relative}
+  .prix{font-family:var(--display);font-size:2.5rem;font-weight:800;color:#fff;line-height:1;
+        letter-spacing:-.02em;transition:color .2s ease}
+  .prix.flash{color:#ffd7e0}
+  .prix small{font-family:var(--sans);font-size:.95rem;font-weight:600;color:#a9b7cc;margin-left:6px}
+  .prix-sous{font-size:.76rem;color:#a9b7cc;margin-top:5px}
+  .decision{display:flex;align-items:flex-start;gap:9px;margin-top:13px;padding:10px 12px;border-radius:9px;
+            background:rgba(255,255,255,.08);font-size:.82rem;line-height:1.45}
+  .decision .pastille{width:9px;height:9px;border-radius:50%;flex:none;margin-top:5px}
+  .decision b{display:block;font-family:var(--display);font-size:.86rem;color:#fff;margin-bottom:1px}
+  .decision.ok .pastille{background:#7fd1c8} .decision.ok b{color:#bfe0dd}
+  .decision.reserve .pastille{background:#f0c27a} .decision.reserve b{color:#f7e3bd}
+  .decision.stop .pastille{background:#ff8199} .decision.stop b{color:#ffc2cd}
+
+  table{width:100%;border-collapse:collapse;font-size:.81rem}
+  thead th{background:var(--sand-l);color:var(--muted);text-align:left;padding:6px 8px;font-family:var(--display);
+           font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--line)}
+  tbody td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  td .regle-id{display:block;font-family:var(--mono);font-size:.66rem;color:var(--muted)}
+  td.num{text-align:right;font-family:var(--mono);font-size:.79rem;white-space:nowrap;color:var(--navy)}
+  tr.total td{background:var(--sand-l);font-weight:700;color:var(--navy);border-top:1px solid var(--line)}
+
+  .ctrl{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .ctrl li{display:grid;grid-template-columns:auto 1fr;gap:9px;font-size:.81rem;line-height:1.45;color:var(--soft)}
+  .ctrl .puce{width:8px;height:8px;border-radius:50%;margin-top:6px}
+  .ctrl b{display:block;color:var(--navy);font-weight:600}
+  .ctrl .id{font-family:var(--mono);font-size:.68rem;color:var(--muted)}
+  .ctrl li.stop .puce{background:var(--crimson)}
+  .ctrl li.verif .puce{background:var(--amber)}
+  .ctrl li.ok .puce{background:var(--teal)}
+
+  .note{font-size:.76rem;color:var(--muted);line-height:1.55;margin:14px 0 0}
+  .note b{color:var(--soft)}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="steps">
-    <div class="step on" id="s1"><b>1</b> La demande du client</div>
-    <div class="step" id="s2"><b>2</b> La fiche à valider</div>
-    <div class="step" id="s3"><b>3</b> Le tarif et ses raisons</div>
-  </div>
-  <div class="legend">
-    <span class="tag ia">Brique IA</span> lecture du langage libre
-    <span class="tag regle">Règle</span> calcul, contrôles, tarif
-    <span class="tag humain">Humain</span> validation avant envoi
-  </div>
 
-  <!-- Etape 1 -->
-  <div class="panel" id="p1">
-    <h3>1. Le client écrit ce qu'il veut, en langage libre <span class="tag ia">Brique IA</span></h3>
-    <p class="sub">Choisissez une demande, puis lancez la lecture. Aucun formulaire imposé au client.</p>
-    <div class="demandes" id="demandes"></div>
-    <div class="texte" id="texte">Choisissez une demande ci-dessus.</div>
-    <div class="actions">
-      <button class="btn" id="lire" disabled>Lire la demande</button>
+  <header class="top">
+    <div class="qui">
+      <span class="logo">N</span>
+      <div><b>Novassur</b><span>poste du souscripteur, branche auto</span></div>
     </div>
+    <div class="legende">
+      <span class="tag ia">IA</span> lit le texte libre
+      <span class="tag regle">Règle</span> calcule et contrôle
+      <span class="tag humain">Humain</span> décide
+    </div>
+  </header>
+
+  <div class="file">
+    <span class="lab">Demandes du jour</span>
+    <div id="file-boutons" style="display:flex;gap:8px;flex-wrap:wrap"></div>
   </div>
 
-  <!-- Etape 2 -->
-  <div class="panel hidden" id="p2">
-    <h3>2. La fiche extraite, que l'humain valide <span class="tag humain">Humain</span></h3>
-    <p class="sub">Ce qui a été trouvé est repris tel quel. Ce qui manque est signalé en orange, jamais inventé.</p>
-    <div class="cols">
-      <div class="fiche" id="fiche"></div>
-      <div>
-        <div class="panel" style="box-shadow:none;margin:0;background:var(--sand-l)">
-          <h3 style="font-size:.92rem">Ce que la lecture n'a pas trouvé</h3>
-          <ul id="manques" style="margin:8px 0 0;padding-left:18px;font-size:.86rem;color:var(--soft);line-height:1.6"></ul>
-          <p class="note">Un prototype honnête dit ce qu'il ignore. C'est la différence entre une extraction utilisable et une réponse plausible.</p>
-        </div>
+  <div class="grille">
+
+    <div class="col" id="colonne-demande">
+      <div class="carte">
+        <h2 id="t-demande">La demande, telle qu'elle arrive <span class="tag ia">IA</span></h2>
+        <p class="sub">Aucun formulaire imposé au client. Le texte est lu, et ce qui a été reconnu apparaît surligné.</p>
+        <div class="texte" id="texte">Choisissez une demande.</div>
+      </div>
+
+      <div class="carte" id="carte-dico">
+        <h2>Le dictionnaire maison <span class="tag regle">Règle</span></h2>
+        <p class="sub">Les mots de la maison, ceux qu'un modèle généraliste tranche mal. C'est ici que le prototype devient le vôtre.</p>
+        <ul class="dico" id="dico"></ul>
+      </div>
+
+      <div class="carte" id="carte-fiche">
+        <h2>La fiche, corrigeable <span class="tag humain">Humain</span></h2>
+        <p class="sub">Chaque champ dit d'où il vient. Rien n'est inventé : ce qui manque reste vide et se voit. Corrigez une valeur, tout se refait à droite.</p>
+        <div class="fiche" id="fiche"></div>
       </div>
     </div>
-    <div class="actions">
-      <button class="btn" id="tarifer">Calculer le tarif</button>
-      <button class="btn ghost" id="retour1">Revenir à la demande</button>
-    </div>
-  </div>
 
-  <!-- Etape 3 -->
-  <div class="panel hidden" id="p3">
-    <h3>3. Le tarif, calculé par des règles explicites <span class="tag regle">Règle</span></h3>
-    <p class="sub">Aucun modèle de langue ici : une base par catégorie, des coefficients, un total. Chaque ligne est justifiable devant un client et devant un contrôleur.</p>
-    <div class="cols" style="grid-template-columns:1.6fr 1fr">
-      <div>
+    <div class="col" id="colonne-tarif">
+      <div class="carte sortie">
+        <div class="prix" id="prix">—</div>
+        <div class="prix-sous">prime annuelle indicative, données fictives</div>
+        <div class="decision ok" id="decision"><span class="pastille"></span><div><b>En attente</b>Choisissez une demande pour lancer la lecture.</div></div>
+      </div>
+
+      <div class="carte">
+        <h2>Le tarif, ligne à ligne <span class="tag regle">Règle</span></h2>
+        <p class="sub">Aucun modèle de langue ici. Une base, des coefficients, un total : chaque ligne se justifie devant un client et devant un contrôleur.</p>
         <table>
-          <thead><tr><th>Ce qui entre dans le prix</th><th>Valeur retenue</th><th class="num">Effet</th></tr></thead>
-          <tbody id="calcul"></tbody>
+          <thead><tr><th>Règle appliquée</th><th>Valeur retenue</th><th class="num">Effet</th></tr></thead>
+          <tbody id="calcul"><tr><td colspan="3" style="color:var(--muted)">En attente d'une demande.</td></tr></tbody>
         </table>
       </div>
-      <div>
-        <div class="panel" style="box-shadow:none;margin:0;background:var(--sand-l);text-align:center">
-          <div class="prix" id="prix">-</div>
-          <small style="color:var(--muted);font-size:.76rem">prime annuelle indicative, données fictives</small>
-          <p class="note" style="text-align:left">Le client verrait ce prix avec ses raisons. Le gestionnaire, lui, verrait en plus les champs incertains et pourrait corriger avant l'envoi.</p>
-        </div>
+
+      <div class="carte" id="carte-controles">
+        <h2>Les contrôles <span class="tag regle">Règle</span></h2>
+        <p class="sub">Ce qui décide de la suite : envoyer le devis, réclamer une pièce, ou passer la main au souscripteur.</p>
+        <ul class="ctrl" id="controles"><li class="ok"><span class="puce"></span><div>En attente d'une demande.</div></li></ul>
       </div>
     </div>
-    <div class="actions">
-      <button class="btn ghost" id="retour2">Modifier la fiche</button>
-      <button class="btn ghost" id="recommencer">Recommencer</button>
-    </div>
+
   </div>
 
-  <p class="note">Prototype de démonstration, données fictives, aucun appel à un modèle depuis cette page. Dans le vrai prototype, seule l'étape 1 appelle un modèle de langue. Tout le reste est du code ordinaire, écrit une fois, vérifiable ligne à ligne.</p>
+  <p class="note"><b>Prototype de démonstration, données fictives, aucun appel à un modèle depuis cette page.</b>
+  Dans le vrai prototype, seule la lecture de la demande appelle un modèle de langue. Le dictionnaire, le tarif,
+  les contrôles et la décision sont du code ordinaire, écrit une fois, vérifiable ligne à ligne, et rejouable à
+  l'identique deux ans plus tard devant un contrôleur.</p>
 </div>
 
 <script>
-// Trois demandes types, ecrites comme un client les ecrirait.
+// ---------------------------------------------------------------------------
+// Trois demandes, ecrites comme un client les ecrit vraiment : en vrac, avec
+// les mots de tous les jours, et une information qui manque a chaque fois.
+// ---------------------------------------------------------------------------
 const DEMANDES = [
-  "Bonjour, je viens d'acheter une Peugeot 208 de 2019, je m'en sers surtout pour aller au travail à Lyon, environ 12 000 km par an. Je n'ai jamais eu d'accident, mon bonus est de 0,68. Vous pouvez me faire un devis tous risques ?",
-  "Je souhaite assurer un Renault Kangoo de 2015 pour mon activité d'artisan plombier, je roule beaucoup, disons 30 000 km, je suis basé à Marseille. Au tiers ça suffit.",
-  "Bonsoir, c'est pour une Tesla Model 3 de 2023, usage privé, je suis à Rennes, je fais peu de route, 6 000 km. J'ai eu un accrochage responsable l'an dernier."
+  {
+    chip: "Peugeot 208 · Lyon",
+    texte: "Bonjour, je viens d'acheter une Peugeot 208 de 2019, je m'en sers surtout pour aller au travail à Lyon, environ 12 000 km par an. Je n'ai jamais eu d'accident, mon CRM est de 0,68. Vous pouvez me faire un devis tous risques ?"
+  },
+  {
+    chip: "Kangoo pro · Marseille",
+    texte: "Je souhaite assurer un Renault Kangoo de 2015 pour mon activité d'artisan plombier, je roule beaucoup, disons 30 000 km, je suis basé à Marseille. Au tiers ça suffit."
+  },
+  {
+    chip: "Tesla · Rennes",
+    texte: "Bonsoir, c'est pour une Tesla Model 3 de 2023, usage privé, je suis à Rennes, je fais peu de route, 6 000 km. J'ai eu un accrochage responsable l'an dernier, mais mon CRM est resté à 0,68."
+  }
 ];
 
-// Dictionnaires : la meme logique deterministe que la cascade du module 03.
+// --- Le dictionnaire maison ------------------------------------------------
+// Ce que la maison sait et qu'un modele generique ignore ou tranche de travers.
 const MARQUES = {"peugeot":"Peugeot","renault":"Renault","tesla":"Tesla","citroen":"Citroën","dacia":"Dacia","volkswagen":"Volkswagen"};
 const MODELES = {"208":"208","kangoo":"Kangoo","model 3":"Model 3","clio":"Clio","sandero":"Sandero"};
-const VILLES  = {"lyon":["Lyon",1.10],"marseille":["Marseille",1.20],"rennes":["Rennes",0.95],"paris":["Paris",1.25],"nantes":["Nantes",0.98]};
-const CATEGORIES = {"Peugeot":["Citadine",380],"Renault":["Utilitaire",520],"Tesla":["Électrique haut de gamme",760],"Citroën":["Citadine",380],"Dacia":["Citadine",330],"Volkswagen":["Berline",470]};
+const ZONES   = {"lyon":["Lyon","Zone 3",1.10],"marseille":["Marseille","Zone 4",1.20],"rennes":["Rennes","Zone 2",0.95],"paris":["Paris","Zone 4",1.25],"nantes":["Nantes","Zone 2",0.98]};
+const GRILLE  = {"Peugeot":["Citadine",380],"Renault":["Utilitaire léger",520],"Tesla":["Électrique haut de gamme",760],"Citroën":["Citadine",380],"Dacia":["Citadine",330],"Volkswagen":["Berline",470]};
+const METIERS = ["plombier","électricien","electricien","maçon","macon","couvreur","peintre","artisan","taxi","vtc","livreur"];
 
-let choix = null, fiche = null;
+let choix = null, fiche = null, dico = [], dernier = null;
 
-// --- Etape 1 : lecture du langage libre -------------------------------------
-const hostDem = document.getElementById('demandes');
-DEMANDES.forEach((t, i) => {
-  const b = document.createElement('button');
-  b.type = 'button'; b.className = 'dem'; b.textContent = t;
-  b.onclick = () => {
-    choix = i;
-    document.querySelectorAll('.dem').forEach((e, j) => e.classList.toggle('on', j === i));
-    document.getElementById('texte').textContent = t;
-    document.getElementById('lire').disabled = false;
-  };
-  hostDem.appendChild(b);
-});
-
+// --- Lecture de la demande --------------------------------------------------
+// Le modele de langue ferait ce travail dans le vrai prototype. Ici, des motifs
+// deterministes suffisent a montrer ce qui compte : chaque champ garde
+// l'origine de sa valeur, lue dans le texte ou deduite par une regle maison.
 function lire(txt){
-  const bas = txt.toLowerCase();
-  const trouve = {};
-  const vus = [];
-  for (const [k, v] of Object.entries(MARQUES)) if (bas.includes(k)) { trouve.marque = v; vus.push(k); }
-  for (const [k, v] of Object.entries(MODELES)) if (bas.includes(k)) { trouve.modele = v; vus.push(k); }
-  for (const [k, v] of Object.entries(VILLES))  if (bas.includes(k)) { trouve.ville = v[0]; vus.push(k); }
+  const bas = txt.toLowerCase(), vus = [], f = {}, d = [];
+  const poser = (k, valeur, origine) => { f[k] = {valeur, origine}; };
+
+  for (const [k, v] of Object.entries(MARQUES)) if (bas.includes(k)) { poser("marque", v, "lu"); vus.push(k); }
+  for (const [k, v] of Object.entries(MODELES)) if (bas.includes(k)) { poser("modele", v, "lu"); vus.push(k); }
+
   const annee = bas.match(/\b(19|20)\d{2}\b/);
-  if (annee) { trouve.annee = annee[0]; vus.push(annee[0]); }
+  if (annee) { poser("annee", annee[0], "lu"); vus.push(annee[0]); }
+
+  for (const [k, v] of Object.entries(ZONES)) if (bas.includes(k)) {
+    poser("ville", v[0], "lu"); poser("zone", v[1], "deduit"); vus.push(k);
+    d.push([v[0], "<b>" + v[1] + "</b>, découpage tarifaire Novassur, pas le code postal"]);
+  }
+
   const km = bas.match(/(\d[\d\s]{2,})\s*km/);
-  if (km) { trouve.km = km[1].replace(/\s/g, ''); vus.push(km[0]); }
-  const bonus = bas.match(/0[,.](\d{2})/);
-  if (bonus) { trouve.bonus = bonus[0].replace(',', '.'); vus.push(bonus[0]); }
-  if (/artisan|professionnel|activité|société/.test(bas)) { trouve.usage = "Professionnel"; }
-  else if (/travail|privé|prive|personnel/.test(bas)) { trouve.usage = "Privé, trajets domicile travail"; }
-  trouve.formule = /tous risques/.test(bas) ? "Tous risques" : (/au tiers|le tiers/.test(bas) ? "Au tiers" : null);
-  if (/accident|accrochage|sinistre/.test(bas) && !/jamais/.test(bas)) trouve.sinistre = "Un sinistre responsable déclaré";
-  return {trouve, vus};
+  if (km) { poser("km", km[1].replace(/\s/g, ""), "lu"); vus.push(km[0]); }
+
+  // CRM : le sigle du metier, que tout modele generaliste lit « customer
+  // relationship management ». Le dictionnaire maison tranche.
+  const crm = bas.match(/0[,.](\d{2})/);
+  if (crm) {
+    poser("crm", crm[0].replace(",", "."), "lu"); vus.push(crm[0]);
+    if (/crm|bonus|coefficient/.test(bas)) {
+      d.push(["CRM", "<b>coefficient de réduction majoration</b>, le bonus malus. Ailleurs le même sigle veut dire <i>customer relationship management</i>."]);
+    }
+  }
+
+  const metier = METIERS.find(m => bas.includes(m));
+  if (metier) {
+    poser("usage", "Professionnel", "deduit");
+    d.push([metier, "métier du bâtiment ou du transport, <b>usage professionnel</b>, jamais l'usage privé même si le client ne le dit pas"]);
+  } else if (/travail|privé|prive|personnel|domicile/.test(bas)) {
+    poser("usage", "Privé, domicile travail", "deduit");
+  }
+
+  if (/tous risques/.test(bas)) { poser("formule", "Tous risques", "lu"); vus.push("tous risques"); }
+  else if (/au tiers|le tiers/.test(bas)) {
+    poser("formule", "Au tiers", "deduit");
+    d.push(["au tiers", "<b>responsabilité civile seule</b>, la formule d'entrée du catalogue"]);
+  }
+
+  if (/accident|accrochage|sinistre/.test(bas) && !/jamais/.test(bas)) {
+    poser("antecedent", "Un sinistre responsable", "lu");
+    vus.push(bas.includes("accrochage") ? "accrochage responsable" : "sinistre");
+  } else if (/jamais/.test(bas)) {
+    poser("antecedent", "Aucun sinistre déclaré", "deduit");
+  }
+
+  const marque = f.marque && f.marque.valeur;
+  if (marque && GRILLE[marque]) {
+    poser("categorie", GRILLE[marque][0], "deduit");
+    d.push([marque, "<b>" + GRILLE[marque][0] + "</b> dans la grille véhicules maison, base " + GRILLE[marque][1] + " €"]);
+  }
+  return {f, vus, d};
 }
 
 function surligne(txt, vus){
   let out = txt;
-  vus.sort((a, b) => b.length - a.length).forEach(v => {
-    const re = new RegExp('(' + v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'i');
-    out = out.replace(re, '<mark>$1</mark>');
+  vus.slice().sort((a, b) => b.length - a.length).forEach(v => {
+    const re = new RegExp("(" + v.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "i");
+    out = out.replace(re, "<mark>$1</mark>");
   });
   return out;
 }
 
-document.getElementById('lire').onclick = () => {
-  const txt = DEMANDES[choix];
-  const {trouve, vus} = lire(txt);
-  document.getElementById('texte').innerHTML = surligne(txt, vus);
-  fiche = trouve;
-  remplirFiche();
-  montrer(2);
-};
-
-// --- Etape 2 : la fiche, corrigeable ---------------------------------------
+// --- La fiche ---------------------------------------------------------------
 const CHAMPS = [
   ["marque", "Marque"], ["modele", "Modèle"], ["annee", "Année"],
-  ["usage", "Usage"], ["ville", "Ville"], ["km", "Kilomètres par an"],
-  ["bonus", "Coefficient bonus"], ["formule", "Formule"]
+  ["categorie", "Catégorie tarifaire"], ["usage", "Usage déclaré"],
+  ["ville", "Ville"], ["zone", "Zone"], ["km", "Kilomètres par an"],
+  ["crm", "CRM"], ["formule", "Formule"], ["antecedent", "Antécédents"]
 ];
+const NOMS = {lu: "lu", deduit: "déduit", saisir: "à saisir"};
 
-function remplirFiche(){
-  const host = document.getElementById('fiche');
-  host.innerHTML = '';
-  const manquants = [];
+function dessinerFiche(){
+  const host = document.getElementById("fiche");
+  host.innerHTML = "";
   CHAMPS.forEach(([k, label]) => {
-    const val = fiche[k] || '';
-    const row = document.createElement('div');
-    row.className = 'champ' + (val ? '' : ' vide');
-    row.innerHTML = `<label>${label}</label><input data-k="${k}" value="${val}" placeholder="à compléter">
-      <span class="tag ${val ? 'ia' : 'humain'}">${val ? 'lu' : 'à saisir'}</span>`;
+    const c = fiche[k] || {valeur: "", origine: "saisir"};
+    const row = document.createElement("div");
+    row.className = "champ" + (c.valeur ? "" : " vide");
+    row.innerHTML = '<label>' + label + '</label>'
+      + '<input data-k="' + k + '" value="' + c.valeur + '" placeholder="à compléter">'
+      + '<span class="prov ' + (c.valeur ? c.origine : "saisir") + '">'
+      + (c.valeur ? NOMS[c.origine] : NOMS.saisir) + '</span>';
     host.appendChild(row);
-    if (!val) manquants.push(label);
   });
-  host.querySelectorAll('input').forEach(inp => {
-    inp.oninput = () => { fiche[inp.dataset.k] = inp.value; };
-  });
-  const ul = document.getElementById('manques');
-  ul.innerHTML = '';
-  if (fiche.sinistre) {
-    const li = document.createElement('li');
-    li.innerHTML = `<strong>${fiche.sinistre}</strong> : à confirmer avec le relevé d'information.`;
-    ul.appendChild(li);
-  }
-  if (!manquants.length && !fiche.sinistre) {
-    ul.innerHTML = '<li>Rien ne manque : la demande contenait tout ce qu'
-      + 'il fallait. C\'est le cas facile, pas le cas courant.</li>';
-  }
-  manquants.forEach(m => {
-    const li = document.createElement('li');
-    li.textContent = m + " : absent de la demande, à demander au client.";
-    ul.appendChild(li);
+  host.querySelectorAll("input").forEach(inp => {
+    inp.oninput = () => {
+      const k = inp.dataset.k;
+      fiche[k] = {valeur: inp.value, origine: "saisir"};
+      inp.parentNode.classList.toggle("vide", !inp.value);
+      const p = inp.parentNode.querySelector(".prov");
+      p.className = "prov " + (inp.value ? "deduit" : "saisir");
+      p.textContent = inp.value ? "corrigé" : NOMS.saisir;
+      calculer();
+    };
   });
 }
 
-// --- Etape 3 : le tarif, en regles explicites -------------------------------
-function tarifer(){
+function dessinerDico(){
+  const host = document.getElementById("dico");
+  host.innerHTML = "";
+  if (!dico.length) { host.innerHTML = '<li><span></span>En attente d\'une demande.</li>'; return; }
+  dico.forEach(([mot, sens]) => {
+    const li = document.createElement("li");
+    li.innerHTML = "<code>" + mot + "</code><span>" + sens + "</span>";
+    host.appendChild(li);
+  });
+}
+
+// --- Le tarif ---------------------------------------------------------------
+const val = k => (fiche[k] && fiche[k].valeur) || "";
+
+// Attention au piege : « Aucun sinistre declare » contient « un sinistre ».
+// Un antecedent compte s'il nomme un evenement ET qu'aucune negation ne l'annule.
+function aSinistre(){
+  const v = val("antecedent");
+  return /sinistre|accrochage|accident/i.test(v) && !/aucun|jamais|sans|pas de/i.test(v);
+}
+
+function calculer(){
   const lignes = [];
-  const cat = CATEGORIES[fiche.marque] || ["Non reconnue", 450];
-  let prix = cat[1];
-  lignes.push(["Base par catégorie de véhicule", `${fiche.marque || 'véhicule'} , ${cat[0]}`, cat[1] + " €"]);
+  const cat = val("categorie");
+  const marque = val("marque");
+  const base = (GRILLE[marque] && GRILLE[marque][1]) || 450;
+  let prix = base;
+  lignes.push(["TAR-01", "Base par catégorie", cat || "catégorie inconnue", base + " €"]);
 
-  const an = parseInt(fiche.annee, 10);
+  const an = parseInt(val("annee"), 10);
   if (an) {
-    const age = 2026 - an;
-    const c = age > 8 ? 0.88 : (age > 4 ? 0.95 : 1.08);
+    const age = 2026 - an, c = age > 8 ? 0.88 : (age > 4 ? 0.95 : 1.08);
     prix *= c;
-    lignes.push(["Âge du véhicule", `${age} ans`, "x " + c.toFixed(2)]);
+    lignes.push(["TAR-02", "Âge du véhicule", age + " ans", "× " + c.toFixed(2)]);
   }
-  const v = Object.values(VILLES).find(x => x[0] === fiche.ville);
-  if (v) { prix *= v[1]; lignes.push(["Zone géographique", fiche.ville, "x " + v[1].toFixed(2)]); }
+  const z = Object.values(ZONES).find(x => x[1] === val("zone") || x[0] === val("ville"));
+  if (z) { prix *= z[2]; lignes.push(["TAR-03", "Zone géographique", z[0] + ", " + z[1], "× " + z[2].toFixed(2)]); }
 
-  if (/Professionnel/i.test(fiche.usage || '')) { prix *= 1.30; lignes.push(["Usage", "Professionnel", "x 1.30"]); }
-  else if (fiche.usage) { prix *= 1.00; lignes.push(["Usage", fiche.usage, "x 1.00"]); }
+  const usage = val("usage");
+  if (/professionnel/i.test(usage)) { prix *= 1.30; lignes.push(["TAR-04", "Usage", "Professionnel", "× 1.30"]); }
+  else if (usage) { lignes.push(["TAR-04", "Usage", usage, "× 1.00"]); }
 
-  const km = parseInt((fiche.km || '').replace(/\D/g, ''), 10);
+  const km = parseInt(val("km").replace(/\D/g, ""), 10);
   if (km) {
     const c = km > 25000 ? 1.22 : (km > 15000 ? 1.10 : 0.94);
     prix *= c;
-    lignes.push(["Kilométrage annuel", km.toLocaleString('fr-FR') + " km", "x " + c.toFixed(2)]);
+    lignes.push(["TAR-05", "Kilométrage annuel", km.toLocaleString("fr-FR") + " km", "× " + c.toFixed(2)]);
   }
-  const b = parseFloat(fiche.bonus);
-  if (!isNaN(b)) { prix *= b; lignes.push(["Coefficient bonus malus", b.toFixed(2), "x " + b.toFixed(2)]); }
-  else { prix *= 1.00; lignes.push(["Coefficient bonus malus", "inconnu, valeur neutre retenue", "x 1.00"]); }
+  const crm = parseFloat(val("crm").replace(",", "."));
+  if (!isNaN(crm)) { prix *= crm; lignes.push(["TAR-06", "CRM", crm.toFixed(2), "× " + crm.toFixed(2)]); }
+  else { lignes.push(["TAR-06", "CRM", "inconnu, valeur neutre", "× 1.00"]); }
 
-  if (/Tous risques/i.test(fiche.formule || '')) { prix *= 1.45; lignes.push(["Formule", "Tous risques", "x 1.45"]); }
-  else if (fiche.formule) { lignes.push(["Formule", fiche.formule, "x 1.00"]); }
+  const formule = val("formule");
+  if (/tous risques/i.test(formule)) { prix *= 1.45; lignes.push(["TAR-07", "Formule", "Tous risques", "× 1.45"]); }
+  else if (formule) { lignes.push(["TAR-07", "Formule", formule, "× 1.00"]); }
 
-  if (fiche.sinistre) { prix *= 1.15; lignes.push(["Sinistre déclaré", "Un sinistre responsable", "x 1.15"]); }
+  if (aSinistre()) { prix *= 1.15; lignes.push(["TAR-08", "Antécédent", "Un sinistre responsable", "× 1.15"]); }
 
-  const tb = document.getElementById('calcul');
-  tb.innerHTML = '';
-  lignes.forEach(([a, b2, c]) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${a}</td><td>${b2}</td><td class="num">${c}</td>`;
+  const tb = document.getElementById("calcul");
+  tb.innerHTML = "";
+  lignes.forEach(([id, quoi, valeur, effet]) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = '<td><span class="regle-id">' + id + '</span>' + quoi + '</td>'
+      + '<td>' + valeur + '</td><td class="num">' + effet + '</td>';
     tb.appendChild(tr);
   });
-  const tr = document.createElement('tr');
-  tr.innerHTML = `<td>Prime annuelle indicative</td><td></td><td class="num">${Math.round(prix)} €</td>`;
+  const tr = document.createElement("tr");
+  tr.className = "total";
+  tr.innerHTML = '<td>Prime annuelle</td><td></td><td class="num">' + Math.round(prix) + " €</td>";
   tb.appendChild(tr);
-  document.getElementById('prix').textContent = Math.round(prix) + " €";
+
+  const p = document.getElementById("prix");
+  p.innerHTML = Math.round(prix) + ' €<small>/ an</small>';
+  if (dernier !== null && Math.round(prix) !== dernier) {
+    p.classList.add("flash");
+    setTimeout(() => p.classList.remove("flash"), 420);
+  }
+  dernier = Math.round(prix);
+  controler();
 }
 
-// --- Navigation -------------------------------------------------------------
-function montrer(n){
-  [1, 2, 3].forEach(i => document.getElementById('p' + i).classList.toggle('hidden', i !== n));
-  [1, 2, 3].forEach(i => {
-    const s = document.getElementById('s' + i);
-    s.classList.toggle('on', i === n);
-    s.classList.toggle('done', i < n);
+// --- Les controles, et la decision qui en sort ------------------------------
+function controler(){
+  const c = [];
+  const crm = parseFloat(val("crm").replace(",", "."));
+  const km = parseInt(val("km").replace(/\D/g, ""), 10);
+  const sinistre = aSinistre();
+
+  if (sinistre && !isNaN(crm) && crm < 0.80) {
+    c.push(["stop", "CTL-01", "CRM incohérent avec l'antécédent déclaré",
+      "Un sinistre responsable et un CRM de " + crm.toFixed(2) + " ne vont pas ensemble. Le relevé d'information de l'ancien assureur est exigé avant tout devis."]);
+  }
+  if (/professionnel/i.test(val("usage")) && km > 25000) {
+    c.push(["stop", "CTL-02", "Hors grille standard",
+      "Usage professionnel au delà de 25 000 km par an : la grille automatique ne couvre pas ce profil, tarification manuelle par le souscripteur."]);
+  }
+  if (/électrique|electrique/i.test(val("categorie"))) {
+    c.push(["verif", "CTL-03", "Garantie batterie à préciser",
+      "Véhicule électrique : la batterie est louée ou achetée, la garantie et la franchise ne sont pas les mêmes. À demander au client."]);
+  }
+  const manquants = CHAMPS.filter(([k]) => !val(k)).map(([, label]) => label);
+  if (manquants.length) {
+    c.push(["verif", "CTL-04", manquants.length + (manquants.length > 1 ? " champs absents" : " champ absent"),
+      manquants.join(", ") + ". Rien n'a été inventé : à compléter avec le client avant l'envoi."]);
+  }
+  if (!c.length) {
+    c.push(["ok", "CTL-00", "Aucun contrôle en défaut", "La demande contenait tout ce qu'il faut, et rien ne se contredit."]);
+  }
+
+  const host = document.getElementById("controles");
+  host.innerHTML = "";
+  c.forEach(([niveau, id, titre, texte]) => {
+    const li = document.createElement("li");
+    li.className = niveau;
+    li.innerHTML = '<span class="puce"></span><div><b>' + titre + ' <span class="id">' + id + '</span></b>' + texte + '</div>';
+    host.appendChild(li);
   });
-  if (n === 3) tarifer();
+
+  const stop = c.some(x => x[0] === "stop");
+  const verif = c.some(x => x[0] === "verif");
+  const d = document.getElementById("decision");
+  const dec = stop
+    ? ["stop", "À passer au souscripteur", "Un contrôle bloquant : le tarif affiché reste indicatif et ne part pas au client."]
+    : verif
+      ? ["reserve", "Devis envoyable, sous réserve", "Le prix tient, mais une pièce ou une précision manque. Le gestionnaire relance le client."]
+      : ["ok", "Devis envoyable", "Contrôles passés, chaque ligne du prix est justifiée. Le gestionnaire valide et envoie."];
+  d.className = "decision " + dec[0];
+  d.innerHTML = '<span class="pastille"></span><div><b>' + dec[1] + '</b>' + dec[2] + '</div>';
 }
-document.getElementById('tarifer').onclick = () => montrer(3);
-document.getElementById('retour1').onclick = () => montrer(1);
-document.getElementById('retour2').onclick = () => montrer(2);
-document.getElementById('recommencer').onclick = () => {
-  choix = null; fiche = null;
-  document.querySelectorAll('.dem').forEach(e => e.classList.remove('on'));
-  document.getElementById('texte').textContent = "Choisissez une demande ci-dessus.";
-  document.getElementById('lire').disabled = true;
-  montrer(1);
-};
+
+// --- La file de demandes ----------------------------------------------------
+const host = document.getElementById("file-boutons");
+DEMANDES.forEach((dem, i) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "dem";
+  b.innerHTML = '<span class="num">' + (i + 1) + '</span>' + dem.chip;
+  b.onclick = () => ouvrir(i);
+  host.appendChild(b);
+});
+
+function ouvrir(i){
+  choix = i;
+  document.querySelectorAll(".dem").forEach((e, j) => e.classList.toggle("on", j === i));
+  const {f, vus, d} = lire(DEMANDES[i].texte);
+  fiche = f; dico = d; dernier = null;
+  document.getElementById("texte").innerHTML = surligne(DEMANDES[i].texte, vus);
+  dessinerDico();
+  dessinerFiche();
+  calculer();
+}
+
+ouvrir(0);
 </script>
 </body>
 </html>
