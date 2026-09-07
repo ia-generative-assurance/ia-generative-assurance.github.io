@@ -143,6 +143,22 @@
   .cat-nav { display: none; }
   .catalogue, .catalogue.carrousel { display: block; }
   .catalogue.carrousel > .fiche { visibility: visible; opacity: 1; animation: none;
-    break-inside: avoid; margin-bottom: 14px; box-shadow: none; }
-  .fiche-corps { grid-template-columns: 1.06fr 1fr; }
+    break-inside: avoid; margin-bottom: 12px; box-shadow: none; }
+  .fiche-corps { grid-template-columns: 1.06fr 1fr; gap: 16px; }
+  /* la page utile fait 703 px de large : aux tailles de l'ecran, une fiche
+     prend les deux tiers d'une page A4 et il n'en tient qu'une. Resserree, il
+     en tient deux, et le PDF passe de six pages a trois pour le meme contenu. */
+  .fiche { padding: 12px 15px 9px; }
+  .fiche h3 { font-size: 1.12rem; }
+  .fiche .st { font-size: .78rem; margin-bottom: 9px; }
+  .vitaux { gap: 5px; margin-bottom: 10px; }
+  .vitaux > div { padding: 5px 3px; }
+  .vitaux b { font-size: .72rem; }
+  .flux .zone { padding: 6px 5px; }
+  .flux .pilule { font-size: .66rem; padding: 4px 4px; }
+  .flux .methode { font-size: .72rem; padding: 8px 5px; }
+  .lignes .l { padding: 6px 0; }
+  .lignes p, .fiche .alerte p { font-size: .75rem; line-height: 1.35; }
+  .fiche .alerte { margin-top: 8px; padding: 7px 11px; }
+  .fiche-pied { font-size: .64rem; padding-top: 8px; }
 }
