@@ -165,7 +165,11 @@ section.band.alt { background: var(--sand-l); border-top: 1px solid var(--line);
 section.band.dark { background: var(--navy); color: #d9e1ee; }
 section.band.dark h2, section.band.dark h3 { color: #fff; }
 section.band.tight { padding: 46px 0; }
-.section-head { max-width: 76ch; margin-bottom: 36px; }
+/* Pas de bride de largeur ici : un chapeau de section bride a 76ch faisait
+   815 px de large au dessus de tableaux, d'encarts et de figures de 946, et
+   le decalage se voyait a chaque section (retour de Kezhan, 7 septembre).
+   Toute la prose d'une section a la largeur de sa colonne, comme les blocs. */
+.section-head { margin-bottom: 36px; }
 /* titre de section : court (une ligne), plus petit que le h2 de la home ;
    la nuance est dans le chapeau .lede, pas dans le titre */
 .section-head h2 { font-size: 1.5rem; }
@@ -363,17 +367,10 @@ figcaption { font-size: .86rem; color: var(--ink-mute); margin-top: 12px; }
 .figure-frame { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); }
 .figure-frame.dark { background: var(--navy); border-color: var(--navy); }
 .figure-frame.dark figcaption { color: #a9b7cc; }
-/* Schema dessine sur une toile etroite (660 unites, voir SCHEMAS.md) : sans
-   plafond il s'etire a la largeur de la colonne, soit 1050 px, et tout grossit
-   de 60 %. On le cale a sa taille naturelle, centre. Le schema sort alors a la
-   meme taille a l'ecran et sur le papier. */
-.figure-frame svg.etroit { max-width: 560px; margin: 0 auto; }
-/* Et le cadre suit le dessin. Sans cette regle, la carte blanche s'etend sur
-   toute la colonne pendant que le schema n'en occupe que 560 : il reste
-   193 px de vide de chaque cote A L'INTERIEUR du cadre, ce qui se voit tout de
-   suite. La solution n'est pas d'agrandir le schema, elle est de resserrer le
-   cadre autour de lui. La legende suit la meme largeur. */
-.figure-frame:has(svg.etroit) { max-width: 620px; margin-left: auto; margin-right: auto; }
+/* Il y avait ici deux regles qui bridaient un schema a 560 px et resserraient
+   son cadre autour. Retirees le 7 septembre : la toile d'un schema fait
+   desormais la largeur ou la figure s'affiche (SCHEMAS.md section 4), donc
+   le dessin remplit sa colonne sans que son texte grossisse. */
 
 /* ---------- Deroule horaire (discret, injecte par build.py depuis PLANNING) ---------- */
 .timing { display: flex; align-items: center; gap: 8px; margin: 14px 0 0; font-size: .86rem; color: #a9b7cc; }
