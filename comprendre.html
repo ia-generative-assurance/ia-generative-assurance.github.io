@@ -310,10 +310,16 @@
     <figcaption>Une seule dimension, le sentiment. Un vrai embedding fait exactement cela sur 200 à 6 000 dimensions à la fois : sentiment, technicité, registre, domaine. Un mot = une liste de nombres.</figcaption>
   </figure>
 
-  <figure class="figure-frame reveal">
-    <img src="assets/emb_sentiment_1d.png" width="1600" height="627" alt="Embedding entraîné en une dimension sur des avis">
-    <figcaption>La preuve sur données réelles : un embedding entraîné en <strong>une seule dimension</strong> sur des avis place « worst », « awful » à gauche et « excellent », « amazing » à droite. Personne n'a écrit de dictionnaire : la position vient des contextes d'apparition.</figcaption>
-  </figure>
+  <details class="deeper">
+    <summary>La même chose, mesurée sur des données réelles <small>un graphique d'analyse, en anglais</small></summary>
+    <div class="deeper-body">
+      <p>L'axe ci-dessus est dessiné à la main pour l'exemple. Celui-ci est calculé : un modèle a lu des milliers d'avis de clients et placé chaque mot sur une seule dimension, sans qu'on lui donne de dictionnaire.</p>
+      <figure class="figure-frame">
+        <img src="assets/emb_sentiment_1d.png" width="1600" height="627" alt="Embedding entraîné en une dimension sur des avis">
+        <figcaption>Horizontalement, la position apprise. « worst » et « awful » se retrouvent à gauche, « excellent » et « amazing » à droite. Personne n'a écrit de dictionnaire : la position vient des contextes d'apparition. Verticalement, le nombre de fois où le mot apparaît, qui ne sert qu'à étaler le nuage.</figcaption>
+      </figure>
+    </div>
+  </details>
   <p>L'analogie, à construire soi-même. Choisissez un cas, puis cliquez sur le schéma : deux mots, un troisième, le même déplacement, et le mot qui apparaît. Les deux derniers cas sont ceux de l'assurance.</p>
 <!-- analogie -->
   <div class="demo reveal" id="demo-analogie">
@@ -552,7 +558,7 @@ similarité cosinus : 0,87</div>
 
   <h3 style="margin:36px 0 10px">L'attention en une phrase : le contexte désambiguïse chaque mot</h3>
   <figure class="figure-frame reveal">
-    <div class="fig-scroll"><svg viewBox="0 0 1100 250" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif">
+    <div class="fig-scroll"><svg viewBox="0 0 1100 150" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif">
       <g font-size="23" font-weight="700" fill="#1f2733">
         <text x="60" y="80">La</text>
         <rect x="105" y="55" width="105" height="38" rx="8" fill="#13264A"/><text x="157" y="82" fill="#fff" text-anchor="middle">souris</text>
@@ -572,12 +578,18 @@ similarité cosinus : 0,87</div>
       <path d="M 717 55 C 775 15, 860 15, 915 55" stroke="#BA1C3A" stroke-width="3.5" fill="none"/>
       <text x="816" y="22" text-anchor="middle" font-size="15" fill="#BA1C3A" font-weight="700">attention forte</text>
       <text x="620" y="125" font-size="16" fill="#4a5567">→ souris = le périphérique</text>
-      <rect x="60" y="160" width="980" height="70" rx="12" fill="#F7F4F2" stroke="#dcd8d4"/>
-      <text x="550" y="188" text-anchor="middle" font-size="16" fill="#13264A" font-weight="600">La self-attention calcule cette influence pour chaque paire de mots, en parallèle :</text>
-      <text x="550" y="214" text-anchor="middle" font-size="16" fill="#4a5567">produits scalaires deux à deux → exponentielle → normalisation → chaque mot devient un mélange pondéré de son contexte.</text>
     </svg></div>
-    <figcaption>Le mot « souris » n'a pas un sens, il en a deux. C'est le reste de la phrase qui tranche. Le calcul reste élémentaire (produits, exponentielles, divisions) : en atelier, on l'implémente cellule par cellule dans un tableur.</figcaption>
+    <figcaption>Le mot « souris » n'a pas un sens, il en a deux. C'est le reste de la phrase qui tranche.</figcaption>
   </figure>
+
+  <details class="deeper">
+    <summary>Comment la machine mesure cette influence <small>le calcul derrière le mot « attention »</small></summary>
+    <div class="deeper-body">
+      <p>Chaque mot est déjà une liste de nombres. Pour savoir combien « fromage » compte dans le sens de « souris », la machine compare les deux listes, deux à deux, et en tire un score. Elle fait la même comparaison pour toutes les paires de la phrase, en même temps.</p>
+      <p>Les scores sont ensuite ramenés à un total de 100 % sur la phrase : c'est ce qui donne les poids de l'illustration. Chaque mot est alors réécrit comme un mélange des autres, dosé par ces poids. « Souris » suivi de « fromage » et « souris » suivi de « cassée » ne donnent pas le même mélange, donc pas le même sens.</p>
+      <p>Les opérations sont des multiplications, des additions et des divisions. Rien de plus. En atelier, on l'implémente cellule par cellule dans un tableur.</p>
+    </div>
+  </details>
 
   <div class="grid grid-3 reveal">
     <div class="card flat"><h4>Encodeur seul · BERT</h4><p style="font-size:.93rem;margin:0">Lit tout le texte dans les deux sens. Le meilleur pour <strong>comprendre</strong> : classer, extraire, repérer des entités. Le choix naturel pour coder une activité, noter un avis ou classer un mail.</p></div>
