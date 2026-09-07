@@ -418,7 +418,7 @@
     <ol class="steps">
       <li>« Combien de sinistres habitation en Île-de-France en 2024 ? »</li>
       <li>« Quelle est la prime pour ce profil ? »</li>
-      <li>« Le contrat est-il encore couvert ? »</li>
+      <li>« Ce sinistre du 12 mars est-il couvert ? »</li>
       <li>« Résume-moi ces trois avis clients »</li>
       <li>« Quel article de loi s'applique ? »</li>
     </ol>
@@ -429,13 +429,13 @@
       <tbody>
         <tr><td>« Combien de sinistres habitation en Île-de-France en 2024 ? »</td><td>Traduit en requête SQL</td><td class="rowhead">Base de données</td><td><span class="pill good">Exacte</span></td></tr>
         <tr><td>« Quelle est la prime pour ce profil ? »</td><td>Appelle le tarificateur avec les bons paramètres</td><td class="rowhead">API métier</td><td><span class="pill good">Exacte</span></td></tr>
-        <tr><td>« Le contrat est-il encore couvert ? »</td><td>Extrait les dates, applique la règle</td><td class="rowhead">Règle métier</td><td><span class="pill good">Exacte</span></td></tr>
+        <tr><td>« Ce sinistre du 12 mars est-il couvert ? »</td><td>Retrouve le contrat, passe la date et la garantie au moteur de règles</td><td class="rowhead">Moteur de règles</td><td><span class="pill good">Exacte</span></td></tr>
         <tr><td>« Résume-moi ces trois avis clients »</td><td>Génère le résumé lui-même</td><td class="rowhead">Aucun</td><td><span class="pill warn">À relire</span></td></tr>
         <tr><td>« Quel article de loi s'applique ? »</td><td>Génère de mémoire</td><td class="rowhead">Aucun, sans RAG</td><td><span class="pill bad">À vérifier</span></td></tr>
       </tbody>
     </table>
   </div>
-      <p>Trois réponses exactes sur cinq : celles où le moteur passe la main à un outil (base de données, tarificateur, règle métier). Les deux autres sortent du moteur seul : un résumé se relit, un article de loi se vérifie.</p>
+      <p>Trois réponses exactes sur cinq : celles où le moteur passe la main à un outil (base de données, tarificateur, moteur de règles). Le moteur ne décide jamais lui-même si le sinistre est couvert, il retrouve les bons éléments et laisse la règle trancher. Les deux autres sortent du moteur seul : un résumé se relit, un article de loi se vérifie.</p>
     </details>
   </div>
 
