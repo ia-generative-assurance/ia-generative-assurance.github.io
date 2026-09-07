@@ -841,9 +841,9 @@ similarité cosinus : 0,87</div>
       <rect x="20" y="252" width="620" height="162" rx="14" fill="#F7F4F2"/>
       <text x="44" y="278" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">2 · AJUSTEMENT AUX INSTRUCTIONS</text>
       <g filter="url(#ombEnt)"><rect x="44" y="288" width="216" height="86" rx="12" fill="#f6e3bf" stroke="#92661D"/></g>
-      <text x="152" y="317" text-anchor="middle" font-size="14.5" font-weight="700" fill="#78500f">Des paires écrites</text>
+      <text x="152" y="317" text-anchor="middle" font-size="14.5" font-weight="700" fill="#78500f">50 000 paires</text>
       <text x="152" y="339" text-anchor="middle" font-size="13" fill="#78500f">question, bonne réponse,</text>
-      <text x="152" y="359" text-anchor="middle" font-size="13" fill="#78500f">par des humains</text>
+      <text x="152" y="359" text-anchor="middle" font-size="13" fill="#78500f">écrites par des humains</text>
       <line x1="264" y1="331" x2="400" y2="331" stroke="#13264A" stroke-width="2.5" marker-end="url(#flEnt)"/>
       <g filter="url(#ombEnt)"><rect x="286" y="318" width="92" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
       <text x="332" y="336" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">répondre</text>
@@ -860,9 +860,9 @@ similarité cosinus : 0,87</div>
       <rect x="20" y="428" width="620" height="162" rx="14" fill="#F7F4F2"/>
       <text x="44" y="454" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">3 · PRÉFÉRENCES HUMAINES</text>
       <g filter="url(#ombEnt)"><rect x="44" y="464" width="216" height="86" rx="12" fill="#f6e3bf" stroke="#92661D"/></g>
-      <text x="152" y="493" text-anchor="middle" font-size="14.5" font-weight="700" fill="#78500f">Deux réponses</text>
-      <text x="152" y="515" text-anchor="middle" font-size="13" fill="#78500f">un humain dit</text>
-      <text x="152" y="535" text-anchor="middle" font-size="13" fill="#78500f">laquelle est meilleure</text>
+      <text x="152" y="493" text-anchor="middle" font-size="14.5" font-weight="700" fill="#78500f">Des milliers de choix</text>
+      <text x="152" y="515" text-anchor="middle" font-size="13" fill="#78500f">deux réponses proposées,</text>
+      <text x="152" y="535" text-anchor="middle" font-size="13" fill="#78500f">un humain préfère</text>
       <line x1="264" y1="507" x2="400" y2="507" stroke="#13264A" stroke-width="2.5" marker-end="url(#flEnt)"/>
       <g filter="url(#ombEnt)"><rect x="294" y="494" width="76" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
       <text x="332" y="512" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">le ton</text>
@@ -878,6 +878,28 @@ similarité cosinus : 0,87</div>
     <figcaption>Le modèle de base est un moteur de complétion, pas un assistant. Tout ce qui fait le chatbot, la question suivie d'une réponse et le ton, vient des deux étapes du bas.</figcaption>
   </figure>
 
+  <p class="reveal">La différence se voit sur une seule question, posée aux deux versions du même modèle.</p>
+
+  <div class="ba reveal">
+    <div class="before">
+      <div class="ba-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg> Le modèle de base, après l'étape 1</div>
+      <div class="ba-body">
+        <div class="prompt">Comment déclarer un dégât des eaux ?</div>
+        <p style="margin-top:14px">« Comment déclarer un sinistre auto ? Comment obtenir une attestation d'assurance ? Comment résilier son contrat en cours d'année ? »</p>
+        <p>Il continue le texte : une question ressemble au début d'une liste de questions, il écrit la suite de la liste.</p>
+      </div>
+      <div class="verdict">Il n'a jamais vu qu'une question appelle une réponse.</div>
+    </div>
+    <div class="after">
+      <div class="ba-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Le même, après les étapes 2 et 3</div>
+      <div class="ba-body">
+        <div class="prompt">Comment déclarer un dégât des eaux ?</div>
+        <p style="margin-top:14px">« Prévenez votre assureur dans les cinq jours ouvrés. Coupez l'arrivée d'eau, photographiez les dommages, gardez les factures des biens abîmés, et remplissez un constat amiable si un voisin est concerné. »</p>
+      </div>
+      <div class="verdict">Mêmes poids, mêmes connaissances. On a seulement ajouté l'habitude de répondre.</div>
+    </div>
+  </div>
+
   <div class="grid grid-3 reveal">
     <div class="card flat">
       <h4>C'est la chaîne des décodeurs</h4>
@@ -889,7 +911,7 @@ similarité cosinus : 0,87</div>
     </div>
     <div class="card flat">
       <h4>Ce que vous téléchargez</h4>
-      <p style="font-size:.93rem;margin:0">Toujours la version instruct. Le modèle de base ne sert qu'à celui qui va l'ajuster lui-même, et une API ne donne accès qu'au modèle aligné. Prendre un base par erreur donne un résultat déroutant : à votre question, il répond par d'autres questions.</p>
+      <p style="font-size:.93rem;margin:0">Toujours la version instruct. Le modèle de base ne sert qu'à celui qui va l'ajuster lui-même, et une API ne donne accès qu'au modèle aligné. La vraie question n'est donc pas base ou instruct, mais la taille du modèle et sa licence.</p>
     </div>
   </div>
 
