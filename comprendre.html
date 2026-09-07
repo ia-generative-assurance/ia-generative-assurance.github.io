@@ -24,7 +24,7 @@
     <div>
       <div class="eyebrow eyebrow-light">Module 02</div>
       <h1>Je comprends : du mot-clé au Transformer</h1>
-      <p class="lede">Le moteur est puissant. Il ne doit pas faire oublier les méthodes de base, qui règlent encore la moitié des cas pour presque rien. On remonte le fil du traitement du langage tel qu'on le vit sur un vrai problème : je sais détecter des mots-clés, je découvre qu'ils ne suffisent pas, je découvre que l'ordre des mots compte, et j'arrive, modèle après modèle, à l'attention des Transformers. Deux exemples nous suivent d'un bout à l'autre : détecter l'activité d'une entreprise dans un texte libre, et lire le sentiment d'un avis client. Puis la vraie vie, où le texte n'arrive jamais propre. Pour conclure qu'un LLM n'est pas toujours nécessaire.</p><p class="timing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Jour 1, après-midi · 14 h 00 à 17 h 30 · pause vers 15 h 30 · exercices en fin de demi-journée</span></p><p class="timing"><span>Les réponses sont fermées par un code, donné par le formateur.</span></p>
+      <p class="lede">Le moteur est puissant, il ne doit pas faire oublier les méthodes de base : elles règlent encore la moitié des cas pour presque rien. Deux exemples suivent tout le module, détecter l'activité d'une entreprise dans un texte libre, et lire le sentiment d'un avis client.</p><p class="timing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Jour 1, après-midi · 14 h 00 à 17 h 30 · pause vers 15 h 30 · exercices en fin de demi-journée</span></p><p class="timing"><span>Les réponses sont fermées par un code, donné par le formateur.</span></p>
     </div>
     <div class="page-head-art" aria-hidden="true">
       <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
@@ -230,7 +230,7 @@
   <div class="section-head reveal">
     <div class="eyebrow">3 · La première limite</div>
     <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></div><h2>Les mots-clés ne suffisent pas</h2></div>
-    <p class="lede">Le monde réel n'écrit pas comme un dictionnaire. « Gros Malhon » devient « Gros Malon », « plombier » devient « plonbier », et un texte parle de plomberie sans jamais écrire « plomberie » : « sanitaire », « robinet », « fuite ». Un avis dit « je ne reviendrai pas » sans un seul mot de la liste des mots qui fâchent. Trois parades, de la plus simple à la plus profonde.</p>
+    <p class="lede">Le monde réel n'écrit pas comme un dictionnaire. « Gros Malhon » devient « Gros Malon », et un texte parle de plomberie sans jamais écrire « plomberie » : « sanitaire », « robinet », « fuite ». Trois parades, de la plus simple à la plus profonde.</p>
   </div>
 
   <div class="grid grid-3 reveal">
@@ -528,7 +528,7 @@ similarité cosinus : 0,87</div>
   <div class="section-head reveal">
     <div class="eyebrow">4 · La deuxième limite</div>
     <div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg></div><h2>L'ordre des mots compte</h2></div>
-    <p class="lede">Moyenner les vecteurs des mots d'une phrase donne un vecteur par phrase. Pratique, mais l'ordre disparaît : <strong>« le gestionnaire a été réactif »</strong> et <strong>« le gestionnaire n'a pas été réactif »</strong> deviennent presque identiques. Même chose pour l'activité : « vente de matériel de plomberie » a tous les mots d'un plombier, et c'est un négoce. Il faut des modèles qui lisent la séquence.</p>
+    <p class="lede">Moyenner les vecteurs des mots donne un vecteur par phrase. Pratique, mais l'ordre disparaît : « le gestionnaire a été réactif » et « n'a pas été réactif » deviennent presque identiques. Il faut des modèles qui lisent la séquence.</p>
   </div>
 
   <div class="grid grid-3 reveal">
@@ -611,7 +611,7 @@ similarité cosinus : 0,87</div>
   <div class="grid grid-2 reveal">
     <div class="card">
       <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></div><h3>Le texte est son propre label</h3></div>
-      <p>La rupture n'est pas seulement l'attention, c'est l'<strong>auto-supervision</strong> : on cache un mot et on demande au modèle de le deviner. Aucun humain n'étiquette. Tout Internet devient un jeu d'entraînement gratuit. Puis vient une seconde phase, coûteuse : des humains notent des réponses pour rendre le modèle serviable (RLHF). C'est de cette seconde phase que viennent le ton, les tournures reconnaissables, et le « thinking » des modèles récents.</p>
+      <p>La rupture n'est pas seulement l'attention, c'est l'<strong>auto-supervision</strong> : on cache un mot et on demande au modèle de le deviner. Aucun humain n'étiquette. Tout Internet devient un jeu d'entraînement gratuit. Puis viennent des phases coûteuses, où des humains écrivent et notent des réponses pour rendre le modèle serviable. C'est de là que viennent le ton et les tournures reconnaissables. Le détail de ces étapes est plus bas.</p>
     </div>
     <div class="card navy">
       <h3>Un modèle, physiquement</h3>
@@ -796,23 +796,7 @@ similarité cosinus : 0,87</div>
     <li><strong>Recommencer des milliards de fois, sur des milliards de phrases</strong><p>Aucune étape n'est intelligente. C'est leur nombre qui fait apparaître la grammaire, les faits, les tournures. D'où les 12 jours sur 6 000 cartes graphiques.</p></li>
   </ol>
 
-  <div class="grid grid-3">
-    <div class="card flat">
-      <div class="tag">Phase 1</div>
-      <h4>Pré-entraînement</h4>
-      <p style="font-size:.93rem;margin:0">La boucle ci-dessus sur tout le texte disponible. Le modèle apprend la langue et beaucoup de faits. À la sortie, il complète des phrases, il ne répond pas à des questions : demandez-lui une recette, il vous écrit dix autres questions de recettes.</p>
-    </div>
-    <div class="card flat">
-      <div class="tag">Phase 2</div>
-      <h4>Apprendre à répondre</h4>
-      <p style="font-size:.93rem;margin:0">Des humains écrivent des milliers de paires question et bonne réponse. La même boucle, sur ces exemples-là. Le modèle prend l'habitude de la forme « on me demande, je réponds ».</p>
-    </div>
-    <div class="card flat">
-      <div class="tag">Phase 3</div>
-      <h4>Préférences humaines</h4>
-      <p style="font-size:.93rem;margin:0">On lui fait produire deux réponses, un humain dit laquelle est meilleure, et le modèle est poussé vers celle-là. C'est de là que viennent le ton serviable, les refus, et les tournures qu'on reconnaît d'un modèle à l'autre.</p>
-    </div>
-  </div>
+  <p>Cette boucle ne tourne pas une fois, mais trois, sur des données différentes à chaque fois. C'est l'objet du bloc qui suit.</p>
 
   <div class="callout assurance" style="margin-bottom:0">
     <span class="label">Ce que ça change pour vous</span>
@@ -820,6 +804,122 @@ similarité cosinus : 0,87</div>
   </div>
     </div>
   </details>
+
+  <h3 style="margin:36px 0 10px">Du texte brut à l'assistant : les trois entraînements</h3>
+  <p class="reveal">Un modèle ne sort pas de l'usine en sachant répondre. Il passe par des entraînements successifs, et chacun produit un modèle utilisable, publié à part. C'est ce que veut dire le mot <code>instruct</code> qu'on lit dans le nom de presque tous les modèles téléchargeables.</p>
+
+  <figure class="figure-frame reveal">
+    <div class="fig-scroll"><svg class="etroit" viewBox="0 0 660 656" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Les trois entraînements successifs, du modèle de base au modèle aligné">
+      <defs>
+        <marker id="flEnt" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#13264A"/></marker>
+        <filter id="ombEnt" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="1.5" dy="2" stdDeviation="2" flood-color="#13264A" flood-opacity="0.16"/></filter>
+      </defs>
+
+      <text x="20" y="30" font-size="19" font-weight="800" fill="#13264A">Trois entraînements successifs</text>
+      <text x="20" y="55" font-size="14.5" font-style="italic" fill="#6C7683">La même boucle à chaque fois. Seules les données changent, et le prix.</text>
+
+      <!-- 1. pre-entrainement -->
+      <rect x="20" y="76" width="620" height="162" rx="14" fill="#F7F4F2"/>
+      <text x="44" y="102" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">1 · PRÉ-ENTRAÎNEMENT</text>
+      <g filter="url(#ombEnt)"><rect x="44" y="112" width="216" height="86" rx="12" fill="#f6e3bf" stroke="#92661D"/></g>
+      <text x="152" y="141" text-anchor="middle" font-size="14.5" font-weight="700" fill="#78500f">10 To de texte</text>
+      <text x="152" y="163" text-anchor="middle" font-size="13" fill="#78500f">pris sur Internet</text>
+      <text x="152" y="183" text-anchor="middle" font-size="13" fill="#78500f">personne n'annote</text>
+      <line x1="264" y1="155" x2="400" y2="155" stroke="#13264A" stroke-width="2.5" marker-end="url(#flEnt)"/>
+      <g filter="url(#ombEnt)"><rect x="272" y="142" width="120" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
+      <text x="332" y="160" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">le mot suivant</text>
+      <g filter="url(#ombEnt)"><rect x="408" y="112" width="208" height="86" rx="12" fill="#13264A"/></g>
+      <text x="512" y="141" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">Modèle de base</text>
+      <text x="512" y="163" text-anchor="middle" font-size="13" fill="#c6d1e2">il continue le texte,</text>
+      <text x="512" y="183" text-anchor="middle" font-size="13" fill="#c6d1e2">il ne répond pas</text>
+      <text x="44" y="224" font-size="13" font-style="italic" fill="#6C7683">12 jours sur 6 000 cartes graphiques, quelques millions de dollars.</text>
+
+      <line x1="512" y1="198" x2="512" y2="286" stroke="#3B547D" stroke-width="2" stroke-dasharray="5 5"/>
+      <text x="522" y="250" font-size="12.8" fill="#3B547D">les mêmes poids</text>
+
+      <!-- 2. ajustement aux instructions -->
+      <rect x="20" y="252" width="620" height="162" rx="14" fill="#F7F4F2"/>
+      <text x="44" y="278" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">2 · AJUSTEMENT AUX INSTRUCTIONS</text>
+      <g filter="url(#ombEnt)"><rect x="44" y="288" width="216" height="86" rx="12" fill="#f6e3bf" stroke="#92661D"/></g>
+      <text x="152" y="317" text-anchor="middle" font-size="14.5" font-weight="700" fill="#78500f">Des paires écrites</text>
+      <text x="152" y="339" text-anchor="middle" font-size="13" fill="#78500f">question, bonne réponse,</text>
+      <text x="152" y="359" text-anchor="middle" font-size="13" fill="#78500f">par des humains</text>
+      <line x1="264" y1="331" x2="400" y2="331" stroke="#13264A" stroke-width="2.5" marker-end="url(#flEnt)"/>
+      <g filter="url(#ombEnt)"><rect x="286" y="318" width="92" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
+      <text x="332" y="336" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">répondre</text>
+      <g filter="url(#ombEnt)"><rect x="408" y="288" width="208" height="86" rx="12" fill="#13264A"/></g>
+      <text x="512" y="317" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">Modèle instruct</text>
+      <text x="512" y="339" text-anchor="middle" font-size="13" fill="#c6d1e2">il suit une consigne,</text>
+      <text x="512" y="359" text-anchor="middle" font-size="13" fill="#c6d1e2">il tient un dialogue</text>
+      <text x="44" y="400" font-size="13" font-style="italic" fill="#6C7683">Quelques heures de calcul. Le coût est dans l'écriture des exemples.</text>
+
+      <line x1="512" y1="374" x2="512" y2="462" stroke="#3B547D" stroke-width="2" stroke-dasharray="5 5"/>
+      <text x="522" y="426" font-size="12.8" fill="#3B547D">les mêmes poids</text>
+
+      <!-- 3. preferences humaines -->
+      <rect x="20" y="428" width="620" height="162" rx="14" fill="#F7F4F2"/>
+      <text x="44" y="454" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">3 · PRÉFÉRENCES HUMAINES</text>
+      <g filter="url(#ombEnt)"><rect x="44" y="464" width="216" height="86" rx="12" fill="#f6e3bf" stroke="#92661D"/></g>
+      <text x="152" y="493" text-anchor="middle" font-size="14.5" font-weight="700" fill="#78500f">Deux réponses</text>
+      <text x="152" y="515" text-anchor="middle" font-size="13" fill="#78500f">un humain dit</text>
+      <text x="152" y="535" text-anchor="middle" font-size="13" fill="#78500f">laquelle est meilleure</text>
+      <line x1="264" y1="507" x2="400" y2="507" stroke="#13264A" stroke-width="2.5" marker-end="url(#flEnt)"/>
+      <g filter="url(#ombEnt)"><rect x="294" y="494" width="76" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
+      <text x="332" y="512" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">le ton</text>
+      <g filter="url(#ombEnt)"><rect x="408" y="464" width="208" height="86" rx="12" fill="#bfe0dd" stroke="#1F6F6B"/></g>
+      <text x="512" y="493" text-anchor="middle" font-size="14.5" font-weight="700" fill="#0f4b48">Modèle aligné</text>
+      <text x="512" y="515" text-anchor="middle" font-size="13" fill="#0f4b48">celui du chatbot,</text>
+      <text x="512" y="535" text-anchor="middle" font-size="13" fill="#0f4b48">poli, prudent, prêt à refuser</text>
+      <text x="44" y="576" font-size="13" font-style="italic" fill="#6C7683">De là viennent les refus, la politesse, et le style qu'on reconnaît.</text>
+
+      <text x="20" y="618" font-size="15" fill="#4a5567">Sur Hugging Face, l'étape 1 donne le dépôt de base.</text>
+      <text x="20" y="642" font-size="15" fill="#4a5567">Les étapes 2 et 3 sont publiées ensemble, sous le nom instruct.</text>
+    </svg></div>
+    <figcaption>Le modèle de base est un moteur de complétion, pas un assistant. Tout ce qui fait le chatbot, la question suivie d'une réponse et le ton, vient des deux étapes du bas.</figcaption>
+  </figure>
+
+  <div class="grid grid-3 reveal">
+    <div class="card flat">
+      <h4>C'est la chaîne des décodeurs</h4>
+      <p style="font-size:.93rem;margin:0">Elle vaut pour la famille GPT, celle qui génère du texte. Un encodeur comme BERT ou CamemBERT suit un autre chemin : pré-entraîné en cachant des mots, puis ajusté sur vos exemples annotés pour une tâche précise. Il n'existe donc aucun <code>camembert-instruct</code> : un encodeur ne dialogue pas.</p>
+    </div>
+    <div class="card flat">
+      <h4>Le raisonnement, une étape de plus</h4>
+      <p style="font-size:.93rem;margin:0">Depuis 2025, les modèles qui « réfléchissent » ajoutent un quatrième entraînement : par renforcement, sur des problèmes dont la réponse se vérifie, mathématiques et code. Le modèle apprend à écrire son brouillon avant de répondre. C'est ce qui explique la latence et le prix de ces modèles.</p>
+    </div>
+    <div class="card flat">
+      <h4>Ce que vous téléchargez</h4>
+      <p style="font-size:.93rem;margin:0">Toujours la version instruct. Le modèle de base ne sert qu'à celui qui va l'ajuster lui-même, et une API ne donne accès qu'au modèle aligné. Prendre un base par erreur donne un résultat déroutant : à votre question, il répond par d'autres questions.</p>
+    </div>
+  </div>
+
+  <h3 style="margin:36px 0 10px">Les mêmes poids, deux dépôts : des exemples réels</h3>
+  <p class="reveal">Hugging Face est le dépôt public où les éditeurs publient leurs modèles. Chercher <code>Mistral-7B</code> y donne les deux versions côte à côte, à un suffixe près.</p>
+
+  <div class="table-wrap reveal">
+    <table>
+      <thead><tr><th>Dépôt</th><th>Version</th><th>Ce qu'il fait</th><th>Quand on le prend</th></tr></thead>
+      <tbody>
+        <tr><td class="rowhead"><code>mistralai/Mistral-7B-v0.3</code></td><td><span class="pill neutral">base</span></td><td>Il continue le texte, il ne répond pas aux questions</td><td>Seulement si on l'ajuste soi-même</td></tr>
+        <tr><td class="rowhead"><code>mistralai/Mistral-7B-Instruct-v0.3</code></td><td><span class="pill good">instruct</span></td><td>Les mêmes poids, passés par les étapes 2 et 3</td><td>Ce qu'on déploie sur ses propres serveurs</td></tr>
+        <tr><td class="rowhead"><code>meta-llama/Llama-3.1-8B-Instruct</code></td><td><span class="pill good">instruct</span></td><td>8 milliards de paramètres, le modèle ouvert le plus répandu</td><td>Le point de comparaison de tous les autres</td></tr>
+        <tr><td class="rowhead"><code>google/gemma-2-9b-it</code></td><td><span class="pill good">it</span></td><td>Même idée, le suffixe se dit ici <em>instruction tuned</em></td><td>Rappel qu'il faut lire la carte du modèle, pas le nom</td></tr>
+        <tr><td class="rowhead"><code>deepseek-ai/DeepSeek-R1</code></td><td><span class="pill warn">raisonnement</span></td><td>Le quatrième entraînement, publié ouvertement</td><td>Problèmes à étapes, quand l'attente est acceptable</td></tr>
+        <tr><td class="rowhead"><code>almanach/camembert-base</code></td><td><span class="pill neutral">encodeur</span></td><td>Un BERT français : il comprend, il ne génère pas</td><td>À ajuster sur vos exemples pour classer</td></tr>
+        <tr><td class="rowhead"><code>openai-community/gpt2</code></td><td><span class="pill neutral">base</span></td><td>Le GPT-2 de 2019, 124 millions de paramètres</td><td>Assez petit pour tourner sur un portable, en atelier</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="reveal" style="font-size:.9rem;color:var(--ink-mute)">Ces noms changent tous les six mois. Ce qui reste, c'est la façon de les lire : le suffixe dit l'entraînement, le nombre dit la taille, la licence dit ce qu'on a le droit d'en faire, et la carte du modèle dit sur quoi il a été entraîné.</p>
+
+  <div class="try reveal">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg> À votre avis</span>
+    <p>Vous devez classer les mails du service en douze familles. Le service dispose de 10 000 mails déjà classés à la main. Trois dépôts du tableau sont candidats : le Mistral de base, le Mistral instruct, le CamemBERT. Lequel, et pourquoi ?</p>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p>CamemBERT, ajusté sur les 10 000 mails. Avec un corpus annoté, un encodeur de petite taille bat le LLM sur le coût et souvent sur la précision : c'est le niveau 5 de l'échelle de la section suivante. Le Mistral instruct sert à démarrer sans exemples, ou à traiter les mails que le premier ne tranche pas. Le Mistral de base ne sert à rien tel quel : il continuerait le mail au lieu de le classer.</p>
+    </details>
+  </div>
 
   <div class="callout warn reveal">
     <span class="label">Ce qu'il refuse de dire : l'alignement</span>
