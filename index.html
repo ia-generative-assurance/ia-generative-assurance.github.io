@@ -10,6 +10,7 @@
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/style.css">
 <link rel="stylesheet" href="assets/demo.css">
+<link rel="stylesheet" href="assets/fiches.css">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="manifest" href="assets/site.webmanifest">
@@ -484,114 +485,79 @@
     }
   }
 
-  // Les captures d'une demo defilent une par une : la serie complete tenait
-  // trop de place. A l'impression, le bloc @media print les remet toutes,
-  // en petit, sur trois colonnes : le PDF montre le parcours d'un coup d'oeil.
+  // Les captures d'une demo : deux au plus, cote a cote, et le bouton ouvre la
+  // demo. Il y a eu un carrousel ici, avec fleches et numeros. Kezhan, le 7
+  // septembre : « c'est une tres mauvaise idee de faire un carrousel avec des
+  // images qui deroulent, tu peux juste faire une ou deux images, et tu
+  // demandes a cliquer pour voir le site ». Une demo est un site a visiter, pas
+  // une bande dessinee : la faire defiler sur place retenait le lecteur devant
+  // des images au lieu de l'envoyer sur l'outil. La regle des deux captures est
+  // tenue par capture_demos.py ; il ne reste ici qu'a charger les images tout de
+  // suite, la page reserve deja leur place par width et height.
+  document.querySelectorAll('.demo-steps img').forEach(function(img){
+    img.loading = 'eager';
+  });
+
+  // Le catalogue : des fiches en paysage qu'on fait defiler. A ne pas confondre
+  // avec le carrousel de captures retire juste au dessus : la, les images ne
+  // faisaient que montrer un outil a visiter ailleurs, ici la fiche EST le
+  // contenu, et les fiches d'un catalogue se comparent l'une apres l'autre.
+  // Demande de Kezhan, 7 septembre : « ce style est bien pour faire des cartes
+  // successives avec un catalogue de methodes, ou d'exemples, ou des chatbots
+  // [...] et tu pourrais faire un carrousel pour defiler ces cartes ».
   //
-  // Deux captures n'ont jamais la meme hauteur. Dans « une facture, un
-  // controle », la premiere fait 236 pixels de haut et la deuxieme 854 : tant
-  // que le cadre suivait la capture, les fleches changeaient de place a chaque
-  // vue, et il fallait les rechercher apres chaque clic. Le cadre a donc une
-  // hauteur fixe, celle de la plus haute capture de la serie, plafonnee a ce
-  // qui tient dans un ecran ; chaque capture s'y inscrit en entier, centree ;
-  // les fleches sont posees sur les cotes, a mi-hauteur de la scene. D'une vue
-  // a l'autre, plus rien ne bouge : ni le cadre, ni les fleches, ni la suite
-  // de la page.
-  var SCENE_MAX = 440;      // px : au-dela, la capture mange l'ecran et on ne
-                            // voit plus le texte autour (retour du 7 septembre)
-  var SCENE_MIN = 200;      // px : en deca, une capture fait timbre-poste
-
-  document.querySelectorAll('.demo-steps').forEach(function(gal){
-    var figs = [].slice.call(gal.querySelectorAll('figure'));
-    if (figs.length < 2) return;
+  // Les fiches sont empilees dans une seule cellule de grille (fiches.css) : le
+  // cadre prend la hauteur de la plus haute, changer de fiche ne deplace donc
+  // rien. Sans script, et a l'impression, elles se lisent a la suite.
+  document.querySelectorAll('.catalogue').forEach(function(cat){
+    var fiches = [].slice.call(cat.querySelectorAll(':scope > .fiche'));
+    if (fiches.length < 2) return;
     var i = 0;
-    var imgs = figs.map(function(f){ return f.querySelector('img'); });
-    // une image encore absente se mesure a zero : sans chargement immediat,
-    // la hauteur de la scene serait calculee sur une serie incomplete
-    imgs.forEach(function(img){ if (img) img.loading = 'eager'; });
-
-    // la scene fait la hauteur de la plus haute capture, a la largeur du cadre
-    function poser(){
-      var large = gal.clientWidth - 36;          // 18 px de marge de chaque cote
-      if (large <= 0) return false;
-      var haut = 0, connues = 0;
-      imgs.forEach(function(img){
-        if (img && img.naturalWidth) {
-          connues++;
-          haut = Math.max(haut, img.naturalHeight * large / img.naturalWidth);
-        }
-      });
-      if (connues < imgs.length) return false;   // on repassera au chargement
-      haut = Math.max(SCENE_MIN, Math.min(haut, SCENE_MAX));
-      gal.style.setProperty('--scene', Math.round(haut) + 'px');
-      return true;
-    }
-    if (!poser()) {
-      imgs.forEach(function(img){
-        if (img && !img.complete) img.addEventListener('load', poser, {once: true});
-      });
-    }
-    var minute;
-    window.addEventListener('resize', function(){
-      clearTimeout(minute);
-      minute = setTimeout(poser, 150);
-    });
-
-    // les fleches vivent dans le cadre, a mi-hauteur de la scene : elles sont
-    // au bord de l'image, la ou l'oeil les cherche, et elles ne bougent plus
-    var fleches = document.createElement('div');
-    fleches.className = 'demo-fleches';
-    fleches.innerHTML =
-      '<button type="button" class="demo-arrow prec" data-pas="-1" aria-label="Capture precedente">'
+    var nav = document.createElement('div');
+    nav.className = 'cat-nav';
+    nav.innerHTML =
+      '<button type="button" class="fleche" data-pas="-1" aria-label="Fiche precedente">'
       + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" '
       + 'stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>'
-      + '<button type="button" class="demo-arrow suiv" data-pas="1" aria-label="Capture suivante">'
+      + '<span class="cat-dots"></span>'
+      + '<button type="button" class="fleche" data-pas="1" aria-label="Fiche suivante">'
       + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" '
-      + 'stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>';
-    gal.appendChild(fleches);
-
-    // sous les captures : le rang de la vue, et le bouton plein ecran
-    var nav = document.createElement('div');
-    nav.className = 'demo-nav';
-    nav.innerHTML = '<span class="demo-dots"></span>';
-    gal.parentNode.insertBefore(nav, gal.nextSibling);
-    var cta = nav.parentNode.querySelector('.demo-cta');
-    if (cta) nav.appendChild(cta);
-    var dots = nav.querySelector('.demo-dots');
-    var puces = figs.map(function(_, n){
+      + 'stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>'
+      + '<span class="cat-titre"></span>';
+    cat.parentNode.insertBefore(nav, cat.nextSibling);
+    var dots = nav.querySelector('.cat-dots'), titre = nav.querySelector('.cat-titre');
+    var puces = fiches.map(function(f, n){
       var d = document.createElement('button');
-      d.type = 'button'; d.className = 'demo-dot';
+      d.type = 'button'; d.className = 'cat-dot';
       d.textContent = n + 1;
-      d.setAttribute('aria-label', 'Capture ' + (n + 1));
+      var nom = f.getAttribute('data-nom') || ('Fiche ' + (n + 1));
+      d.setAttribute('aria-label', nom);
+      d.title = nom;
       d.addEventListener('click', function(){ aller(n); });
       dots.appendChild(d);
       return d;
     });
-
     function peindre(){
-      figs.forEach(function(f, n){ f.classList.toggle('is-on', n === i); });
+      fiches.forEach(function(f, n){ f.classList.toggle('is-on', n === i); });
       puces.forEach(function(d, n){
         d.classList.toggle('is-on', n === i);
         d.setAttribute('aria-current', n === i ? 'true' : 'false');
       });
+      titre.innerHTML = '<b>' + (i + 1) + '</b> / ' + fiches.length
+        + ' · ' + (fiches[i].getAttribute('data-nom') || '');
     }
-    function aller(n){
-      if (n === i) return;
-      i = n;
-      peindre();
-    }
-    fleches.querySelectorAll('.demo-arrow').forEach(function(b){
+    function aller(n){ if (n !== i) { i = n; peindre(); } }
+    nav.querySelectorAll('.fleche').forEach(function(b){
       b.addEventListener('click', function(){
-        aller((i + (+b.dataset.pas) + figs.length) % figs.length);
+        aller((i + (+b.dataset.pas) + fiches.length) % fiches.length);
       });
     });
-    // les fleches du clavier marchent quand le cadre a le focus
-    gal.tabIndex = 0;
-    gal.addEventListener('keydown', function(e){
-      if (e.key === 'ArrowLeft')  { e.preventDefault(); aller((i - 1 + figs.length) % figs.length); }
-      if (e.key === 'ArrowRight') { e.preventDefault(); aller((i + 1) % figs.length); }
+    cat.tabIndex = 0;
+    cat.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); aller((i - 1 + fiches.length) % fiches.length); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); aller((i + 1) % fiches.length); }
     });
-    gal.classList.add('carrousel');
+    cat.classList.add('carrousel');
     peindre();
   });
 })();

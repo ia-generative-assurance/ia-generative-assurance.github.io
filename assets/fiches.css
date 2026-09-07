@@ -1,0 +1,137 @@
+/* ==========================================================================
+   Fiches de catalogue, en paysage, et le carrousel qui les fait défiler.
+
+   D'où ça vient : les cartes d'identité du catalogue LinkedIn de Kezhan
+   (rag/linkedin/book_1/0_catalog/parsing_methods). La grammaire est reprise
+   telle quelle, une carte = un élément du catalogue, avec sa famille, ses
+   quatre chiffres d'un coup d'oeil, son schéma entrée / méthode / sortie,
+   trois lignes de lecture et un avertissement. Deux différences : le format
+   passe en paysage (le portrait est fait pour le fil LinkedIn, pas pour une
+   page web ni pour une page A4), et la palette est celle du site.
+
+   Structure attendue :
+
+   <div class="catalogue">
+     <article class="fiche" data-fam="regle"> ... </article>
+     ...
+   </div>
+
+   Le script de build.py pose le carrousel (flèches, numéros) et la classe
+   is-on. Sans script et à l'impression, toutes les fiches se lisent à la
+   suite.
+   ========================================================================== */
+
+.catalogue { display: grid; margin: 8px 0 4px; }
+/* toutes les fiches dans la meme cellule : le cadre prend la hauteur de la
+   plus haute, et changer de fiche ne deplace donc rien */
+.catalogue > .fiche { grid-area: 1 / 1; }
+.catalogue.carrousel > .fiche { visibility: hidden; opacity: 0; }
+.catalogue.carrousel > .fiche.is-on { visibility: visible; opacity: 1; animation: fiche-fondu .3s ease both; }
+@keyframes fiche-fondu { from { opacity: 0; } to { opacity: 1; } }
+
+.fiche { background: #fff; border: 3px solid var(--fam, var(--steel)); border-radius: 14px;
+  padding: 18px 22px 14px; display: flex; flex-direction: column; box-shadow: var(--shadow); }
+.fiche[data-fam="regle"]   { --fam: var(--amber);   --fam-pale: var(--amber-w); }
+.fiche[data-fam="stat"]    { --fam: var(--steel);   --fam-pale: #eef2f7; }
+.fiche[data-fam="vecteur"] { --fam: var(--teal);    --fam-pale: var(--teal-w); }
+.fiche[data-fam="llm"]     { --fam: var(--crimson); --fam-pale: var(--crimson-w); }
+
+/* en-tête : la famille à gauche, ce que c'est à droite */
+.fiche-haut { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.fiche .fam { display: inline-flex; align-items: center; gap: 8px; background: var(--fam-pale);
+  border: 2px solid var(--fam); border-radius: 999px; padding: 4px 13px 4px 10px;
+  font-family: var(--display); font-size: .78rem; font-weight: 800; color: var(--fam); letter-spacing: .04em; }
+.fiche .fam i { width: 10px; height: 10px; border-radius: 50%; background: var(--fam); }
+.fiche .niv { font-family: var(--display); font-size: .7rem; font-weight: 800; color: var(--ink-mute);
+  background: var(--sand-l); border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px;
+  letter-spacing: .05em; }
+.fiche .kick { text-align: right; line-height: 1.3; }
+.fiche .kick b { display: block; font-family: var(--display); font-size: .66rem; font-weight: 800;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--ink-mute); }
+.fiche .kick span { font-family: var(--display); font-size: .84rem; font-weight: 800; color: var(--fam); }
+.fiche .trait { height: 3px; background: var(--fam); border-radius: 2px; margin: 11px 0 0; }
+
+/* le corps : identité à gauche, lecture à droite */
+.fiche-corps { display: grid; grid-template-columns: 1.06fr 1fr; gap: 22px; margin-top: 14px; }
+@media (max-width: 820px) { .fiche-corps { grid-template-columns: 1fr; gap: 16px; } }
+
+.fiche h3 { font-size: 1.5rem; margin: 0 0 3px; color: var(--navy); letter-spacing: -.01em; }
+.fiche .st { font-size: .92rem; font-style: italic; color: var(--ink-soft); margin: 0 0 13px; line-height: 1.4; }
+
+.vitaux { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-bottom: 15px; }
+.vitaux > div { border: 1px solid var(--line); border-radius: 10px; padding: 7px 4px; text-align: center;
+  background: var(--sand-l); }
+.vitaux span { display: block; font-family: var(--display); font-size: .58rem; font-weight: 800;
+  letter-spacing: .06em; color: var(--ink-mute); text-transform: uppercase; }
+.vitaux b { display: block; font-size: .84rem; font-weight: 700; margin-top: 3px; color: var(--ink); }
+.vitaux b.bon { color: var(--teal); } .vitaux b.moyen { color: var(--amber); }
+.vitaux b.cher { color: var(--crimson); } .vitaux b.neutre { color: var(--ink-soft); }
+
+/* entrée -> méthode -> sortie, la même grammaire que les schémas du site */
+.flux { display: flex; align-items: stretch; gap: 5px; }
+.flux .zone { flex: 1; border: 1.5px dashed var(--line); border-radius: 10px; padding: 8px 7px;
+  display: flex; flex-direction: column; align-items: center; }
+.flux .zone.milieu { background: var(--fam-pale); border-style: solid; border-color: var(--fam); }
+.flux .zone > span { font-family: var(--display); font-size: .57rem; font-weight: 800; letter-spacing: .08em;
+  color: var(--ink-mute); text-transform: uppercase; margin-bottom: 7px; text-align: center; }
+.flux .zone.milieu > span { color: var(--fam); }
+.flux .pilule { width: 100%; border-radius: 8px; padding: 6px 6px; font-size: .76rem; font-weight: 700;
+  text-align: center; line-height: 1.25; }
+.flux .pilule + .pilule { margin-top: 5px; }
+.flux .entree { background: #f6e3bf; border: 1px solid var(--amber); color: #78500f; }
+.flux .methode { background: var(--fam); border: 1px solid var(--fam); color: #fff; font-size: .84rem;
+  padding: 11px 6px; margin: auto 0; }
+.flux .sortie { background: #bfe0dd; border: 1px solid var(--teal); color: #0f4b48; }
+.flux .fleche { display: flex; align-items: center; color: var(--ink-mute); }
+.flux .fleche svg { width: 18px; height: 14px; }
+
+/* la colonne de droite : trois lignes et l'avertissement */
+.lignes { display: grid; gap: 0; }
+.lignes .l { display: grid; grid-template-columns: 30px 1fr; gap: 11px; padding: 9px 0;
+  border-top: 1px solid var(--line); }
+.lignes .l:first-child { border-top: none; padding-top: 0; }
+.lignes .ic { width: 30px; height: 30px; border-radius: 50%; background: var(--fam-pale);
+  display: flex; align-items: center; justify-content: center; }
+.lignes .ic svg { width: 16px; height: 16px; stroke: var(--fam); fill: none; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round; }
+.lignes b { display: block; font-family: var(--display); font-size: .62rem; font-weight: 800;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--fam); margin-bottom: 2px; }
+.lignes p { margin: 0; font-size: .87rem; line-height: 1.45; color: var(--ink-soft); }
+
+.fiche .alerte { margin-top: 11px; background: var(--crimson-w); border: 1px solid #f3ccd6;
+  border-left: 4px solid var(--crimson); border-radius: 0 9px 9px 0; padding: 9px 13px; }
+.fiche .alerte b { display: block; font-family: var(--display); font-size: .62rem; font-weight: 800;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--crimson); margin-bottom: 2px; }
+.fiche .alerte p { margin: 0; font-size: .85rem; line-height: 1.4; color: #8d1730; }
+
+.fiche-pied { display: flex; align-items: center; justify-content: space-between; margin-top: auto;
+  padding-top: 11px; font-size: .72rem; color: var(--ink-mute); }
+.fiche-pied .src { font-family: var(--mono); }
+
+/* la barre du carrousel, même dessin que celle des captures de démo */
+.cat-nav { display: flex; align-items: center; gap: 9px; padding: 12px 2px 2px; }
+.cat-nav .fleche { width: 32px; height: 32px; flex: none; border-radius: 50%; border: 1px solid var(--line);
+  background: #fff; color: var(--navy); cursor: pointer; display: flex; align-items: center;
+  justify-content: center; padding: 0; }
+.cat-nav .fleche:hover { background: var(--sand-l); border-color: var(--steel-l); }
+.cat-nav .fleche svg { width: 15px; height: 15px; }
+.cat-dots { display: flex; gap: 6px; flex-wrap: wrap; }
+.cat-dot { min-width: 27px; height: 27px; padding: 0 8px; border: 1px solid var(--line); border-radius: 9px;
+  background: #fff; color: var(--ink-mute); font-family: var(--display); font-size: .78rem; font-weight: 800;
+  line-height: 1; cursor: pointer; transition: background .15s ease, color .15s ease, border-color .15s ease; }
+.cat-dot:hover { border-color: var(--steel-l); color: var(--navy); }
+.cat-dot.is-on { background: var(--navy); border-color: var(--navy); color: #fff; }
+.cat-titre { margin-left: auto; font-size: .82rem; color: var(--ink-soft); }
+.cat-titre b { color: var(--navy); }
+
+@media (prefers-reduced-motion: reduce) { .catalogue.carrousel > .fiche.is-on { animation: none; } }
+
+/* Sur le papier, pas de défilement : les fiches se lisent à la suite, chacune
+   entière sur sa page. C'est le PDF qui sert de support pendant la séance. */
+@media print {
+  .cat-nav { display: none; }
+  .catalogue, .catalogue.carrousel { display: block; }
+  .catalogue.carrousel > .fiche { visibility: visible; opacity: 1; animation: none;
+    break-inside: avoid; margin-bottom: 14px; box-shadow: none; }
+  .fiche-corps { grid-template-columns: 1.06fr 1fr; }
+}
