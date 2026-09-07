@@ -286,7 +286,7 @@ table.compact th.num { font-family: var(--display); font-size: .74rem; }
 .ba .after  .ba-head { background: var(--teal); }
 .ba .ba-body { padding: 20px; flex: 1; }
 .ba .ba-body > :last-child { margin-bottom: 0; }
-.ba .prompt { font-family: var(--mono); font-size: .84rem; line-height: 1.55; background: var(--sand-l); border-left: 3px solid var(--line); padding: 12px 15px; border-radius: 0 var(--radius-s) var(--radius-s) 0; color: var(--navy-700); white-space: pre-wrap; }
+.prompt { font-family: var(--mono); font-size: .84rem; line-height: 1.55; background: var(--sand-l); border-left: 3px solid var(--line); padding: 12px 15px; border-radius: 0 var(--radius-s) var(--radius-s) 0; color: var(--navy-700); white-space: pre-wrap; }
 .ba .after .prompt { border-left-color: var(--teal); }
 .ba .verdict { margin-top: auto; padding: 12px 20px; font-size: .85rem; background: var(--sand-l); border-top: 1px solid var(--line); color: var(--ink-soft); }
 

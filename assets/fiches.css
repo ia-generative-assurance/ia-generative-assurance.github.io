@@ -126,6 +126,17 @@
 
 @media (prefers-reduced-motion: reduce) { .catalogue.carrousel > .fiche.is-on { animation: none; } }
 
+/* Sur téléphone, quatre chiffres de front et trois zones côte à côte ne
+   tiennent plus : les chiffres passent en deux lignes, le flux se met debout. */
+@media (max-width: 560px) {
+  .fiche { padding: 14px 15px 11px; }
+  .vitaux { grid-template-columns: repeat(2, 1fr); }
+  .flux { flex-direction: column; gap: 7px; }
+  .flux .zone { padding: 8px 10px; }
+  .flux .fleche { justify-content: center; transform: rotate(90deg); }
+  .fiche h3 { font-size: 1.25rem; }
+}
+
 /* Sur le papier, pas de défilement : les fiches se lisent à la suite, chacune
    entière sur sa page. C'est le PDF qui sert de support pendant la séance. */
 @media print {

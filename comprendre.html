@@ -1039,6 +1039,241 @@ similarité cosinus : 0,87</div>
     <div class="card"><div class="h-ico"><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></div><h4>Peu de données, tâches variées</h4></div><p style="margin:0;font-size:.93rem">Le LLM. Et même là, avec un RAG pour l'ancrer et des règles autour pour le contenir.</p></div>
   </div>
 
+  <h3 style="margin:36px 0 8px">Les six niveaux, en fiches</h3>
+  <p class="reveal">Le tableau sert à décider vite. Les fiches disent, pour chaque niveau, ce qui entre, ce qui sort, ce qu'il faut avoir sous la main, et où il casse. Passez de l'une à l'autre avec les flèches ou les numéros.</p>
+
+  <div class="catalogue reveal">
+
+    <article class="fiche" data-fam="regle" data-nom="Regex et dictionnaires">
+      <div class="fiche-haut">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span class="fam"><i></i>RÈGLE ÉCRITE</span><span class="niv">Niveau 1</span>
+        </div>
+        <div class="kick"><b>Technique</b><span>Motif écrit à la main</span></div>
+      </div>
+      <div class="trait"></div>
+      <div class="fiche-corps">
+        <div>
+          <h3>Regex, mots-clés, dictionnaires</h3>
+          <p class="st">Un motif écrit à la main, appliqué tel quel. Aucun modèle, aucune donnée.</p>
+          <div class="vitaux">
+            <div><span>Coût</span><b class="bon">Nul</b></div>
+            <div><span>Données</span><b class="bon">Aucune</b></div>
+            <div><span>Explicable</span><b class="bon">Totalement</b></div>
+            <div><span>En place</span><b class="bon">Une heure</b></div>
+          </div>
+          <div class="flux">
+            <div class="zone"><span>Ce qui entre</span><div class="pilule entree">Un texte libre</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone milieu"><span>La méthode</span><div class="pilule methode">chercher<br>le motif</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone"><span>Ce qui sort</span><div class="pilule sortie">Le motif trouvé</div><div class="pilule sortie">ou rien</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="lignes">
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span><div><b>Quand elle suffit</b><p>Un motif précis et stable : numéro de contrat, date, SIRET, code de garantie.</p></div></div>
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span><div><b>Ce qu'elle produit</b><p>Une extraction exacte, ou rien. Jamais d'à peu près, jamais d'invention.</p></div></div>
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></span><div><b>Sur nos deux exemples</b><p>Elle code les activités écrites comme dans la nomenclature, et note les avis vraiment tranchés.</p></div></div>
+          </div>
+          <div class="alerte"><b>Où elle casse</b><p>La faute de frappe, le synonyme, la négation. « Gros Malon » et « je ne reviendrai pas » lui échappent.</p></div>
+        </div>
+      </div>
+      <div class="fiche-pied"><span class="src">module 02 · niveau 1</span><span>La plus simple qui marche</span></div>
+    </article>
+
+    <article class="fiche" data-fam="regle" data-nom="Fuzzy matching">
+      <div class="fiche-haut">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span class="fam"><i></i>RÈGLE ÉCRITE</span><span class="niv">Niveau 2</span>
+        </div>
+        <div class="kick"><b>Technique</b><span>Distance entre deux mots</span></div>
+      </div>
+      <div class="trait"></div>
+      <div class="fiche-corps">
+        <div>
+          <h3>Fuzzy matching</h3>
+          <p class="st">Le même dictionnaire, mais tolérant aux fautes de frappe.</p>
+          <div class="vitaux">
+            <div><span>Coût</span><b class="bon">Nul</b></div>
+            <div><span>Données</span><b class="bon">Aucune</b></div>
+            <div><span>Explicable</span><b class="bon">Le mot voisin</b></div>
+            <div><span>En place</span><b class="bon">Une heure</b></div>
+          </div>
+          <div class="flux">
+            <div class="zone"><span>Ce qui entre</span><div class="pilule entree">Un mot mal écrit</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone milieu"><span>La méthode</span><div class="pilule methode">compter les<br>lettres à changer</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone"><span>Ce qui sort</span><div class="pilule sortie">Le mot le plus proche</div><div class="pilule sortie">sa distance</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="lignes">
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span><div><b>Quand elle suffit</b><p>Fautes de frappe, variantes d'écriture, jointures entre deux bases mal saisies.</p></div></div>
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span><div><b>Ce qu'elle produit</b><p>Le candidat le plus proche et sa distance : « plonbier » est à une lettre de « plombier ».</p></div></div>
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></span><div><b>Sur nos deux exemples</b><p>Elle rattrape « Gros Malon » sur « Gros Malhon ». Elle ne rattrape pas « sanitaire » sur « plomberie ».</p></div></div>
+          </div>
+          <div class="alerte"><b>Où elle casse</b><p>Elle ne connaît que l'orthographe. Deux mots de même sens et d'orthographe différente restent étrangers l'un à l'autre.</p></div>
+        </div>
+      </div>
+      <div class="fiche-pied"><span class="src">module 02 · niveau 2</span><span>La même règle, en tolérant l'erreur</span></div>
+    </article>
+
+    <article class="fiche" data-fam="stat" data-nom="TF-IDF et classifieur">
+      <div class="fiche-haut">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span class="fam"><i></i>STATISTIQUE</span><span class="niv">Niveau 3</span>
+        </div>
+        <div class="kick"><b>Technique</b><span>Compter, puis apprendre</span></div>
+      </div>
+      <div class="trait"></div>
+      <div class="fiche-corps">
+        <div>
+          <h3>TF-IDF et un modèle classique</h3>
+          <p class="st">Chaque mot pesé par sa rareté, puis un classifieur entraîné sur vos exemples.</p>
+          <div class="vitaux">
+            <div><span>Coût</span><b class="bon">Faible</b></div>
+            <div><span>Données</span><b class="moyen">500 à 5 000</b></div>
+            <div><span>Explicable</span><b class="bon">Mots déclencheurs</b></div>
+            <div><span>En place</span><b class="moyen">Une journée</b></div>
+          </div>
+          <div class="flux">
+            <div class="zone"><span>Ce qui entre</span><div class="pilule entree">Un texte</div><div class="pilule entree">des exemples classés</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone milieu"><span>La méthode</span><div class="pilule methode">un poids par mot,<br>puis un classifieur</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone"><span>Ce qui sort</span><div class="pilule sortie">Une catégorie</div><div class="pilule sortie">sa probabilité</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="lignes">
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span><div><b>Quand elle suffit</b><p>Classer avec quelques milliers d'exemples déjà annotés, sur un vocabulaire qui bouge peu.</p></div></div>
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span><div><b>Ce qu'elle produit</b><p>Une catégorie, sa probabilité, et les mots qui ont pesé dans la décision.</p></div></div>
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></span><div><b>Sur nos deux exemples</b><p>Elle absorbe la majorité des activités et des avis, pour cent fois moins cher qu'un grand modèle.</p></div></div>
+          </div>
+          <div class="alerte"><b>Où elle casse</b><p>Elle ne voit ni les synonymes ni l'ordre des mots. « Le gestionnaire n'a pas été réactif » ressemble à son contraire.</p></div>
+        </div>
+      </div>
+      <div class="fiche-pied"><span class="src">module 02 · niveau 3</span><span>Le premier niveau qui apprend</span></div>
+    </article>
+
+    <article class="fiche" data-fam="vecteur" data-nom="Embeddings et classifieur">
+      <div class="fiche-haut">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span class="fam"><i></i>VECTEURS</span><span class="niv">Niveau 4</span>
+        </div>
+        <div class="kick"><b>Technique</b><span>Le sens comme position</span></div>
+      </div>
+      <div class="trait"></div>
+      <div class="fiche-corps">
+        <div>
+          <h3>Embeddings et un classifieur</h3>
+          <p class="st">Chaque texte devient un point. Deux sens proches se retrouvent voisins.</p>
+          <div class="vitaux">
+            <div><span>Coût</span><b class="moyen">Modéré</b></div>
+            <div><span>Données</span><b class="moyen">Quelques centaines</b></div>
+            <div><span>Explicable</span><b class="moyen">Partiellement</b></div>
+            <div><span>En place</span><b class="moyen">Deux jours</b></div>
+          </div>
+          <div class="flux">
+            <div class="zone"><span>Ce qui entre</span><div class="pilule entree">Un texte</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone milieu"><span>La méthode</span><div class="pilule methode">projeter<br>en vecteur</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone"><span>Ce qui sort</span><div class="pilule sortie">Une position</div><div class="pilule sortie">ses voisins</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="lignes">
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span><div><b>Quand elle suffit</b><p>Synonymes, mots jamais vus, recherche par le sens plutôt que par le mot exact.</p></div></div>
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span><div><b>Ce qu'elle produit</b><p>Une position dans l'espace, et la liste des textes les plus proches, avec leur similarité.</p></div></div>
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></span><div><b>Sur nos deux exemples</b><p>« Emboutie » retrouve « collision ». Le sentiment se lit sur une seule dimension apprise.</p></div></div>
+          </div>
+          <div class="alerte"><b>Où elle casse</b><p>Moyenner les mots d'une phrase perd l'ordre : la négation disparaît. Et personne ne sait relire les dimensions.</p></div>
+        </div>
+      </div>
+      <div class="fiche-pied"><span class="src">module 02 · niveau 4</span><span>Le sens sans l'ordre</span></div>
+    </article>
+
+    <article class="fiche" data-fam="vecteur" data-nom="Transformer affiné, BERT">
+      <div class="fiche-haut">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span class="fam"><i></i>NEURONES</span><span class="niv">Niveau 5</span>
+        </div>
+        <div class="kick"><b>Technique</b><span>Encodeur ajusté</span></div>
+      </div>
+      <div class="trait"></div>
+      <div class="fiche-corps">
+        <div>
+          <h3>Un transformer affiné, BERT</h3>
+          <p class="st">Un modèle déjà entraîné sur du texte, ajusté sur vos exemples pour une tâche.</p>
+          <div class="vitaux">
+            <div><span>Coût</span><b class="moyen">Modéré</b></div>
+            <div><span>Données</span><b class="moyen">500 à 5 000</b></div>
+            <div><span>Explicable</span><b class="moyen">Partiellement</b></div>
+            <div><span>En place</span><b class="cher">Une semaine</b></div>
+          </div>
+          <div class="flux">
+            <div class="zone"><span>Ce qui entre</span><div class="pilule entree">Un texte</div><div class="pilule entree">des exemples annotés</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone milieu"><span>La méthode</span><div class="pilule methode">attention,<br>puis ajustement</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone"><span>Ce qui sort</span><div class="pilule sortie">Une catégorie</div><div class="pilule sortie">sa probabilité</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="lignes">
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span><div><b>Quand il suffit</b><p>Tâche cadrée, gros volume, précision exigée, et l'ordre des mots compte vraiment.</p></div></div>
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span><div><b>Ce qu'il produit</b><p>Le meilleur score sur une tâche précise, à un coût par texte cent fois inférieur à celui d'un grand modèle.</p></div></div>
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></span><div><b>Sur nos deux exemples</b><p>Il lit la négation et les nuances d'un avis, là où le comptage de mots plafonne.</p></div></div>
+          </div>
+          <div class="alerte"><b>Où il casse</b><p>Il lui faut des exemples annotés, une machine pour l'entraîner, et il ne sait faire que la tâche apprise.</p></div>
+        </div>
+      </div>
+      <div class="fiche-pied"><span class="src">module 02 · niveau 5</span><span>L'ordre des mots, enfin lu</span></div>
+    </article>
+
+    <article class="fiche" data-fam="llm" data-nom="Grand modèle, prompt ou RAG">
+      <div class="fiche-haut">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span class="fam"><i></i>GRAND MODÈLE</span><span class="niv">Niveau 6</span>
+        </div>
+        <div class="kick"><b>Technique</b><span>Une consigne en français</span></div>
+      </div>
+      <div class="trait"></div>
+      <div class="fiche-corps">
+        <div>
+          <h3>Un grand modèle, prompt ou RAG</h3>
+          <p class="st">Aucune donnée annotée. Une consigne écrite, et il répond.</p>
+          <div class="vitaux">
+            <div><span>Coût</span><b class="cher">Élevé, par requête</b></div>
+            <div><span>Données</span><b class="bon">Aucune</b></div>
+            <div><span>Explicable</span><b class="cher">Faible</b></div>
+            <div><span>En place</span><b class="bon">Une heure</b></div>
+          </div>
+          <div class="flux">
+            <div class="zone"><span>Ce qui entre</span><div class="pilule entree">Une consigne</div><div class="pilule entree">le texte</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone milieu"><span>La méthode</span><div class="pilule methode">prédire<br>la suite</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone"><span>Ce qui sort</span><div class="pilule sortie">Du texte</div><div class="pilule sortie">une justification</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="lignes">
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span><div><b>Quand il suffit</b><p>Peu de données, tâches variées, texte vraiment libre, ou une catégorie jamais vue.</p></div></div>
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span><div><b>Ce qu'il produit</b><p>Une réponse rédigée, avec sa justification, sans un seul exemple annoté.</p></div></div>
+            <div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></span><div><b>Sur nos deux exemples</b><p>Il code une activité inédite et lit l'ironie d'un avis, cent à mille fois plus cher par texte.</p></div></div>
+          </div>
+          <div class="alerte"><b>Où il casse</b><p>Il ne dit jamais « je ne sais pas ». Sans RAG pour l'ancrer et des règles autour, il invente avec le même aplomb.</p></div>
+        </div>
+      </div>
+      <div class="fiche-pied"><span class="src">module 02 · niveau 6</span><span>Le plus puissant, le dernier essayé</span></div>
+    </article>
+
+  </div>
+
   <div class="try reveal">
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg> À votre avis</span>
     <p>Quatre besoins, un niveau chacun. Cherchez dans le tableau avant de déplier.</p>
