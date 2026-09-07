@@ -640,11 +640,11 @@
     <div class="demo-head"><span><b>Deux versions d'un tableau de garanties</b> · le diff sans IA, celui qu'on fait avant d'appeler un modèle</span><a href="demos/table-diff-fr.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
     <div class="demo-steps">
       <figure>
-        <a href="demos/table-diff-fr.html" target="_blank" rel="noopener"><img src="assets/demo_table_diff_fr_1.png" alt="Deux versions d'un tableau, et le compte des changements" loading="lazy"></a>
+        <a href="demos/table-diff-fr.html" target="_blank" rel="noopener"><img src="assets/demo_table_diff_fr_1.png" width="1640" height="1120" alt="Deux versions d'un tableau, et le compte des changements" loading="lazy"></a>
         <figcaption><b>1</b> Deux versions d'un tableau, et le compte des changements</figcaption>
       </figure>
       <figure>
-        <a href="demos/table-diff-fr.html" target="_blank" rel="noopener"><img src="assets/demo_table_diff_fr_2.png" alt="Ligne par ligne, ce qui a bougé" loading="lazy"></a>
+        <a href="demos/table-diff-fr.html" target="_blank" rel="noopener"><img src="assets/demo_table_diff_fr_2.png" width="1472" height="536" alt="Ligne par ligne, ce qui a bougé" loading="lazy"></a>
         <figcaption><b>2</b> Ligne par ligne, ce qui a bougé</figcaption>
       </figure>
     </div>
@@ -905,19 +905,19 @@
     <div class="demo-head"><span><b>L'agent au travail sur un vrai contrat</b> · il cherche, il lit, il cite, étape par étape</span><a href="demos/mrh-agentic.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
     <div class="demo-steps">
       <figure>
-        <a href="demos/mrh-agentic.html" target="_blank" rel="noopener"><img src="assets/demo_mrh_agentic_1.png" alt="La question posée sur un vrai contrat" loading="lazy"></a>
+        <a href="demos/mrh-agentic.html" target="_blank" rel="noopener"><img src="assets/demo_mrh_agentic_1.png" width="1640" height="1120" alt="La question posée sur un vrai contrat" loading="lazy"></a>
         <figcaption><b>1</b> La question posée sur un vrai contrat</figcaption>
       </figure>
       <figure>
-        <a href="demos/mrh-agentic.html" target="_blank" rel="noopener"><img src="assets/demo_mrh_agentic_2.png" alt="La boucle d'agent, pas à pas" loading="lazy"></a>
+        <a href="demos/mrh-agentic.html" target="_blank" rel="noopener"><img src="assets/demo_mrh_agentic_2.png" width="1600" height="1520" alt="La boucle d'agent, pas à pas" loading="lazy"></a>
         <figcaption><b>2</b> La boucle d'agent, pas à pas</figcaption>
       </figure>
       <figure>
-        <a href="demos/mrh-agentic.html" target="_blank" rel="noopener"><img src="assets/demo_mrh_agentic_3.png" alt="La réponse, avec ses citations" loading="lazy"></a>
+        <a href="demos/mrh-agentic.html" target="_blank" rel="noopener"><img src="assets/demo_mrh_agentic_3.png" width="1530" height="1104" alt="La réponse, avec ses citations" loading="lazy"></a>
         <figcaption><b>3</b> La réponse, avec ses citations</figcaption>
       </figure>
       <figure>
-        <a href="demos/mrh-agentic.html" target="_blank" rel="noopener"><img src="assets/demo_mrh_agentic_4.png" alt="La vérification des citations" loading="lazy"></a>
+        <a href="demos/mrh-agentic.html" target="_blank" rel="noopener"><img src="assets/demo_mrh_agentic_4.png" width="1600" height="502" alt="La vérification des citations" loading="lazy"></a>
         <figcaption><b>4</b> La vérification des citations</figcaption>
       </figure>
     </div>
@@ -1009,11 +1009,11 @@
     <div class="demo-head"><span><b>Une question en français, une requête SQL</b> · la question, le SQL produit, le résultat</span><a href="demos/claims-sql-agent.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
     <div class="demo-steps">
       <figure>
-        <a href="demos/claims-sql-agent.html" target="_blank" rel="noopener"><img src="assets/demo_claims_sql_agent_1.png" alt="La question, posée en français" loading="lazy"></a>
+        <a href="demos/claims-sql-agent.html" target="_blank" rel="noopener"><img src="assets/demo_claims_sql_agent_1.png" width="1640" height="1120" alt="La question, posée en français" loading="lazy"></a>
         <figcaption><b>1</b> La question, posée en français</figcaption>
       </figure>
       <figure>
-        <a href="demos/claims-sql-agent.html" target="_blank" rel="noopener"><img src="assets/demo_claims_sql_agent_2.png" alt="La requête produite, puis le résultat" loading="lazy"></a>
+        <a href="demos/claims-sql-agent.html" target="_blank" rel="noopener"><img src="assets/demo_claims_sql_agent_2.png" width="1592" height="1520" alt="La requête produite, puis le résultat" loading="lazy"></a>
         <figcaption><b>2</b> La requête produite, puis le résultat</figcaption>
       </figure>
     </div>
@@ -1390,37 +1390,66 @@
   // Les captures d'une demo defilent une par une : la serie complete tenait
   // trop de place. A l'impression, le bloc @media print les remet toutes,
   // en petit, sur trois colonnes : le PDF montre le parcours d'un coup d'oeil.
+  //
+  // Deux captures n'ont jamais la meme hauteur. En passant de l'une a l'autre,
+  // le cadre changeait de taille d'un coup et toute la page sautait sous les
+  // yeux. Deux precautions : les images du carrousel sont chargees tout de
+  // suite (une image encore absente se mesure a zero, et la hauteur visee
+  // serait fausse), et le cadre glisse de l'ancienne hauteur a la nouvelle.
   document.querySelectorAll('.demo-steps').forEach(function(gal){
     var figs = [].slice.call(gal.querySelectorAll('figure'));
     if (figs.length < 2) return;
-    var i = 0;
+    var i = 0, fin = null;
+    figs.forEach(function(f){
+      var img = f.querySelector('img');
+      if (!img) return;
+      img.loading = 'eager';
+      var proportion = function(){
+        if (img.naturalWidth) img.style.aspectRatio = img.naturalWidth + ' / ' + img.naturalHeight;
+      };
+      if (img.complete) proportion(); else img.addEventListener('load', proportion);
+    });
     var nav = document.createElement('div');
     nav.className = 'demo-nav';
     nav.innerHTML = '<button type="button" class="demo-arrow" data-pas="-1" aria-label="Capture precedente">‹</button>'
       + '<span class="demo-dots"></span>'
-      + '<button type="button" class="demo-arrow" data-pas="1" aria-label="Capture suivante">›</button>'
-      + '<span class="demo-rang"></span>';
+      + '<button type="button" class="demo-arrow" data-pas="1" aria-label="Capture suivante">›</button>';
     gal.parentNode.insertBefore(nav, gal.nextSibling);
     var cta = nav.parentNode.querySelector('.demo-cta');
     if (cta) nav.appendChild(cta);
-    var dots = nav.querySelector('.demo-dots'), rang = nav.querySelector('.demo-rang');
+    var dots = nav.querySelector('.demo-dots');
     var puces = figs.map(function(_, n){
       var d = document.createElement('button');
       d.type = 'button'; d.className = 'demo-dot';
+      d.textContent = n + 1;
       d.setAttribute('aria-label', 'Capture ' + (n + 1));
-      d.addEventListener('click', function(){ i = n; peindre(); });
+      d.addEventListener('click', function(){ aller(n); });
       dots.appendChild(d);
       return d;
     });
     function peindre(){
       figs.forEach(function(f, n){ f.classList.toggle('is-on', n === i); });
-      puces.forEach(function(d, n){ d.classList.toggle('is-on', n === i); });
-      rang.textContent = (i + 1) + ' / ' + figs.length;
+      puces.forEach(function(d, n){
+        d.classList.toggle('is-on', n === i);
+        d.setAttribute('aria-current', n === i ? 'true' : 'false');
+      });
+    }
+    function aller(n){
+      if (n === i) return;
+      var avant = gal.offsetHeight;
+      i = n;
+      peindre();
+      var apres = gal.offsetHeight;
+      if (avant === apres) return;
+      clearTimeout(fin);
+      gal.style.height = avant + 'px';
+      void gal.offsetHeight;            // sans cette lecture, le navigateur saute directement a la fin
+      gal.style.height = apres + 'px';
+      fin = setTimeout(function(){ gal.style.height = ''; }, 380);
     }
     nav.querySelectorAll('.demo-arrow').forEach(function(b){
       b.addEventListener('click', function(){
-        i = (i + (+b.dataset.pas) + figs.length) % figs.length;
-        peindre();
+        aller((i + (+b.dataset.pas) + figs.length) % figs.length);
       });
     });
     gal.classList.add('carrousel');
