@@ -508,103 +508,103 @@ const xnoneEN = [
 const reflectionsFR = {
   "je":"vous","j'ai":"vous avez","moi":"vous","me":"vous",
   "mon":"votre","ma":"votre","mes":"vos","mien":"votre","mienne":"votre",
-  "moi-meme":"vous-meme","moi-m\u00eame":"vous-m\u00eame",
+  "moi-meme":"vous-meme","moi-même":"vous-même",
   "vous":"je","votre":"mon","vos":"mes",
-  "suis":"\u00eates","\u00e9tais":"\u00e9tiez","ai":"avez","avais":"aviez","serai":"serez",
-  "\u00eates":"suis","\u00e9tiez":"\u00e9tais","avez":"ai","aviez":"avais","serez":"serai"
+  "suis":"êtes","étais":"étiez","ai":"avez","avais":"aviez","serai":"serez",
+  "êtes":"suis","étiez":"étais","avez":"ai","aviez":"avais","serez":"serai"
 };
 
 const scriptFR = [
-  { word:"d\u00e9sol\u00e9", rank:0, rules:[
+  { word:"désolé", rank:0, rules:[
     { decomp:"*", reasmb:[
       "Ne vous excusez pas.",
-      "Les excuses ne sont pas n\u00e9cessaires.",
+      "Les excuses ne sont pas nécessaires.",
       "Que ressentez-vous quand vous vous excusez ?",
-      "Je vous l'ai dit, vous n'avez pas \u00e0 vous excuser." ] } ] },
+      "Je vous l'ai dit, vous n'avez pas à vous excuser." ] } ] },
 
   { word:"souviens", rank:5, rules:[
     { decomp:"* je me souviens de *", reasmb:[
-      "Pensez-vous souvent \u00e0 (2) ?",
-      "Qu'est-ce que (2) vous \u00e9voque d'autre ?",
+      "Pensez-vous souvent à (2) ?",
+      "Qu'est-ce que (2) vous évoque d'autre ?",
       "Pourquoi vous souvenez-vous de (2) maintenant ?",
       "Qu'est-ce qui, aujourd'hui, vous rappelle (2) ?" ] },
     { decomp:"* je me souviens *", reasmb:[
       "De quoi vous souvenez-vous encore ?",
       "Pourquoi ce souvenir revient-il maintenant ?" ] } ] },
 
-  { word:"oubli\u00e9", rank:4, rules:[
-    { decomp:"* j'ai oubli\u00e9 *", reasmb:[
-      "Cet oubli vous g\u00eane-t-il ?",
-      "Pourquoi avoir oubli\u00e9 (2), \u00e0 votre avis ?",
+  { word:"oublié", rank:4, rules:[
+    { decomp:"* j'ai oublié *", reasmb:[
+      "Cet oubli vous gêne-t-il ?",
+      "Pourquoi avoir oublié (2), à votre avis ?",
       "Oubliez-vous souvent ce genre de chose ?" ] } ] },
 
-  { word:"r\u00eav\u00e9", rank:4, rules:[
-    { decomp:"* j'ai r\u00eav\u00e9 *", reasmb:[
+  { word:"rêvé", rank:4, rules:[
+    { decomp:"* j'ai rêvé *", reasmb:[
       "Vraiment, (2) ?",
-      "Avez-vous d\u00e9j\u00e0 imagin\u00e9 (2) \u00e9veill\u00e9 ?",
-      "Aviez-vous d\u00e9j\u00e0 r\u00eav\u00e9 (2) ?" ] } ] },
+      "Avez-vous déjà imaginé (2) éveillé ?",
+      "Aviez-vous déjà rêvé (2) ?" ] } ] },
 
-  { word:"r\u00eave", rank:3, rules:[
+  { word:"rêve", rank:3, rules:[
     { decomp:"*", reasmb:[
-      "Que vous sugg\u00e8re ce r\u00eave ?",
-      "R\u00eavez-vous souvent ?",
-      "Qui appara\u00eet dans vos r\u00eaves ?",
-      "Pensez-vous que vos r\u00eaves aient un rapport avec ce qui vous pr\u00e9occupe ?" ] } ] },
+      "Que vous suggère ce rêve ?",
+      "Rêvez-vous souvent ?",
+      "Qui apparaît dans vos rêves ?",
+      "Pensez-vous que vos rêves aient un rapport avec ce qui vous préoccupe ?" ] } ] },
 
-  { word:"peut-\u00eatre", rank:0, rules:[
+  { word:"peut-être", rank:0, rules:[
     { decomp:"*", reasmb:[
-      "Vous n'avez pas l'air tr\u00e8s s\u00fbr.",
-      "Pourquoi ce ton h\u00e9sitant ?",
-      "Ne pouvez-vous pas \u00eatre plus affirmatif ?",
-      "Vous n'en \u00eates pas certain ?" ] } ] },
+      "Vous n'avez pas l'air très sûr.",
+      "Pourquoi ce ton hésitant ?",
+      "Ne pouvez-vous pas être plus affirmatif ?",
+      "Vous n'en êtes pas certain ?" ] } ] },
 
   { word:"bonjour", rank:0, rules:[
     { decomp:"*", reasmb:[
-      "Bonjour. Dites-moi ce qui vous pr\u00e9occupe.",
-      "Bonjour. Qu'est-ce qui vous am\u00e8ne ?" ] } ] },
+      "Bonjour. Dites-moi ce qui vous préoccupe.",
+      "Bonjour. Qu'est-ce qui vous amène ?" ] } ] },
 
   { word:"ordinateur", rank:50, rules:[
     { decomp:"*", reasmb:[
-      "Les ordinateurs vous inqui\u00e8tent-ils ?",
+      "Les ordinateurs vous inquiètent-ils ?",
       "Pourquoi parlez-vous d'ordinateurs ?",
-      "Que viennent faire les machines dans ce qui vous pr\u00e9occupe ?",
+      "Que viennent faire les machines dans ce qui vous préoccupe ?",
       "Ne pensez-vous pas que les machines puissent aider ?",
-      "Qu'est-ce qui vous d\u00e9range, dans les machines ?" ] } ] },
+      "Qu'est-ce qui vous dérange, dans les machines ?" ] } ] },
 
   { word:"suis", rank:2, rules:[
     { decomp:"* je suis * @triste *", reasmb:[
-      "Je suis d\u00e9sol\u00e9e de vous savoir (3).",
-      "Pensez-vous que venir ici vous aidera \u00e0 ne plus \u00eatre (3) ?",
-      "Ce n'est s\u00fbrement pas agr\u00e9able d'\u00eatre (3).",
+      "Je suis désolée de vous savoir (3).",
+      "Pensez-vous que venir ici vous aidera à ne plus être (3) ?",
+      "Ce n'est sûrement pas agréable d'être (3).",
       "Pouvez-vous m'expliquer ce qui vous rend (3) ?" ] },
     { decomp:"* je suis * @heureux *", reasmb:[
-      "En quoi vous ai-je aid\u00e9 \u00e0 \u00eatre (3) ?",
+      "En quoi vous ai-je aidé à être (3) ?",
       "Qu'est-ce qui vous rend (3) en ce moment ?",
-      "Pouvez-vous m'expliquer pourquoi vous \u00eates soudain (3) ?" ] },
+      "Pouvez-vous m'expliquer pourquoi vous êtes soudain (3) ?" ] },
     { decomp:"* je suis *", reasmb:[
-      "Depuis combien de temps \u00eates-vous (2) ?",
-      "Est-ce parce que vous \u00eates (2) que vous venez me voir ?",
-      "Trouvez-vous normal d'\u00eatre (2) ?",
-      "Cela vous pla\u00eet-il, d'\u00eatre (2) ?" ] },
+      "Depuis combien de temps êtes-vous (2) ?",
+      "Est-ce parce que vous êtes (2) que vous venez me voir ?",
+      "Trouvez-vous normal d'être (2) ?",
+      "Cela vous plaît-il, d'être (2) ?" ] },
     { decomp:"* suis-je *", reasmb:[
-      "Croyez-vous \u00eatre (2) ?",
-      "Aimeriez-vous \u00eatre (2) ?",
-      "Que signifierait pour vous d'\u00eatre (2) ?" ] } ] },
+      "Croyez-vous être (2) ?",
+      "Aimeriez-vous être (2) ?",
+      "Que signifierait pour vous d'être (2) ?" ] } ] },
 
   { word:"je", rank:0, rules:[
     { decomp:"* je @vouloir *", reasmb:[
       "Que signifierait pour vous d'obtenir (3) ?",
       "Pourquoi voulez-vous (3) ?",
-      "Supposons que vous obteniez (3) bient\u00f4t.",
+      "Supposons que vous obteniez (3) bientôt.",
       "Et si vous n'obteniez jamais (3) ?" ] },
     { decomp:"* je ne peux pas *", reasmb:[
       "Comment savez-vous que vous ne pouvez pas (2) ?",
-      "Avez-vous essay\u00e9 ?",
-      "Peut-\u00eatre pourriez-vous (2), maintenant.",
+      "Avez-vous essayé ?",
+      "Peut-être pourriez-vous (2), maintenant.",
       "Voulez-vous vraiment pouvoir (2) ?" ] },
-    { decomp:"* je n'arrive pas \u00e0 *", reasmb:[
-      "Qu'est-ce qui vous en emp\u00eache ?",
-      "Avez-vous d\u00e9j\u00e0 r\u00e9ussi \u00e0 (2) ?",
+    { decomp:"* je n'arrive pas à *", reasmb:[
+      "Qu'est-ce qui vous en empêche ?",
+      "Avez-vous déjà réussi à (2) ?",
       "Depuis quand n'y arrivez-vous plus ?" ] },
     { decomp:"* je me sens *", reasmb:[
       "Parlez-moi de ce que vous ressentez.",
@@ -616,34 +616,34 @@ const scriptFR = [
       "Devez-vous vraiment (2) ?" ] },
     { decomp:"* je *", reasmb:[
       "Vous dites que vous (2) ?",
-      "Pouvez-vous pr\u00e9ciser ?",
+      "Pouvez-vous préciser ?",
       "Pourquoi me dites-vous que vous (2) ?",
-      "C'est int\u00e9ressant. Continuez." ] } ] },
+      "C'est intéressant. Continuez." ] } ] },
 
   { word:"vous", rank:0, rules:[
     { decomp:"* vous me rappelez *", reasmb:[ "En quoi ?", "Quelle ressemblance voyez-vous ?" ] },
-    { decomp:"* vous \u00eates *", reasmb:[
+    { decomp:"* vous êtes *", reasmb:[
       "Qu'est-ce qui vous fait penser que je suis (2) ?",
-      "Cela vous pla\u00eet-il de croire que je suis (2) ?",
-      "Peut-\u00eatre aimeriez-vous \u00eatre (2).",
+      "Cela vous plaît-il de croire que je suis (2) ?",
+      "Peut-être aimeriez-vous être (2).",
       "Pensez-vous parfois que je suis (2) ?" ] },
     { decomp:"* vous *", reasmb:[
       "Nous parlions de vous, pas de moi.",
       "Vous ne parlez pas vraiment de moi, n'est-ce pas ?",
-      "Que ressentez-vous, \u00e0 cet instant ?",
-      "Revenons \u00e0 vous." ] } ] },
+      "Que ressentez-vous, à cet instant ?",
+      "Revenons à vous." ] } ] },
 
   { word:"oui", rank:0, rules:[
     { decomp:"*", reasmb:[
-      "Vous semblez tr\u00e8s s\u00fbr.",
-      "Vous en \u00eates certain.",
+      "Vous semblez très sûr.",
+      "Vous en êtes certain.",
       "Je vois.",
       "Je comprends." ] } ] },
 
   { word:"non", rank:0, rules:[
     { decomp:"*", reasmb:[
       "Dites-vous non pour dire non ?",
-      "Vous \u00eates un peu n\u00e9gatif.",
+      "Vous êtes un peu négatif.",
       "Pourquoi pas ?",
       "Pourquoi non ?" ] } ] },
 
@@ -652,24 +652,24 @@ const scriptFR = [
       "Parlez-moi de votre famille.",
       "Qui d'autre, dans votre famille, (4) ?",
       "Votre (3) ?",
-      "Que vous vient-il \u00e0 l'esprit quand vous pensez \u00e0 votre (3) ?" ] },
+      "Que vous vient-il à l'esprit quand vous pensez à votre (3) ?" ] },
     { decomp:"* @possessif *", reasmb:[
       "Votre (3) ?",
       "Pourquoi dites-vous votre (3) ?",
       "Est-ce important pour vous, votre (3) ?",
-      "Cela vous fait-il penser \u00e0 autre chose qui vous appartient ?" ] } ] },
+      "Cela vous fait-il penser à autre chose qui vous appartient ?" ] } ] },
 
   { word:"pourquoi", rank:0, rules:[
     { decomp:"*", reasmb:[
       "Pourquoi cette question ?",
-      "Cette question vous int\u00e9resse-t-elle ?",
+      "Cette question vous intéresse-t-elle ?",
       "Que voulez-vous vraiment savoir ?",
-      "Quelle r\u00e9ponse vous plairait le plus ?" ] } ] },
+      "Quelle réponse vous plairait le plus ?" ] } ] },
 
   { word:"comment", rank:0, rules:[
     { decomp:"*", reasmb:[
-      "Qu'en pensez-vous vous-m\u00eame ?",
-      "Que vous vient-il \u00e0 l'esprit quand vous posez cette question ?",
+      "Qu'en pensez-vous vous-même ?",
+      "Que vous vient-il à l'esprit quand vous posez cette question ?",
       "Pourquoi cette question maintenant ?" ] } ] },
 
   { word:"parce", rank:0, rules:[
@@ -682,44 +682,44 @@ const scriptFR = [
   { word:"monde", rank:2, rules:[
     { decomp:"* tout le monde *", reasmb:[
       "Vraiment, tout le monde ?",
-      "S\u00fbrement pas tout le monde.",
-      "\u00c0 qui pensez-vous en particulier ?",
+      "Sûrement pas tout le monde.",
+      "À qui pensez-vous en particulier ?",
       "Qui, par exemple ?" ] } ] },
 
   { word:"personne", rank:2, rules:[
     { decomp:"*", reasmb:[
       "Vraiment, personne ?",
-      "\u00c0 qui pensez-vous en particulier ?",
-      "Pouvez-vous penser \u00e0 une seule exception ?" ] } ] },
+      "À qui pensez-vous en particulier ?",
+      "Pouvez-vous penser à une seule exception ?" ] } ] },
 
   { word:"toujours", rank:1, rules:[
     { decomp:"*", reasmb:[
-      "Pouvez-vous donner un exemple pr\u00e9cis ?",
+      "Pouvez-vous donner un exemple précis ?",
       "Quand ?",
-      "\u00c0 quel \u00e9pisode pensez-vous ?",
+      "À quel épisode pensez-vous ?",
       "Vraiment, toujours ?" ] } ] },
 
   { word:"ressemble", rank:10, rules:[
     { decomp:"*", reasmb:[
       "En quoi ?",
       "Quelle ressemblance voyez-vous ?",
-      "Que vous sugg\u00e8re cette ressemblance ?" ] } ] },
+      "Que vous suggère cette ressemblance ?" ] } ] },
 
   { word:"nom", rank:15, rules:[
     { decomp:"*", reasmb:[
-      "Les noms ne m'int\u00e9ressent pas.",
-      "Je vous l'ai dit, les noms me sont indiff\u00e9rents. Continuez." ] } ] },
+      "Les noms ne m'intéressent pas.",
+      "Je vous l'ai dit, les noms me sont indifférents. Continuez." ] } ] },
 
   { word:"hello", rank:15, rules:[
     { decomp:"*", reasmb:[
-      "Je suis d\u00e9sol\u00e9e, je ne parle que le fran\u00e7ais.",
-      "En fran\u00e7ais, s'il vous pla\u00eet. Je ne comprends rien d'autre." ] } ] },
+      "Je suis désolée, je ne parle que le français.",
+      "En français, s'il vous plaît. Je ne comprends rien d'autre." ] } ] },
 
   { word:"pense", rank:0, rules:[
     { decomp:"* je pense *", reasmb:[
       "En doutez-vous ?",
       "Le pensez-vous vraiment ?",
-      "Vous n'en \u00eates donc pas s\u00fbr." ] },
+      "Vous n'en êtes donc pas sûr." ] },
     { decomp:"* vous pensez *", reasmb:[
       "Pourquoi cette question ?",
       "Qu'importe ce que je pense ?" ] } ] },
@@ -727,13 +727,13 @@ const scriptFR = [
   { word:"crois", rank:0, rules:[
     { decomp:"* je crois *", reasmb:[
       "Le croyez-vous vraiment ?",
-      "En avez-vous d\u00e9j\u00e0 dout\u00e9 ?",
+      "En avez-vous déjà douté ?",
       "Qu'est-ce qui vous le fait croire ?" ] } ] },
 
   { word:"ami", rank:2, rules:[
     { decomp:"* mon ami *", reasmb:[
       "Parlez-moi de cet ami.",
-      "Cet ami vous inqui\u00e8te-t-il ?",
+      "Cet ami vous inquiète-t-il ?",
       "Vos amis reviennent souvent dans ce que vous dites." ] },
     { decomp:"*", reasmb:[
       "Pourquoi parlez-vous d'amis ?",
@@ -741,26 +741,26 @@ const scriptFR = [
 
   { word:"argent", rank:0, rules:[
     { decomp:"*", reasmb:[
-      "L'argent vous inqui\u00e8te-t-il ?",
+      "L'argent vous inquiète-t-il ?",
       "Pourquoi l'argent revient-il maintenant ?",
-      "Que changerait-il si l'argent n'\u00e9tait pas un probl\u00e8me ?" ] } ] },
+      "Que changerait-il si l'argent n'était pas un problème ?" ] } ] },
 
   { word:"travail", rank:0, rules:[
     { decomp:"* mon travail *", reasmb:[
       "Parlez-moi de votre travail.",
-      "Votre travail vous p\u00e8se-t-il ?",
+      "Votre travail vous pèse-t-il ?",
       "Depuis quand ressentez-vous cela pour votre travail ?" ] },
     { decomp:"*", reasmb:[
       "Pourquoi parlez-vous du travail ?",
-      "Le travail vous revient-il souvent \u00e0 l'esprit ?" ] } ] },
+      "Le travail vous revient-il souvent à l'esprit ?" ] } ] },
 
   { word:"temps", rank:0, rules:[
     { decomp:"* pas le temps *", reasmb:[
       "Que feriez-vous avec plus de temps ?",
-      "Qui d\u00e9cide de l'emploi de votre temps ?" ] },
+      "Qui décide de l'emploi de votre temps ?" ] },
     { decomp:"*", reasmb:[
       "Le temps vous presse-t-il ?",
-      "Qu'est-ce qui vous d\u00e9range, dans le temps ?" ] } ] },
+      "Qu'est-ce qui vous dérange, dans le temps ?" ] } ] },
 
   { word:"peur", rank:4, rules:[
     { decomp:"* peur de *", reasmb:[
@@ -769,31 +769,31 @@ const scriptFR = [
       "Que se passerait-il si (2) arrivait vraiment ?" ] },
     { decomp:"*", reasmb:[
       "De quoi avez-vous peur ?",
-      "La peur m\u00e9rite qu'on en parle. Continuez.",
-      "Qu'est-ce qui vous effraie le plus, l\u00e0-dedans ?" ] } ] },
+      "La peur mérite qu'on en parle. Continuez.",
+      "Qu'est-ce qui vous effraie le plus, là-dedans ?" ] } ] },
 
-  { word:"col\u00e8re", rank:4, rules:[
+  { word:"colère", rank:4, rules:[
     { decomp:"*", reasmb:[
-      "Qui vous met en col\u00e8re ?",
-      "Que se passe-t-il quand vous vous mettez en col\u00e8re ?",
-      "La col\u00e8re vous aide-t-elle ?" ] } ] },
+      "Qui vous met en colère ?",
+      "Que se passe-t-il quand vous vous mettez en colère ?",
+      "La colère vous aide-t-elle ?" ] } ] },
 
-  { word:"fatigu\u00e9", rank:0, rules:[
+  { word:"fatigué", rank:0, rules:[
     { decomp:"*", reasmb:[
       "Qu'est-ce qui vous fatigue ?",
-      "Depuis quand vous sentez-vous fatigu\u00e9 ?",
+      "Depuis quand vous sentez-vous fatigué ?",
       "Le repos vous aide-t-il ?" ] } ] },
 
   { word:"jamais", rank:0, rules:[
     { decomp:"*", reasmb:[
       "Jamais ?",
-      "En \u00eates-vous s\u00fbr, jamais ?",
-      "Pouvez-vous penser \u00e0 une seule exception ?" ] } ] },
+      "En êtes-vous sûr, jamais ?",
+      "Pouvez-vous penser à une seule exception ?" ] } ] },
 
   { word:"rien", rank:0, rules:[
     { decomp:"*", reasmb:[
       "Rien du tout ?",
-      "Cela fait beaucoup \u00e0 porter.",
+      "Cela fait beaucoup à porter.",
       "Dites-m'en un peu plus." ] } ] },
 
   { word:"aide", rank:0, rules:[
@@ -802,32 +802,32 @@ const scriptFR = [
       "Qui pourrait vous aider ?",
       "Demandez-vous souvent de l'aide ?" ] } ] },
 
-  { word:"s\u00fbr", rank:0, rules:[
-    { decomp:"* pas s\u00fbr *", reasmb:[
+  { word:"sûr", rank:0, rules:[
+    { decomp:"* pas sûr *", reasmb:[
       "Qu'est-ce qui vous rend incertain ?",
-      "Qu'est-ce qui vous rendrait s\u00fbr ?" ] },
+      "Qu'est-ce qui vous rendrait sûr ?" ] },
     { decomp:"*", reasmb:[
-      "\u00c0 quel point en \u00eates-vous s\u00fbr ?",
+      "À quel point en êtes-vous sûr ?",
       "Vous avez l'air certain. Qu'est-ce qui vous en a convaincu ?" ] } ] }
 ];
 
 const synonymsFR = {
-  vouloir:["veux","voudrais","souhaite","d\u00e9sire","aimerais","voulais"],
-  triste:["triste","malheureux","malheureuse","d\u00e9prim\u00e9","d\u00e9prim\u00e9e","mal","d\u00e9\u00e7u","d\u00e9\u00e7ue","perdu","perdue","\u00e9puis\u00e9","\u00e9puis\u00e9e","seul","seule"],
-  heureux:["heureux","heureuse","content","contente","mieux","ravi","ravie","soulag\u00e9","soulag\u00e9e"],
-  famille:["m\u00e8re","maman","p\u00e8re","papa","s\u0153ur","soeur","fr\u00e8re","femme","mari","enfants","fils","fille","famille","parents"],
+  vouloir:["veux","voudrais","souhaite","désire","aimerais","voulais"],
+  triste:["triste","malheureux","malheureuse","déprimé","déprimée","mal","déçu","déçue","perdu","perdue","épuisé","épuisée","seul","seule"],
+  heureux:["heureux","heureuse","content","contente","mieux","ravi","ravie","soulagé","soulagée"],
+  famille:["mère","maman","père","papa","sœur","soeur","frère","femme","mari","enfants","fils","fille","famille","parents"],
   possessif:["mon","ma","mes"]
 };
 
 const xnoneFR = [
-  "Je ne suis pas s\u00fbre de bien vous comprendre.",
+  "Je ne suis pas sûre de bien vous comprendre.",
   "Continuez, je vous en prie.",
-  "Que cela vous \u00e9voque-t-il ?",
-  "Cela vous tient-il \u00e0 c\u0153ur, d'en parler ?",
-  "C'est int\u00e9ressant. Continuez.",
+  "Que cela vous évoque-t-il ?",
+  "Cela vous tient-il à cœur, d'en parler ?",
+  "C'est intéressant. Continuez.",
   "Parlez-m'en davantage.",
-  "Cela vous g\u00eane-t-il d'en parler ?",
-  "Pouvez-vous pr\u00e9ciser ?"
+  "Cela vous gêne-t-il d'en parler ?",
+  "Pouvez-vous préciser ?"
 ];
 
 // ---------------------------------------------------------------------------
@@ -843,37 +843,37 @@ const scriptASSUR = [
       "Bonjour. Quel est l'objet de votre appel ?",
       "Bonjour. De quel dossier s'agit-il ?" ] } ] },
 
-  { word:"d\u00e9gat", rank:8, rules:[
+  { word:"dégât", rank:8, rules:[
     { decomp:"*", reasmb:[
-      "Un d\u00e9g\u00e2t des eaux. La fuite est-elle arr\u00eat\u00e9e ?",
-      "Depuis combien de temps avez-vous constat\u00e9 le d\u00e9g\u00e2t ?" ] } ] },
+      "Un dégât des eaux. La fuite est-elle arrêtée ?",
+      "Depuis combien de temps avez-vous constaté le dégât ?" ] } ] },
 
   { word:"eaux", rank:8, rules:[
     { decomp:"*", reasmb:[
-      "Un d\u00e9g\u00e2t des eaux. Avez-vous pu identifier l'origine de la fuite ?",
-      "Votre voisin est-il concern\u00e9 par ce d\u00e9g\u00e2t des eaux ?",
-      "Un constat amiable a-t-il \u00e9t\u00e9 rempli ?" ] } ] },
+      "Un dégât des eaux. Avez-vous pu identifier l'origine de la fuite ?",
+      "Votre voisin est-il concerné par ce dégât des eaux ?",
+      "Un constat amiable a-t-il été rempli ?" ] } ] },
 
   { word:"sinistre", rank:7, rules:[
     { decomp:"* mon sinistre *", reasmb:[
       "Votre sinistre (2) ?",
       "Depuis quand votre sinistre (2) ?",
-      "Avez-vous le num\u00e9ro de votre d\u00e9claration ?" ] },
+      "Avez-vous le numéro de votre déclaration ?" ] },
     { decomp:"*", reasmb:[
       "De quel type de sinistre s'agit-il ?",
-      "\u00c0 quelle date le sinistre est-il survenu ?",
-      "Le sinistre a-t-il d\u00e9j\u00e0 \u00e9t\u00e9 d\u00e9clar\u00e9 ?" ] } ] },
+      "À quelle date le sinistre est-il survenu ?",
+      "Le sinistre a-t-il déjà été déclaré ?" ] } ] },
 
   { word:"expert", rank:7, rules:[
     { decomp:"*", reasmb:[
-      "L'expert est-il d\u00e9j\u00e0 pass\u00e9 chez vous ?",
+      "L'expert est-il déjà passé chez vous ?",
       "Que dit le rapport de l'expert ?",
       "Souhaitez-vous contester les conclusions de l'expert ?" ] } ] },
 
   { word:"franchise", rank:7, rules:[
     { decomp:"*", reasmb:[
-      "La franchise figure aux conditions particuli\u00e8res de votre contrat.",
-      "Souhaitez-vous que je v\u00e9rifie le montant de votre franchise ?" ] } ] },
+      "La franchise figure aux conditions particulières de votre contrat.",
+      "Souhaitez-vous que je vérifie le montant de votre franchise ?" ] } ] },
 
   { word:"garantie", rank:7, rules:[
     { decomp:"* ma garantie *", reasmb:[
@@ -881,65 +881,65 @@ const scriptASSUR = [
       "Quelle formule avez-vous souscrite ?" ] },
     { decomp:"*", reasmb:[
       "Quelle garantie pensez-vous mobiliser ?",
-      "Avez-vous vos conditions g\u00e9n\u00e9rales sous les yeux ?" ] } ] },
+      "Avez-vous vos conditions générales sous les yeux ?" ] } ] },
 
   { word:"rembours", rank:7, rules:[
     { decomp:"*", reasmb:[
-      "Le remboursement d\u00e9pend des conclusions de l'expertise.",
-      "Dans quel d\u00e9lai attendiez-vous ce remboursement ?",
-      "Avez-vous re\u00e7u le d\u00e9compte d'indemnisation ?" ] } ] },
+      "Le remboursement dépend des conclusions de l'expertise.",
+      "Dans quel délai attendiez-vous ce remboursement ?",
+      "Avez-vous reçu le décompte d'indemnisation ?" ] } ] },
 
   { word:"contrat", rank:6, rules:[
     { decomp:"* mon contrat *", reasmb:[
       "Votre contrat (2) ?",
-      "Avez-vous votre num\u00e9ro de contrat ?",
-      "Depuis quand \u00eates-vous assur\u00e9 chez nous ?" ] },
+      "Avez-vous votre numéro de contrat ?",
+      "Depuis quand êtes-vous assuré chez nous ?" ] },
     { decomp:"*", reasmb:[
       "De quel contrat parlons-nous ?",
       "Habitation, automobile, ou autre ?" ] } ] },
 
-  { word:"r\u00e9silier", rank:6, rules:[
+  { word:"résilier", rank:6, rules:[
     { decomp:"*", reasmb:[
-      "Vous souhaitez r\u00e9silier. Pour quelle raison ?",
-      "La r\u00e9siliation se demande par \u00e9crit. Voulez-vous que je vous indique l'adresse ?" ] } ] },
+      "Vous souhaitez résilier. Pour quelle raison ?",
+      "La résiliation se demande par écrit. Voulez-vous que je vous indique l'adresse ?" ] } ] },
 
-  { word:"d\u00e9lai", rank:6, rules:[
+  { word:"délai", rank:6, rules:[
     { decomp:"*", reasmb:[
-      "Quel d\u00e9lai vous a-t-on annonc\u00e9 ?",
+      "Quel délai vous a-t-on annoncé ?",
       "Depuis combien de temps attendez-vous ?" ] } ] },
 
   { word:"inadmissible", rank:9, rules:[
     { decomp:"*", reasmb:[
-      "Je comprends votre m\u00e9contentement. Que s'est-il pass\u00e9 exactement ?",
-      "Souhaitez-vous d\u00e9poser une r\u00e9clamation ?" ] } ] },
+      "Je comprends votre mécontentement. Que s'est-il passé exactement ?",
+      "Souhaitez-vous déposer une réclamation ?" ] } ] },
 
   { word:"scandaleux", rank:9, rules:[
     { decomp:"*", reasmb:[
-      "Je comprends votre m\u00e9contentement. Reprenons depuis le d\u00e9but.",
-      "Souhaitez-vous d\u00e9poser une r\u00e9clamation ?" ] } ] },
+      "Je comprends votre mécontentement. Reprenons depuis le début.",
+      "Souhaitez-vous déposer une réclamation ?" ] } ] },
 
   { word:"toujours", rank:5, rules:[
     { decomp:"* toujours pas *", reasmb:[
       "Depuis quand attendez-vous ?",
-      "Avez-vous une trace \u00e9crite de votre derni\u00e8re demande ?" ] },
+      "Avez-vous une trace écrite de votre dernière demande ?" ] },
     { decomp:"*", reasmb:[
-      "Pouvez-vous me donner une date pr\u00e9cise ?" ] } ] },
+      "Pouvez-vous me donner une date précise ?" ] } ] },
 
   { word:"combien", rank:4, rules:[
     { decomp:"*", reasmb:[
-      "Le montant d\u00e9pend de votre contrat et de l'expertise.",
+      "Le montant dépend de votre contrat et de l'expertise.",
       "Je ne peux pas vous donner de montant sans le dossier." ] } ] },
 
   { word:"je", rank:0, rules:[
     { decomp:"* je @vouloir *", reasmb:[
-      "Vous voulez (3). Avez-vous d\u00e9j\u00e0 fait la demande par \u00e9crit ?",
-      "Pour (3), il me faut d'abord votre num\u00e9ro de dossier." ] },
+      "Vous voulez (3). Avez-vous déjà fait la demande par écrit ?",
+      "Pour (3), il me faut d'abord votre numéro de dossier." ] },
     { decomp:"* je n'ai pas *", reasmb:[
       "Vous n'avez pas (2) ? Depuis quand ?",
-      "Cela a-t-il \u00e9t\u00e9 signal\u00e9 \u00e0 votre conseiller ?" ] },
+      "Cela a-t-il été signalé à votre conseiller ?" ] },
     { decomp:"* je *", reasmb:[
       "Vous (2) ?",
-      "Pouvez-vous pr\u00e9ciser ?",
+      "Pouvez-vous préciser ?",
       "Notons cela. Autre chose ?" ] } ] },
 
   { word:"mon", rank:2, memory:true, rules:[
@@ -950,15 +950,15 @@ const scriptASSUR = [
   { word:"merci", rank:0, rules:[
     { decomp:"*", reasmb:[
       "Je vous en prie. Autre chose ?",
-      "\u00c0 votre service. Autre chose ?" ] } ] }
+      "À votre service. Autre chose ?" ] } ] }
 ];
 
 const xnoneASSUR = [
   "Pouvez-vous reformuler votre demande ?",
   "Je n'ai pas cette information. Autre chose ?",
-  "Pouvez-vous me donner votre num\u00e9ro de dossier ?",
+  "Pouvez-vous me donner votre numéro de dossier ?",
   "Notons cela. Autre chose ?",
-  "Je transmets votre demande au service concern\u00e9."
+  "Je transmets votre demande au service concerné."
 ];
 
 // Les paquets, et celui qui est actif.
@@ -968,25 +968,25 @@ const PACKS = {
         bonjour:"How do you do. I am ELIZA. Please tell me your problem.",
         souvenir:(x)=>"Earlier you said your " + x + ".",
         moi:"YOU:   ", elle:"ELIZA: ",
-        sstitre:"script DOCTOR \u00b7 MIT 1966",
+        sstitre:"script DOCTOR · MIT 1966",
         pied:"Reconstitution de l'ELIZA de Joseph Weizenbaum, script DOCTOR d'origine, en anglais. "
-           + "Mots-cl\u00e9s class\u00e9s par rang, r\u00e8gles de d\u00e9composition et de recomposition, inversion des pronoms, m\u00e9moire." },
+           + "Mots-clés classés par rang, règles de décomposition et de recomposition, inversion des pronoms, mémoire." },
   fr: { script:scriptFR, synonyms:synonymsFR, reflections:reflectionsFR, xnone:xnoneFR,
         vide:"Dites ce qui vous vient.",
-        bonjour:"Bonjour. Je suis ELIZA. Dites-moi ce qui vous pr\u00e9occupe.",
-        souvenir:(x)=>"Tout \u00e0 l'heure, vous parliez de votre " + x + ".",
+        bonjour:"Bonjour. Je suis ELIZA. Dites-moi ce qui vous préoccupe.",
+        souvenir:(x)=>"Tout à l'heure, vous parliez de votre " + x + ".",
         moi:"VOUS : ", elle:"ELIZA : ",
-        sstitre:"script DOCTOR \u00b7 fran\u00e7ais",
-        pied:"Les m\u00eames m\u00e9canismes qu'en 1966, avec des r\u00e8gles \u00e9crites en fran\u00e7ais. "
-           + "Aucun r\u00e9seau, aucun mod\u00e8le : de la reconnaissance de motifs." },
+        sstitre:"script DOCTOR · français",
+        pied:"Les mêmes mécanismes qu'en 1966, avec des règles écrites en français. "
+           + "Aucun réseau, aucun modèle : de la reconnaissance de motifs." },
   assur: { script:scriptASSUR, synonyms:synonymsFR, reflections:reflectionsFR, xnone:xnoneASSUR,
-        vide:"Je vous \u00e9coute.",
+        vide:"Je vous écoute.",
         bonjour:"Assurance Novassur, bonjour. Que puis-je pour vous ?",
-        souvenir:(x)=>"Vous avez mentionn\u00e9 votre " + x + " tout \u00e0 l'heure.",
+        souvenir:(x)=>"Vous avez mentionné votre " + x + " tout à l'heure.",
         moi:"VOUS : ", elle:"NOVA\u00a0: ",
-        sstitre:"guichet sinistres \u00b7 m\u00eame moteur",
-        pied:"Le moteur de 1966 avec des r\u00e8gles de gestion de sinistres. "
-           + "Il tient trois \u00e9changes, puis il tourne en rond : il n'a acc\u00e8s \u00e0 aucun dossier." }
+        sstitre:"guichet sinistres · même moteur",
+        pied:"Le moteur de 1966 avec des règles de gestion de sinistres. "
+           + "Il tient trois échanges, puis il tourne en rond : il n'a accès à aucun dossier." }
 };
 let LANG = "fr";
 const P = () => PACKS[LANG];
@@ -1008,10 +1008,17 @@ function decompToRegex(decomp){
 function escapeRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
 
 function fill(template, groups){
-  return template.replace(/\((\d+)\)/g, (_,n)=>{
+  const t = template.replace(/\((\d+)\)/g, (_,n)=>{
     const g = groups[Number(n)] || "";
     return reflect(g);
-  }).replace(/\s+([.?!,])/g,"$1");
+  });
+  // Le fragment recopie apporte souvent une espace de trop devant le signe.
+  // En anglais on la supprime ; en francais le point d'interrogation, le
+  // point d'exclamation, le deux-points et le point-virgule en prennent une,
+  // fine et insecable.
+  return LANG === "en"
+    ? t.replace(/\s+([.?!,])/g,"$1")
+    : t.replace(/\s*([?!;:])/g,"\u202f$1").replace(/\s+([.,])/g,"$1");
 }
 
 // Cursor used by the reassembly cycler to vary replies per rule.
