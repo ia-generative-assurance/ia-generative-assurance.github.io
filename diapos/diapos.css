@@ -118,6 +118,15 @@ body { margin: 0; background: #0d1830; color: var(--ink);
 .diapo.sombre .hero-facts b { color: #fff; }
 .diapo.sombre .hero-cta { display: none; }
 
+/* ---------- les blocs « sous le capot » ---------- */
+/* Sur le site ils sont replies, et on les ouvre si on veut le detail. Projete,
+   personne ne clique : le build les deplie (diapos/decoupe.py, deplier_capot)
+   et leur resume devient le titre de la premiere diapositive de la serie. Le
+   filet rouge dit que ce qui suit est le detail, pas le fil principal. */
+.diapo-corps > .capot { border-left: 4px solid var(--crimson); padding-left: 16px; }
+.diapo-corps > .capot h3 { font-size: 1.32rem; }
+.capot-suite { margin: 0; font-size: .92rem; color: var(--ink-soft); }
+
 /* ---------- un recit defilant : le schema a gauche, l'etape a droite ---------- */
 .recit { display: grid; grid-template-columns: 660px 1fr; gap: 32px; align-items: center; }
 .recit .figure-frame { padding: 14px; }
