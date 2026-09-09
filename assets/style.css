@@ -189,6 +189,12 @@ section.band.tight { padding: 46px 0; }
 .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
 .with-toc section.band { padding: 36px 0 44px; }
 .with-toc section.band + section.band { border-top: 1px solid var(--line); }
+/* Un bandeau sable dans la colonne avec sommaire : sans marge horizontale, le
+   texte collait au bord du fond. Le bandeau devient un cadre, marge dedans,
+   dans la largeur de la colonne : rien ne deborde, a l'ecran comme en print. */
+.with-toc section.band.alt { padding-left: 28px; padding-right: 28px; border: 1px solid var(--line); border-radius: var(--radius); }
+.with-toc section.band.alt + section.band { border-top: 0; }
+@media (max-width: 760px) { .with-toc section.band.alt { padding-left: 18px; padding-right: 18px; } }
 
 /* titre de section avec icone */
 .h-ico { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
@@ -305,6 +311,9 @@ table.compact th.num { font-family: var(--display); font-size: .74rem; }
    ne veut plus rien dire et une ligne coupee se lit de travers. Il defile donc
    sur le cote, et il est ecrit assez court pour tenir dans une demi-colonne. */
 .prompt.code { white-space: pre; overflow-x: auto; font-size: .78rem; }
+/* dans une carte de grille, la colonne est deux fois plus etroite : le code y
+   descend d'un cran, pour garder de la marge si la colonne se resserre */
+.grid .card .prompt.code { font-size: .73rem; }
 @media print {
   /* sur une feuille rien ne defile : les blocs de code passent sur une seule
      colonne et rapetissent, pour que la ligne la plus longue tienne entiere */

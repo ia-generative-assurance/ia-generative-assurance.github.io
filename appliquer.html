@@ -182,26 +182,27 @@
   </div>
 
   <h3 style="margin:0 0 6px">2.1 Le premier geste : un appel</h3>
-  <p>Le chat que vous ouvrez dans votre navigateur est une fenêtre posée sur un service. Ce service, un programme l'appelle directement, comme il appellerait un service de géocodage ou un taux de change. On envoie du texte, on reçoit du texte. Ici <code>prompt</code> vaut par exemple <code>"Résume ce mail : " + mail</code>. Deux façons d'écrire le même appel réseau.</p>
+  <p>Le chat que vous ouvrez dans votre navigateur est une fenêtre posée sur un service. Ce service, un programme l'appelle directement, comme il appellerait un service de géocodage ou un taux de change. On envoie du texte, on reçoit du texte. Ici <code>prompt</code> porte la consigne et le mail, collés en une seule chaîne. Deux façons d'écrire le même appel réseau.</p>
 
   <div class="grid grid-2 reveal">
     <div class="card">
       <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg></div><h4>Sans rien installer : un appel HTTP</h4></div>
       <div class="prompt code">import requests
 
-r = requests.post(
-    "https://api.openai.com/v1/chat/completions",
-    headers={"Authorization": "Bearer " + cle},
-    json={
-        "model": "gpt-4o-mini",
-        "messages": [
-            {"role": "user", "content": prompt}
-        ],
-    },
-)
+entetes = {
+    "Authorization": "Bearer " + cle,
+}
+corps = {
+    "model": "gpt-4o-mini",
+    "messages": [
+        {"role": "user", "content": prompt}
+    ],
+}
+r = requests.post(URL, headers=entetes,
+                  json=corps)
 sortie = r.json()["choices"][0]["message"]
 texte = sortie["content"]</div>
-      <p style="font-size:.93rem;margin:12px 0 0"><code>requests</code> est la bibliothèque qui interroge n'importe quelle API. Rien ici n'est propre à l'IA : une adresse, une clé, un message, une réponse.</p>
+      <p style="font-size:.93rem;margin:12px 0 0"><code>requests</code> est la bibliothèque qui interroge n'importe quelle API. Rien ici n'est propre à l'IA : une adresse (<code>URL</code> pointe le serveur <code>api.openai.com</code> et le chemin <code>/v1/chat/completions</code>), une clé, un message, une réponse.</p>
     </div>
     <div class="card">
       <div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l7-7"/><path d="M14 4l6 6-3 3-6-6z"/><path d="M10 10l-2 2 4 4 2-2"/></svg></div><h4>Avec le SDK : la même chose, en plus court</h4></div>
@@ -212,7 +213,8 @@ client = OpenAI()
 r = client.chat.completions.create(
     model="gpt-4o-mini",
     messages=[
-        {"role": "user", "content": prompt}
+        {"role": "user",
+         "content": prompt}
     ],
 )
 texte = r.choices[0].message.content</div>
@@ -226,7 +228,7 @@ texte = r.choices[0].message.content</div>
   </div>
 
   <h3 style="margin:34px 0 6px">2.2 Le deuxième geste : imposer la forme de la réponse</h3>
-  <p>Demandez un résumé, le modèle répond en prose. Une prose, un humain la lit ; un programme, non. On lui impose donc de répondre en <strong>JSON</strong>, en décrivant les champs attendus. Le modèle devient alors un composant logiciel : un montant qui est un nombre, une date qui est une date, une famille prise dans une liste fermée. C'est la ligne la plus importante de toute la chaîne, et c'est une phrase dans le prompt plus un paramètre dans l'appel.</p>
+  <p>Demandez un résumé, le modèle répond en prose. Une prose, un humain la lit ; un programme, non. On lui impose donc de répondre en <strong>JSON</strong>, en décrivant les champs attendus. Le modèle devient alors un composant logiciel : un montant qui est un nombre, une date qui est une date, une famille prise dans une liste fermée. C'est la ligne la plus importante de toute la chaîne, et c'est une phrase dans le prompt plus un paramètre dans l'appel. Sur un document, le même appel fait d'un coup ce qui demandait avant un OCR pour sortir le texte, puis un analyseur pour retrouver les champs.</p>
 
   <div class="prompt reveal">messages=[
     {"role": "system", "content": "Tu réponds uniquement en JSON, avec les clés famille, urgence, confiance. famille est l'une de : resiliation, sinistre, attestation, tarif, autre."},
@@ -234,7 +236,7 @@ texte = r.choices[0].message.content</div>
 ],
 response_format={"type": "json_object"},</div>
 
-  <p style="margin-top:18px">Le même geste, sur cinq demandes très différentes. Regardez ce qui change : le prompt et les champs. Rien d'autre.</p>
+  <p style="margin-top:18px">Le même geste, sur des demandes très différentes. Regardez ce qui change : le prompt et les champs. Rien d'autre.</p>
 
   <div class="grid grid-2 reveal">
     <div class="card">
@@ -263,6 +265,16 @@ response_format={"type": "json_object"},</div>
       <p style="font-size:.93rem;margin:12px 0 0">Il décrit et il gradue, il ne chiffre pas la réparation. Le champ <code>doute</code> est celui qui compte : il dit quand rappeler un expert.</p>
     </div>
     <div class="card">
+      <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></div><h4>Extraire les chiffres d'une facture</h4></div>
+      <div class="prompt code">{"siret": "81234567800019",
+ "total_ht": 1250.00,
+ "tva": 250.00,
+ "total_ttc": 1500.00,
+ "lignes": 7,
+ "date": "2026-02-28"}</div>
+      <p style="font-size:.93rem;margin:12px 0 0">Le PDF ou la photo entre, les champs sortent. Le code vérifie ensuite que le total colle aux lignes : c'est lui qui calcule, pas le modèle.</p>
+    </div>
+    <div class="card">
       <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg></div><h4>Comparer deux versions de garanties</h4></div>
       <div class="prompt code">{"changements": [
    {"ligne": "Bris de glace",
@@ -271,21 +283,20 @@ response_format={"type": "json_object"},</div>
  ]}</div>
       <p style="font-size:.93rem;margin:12px 0 0">Une liste, pas un paragraphe. Elle se compte, se trie, se rejoue sur cent avenants, et deux exécutions se comparent entre elles.</p>
     </div>
-  </div>
 
-  <div class="grid grid-2 reveal" style="margin-top:18px">
     <div class="card">
       <div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/></svg></div><h4>Trier un avis client</h4></div>
       <div class="prompt code">{"ton": "mecontent",
  "motif": "delai_de_reglement",
- "citation": "j'attends depuis six semaines"}</div>
+ "citation":
+   "j'attends depuis six semaines"}</div>
       <p style="font-size:.93rem;margin:12px 0 0">La citation oblige le modèle à s'appuyer sur le texte reçu, et elle donne au gestionnaire de quoi vérifier en une seconde.</p>
     </div>
-    <div class="card">
-      <div class="h-ico"><div class="ico crimson"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h4>Le garde-fou, deux lignes de code</h4></div>
-      <p style="font-size:.93rem">Un format imposé n'est pas une garantie. Le programme relit avant d'enregistrer : le champ est là ou il n'est pas, la famille est dans la liste ou elle n'y est pas, la date se convertit ou non.</p>
-      <p style="font-size:.93rem;margin:0">Ce qui ne passe pas ne part pas en base, il part à l'humain. Deux lignes de vérification valent mieux qu'un prompt trois fois plus long.</p>
-    </div>
+  </div>
+
+  <div class="callout reveal">
+    <span class="label">Le garde-fou, deux lignes de code</span>
+    <p>Un format imposé n'est pas une garantie. Le programme relit avant d'enregistrer : le champ est là ou il n'est pas, la famille est dans la liste ou elle n'y est pas, la date se convertit ou non, le total colle aux lignes ou non. Ce qui ne passe pas ne part pas en base, il part à l'humain. Deux lignes de vérification valent mieux qu'un prompt trois fois plus long.</p>
   </div>
 
   <h3 style="margin:34px 0 6px">2.3 Ce qui existe aussi, et pourquoi le module n'en parle pas</h3>
@@ -337,7 +348,7 @@ response_format={"type": "json_object"},</div>
   </div>
 
   <h3 style="margin:34px 0 6px">3.3 Ce que ça ne gère pas, et qu'un modèle plus gros ne répare pas</h3>
-  <p>Chacun de ces quatre cas est la règle, pas l'exception, sur un corpus d'entreprise. Ils sont reproductibles, et le classement obtenu ne dépend pas du budget qu'on met dans le modèle.</p>
+  <p>Chacun de ces cas est la règle, pas l'exception, sur un corpus d'entreprise. Ils sont reproductibles, et le classement obtenu ne dépend pas du budget qu'on met dans le modèle.</p>
   <div class="grid grid-2 reveal">
     <div class="card">
       <div class="h-ico"><div class="ico crimson"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18"/></svg></div><h4>Votre vocabulaire maison</h4></div>
@@ -360,7 +371,7 @@ response_format={"type": "json_object"},</div>
   <h3 style="margin:34px 0 6px">3.4 Pourquoi un modèle plus gros ne répare rien</h3>
   <div class="callout reveal" style="margin-top:0">
     <span class="label">Ce n'est pas un problème de modèle</span>
-    <p>Ces quatre échecs ont été mesurés sur quatre générations d'embeddings, du plus ancien au plus récent. Les marges s'améliorent, le classement ne change pas : la bonne réponse reste derrière. Un modèle plus gros ne répare rien, parce que le sens qui manque n'est écrit nulle part en dehors de chez vous, et parce qu'une négation ou un seuil ne sont pas des questions de vocabulaire. La parade est ailleurs, et elle est architecturale : le dictionnaire de l'expert qui connaît les mots de la maison, et une étape qui lit la question avant de chercher, pour en sortir le seuil, l'exclusion, la date. C'est tout l'objet de la section 6.</p>
+    <p>Ces échecs ont été mesurés sur quatre générations d'embeddings, du plus ancien au plus récent. Les marges s'améliorent, le classement ne change pas : la bonne réponse reste derrière. Un modèle plus gros ne répare rien, parce que le sens qui manque n'est écrit nulle part en dehors de chez vous, et parce qu'une négation ou un seuil ne sont pas des questions de vocabulaire. La parade est ailleurs, et elle est architecturale : le dictionnaire de l'expert qui connaît les mots de la maison, et une étape qui lit la question avant de chercher, pour en sortir le seuil, l'exclusion, la date. C'est tout l'objet de la section 6.</p>
   </div>
 
   <div class="callout assurance reveal">
@@ -839,12 +850,12 @@ response_format={"type": "json_object"},</div>
     <div class="demo-head"><span><b>Deux versions d'un tableau de garanties</b> · le diff sans IA, celui qu'on fait avant d'appeler un modèle</span><a href="demos/table-diff-fr.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
     <div class="demo-steps">
       <figure>
-        <a href="demos/table-diff-fr.html" target="_blank" rel="noopener"><img src="assets/demo_table_diff_fr_1.png" width="1640" height="1120" alt="Deux versions d'un tableau, et le compte des changements" loading="lazy"></a>
-        <figcaption><b>1</b> Deux versions d'un tableau, et le compte des changements</figcaption>
+        <a href="demos/table-diff-fr.html" target="_blank" rel="noopener"><img src="assets/demo_table_diff_fr_1.png" width="1640" height="1120" alt="Deux versions modifiables, et ce qui a vraiment bougé : quatre changements" loading="lazy"></a>
+        <figcaption><b>1</b> Deux versions modifiables, et ce qui a vraiment bougé : quatre changements</figcaption>
       </figure>
       <figure>
-        <a href="demos/table-diff-fr.html" target="_blank" rel="noopener"><img src="assets/demo_table_diff_fr_2.png" width="1640" height="1120" alt="Ligne par ligne, ce qui a bougé" loading="lazy"></a>
-        <figcaption><b>2</b> Ligne par ligne, ce qui a bougé</figcaption>
+        <a href="demos/table-diff-fr.html" target="_blank" rel="noopener"><img src="assets/demo_table_diff_fr_2.png" width="1640" height="1120" alt="Aligné sur la position après un mélange des lignes : cinq faux changements, la fosse du diff naïf" loading="lazy"></a>
+        <figcaption><b>2</b> Aligné sur la position après un mélange des lignes : cinq faux changements, la fosse du diff naïf</figcaption>
       </figure>
     </div>
     <a class="demo-cta" href="demos/table-diff-fr.html" target="_blank" rel="noopener">Ouvrir la démonstration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -1101,20 +1112,20 @@ response_format={"type": "json_object"},</div>
   </div>
 
   <div class="demo-embed demo-shot reveal">
-    <div class="demo-head"><span><b>L'agent au travail sur un vrai contrat</b> · il cherche, il lit, il cite, étape par étape</span><a href="demos/mrh-agentic.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
+    <div class="demo-head"><span><b>L'agent au travail sur un contrat</b> · il cherche, il lit, il cite, et chaque citation se vérifie</span><a href="demos/mrh-agentic.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
     <div class="demo-steps">
       <figure>
-        <a href="demos/mrh-agentic.html" target="_blank" rel="noopener"><img src="assets/demo_mrh_agentic_1.png" width="1640" height="1120" alt="La boucle d'agent, pas à pas" loading="lazy"></a>
-        <figcaption><b>1</b> La boucle d'agent, pas à pas</figcaption>
+        <a href="demos/mrh-agentic.html" target="_blank" rel="noopener"><img src="assets/demo_mrh_agentic_1.png" width="1640" height="1120" alt="La boucle déroulée : chaque appel d'outil tourne pour de vrai sur les huit pages" loading="lazy"></a>
+        <figcaption><b>1</b> La boucle déroulée : chaque appel d'outil tourne pour de vrai sur les huit pages</figcaption>
       </figure>
       <figure>
-        <a href="demos/mrh-agentic.html" target="_blank" rel="noopener"><img src="assets/demo_mrh_agentic_2.png" width="1640" height="1120" alt="La réponse, avec ses citations" loading="lazy"></a>
-        <figcaption><b>2</b> La réponse, avec ses citations</figcaption>
+        <a href="demos/mrh-agentic.html" target="_blank" rel="noopener"><img src="assets/demo_mrh_agentic_2.png" width="1640" height="1120" alt="La réponse et ses citations, chacune retrouvée mot pour mot dans le contrat" loading="lazy"></a>
+        <figcaption><b>2</b> La réponse et ses citations, chacune retrouvée mot pour mot dans le contrat</figcaption>
       </figure>
     </div>
     <a class="demo-cta" href="demos/mrh-agentic.html" target="_blank" rel="noopener">Ouvrir la démonstration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     <div class="print-note">
-      <p style="margin:0">La démonstration déroule le raisonnement de l'agent sur un contrat multirisque habitation réel : la question, les passages qu'il retient, ceux qu'il écarte, et la réponse avec ses sources. À voir sur le site.</p>
+      <p style="margin:0">La démonstration déroule la boucle de l'agent sur un contrat habitation fictif de huit pages : à chaque tour, ce qu'il décide de chercher, ce que l'outil lui rend vraiment, puis la réponse avec ses citations, chacune retrouvée mot pour mot dans le contrat. Modifiez une citation, la vérification la rejette. À voir sur le site.</p>
     </div>
   </div>
 
@@ -1197,15 +1208,15 @@ response_format={"type": "json_object"},</div>
   </div>
 
   <div class="demo-embed demo-shot reveal">
-    <div class="demo-head"><span><b>Une question en français, une requête SQL</b> · la question, le SQL produit, le résultat</span><a href="demos/claims-sql-agent.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
+    <div class="demo-head"><span><b>Une question en français, une requête SQL</b> · la question se compose, le SQL se relit, le garde-fou filtre</span><a href="demos/claims-sql-agent.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
     <div class="demo-steps">
       <figure>
-        <a href="demos/claims-sql-agent.html" target="_blank" rel="noopener"><img src="assets/demo_claims_sql_agent_1.png" width="1640" height="1120" alt="La question, posée en français" loading="lazy"></a>
-        <figcaption><b>1</b> La question, posée en français</figcaption>
+        <a href="demos/claims-sql-agent.html" target="_blank" rel="noopener"><img src="assets/demo_claims_sql_agent_1.png" width="1640" height="1120" alt="La question se compose avec des menus, le SQL et le résultat se refont" loading="lazy"></a>
+        <figcaption><b>1</b> La question se compose avec des menus, le SQL et le résultat se refont</figcaption>
       </figure>
       <figure>
-        <a href="demos/claims-sql-agent.html" target="_blank" rel="noopener"><img src="assets/demo_claims_sql_agent_2.png" width="1640" height="1120" alt="La requête produite, puis le résultat" loading="lazy"></a>
-        <figcaption><b>2</b> La requête produite, puis le résultat</figcaption>
+        <a href="demos/claims-sql-agent.html" target="_blank" rel="noopener"><img src="assets/demo_claims_sql_agent_2.png" width="1640" height="1120" alt="La question piège « combien de clients actifs ? » : quatre définitions, quatre chiffres justes" loading="lazy"></a>
+        <figcaption><b>2</b> La question piège « combien de clients actifs ? » : quatre définitions, quatre chiffres justes</figcaption>
       </figure>
     </div>
     <a class="demo-cta" href="demos/claims-sql-agent.html" target="_blank" rel="noopener">Ouvrir la démonstration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>

@@ -1,160 +1,322 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agent SQL sinistres — interroger une base de sinistres en langage naturel (question → SQL → réponse)</title>
-<meta name="description" content="Un agent SQL qui traduit des questions en langage naturel vers du SQL sur un portefeuille fictif de 600 sinistres : question → SQL généré → tableau résultat → réponse. Réponses figées d'un vrai run, aucun serveur, aucun appel réseau.">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interroger ses données : une question en français, une requête SQL, un résultat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --amber:#b45309; --amber-bg:#fff8e6; --amber-br:#fde68a;
-    --blue:#1d4ed8;  --blue-bg:#eef4ff;  --blue-br:#bfdbfe;
-    --emerald:#047857; --emerald-bg:#ecfdf5; --emerald-br:#a7f3d0;
-    --slate:#334155; --slate-400:#94a3b8; --line:#e2e8f0;
+    --navy:#13264A; --crimson:#BA1C3A; --steel:#3B547D; --teal:#1F6F6B; --amber:#92661D;
+    --sand:#E9E4E1; --sand-l:#F7F4F2; --line:#dcd8d4; --ink:#1f2733; --soft:#4a5567; --muted:#78828f;
+    --display:"Manrope","Segoe UI",sans-serif; --sans:"Inter","Segoe UI",Arial,sans-serif;
+    --mono:"JetBrains Mono",Consolas,monospace;
   }
   *{box-sizing:border-box}
-  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-       color:var(--slate); margin:0; background:#f8fafc; line-height:1.5;}
-  .wrap{max-width:880px; margin:0 auto; padding:32px 20px 80px;}
-  h1{font-size:1.6rem; margin:0 0 4px;}
-  .sub{color:var(--slate-400); margin:0 0 24px; font-size:.95rem;}
-  .banner{background:var(--amber-bg); border:1px solid var(--amber-br);
-          color:var(--amber); padding:10px 14px; border-radius:8px;
-          font-size:.85rem; margin-bottom:24px;}
-  .q{width:100%; text-align:left; cursor:pointer; background:#fff;
-     border:1px solid var(--line); border-radius:10px; padding:14px 16px;
-     margin:10px 0 0; font-size:1rem; color:var(--slate); font-weight:600;
-     display:flex; justify-content:space-between; align-items:center;
-     transition:border-color .15s;}
-  .q:hover{border-color:var(--blue-br);}
-  .q .chev{color:var(--slate-400); font-weight:400; transition:transform .2s;}
-  .q.open .chev{transform:rotate(90deg);}
-  .a{display:none; border:1px solid var(--line); border-top:none;
-     border-radius:0 0 10px 10px; margin:-1px 0 0; padding:0 16px 16px; background:#fff;}
-  .a.open{display:block;}
-  .lbl{font-size:.72rem; text-transform:uppercase; letter-spacing:.04em;
-       color:var(--slate-400); margin:16px 0 6px;}
-  pre{background:#0f172a; color:#e2e8f0; padding:12px 14px; border-radius:8px;
-      overflow-x:auto; font-size:.82rem; margin:0;
-      font-family:"SF Mono",Consolas,Monaco,monospace;}
-  .kw{color:#7dd3fc;} .fn{color:#fca5a5;} .st{color:#86efac;}
-  table{border-collapse:collapse; width:100%; font-size:.88rem; margin:0;}
-  th,td{border:1px solid var(--line); padding:6px 10px; text-align:left;}
-  th{background:var(--blue-bg); color:var(--blue); font-weight:600;}
-  td.num{text-align:right; font-variant-numeric:tabular-nums;}
-  .ans{background:var(--emerald-bg); border:1px solid var(--emerald-br);
-       color:#064e3b; padding:10px 14px; border-radius:8px; margin-top:14px; font-size:.92rem;}
-  .foot{margin-top:40px; font-size:.82rem; color:var(--slate-400); border-top:1px solid var(--line); padding-top:16px;}
-  code{background:#eef2f7; padding:1px 5px; border-radius:4px; font-size:.85em;}
+  html,body{margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:var(--sand-l);padding:14px 14px 26px;font-size:14.5px}
+  .wrap{max-width:1080px;margin:0 auto}
+
+  .top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--navy);color:#fff;
+       border-radius:12px;padding:11px 16px;margin-bottom:12px}
+  .top .logo{width:30px;height:30px;border-radius:8px;background:var(--crimson);color:#fff;display:grid;
+             place-items:center;font-family:var(--display);font-weight:800;font-size:.95rem;flex:none}
+  .top .qui{display:flex;align-items:center;gap:10px}
+  .top b{font-family:var(--display);font-size:.98rem;display:block;line-height:1.15}
+  .top .qui span{font-size:.76rem;color:#a9b7cc}
+  .legende{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-left:auto;font-size:.76rem;color:#c6d1e2}
+  .tag{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:700;border-radius:999px;
+       padding:2px 9px;white-space:nowrap}
+  .tag.ia{background:#fbeef1;color:var(--crimson)}
+  .tag.regle{background:#e8f3f2;color:var(--teal)}
+  .tag.humain{background:#fdf3e2;color:var(--amber)}
+
+  .grille{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+  @media(max-width:760px){.grille{grid-template-columns:1fr}}
+  .col{display:grid;gap:12px;align-content:start}
+  .carte{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+         box-shadow:0 1px 2px rgba(19,38,74,.05),0 6px 18px rgba(19,38,74,.045)}
+  .carte h2{font-family:var(--display);font-size:.95rem;margin:0 0 3px;color:var(--navy);
+            display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .carte .sub{margin:0 0 11px;font-size:.79rem;color:var(--muted);line-height:1.45}
+
+  /* la question se compose : chaque select est un mot de la phrase */
+  .phrase{font-size:1.02rem;line-height:2.1;color:var(--navy)}
+  .phrase select{font:inherit;font-size:.9rem;font-weight:600;color:var(--navy);background:#fff;border:1px solid var(--line);
+                 border-radius:8px;padding:4px 8px;margin:0 2px;cursor:pointer}
+  .phrase select:focus{outline:none;border-color:var(--steel);box-shadow:0 0 0 3px rgba(59,84,125,.12)}
+  .question{margin-top:10px;font-size:.92rem;background:var(--sand-l);border-left:3px solid var(--crimson);border-radius:9px;padding:9px 12px;color:var(--ink)}
+  .question b{color:var(--crimson);font-family:var(--display);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:2px}
+
+  pre{margin:0;background:var(--navy);color:#e6ecf6;border-radius:9px;padding:11px 13px;font-family:var(--mono);
+      font-size:.8rem;line-height:1.55;white-space:pre-wrap;word-break:break-word}
+  .kw{color:#8ec9c4} .fn{color:#ffb3c0} .st{color:#f7e3bd}
+
+  .garde{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:5px}
+  .garde li{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start;font-size:.8rem;color:var(--soft);line-height:1.4}
+  .garde .p{width:9px;height:9px;border-radius:50%;margin-top:5px;background:var(--teal)}
+  .garde li.ko .p{background:var(--crimson)}
+  .garde li.ko{color:var(--crimson)}
+  .garde b{color:var(--navy);font-weight:600}
+
+  table{width:100%;border-collapse:collapse;font-size:.83rem}
+  thead th{background:var(--sand-l);color:var(--muted);text-align:left;padding:6px 8px;font-family:var(--display);
+           font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--line)}
+  tbody td{padding:5px 8px;border-bottom:1px solid var(--line)}
+  tbody tr:last-child td{border-bottom:none}
+  td.num{text-align:right;font-family:var(--mono);font-size:.8rem;white-space:nowrap;color:var(--navy)}
+  .barre{display:inline-block;height:6px;border-radius:3px;background:var(--steel);vertical-align:middle;margin-right:6px;opacity:.7}
+
+  .reponse{margin-top:10px;font-size:.88rem;line-height:1.55;background:#e8f3f2;border-radius:9px;padding:10px 12px;color:var(--ink)}
+  .reponse b{color:var(--teal)}
+
+  /* la question piege : la definition change, le chiffre change */
+  .piege{background:#fdf3e2;border-radius:9px;padding:11px 13px}
+  .piege .q{font-size:.95rem;font-weight:600;color:var(--navy);margin-bottom:8px}
+  .piege select{font:inherit;font-size:.85rem;border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff;width:100%}
+  .piege .chiffre{font-family:var(--display);font-size:2rem;font-weight:800;color:var(--amber);line-height:1.1;margin:10px 0 2px}
+  .piege .sous{font-size:.78rem;color:var(--soft);line-height:1.45}
+
+  textarea{width:100%;min-height:74px;font-family:var(--mono);font-size:.8rem;border:1px solid var(--line);border-radius:9px;padding:9px 11px;background:#fff;color:var(--ink);resize:vertical}
+  textarea:focus{outline:none;border-color:var(--steel);box-shadow:0 0 0 3px rgba(59,84,125,.12)}
+  .btn{font:inherit;font-size:.8rem;font-weight:600;background:var(--navy);color:#fff;border:1px solid var(--navy);border-radius:999px;padding:6px 14px;cursor:pointer;margin-top:8px}
+  .btn:hover{background:var(--steel);border-color:var(--steel)}
+  .verdict{margin-top:8px;font-size:.82rem;border-radius:9px;padding:9px 11px;line-height:1.45}
+  .verdict.ok{background:#e8f3f2;color:var(--teal)} .verdict.ko{background:#fbeef1;color:var(--crimson)}
+  .verdict b{display:block;font-family:var(--display);font-size:.84rem}
+
+  .note{font-size:.76rem;color:var(--muted);line-height:1.55;margin:14px 0 0}
+  .note b{color:var(--soft)}
 </style>
 </head>
 <body>
-<div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="https://doc-intel.github.io/fr/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="https://doc-intel.github.io/fr/cas/" style="color:#cbd5e1;text-decoration:none">Études de cas</a><a href="https://doc-intel.github.io/fr/cas/claims-sql-agent.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Retour au cas</a></div>
 <div class="wrap">
-  <h1>Agent SQL sinistres</h1>
-  <p class="sub">Interroger une base de sinistres propre en langage naturel. Question → SQL → tableau → réponse.</p>
 
-  <div class="banner">
-    Démo <strong>statique</strong> : les réponses ci-dessous sont figées (exécutées une fois sur le portefeuille
-    fictif de 600 sinistres). Aucun serveur, aucun appel réseau. Pour l'interactif temps réel, lancez l'app Streamlit
-    dans <code>../app/</code>. Cliquez une question pour dérouler.
+  <header class="top">
+    <div class="qui">
+      <span class="logo">?</span>
+      <div><b>Interroger ses données</b><span>600 sinistres fictifs, un portefeuille de courtage</span></div>
+    </div>
+    <div class="legende">
+      <span class="tag ia">IA</span> traduit la question
+      <span class="tag regle">Règle</span> vérifie et exécute
+      <span class="tag humain">Humain</span> relit le SQL
+    </div>
+  </header>
+
+  <div class="grille">
+
+    <div class="col">
+      <div class="carte">
+        <h2>La question <span class="tag ia">IA</span></h2>
+        <p class="sub">Composez-la : chaque mot change la requête et le résultat, tout de suite.</p>
+        <div class="phrase">
+          <select id="mesure">
+            <option value="total">Montant total payé</option>
+            <option value="nombre">Nombre de sinistres</option>
+            <option value="moyen">Montant moyen payé</option>
+            <option value="refus">Part des sinistres refusés</option>
+          </select>
+          par
+          <select id="dim">
+            <option value="assureur">assureur</option>
+            <option value="region">région</option>
+            <option value="garantie">garantie</option>
+            <option value="annee">année</option>
+          </select>
+          ,
+          <select id="filtre">
+            <option value="tous">tous les dossiers</option>
+            <option value="2025">en 2025</option>
+            <option value="dde">dégât des eaux seulement</option>
+            <option value="regles">dossiers réglés seulement</option>
+          </select>
+          ,
+          <select id="tri">
+            <option value="desc">du plus élevé au plus faible</option>
+            <option value="alpha">par ordre alphabétique</option>
+          </select>
+        </div>
+        <div class="question"><b>Telle qu'elle est posée</b><span id="question"></span></div>
+      </div>
+
+      <div class="carte">
+        <h2>Le SQL produit <span class="tag ia">IA</span> <span class="tag regle">Règle</span></h2>
+        <p class="sub">La traduction est le travail du modèle. Ce qu'il produit passe au garde-fou avant de toucher la base.</p>
+        <pre id="sql"></pre>
+        <ul class="garde" id="garde"></ul>
+      </div>
+
+      <div class="carte">
+        <h2>Essayez de passer le garde-fou <span class="tag regle">Règle</span></h2>
+        <p class="sub">Écrivez une requête, n'importe laquelle. Le garde-fou ne connaît pas votre intention, seulement la forme.</p>
+        <textarea id="libre" spellcheck="false">DELETE FROM sinistres WHERE statut = 'Refusé'</textarea>
+        <button class="btn" id="verifier">Vérifier</button>
+        <div class="verdict" id="verdict-libre" hidden></div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="carte">
+        <h2>Le résultat <span class="tag regle">Règle</span></h2>
+        <p class="sub">Calculé ici même, sur les 600 lignes. La phrase en bas est écrite à partir du tableau, jamais l'inverse.</p>
+        <table><thead id="thead"></thead><tbody id="tbody"></tbody></table>
+        <div class="reponse" id="reponse"></div>
+      </div>
+
+      <div class="carte">
+        <h2>La question piège <span class="tag humain">Humain</span></h2>
+        <p class="sub">Une question naturelle, sans définition. L'assistant en choisit une sans vous le dire, et répond avec assurance.</p>
+        <div class="piege">
+          <div class="q">« Combien de clients actifs ? »</div>
+          <select id="definition">
+            <option value="2025">actif = au moins un sinistre déclaré en 2025</option>
+            <option value="encours">actif = au moins un dossier encore en cours</option>
+            <option value="regle">actif = au moins un dossier réglé, toutes années</option>
+            <option value="tous">actif = présent dans la base, même refusé</option>
+          </select>
+          <div class="chiffre" id="actifs">…</div>
+          <div class="sous" id="actifs-sous"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <div id="feed"></div>
-
-  <div class="foot">
-    Base fictive : 600 sinistres, 5 assureurs, 8 régions, 5 garanties, 3 devises.
-    Chaque requête générée est validée en lecture seule (SELECT uniquement, une seule instruction, LIMIT imposé).
-  </div>
+  <p class="note"><b>Base fictive générée dans la page, aucun appel à un modèle, aucun serveur.</b>
+  Ici la question se compose avec des menus et la traduction en SQL est faite par des règles : c'est ce qu'un modèle produit quand la question est tapée librement. Ce qui ne change pas avec un modèle, c'est le reste : le garde-fou (lecture seule, une seule instruction, un plafond de lignes), l'exécution par la base elle-même, et le SQL qu'on relit avant de croire le chiffre.</p>
 </div>
 
 <script>
-const EXAMPLES = [
-  {
-    q: "Montant total payé par assureur, du plus élevé au plus faible",
-    sql: "SELECT insurer, SUM(payment_amount) AS montant_total\nFROM claims\nGROUP BY insurer\nORDER BY montant_total DESC",
-    cols: ["insurer", "montant_total"],
-    rows: [
-      ["AssurCrédit", "5 776 828"], ["MutuelleAlpine", "5 161 443"],
-      ["CréditProtect", "5 082 539"], ["BâloiseVie", "4 977 076"],
-      ["NordAssur", "4 883 327"]
-    ],
-    num: [1],
-    ans: "AssurCrédit affiche le montant total payé le plus élevé (≈ 5,78 M), devant MutuelleAlpine (≈ 5,16 M) et CréditProtect (≈ 5,08 M)."
-  },
-  {
-    q: "Combien de sinistres covid ont été refusés ?",
-    sql: "SELECT COUNT(*) AS nombre\nFROM claims\nWHERE status = 'Refused' AND covid_flag = 'covid'",
-    cols: ["nombre"], rows: [["15"]], num: [0],
-    ans: "15 sinistres marqués covid ont été refusés."
-  },
-  {
-    q: "Nombre de décès (Death Any Cause) par an, selon la date de survenance",
-    sql: "SELECT strftime('%Y', loss_date) AS annee, COUNT(*) AS nombre_deces\nFROM claims\nWHERE loss_type = 'Death Any Cause'\nGROUP BY annee",
-    cols: ["annee", "nombre_deces"],
-    rows: [["2021", "154"], ["2022", "117"], ["2023", "60"]], num: [1],
-    ans: "En 2021, il y a eu 154 décès, 117 en 2022 et 60 en 2023."
-  },
-  {
-    q: "Top 3 des régions par montant total payé en 2022",
-    sql: "SELECT region, SUM(payment_amount) AS total_paid\nFROM claims\nWHERE strftime('%Y', notification_date) = '2022'\nGROUP BY region\nORDER BY total_paid DESC\nLIMIT 3",
-    cols: ["region", "total_paid"],
-    rows: [["Grand Est", "1 703 468"], ["Île-de-France", "1 670 403"], ["Hauts-de-France", "1 663 477"]],
-    num: [1],
-    ans: "En 2022, les trois régions au montant total payé le plus élevé sont le Grand Est (≈ 1,70 M), l'Île-de-France (≈ 1,67 M) et les Hauts-de-France (≈ 1,66 M)."
-  },
-  {
-    q: "Part des sinistres covid par assureur",
-    sql: "SELECT insurer, 100.0 * SUM(covid_flag = 'covid') / COUNT(*) AS part_covid_pct\nFROM claims\nGROUP BY insurer",
-    cols: ["insurer", "part_covid_pct"],
-    rows: [["AssurCrédit", "21,4 %"], ["BâloiseVie", "29,5 %"], ["CréditProtect", "28,0 %"],
-           ["MutuelleAlpine", "23,3 %"], ["NordAssur", "27,1 %"]],
-    num: [1],
-    ans: "La part de sinistres covid va de 21,4 % (AssurCrédit) à 29,5 % (BâloiseVie)."
+  // ------------------------------------------------------------------
+  // La base : 600 sinistres fictifs, toujours les memes (graine fixe), pour
+  // que les chiffres de la page soient les memes a chaque ouverture.
+  // ------------------------------------------------------------------
+  function alea(graine){ return () => { graine |= 0; graine = graine + 0x6D2B79F5 | 0; let t = Math.imul(graine ^ graine >>> 15, 1 | graine); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const r = alea(20260909);
+  const ASSUREURS = ["Assur Nord", "Mutuelle des Vallées", "Garantie Atlantique", "Prévoyance du Centre", "Union Bocage"];
+  const REGIONS = ["Île-de-France", "Grand Est", "Hauts-de-France", "Nouvelle-Aquitaine", "Occitanie", "Auvergne-Rhône-Alpes", "Bretagne", "Normandie"];
+  const GARANTIES = [["Dégât des eaux", 2600], ["Incendie", 9800], ["Vol", 1900], ["Bris de glace", 420], ["Catastrophe naturelle", 7400]];
+  const pick = a => a[Math.floor(r() * a.length)];
+  const BASE = [];
+  for (let i = 0; i < 600; i++) {
+    const g = pick(GARANTIES);
+    const u = r();
+    const statut = u < 0.68 ? "Réglé" : u < 0.84 ? "Refusé" : "En cours";
+    const annee = pick([2023, 2024, 2025]);
+    // un montant a longue traine : beaucoup de petits, quelques gros
+    const montant = statut === "Réglé" ? Math.round(g[1] * Math.exp((r() + r() + r() - 1.5) * 1.1)) : 0;
+    BASE.push({id:"S" + String(1000 + i), client:"C" + String(100 + Math.floor(r() * 340)), assureur:pick(ASSUREURS),
+               region:pick(REGIONS), garantie:g[0], annee, statut, montant});
   }
-];
 
-function highlightSql(sql){
-  return sql
-    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
-    .replace(/\b(SELECT|FROM|WHERE|GROUP BY|ORDER BY|LIMIT|AND|OR|AS|DESC|ASC)\b/g,'<span class="kw">$1</span>')
-    .replace(/\b(SUM|COUNT|AVG|strftime)\b/g,'<span class="fn">$1</span>')
-    .replace(/('[^']*')/g,'<span class="st">$1</span>');
-}
+  // ------------------------------------------------------------------
+  // La traduction : chaque choix de menu est un morceau de SQL. Avec un
+  // modele, c'est lui qui ecrit ces morceaux a partir d'une phrase libre.
+  // ------------------------------------------------------------------
+  const MESURES = {
+    total:  {sql:"SUM(montant) AS montant_total",                          phrase:"le montant total payé", unite:"€", champ:"montant_total"},
+    nombre: {sql:"COUNT(*) AS nombre",                                     phrase:"le nombre de sinistres", unite:"", champ:"nombre"},
+    moyen:  {sql:"ROUND(AVG(montant)) AS montant_moyen",                   phrase:"le montant moyen payé", unite:"€", champ:"montant_moyen"},
+    refus:  {sql:"ROUND(100.0 * SUM(statut = 'Refusé') / COUNT(*), 1) AS part_refus_pct", phrase:"la part des sinistres refusés", unite:"%", champ:"part_refus_pct"},
+  };
+  const DIMS = {assureur:"assureur", region:"region", garantie:"garantie", annee:"annee"};
+  const FILTRES = {
+    tous:   {sql:"",                              phrase:"sur tous les dossiers",      test:() => true},
+    2025:   {sql:"WHERE annee = 2025",            phrase:"en 2025",                    test:s => s.annee === 2025},
+    dde:    {sql:"WHERE garantie = 'Dégât des eaux'", phrase:"pour les dégâts des eaux", test:s => s.garantie === "Dégât des eaux"},
+    regles: {sql:"WHERE statut = 'Réglé'",        phrase:"sur les dossiers réglés",    test:s => s.statut === "Réglé"},
+  };
+  const $ = s => document.querySelector(s);
 
-function renderTable(ex){
-  let h = "<table><thead><tr>";
-  ex.cols.forEach(c => h += `<th>${c}</th>`);
-  h += "</tr></thead><tbody>";
-  ex.rows.forEach(r => {
-    h += "<tr>";
-    r.forEach((v,i) => h += `<td class="${ex.num.includes(i)?'num':''}">${v}</td>`);
-    h += "</tr>";
+  function construire(){
+    const m = MESURES[$("#mesure").value], d = $("#dim").value, f = FILTRES[$("#filtre").value], tri = $("#tri").value;
+    const dimPhrase = {assureur:"assureur", region:"région", garantie:"garantie", annee:"année"}[d];
+    $("#question").textContent = `Quel est ${m.phrase} par ${dimPhrase}, ${f.phrase}, ${tri === "desc" ? "du plus élevé au plus faible" : "par ordre alphabétique"} ?`;
+
+    const sql = `SELECT ${DIMS[d]}, ${m.sql}\nFROM sinistres\n${f.sql ? f.sql + "\n" : ""}GROUP BY ${DIMS[d]}\nORDER BY ${tri === "desc" ? m.champ + " DESC" : DIMS[d] + " ASC"}\nLIMIT 100`;
+    $("#sql").innerHTML = colorer(sql);
+    garde(sql, $("#garde"));
+
+    // l'execution : un GROUP BY a la main, sur le tableau en memoire
+    const groupes = new Map();
+    for (const s of BASE.filter(f.test)) {
+      const k = s[d];
+      if (!groupes.has(k)) groupes.set(k, {n:0, somme:0, refus:0});
+      const g = groupes.get(k); g.n++; g.somme += s.montant; if (s.statut === "Refusé") g.refus++;
+    }
+    let lignes = [...groupes.entries()].map(([k, g]) => {
+      const v = {total:g.somme, nombre:g.n, moyen:Math.round(g.somme / g.n), refus:Math.round(1000 * g.refus / g.n) / 10}[$("#mesure").value];
+      return {k, v};
+    });
+    lignes.sort(tri === "desc" ? (a, b) => b.v - a.v : (a, b) => String(a.k).localeCompare(String(b.k), "fr"));
+
+    const max = Math.max(...lignes.map(l => l.v), 1);
+    $("#thead").innerHTML = `<tr><th>${DIMS[d]}</th><th style="text-align:right">${m.champ}</th></tr>`;
+    $("#tbody").innerHTML = lignes.map(l => `<tr><td>${l.k}</td><td class="num"><span class="barre" style="width:${Math.round(60 * l.v / max)}px"></span>${fmt(l.v, m.unite)}</td></tr>`).join("");
+
+    const t = lignes[0], q = lignes[1];
+    const nom = x => (d === "annee" ? "en " : "") + x.k;
+    const maj = s => s.charAt(0).toUpperCase() + s.slice(1);
+    $("#reponse").innerHTML = `<b>Réponse.</b> ${maj(nom(t))} ${tri === "desc" ? "arrive en tête" : "ouvre la liste"} avec ${fmt(t.v, m.unite)}` +
+      (q ? `, ${tri === "desc" ? "devant" : "puis"} ${nom(q)} (${fmt(q.v, m.unite)})` : "") +
+      `. ${lignes.length} lignes, ${BASE.filter(f.test).length} sinistres lus. <span style="color:var(--muted)">Le chiffre à vérifier n'est pas dans cette phrase, il est dans le SQL au-dessus.</span>`;
+  }
+  const fmt = (v, u) => u === "%" ? v.toLocaleString("fr-FR") + " %" : v.toLocaleString("fr-FR") + (u ? " " + u : "");
+
+  function colorer(sql){
+    return sql.replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/\b(SELECT|FROM|WHERE|GROUP BY|ORDER BY|LIMIT|AND|OR|AS|DESC|ASC|DELETE|UPDATE|DROP|INSERT|SET)\b/g, '<span class="kw">$1</span>')
+      .replace(/\b(SUM|COUNT|AVG|ROUND)\b/g, '<span class="fn">$1</span>')
+      .replace(/('[^']*')/g, '<span class="st">$1</span>');
+  }
+
+  // ------------------------------------------------------------------
+  // Le garde-fou : trois regles de forme, sans rien comprendre a la question.
+  // Lecture seule, une seule instruction, un plafond de lignes. Un modele
+  // peut se tromper ou se faire manipuler ; le garde-fou, lui, ne lit pas la
+  // question, seulement la requete.
+  // ------------------------------------------------------------------
+  function garde(sql, cible){
+    const s = sql.trim().replace(/;\s*$/, "");
+    const regles = [
+      {nom:"Lecture seule",       ok:/^\s*SELECT\b/i.test(s) && !/\b(DELETE|UPDATE|DROP|INSERT|ALTER|TRUNCATE|CREATE|GRANT)\b/i.test(s),
+       oui:"la requête commence par SELECT et ne contient aucun verbe qui écrit", non:"un verbe qui écrit ou détruit : refusé, quoi que dise la question"},
+      {nom:"Une seule instruction", ok:!/;/.test(s),
+       oui:"aucun point-virgule, donc rien d'enchaîné derrière", non:"deux instructions enchaînées : la seconde est un cheval de Troie classique"},
+      {nom:"Plafond de lignes",   ok:/\bLIMIT\s+\d+\s*$/i.test(s),
+       oui:"un LIMIT termine la requête", non:"pas de LIMIT : il est ajouté d'office avant l'exécution"},
+    ];
+    if (cible) cible.innerHTML = regles.map(r => `<li class="${r.ok ? "" : "ko"}"><span class="p"></span><div><b>${r.nom}</b> · ${r.ok ? r.oui : r.non}</div></li>`).join("");
+    return regles;
+  }
+  $("#verifier").addEventListener("click", () => {
+    const v = $("#verdict-libre");
+    const regles = garde($("#libre").value, null);
+    const bloquant = regles.slice(0, 2).some(r => !r.ok);
+    v.hidden = false;
+    v.className = "verdict " + (bloquant ? "ko" : "ok");
+    v.innerHTML = (bloquant ? "<b>Refusée avant d'atteindre la base.</b>" : "<b>Acceptée, en lecture seule.</b>") +
+      regles.map(r => `<div>${r.ok ? "✓" : "✕"} ${r.nom} : ${r.ok ? r.oui : r.non}</div>`).join("");
   });
-  return h + "</tbody></table>";
-}
 
-const feed = document.getElementById("feed");
-EXAMPLES.forEach((ex, i) => {
-  const btn = document.createElement("button");
-  btn.className = "q";
-  btn.innerHTML = `<span>${ex.q}</span><span class="chev">▸</span>`;
-  const panel = document.createElement("div");
-  panel.className = "a";
-  panel.innerHTML =
-    `<div class="lbl">Requête SQL générée</div><pre>${highlightSql(ex.sql)}</pre>` +
-    `<div class="lbl">Résultat</div>${renderTable(ex)}` +
-    `<div class="ans"><strong>Réponse.</strong> ${ex.ans}</div>`;
-  btn.addEventListener("click", () => {
-    const open = panel.classList.toggle("open");
-    btn.classList.toggle("open", open);
-  });
-  feed.appendChild(btn);
-  feed.appendChild(panel);
-});
-document.querySelector(".q").click();  // ouvre le premier par défaut
+  // ------------------------------------------------------------------
+  // La question piege : quatre definitions raisonnables de « client actif »,
+  // quatre chiffres differents, tous justes.
+  // ------------------------------------------------------------------
+  function actifs(){
+    const def = $("#definition").value;
+    const test = {2025: s => s.annee === 2025, encours: s => s.statut === "En cours", regle: s => s.statut === "Réglé", tous: () => true}[def];
+    const clients = new Set(BASE.filter(test).map(s => s.client));
+    const total = new Set(BASE.map(s => s.client)).size;
+    $("#actifs").textContent = clients.size.toLocaleString("fr-FR") + " clients";
+    $("#actifs-sous").textContent = `sur ${total} clients distincts dans la base. Changez la définition : le chiffre change du simple au triple, et chacun est juste pour sa définition. Le self-BI ne marche que si le dictionnaire des définitions existe avant la question.`;
+  }
+
+  document.querySelectorAll(".phrase select").forEach(s => s.addEventListener("change", construire));
+  $("#definition").addEventListener("change", actifs);
+  construire(); actifs();
 </script>
-<div style="background:#fff8e6;color:#7a5b08;padding:14px 20px;font:13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;text-align:center;border-top:1px solid #fde68a">Démonstration <b>statique</b> (données figées), <b>pas l'outil dynamique</b>. Pour un outil sur vos propres documents, <b>contactez-nous</b>. · <a href="https://doc-intel.github.io/fr/cas/" style="color:#1d4ed8;text-decoration:none">Études de cas</a></div>
 </body>
 </html>

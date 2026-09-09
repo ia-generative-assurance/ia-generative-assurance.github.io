@@ -1,58 +1,367 @@
-<!doctype html>
-<html lang="fr"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Forensique image — détecter une photo de reçu retouchée sans modèle, à partir de la photo elle-même</title>
-<meta name="description" content="Détection de retouche sur une photo de reçu (exemple fictif, image synthétique) : le total a été recollé, et l'analyse forensique le repère à partir de la photo elle-même, sans modèle de langage.">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Une photo de reçu retouchée : ce que lit le prototype, ce que voit la vérification</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
- :root{--ink:#0f172a;--muted:#64748b;--line:#e2e8f0}
- *{box-sizing:border-box} body{margin:0;background:#f8fafc;color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;line-height:1.6}
- .wrap{max-width:940px;margin:0 auto;padding:28px 20px 64px}
- h1{font-size:1.55rem;margin:.1em 0 .3em} h2{font-size:1.05rem;margin:30px 0 8px}
- p{margin:.5em 0} .muted{color:var(--muted)}
- .scenario{background:#fff;border:1px solid var(--line);border-left:4px solid #b45309;border-radius:12px;padding:14px 18px;font-size:15px}
- .split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:18px;margin:14px 0;align-items:start}
- @media(max-width:660px){.split{grid-template-columns:1fr}}
- .doc{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
- .doc .cap{padding:11px 14px;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted)}
- .doc img{width:100%;height:auto;display:block}
- .steps{display:grid;gap:10px;margin:8px 0}
- .step{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px}
- .step .n{flex:none;width:26px;height:26px;border-radius:50%;background:#0f172a;color:#fff;font-weight:800;font-size:13px;display:grid;place-items:center}
- .step b{font-size:14px} .step span{font-size:13.5px;color:#475569}
- .verdict{display:inline-flex;align-items:center;gap:10px;border-radius:12px;padding:12px 18px;font-weight:800;font-size:15px;border:1px solid}
- .foot{color:var(--muted);font-size:13px;margin-top:26px;border-top:1px solid var(--line);padding-top:14px}
-</style></head><body>
+  :root{
+    --navy:#13264A; --crimson:#BA1C3A; --steel:#3B547D; --teal:#1F6F6B; --amber:#92661D;
+    --sand:#E9E4E1; --sand-l:#F7F4F2; --line:#dcd8d4; --ink:#1f2733; --soft:#4a5567; --muted:#78828f;
+    --display:"Manrope","Segoe UI",sans-serif; --sans:"Inter","Segoe UI",Arial,sans-serif;
+    --mono:"JetBrains Mono",Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:var(--sand-l);padding:14px 14px 26px;font-size:14.5px}
+  .wrap{max-width:1080px;margin:0 auto}
+
+  .top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--navy);color:#fff;
+       border-radius:12px;padding:11px 16px;margin-bottom:12px}
+  .top .logo{width:30px;height:30px;border-radius:8px;background:var(--crimson);color:#fff;display:grid;
+             place-items:center;font-family:var(--display);font-weight:800;font-size:.95rem;flex:none}
+  .top .qui{display:flex;align-items:center;gap:10px}
+  .top b{font-family:var(--display);font-size:.98rem;display:block;line-height:1.15}
+  .top .qui span{font-size:.76rem;color:#a9b7cc}
+  .legende{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-left:auto;font-size:.76rem;color:#c6d1e2}
+  .tag{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:700;border-radius:999px;
+       padding:2px 9px;white-space:nowrap}
+  .tag.ia{background:#fbeef1;color:var(--crimson)}
+  .tag.regle{background:#e8f3f2;color:var(--teal)}
+  .tag.humain{background:#fdf3e2;color:var(--amber)}
+
+  .grille{display:grid;grid-template-columns:1fr 1.1fr;gap:12px;align-items:start}
+  @media(max-width:760px){.grille{grid-template-columns:1fr}}
+  .col{display:grid;gap:12px;align-content:start}
+  .carte{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+         box-shadow:0 1px 2px rgba(19,38,74,.05),0 6px 18px rgba(19,38,74,.045)}
+  .carte h2{font-family:var(--display);font-size:.95rem;margin:0 0 3px;color:var(--navy);
+            display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .carte .sub{margin:0 0 11px;font-size:.79rem;color:var(--muted);line-height:1.45}
+
+  .cadre{position:relative;background:#5b5f66;border-radius:9px;padding:10px;display:grid;place-items:center}
+  .cadre canvas{width:100%;max-width:440px;height:auto;display:block;border-radius:3px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+  .cadre canvas#ela{position:absolute;top:10px;left:50%;transform:translateX(-50%);pointer-events:none;mix-blend-mode:screen;opacity:.9}
+  .cadre canvas#ela[hidden]{display:none}
+  .sous-cadre{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:.8rem;color:var(--soft)}
+  .sous-cadre input{accent-color:var(--crimson)}
+
+  .commandes{display:grid;gap:10px}
+  .champ{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center}
+  .champ label{grid-column:1/3;font-size:.72rem;color:var(--muted);letter-spacing:.02em}
+  .champ input[type=number],.champ select{font:inherit;font-size:.9rem;border:1px solid var(--line);border-radius:8px;padding:6px 9px;background:#fff;color:var(--ink);width:100%;grid-column:1/3}
+  .champ input:focus,.champ select:focus{outline:none;border-color:var(--steel);box-shadow:0 0 0 3px rgba(59,84,125,.12)}
+  .case{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--soft)}
+  .case input{accent-color:var(--teal)}
+  .btn{font:inherit;font-size:.8rem;font-weight:600;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;cursor:pointer;color:var(--soft);justify-self:start}
+  .btn:hover{border-color:var(--steel);color:var(--navy)}
+
+  /* ce que lit le prototype : un texte, plausible, sans aucun doute */
+  .lecture{font-family:var(--mono);font-size:.78rem;line-height:1.6;background:var(--sand-l);border-radius:9px;padding:10px 12px;color:var(--ink);white-space:pre}
+  .lecture b{color:var(--crimson);font-weight:500}
+  .avis{margin-top:8px;font-size:.82rem;line-height:1.45;color:var(--soft)}
+  .avis b{color:var(--navy)}
+
+  .indices{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .indices li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:9px 11px;border:1px solid var(--line);border-radius:9px;font-size:.82rem;line-height:1.45;color:var(--soft)}
+  .indices .puce{width:10px;height:10px;border-radius:50%;margin-top:5px;background:var(--sand)}
+  .indices li.ok .puce{background:var(--teal)} .indices li.ko .puce{background:var(--crimson)}
+  .indices li.ko{border-color:#f2c3cd;background:#fff6f7}
+  .indices b{display:block;color:var(--navy);font-weight:600}
+  .indices .mesure{font-family:var(--mono);font-size:.72rem;color:var(--muted);display:block;margin-top:2px}
+
+  .verdict{margin-top:10px;border-radius:10px;padding:12px 14px;font-size:.86rem;line-height:1.45}
+  .verdict b{display:block;font-family:var(--display);font-size:1rem;margin-bottom:2px}
+  .verdict.rien{background:#e8f3f2;color:var(--teal)}
+  .verdict.verifier{background:#fdf3e2;color:var(--amber)}
+  .verdict.stop{background:#fbeef1;color:var(--crimson)}
+
+  .note{font-size:.76rem;color:var(--muted);line-height:1.55;margin:14px 0 0}
+  .note b{color:var(--soft)}
+</style>
+</head>
+<body>
 <div class="wrap">
- <h1>Une photo de reçu, un total recollé</h1>
- <p class="muted">Exemple fictif, image synthétique. Détection sans modèle, à partir de la photo elle-même.</p>
 
- <div class="scenario">
-   <b>Le scénario.</b> Un justificatif arrive en photo, pas en PDF. Quelqu'un a
-   collé un nouveau montant par-dessus l'original avant de l'envoyer. À l'œil, rien
-   ne cloche. Mais une image retouchée laisse des traces qu'un appareil photo ne
-   produit jamais.
- </div>
+  <header class="top">
+    <div class="qui">
+      <span class="logo">€</span>
+      <div><b>Une photo de reçu, un total recollé</b><span>ce que lit le prototype, ce que voit la vérification</span></div>
+    </div>
+    <div class="legende">
+      <span class="tag ia">IA</span> lit le texte de la photo
+      <span class="tag regle">Règle</span> mesure l'image
+      <span class="tag humain">Humain</span> tranche
+    </div>
+  </header>
 
- <div class="split">
-   <div class="doc">
-     <div class="cap">La photo transmise (fixture synthétique)</div>
-     <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4QDSRXhpZgAATU0AKgAAAAgABAEPAAIAAAAGAAAAPgEQAAIAAAAKAAAARAExAAIAAAAVAAAAToglAAQAAAABAAAAZAAAAABBcHBsZQBpUGhvbmUgMTMAQWRvYmUgUGhvdG9zaG9wIDI0LjAAAAAEAAEAAgAAAAJOAAAAAAIABQAAAAMAAACaAAMAAgAAAAJXAAAAAAQABQAAAAMAAACyAAAAAAAAACgAAAABAAAAKgAAAAEAAAAuAAAAAQAAAEoAAAABAAAAAAAAAAEAAAAVAAAAAf/bAEMAAwICAgICAwICAgMDAwMEBgQEBAQECAYGBQYJCAoKCQgJCQoMDwwKCw4LCQkNEQ0ODxAQERAKDBITEhATDxAQEP/bAEMBAwMDBAMECAQECBALCQsQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEP/AABEIAaQCgAMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AP1TooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKK+J/F3x9+KukeF/GutaB8R/EcutadJ8Sy1pqPhu2g0qwstIbVUsZbG5azRbq4ilt9OVozNcbla4MifISoB9sUV8/2HibxRrvjDw98OfDvxX+IEUeuW+qateaxr/ha206/hjsfsiC1tYrjTYIz5j36O0jQy4WCRVKk7lo+LPG/jjRfGPgLwZrnxZ8Qrb3mjeLJr/UfBXhuLVbi+uLDUtNt7UzRLY3XkskVzOswjjRBOWXIARaAPo6ivl/xf8VfHNj4ol8OP4/8UWGmx/FW38MG70fw9Bfan/Zv/CDpqflLbizmLM17+9dhAWUMwyiLhb0l58artPhO2r/FXxb4dn8X+K9S0O9tk0rSY5ZdNhsNYurK5eOeydoLqWOysnlThVZ5FEadFAPpKisq61q00S40vSL7+1Lq41BjBFPFps9whdVBLTyQRmKAH+8+xSeB6V5/8QfijceBfjN4M8P30msS6DrPhjxFeXNppeg3OpyyXdtd6QlvIVtYZZkVUurkZ4QmQbstswAeq0V8l+J/2ifiDH8J9K1/w1fa5ca7deLPGN4IbfwtNcXU2iaNq19FFZyWy27Pb79unWjySRoyCVmZ1k+ar8nxo8V6l8WdYtPDvxC8QXFufHvh/RtF0r+wIf7Am0e60nS7y6Mmom0ys/l3N7LGhug7OIECFWCsAfUtFfH0vxO+OHhn4B/DT4mQfEzUvE2sePfCa6rd2d7pmnK0F5Focmrs1sLe2iAjk+yS2zLIHx9piKsjLluig+NvxC1jx9r2j6V4ki/srxZruk2ngbZaQlorW01FrTXSCU/efu7eWZS+7b5gxgAUAfT9FfJXxE/aM8daNqPxnm0bW9SttO03wl4mfwlNL4fZLWz1XRbNS7xXUsHk3cklw16THvkVV08ZVdzhoNX+MHjm28Z6b4Z0/wCKfxCbwzceKdP0q51GbwZCviJZH0TWrye2SwOmB2t91rpkizfZCTuuQHKo20A+vKK8l8e6t4/sfh54YuPAmqeKtWe4vozq10LCxtvEMmneTMzPBa3kMVuJ1lFvvjeEN5Il2oZNtcO/iDx54kh+EWoaB8e/EyWvi/xLfeHNTa10PTLVitrpurztvhu7KSSC7WfT4o5lyEDpKFRAQAAfSVFfOXhbxx8TI/h18PfjhqfxDvNTh8ZajocN34ZmsLJLWC11W5it40ieOFbgXFv9ojeRmlZG8mf92gZRH5JoH7QXxVvPhn4Q1uL4qeM7u51vw54Q1HxHd3vhG2gurG61HW9JtnOkw/2egvY5ILnUlJWK5VSttsbc67gD7oormPhzcNd+GIrlvEnifWxJLIRdeI9IGmXuAcbWgFrbbVGDgmIEg5yRiunoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAK4PW/gb8LfEfhmXwfrHhgz6RNdazeyW4vrmMtNqy3a6gd6SB8SjULv5c7VMgKBSiFe8ooA8/n+Bnw+u7WG2vD4ountboXlrd3Hi/V5by0lCNGTBctcmaAMjsrrG6q4OGDDFLefAr4aXaaCkOmarpreGbS8sdNl0nxBqGnTRwXckMtyryW08bzeZJbwyMZCxLruJyWJ7+igDkbP4UeA7HVYNdh0aZtQt9aXxClzNf3Msh1FdK/soTsXkO9vsI8ohsgn5yDJ89bWseGdD17UND1XVrHz7rw3fvqemSea6/Z7lrWe1Z8KQHzBdTphgR8+cbgpGpRQAVl3HhnQ7vxPp/jK4sd+saXYXmmWlz5rjy7a6kt5J02A7DueztjkgkeXgEBmB1KKAOY8O/DXwT4U1OXWNB0X7NdzG/LSNczSgG9vZL66wrsQvmXMzyHAH8KjCoqjM0H4IfDDwzoP/AAjOh+GTbab/AGlpmrCH7dcuRdafDaQ2bh2kLARxafaJtB2sIsMG3vu7qigDgPBPwI+GHw9jsofDeiXzR6Zpn9i6emp6zfamtjY7UU29uLuaQQRlY41Ij27giA5CjEmgfA74WeF/+EL/ALD8Krbn4ewXdt4bY3lxI1lHdIEuMl3JlLqOWl3tnJzkk13dFAHC698Efhh4m8GW/wAP9c8Mm50K1+2+VbfbrlGBu7e5trkmVZBIxkivbpWJYn96W+8AQ7xb8F/h54212LxPrumaiurwS2s0V7p+tX2nzRyW8V5DEyvbTRlSItRvEOPvLLht2xNvcUUAclq3wt8Ha74f0zw3q0Gq3MGi3Au9Pun1y+/tC2n2uvmJfCb7SGKSyIT5uSjshypIqWx+GXgjTbTw3ZWWieXF4S1CbVdJzczM0N5NBcwTTuxYtM7pe3W5pS5ZpWc5fDDqKKAOG0z4J/DbR/EUPiaw0S6S5trybUbW2fVbySwtbubf5k8Fk8ptoZG8yQl441bMjnOWbNTUf2f/AIT6n4d0DwrceG7mPTvC+l2mjaQttq17by2lpbXFncW6rNFKspaObT7N1kLFwYj82HcN6JRQBk+GvDOm+E9NOlaXc6tPCZGl3anq93qM244yPNupJJNvHC7sDnA5Na1FFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAV8eQftG+N/DniKzvJvE3iXxJdX/j3xN4bl8P6josOn6SLWPWbrTdNWz1AWcfmyrcNpkcmJrhhG9zIyExnb9h1wmr/A/4W69olv4d1Xwss+n2mr6jr0Ef2y4Vo7++kuZLmdXWQMGaS8ndRnEbMjIEMcZUA81u/wBqnWrDUfHmj3fwztftnwktI9S8diPXi0dnZyxGeGSxY2wN47WySSlHWDBTZkkiqfhn4yfEfwl8MNb8feJdAi166vfiL4j0dWk1iYWGlafaahe20Us8kdmzW0CCyWHIikBaRJZHjEknl+jH9nL4POUeTwxdSyF2e6lk1m+eTUt0gkK3zmYtfJuUYS5MigcAAcVr3/we+H+oaFF4cfSr22tINYvtfgex1a8tLmC/vJria5mjuIZVmjMj3dzlVcLtlZAAuFAB5d4Y/a2TxPeC7tvhvqS+HWOqQf2sJJjBFcWEE7z+Zdtbrpog8y0niWZL1wW8slVVmKUYv2m9b1uHw7qx0mDQV03xzfaD4htEvFkt7y2i8JXusJsubuG3MaE/ZGMjLGAY2+dojub0Wx/Zq+COm2kmmWXgWKPTJLC401dMN7ctp8ME9v8AZ5/KtDIYIXkh3I8kaK7B3yx3tlZP2bfg3caHdeHb7wxeX9lfapJrV39u1u/uprm8k046bI8k0s7SOGsiYGRmKFCcqSc0AcVov7UHiTxFY6Xa6N8MLO48Qaj45/4QlrNtcmhtInOhPrAuhcSWayNGIQikeQOSxQyALv0vB3xq8b+Nfif4K0OHw3penaNqmkeMRrsLai000Go6Lq9ppzmBvIAliEskgUsYy6SlyEaIJJ2vhz4I/DbwrcW15pOjXrXVrrreJkub3WL29nbU2046abh5J5XeQ/Y2MW1iVxhsbgGEN38DPAE2p6BrGnw6rpN34d1bUdXtpNP1S4hM0moXovr2Gf5j5sE10scrRH5cxoAFUbaAPNv2kf2ik+Hvivwz4G8O+OvD+g30Wu+HLvxDJqNzbrI2lXesW1o9tCkp5d4nuZXkUHyYoCTsMkbjd8W/Gnxl4M+MHiLw7d+H9MvvDFjZeBorQpftHdLda5r1zpjysvkkFVCb9u//AJd1AP75jD6z4j8M6H4t0+HSvENj9rtYL+x1OOPzXj23NndRXVs+UIJ2TwRPjODtwwKkg4Xin4RfD/xnqWo6v4i0Sa4u9V0600q7kj1C5g8yC1uWurUgRSKFlhnd5IplAljZm2uuTQB5x45+Nfjc+OtK8K+AdDtJLnT/AInf8IbeW9zfrFDqlu3hGbV9zy+RI1sqSywk7Fdz9m64kKDL8I/tez+MPEf9hab8KdZddK8SR+D/ABFLBHfXA07VfPWCYRzR2ZtZIImkjZpJbiBzGSwjPyq3f/8ADN/wgFh9gXQdUX/iof8AhLPtS+ItSF5/a/2L7Cbv7ULjzt5tvkPz4P3sbvmqzpv7P3wj0jUbHU9N8JtbyafJBOkK6jdfZpriHPlXFxb+b5VzcKTuE8yvLuCtuyoIAK3wT+MGpfFi31Y6x4Rh8N3ultB5unNqRnvLYyqx8m7geKKS3mXYcja8TZBillGSPTa5LwJ8KvAvw1e7k8H6TcWr3sFtaSNcajc3hS2t/M+z28ZnkfyoI/Ol2Qx7Y08xtqjJrraACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA+bT/ydBqX/XxqP/oHgquH+E//ACI0X/YxeBv/AEi8GV3B/wCToNS/6+NR/wDQPBVcP8J/+RGi/wCxi8Df+kXgyvLzP+FV/wCvFL/1Pkfb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0mz83+zsfa/sV1os+7Hm/u9/9i7cZbb9ozk+Xh+rDpwx1OtL4VWws2/7tPDunN/9uz0tu90mtTevmOGnz8st/rNtH/y8tydOv4dbHBeEv+S6wf8AXtcf+iPBFe4fAr/kiPw9/wCxV0n/ANJIqw9I+Bv9l+O4/Gv/AAlHm7I5I/s32LbndHoiZ3+Yen9h56f8vP8A0z+fuPAvhn/hCvBHh7wb9t+2f2DpVppn2ny/L87yIVj37Mnbu25xk4zjJ615eXYWrQhhlUVuShGD20kqlWTX3Si7rTXe9znzHG0K9GpGnK7cqbWj2jS5X9z0/LQ3KKKK9c8AKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/9k=" alt="Photo de reçu, zone du total recollée">
-   </div>
-   <div>
-     <h2 style="margin-top:0">Ce qui la trahit</h2>
-     <div class="steps">
-       <div class="step"><div class="n">1</div><div><b>Les coulisses de l'image.</b><span> Les informations que la photo porte sur elle-même disent qu'elle est passée par un logiciel de retouche, là où on attend un simple appareil.</span></div></div>
-       <div class="step"><div class="n">2</div><div><b>Une zone qui « sonne » différemment.</b><span> Là où un morceau a été recollé puis ré-enregistré, la compression laisse une signature distincte du reste de l'image. On la localise.</span></div></div>
-       <div class="step"><div class="n">3</div><div><b>On gradue, on ne condamne pas.</b><span> Seuls, ces indices sont circonstanciels : une retouche peut être un simple recadrage. Croisés avec un lieu ou une date incohérents, le dossier bascule.</span></div></div>
-     </div>
-   </div>
- </div>
+  <div class="grille">
 
- <p class="muted" style="font-size:12.5px">La mécanique exacte (quelles traces, quels seuils) fait partie de l'outil et n'est pas détaillée ici.</p>
+    <div class="col">
+      <div class="carte">
+        <h2>La pièce reçue <span class="tag humain">Humain</span></h2>
+        <p class="sub">Une photo de facture, fictive, prise au téléphone. À l'œil, rien ne cloche.</p>
+        <div class="cadre">
+          <canvas id="photo" width="440" height="560"></canvas>
+          <canvas id="ela" width="440" height="560" hidden></canvas>
+        </div>
+        <label class="sous-cadre"><input type="checkbox" id="voir-ela"> voir la carte de compression, ce que la règle 3 regarde</label>
+      </div>
 
- <h2>Verdict</h2>
- <p><span class="verdict" style="background:#fff8e6;color:#b45309;border-color:#b4530955">&#9679; À vérifier</span> <span class="muted">&mdash; des indices circonstanciels, une revue humaine plutôt qu'une accusation.</span></p>
+      <div class="carte">
+        <h2>Retoucher la photo <span class="tag humain">Humain</span></h2>
+        <p class="sub">Jouez le fraudeur. Changez le total, choisissez le soin apporté, et regardez à droite ce qui vous trahit.</p>
+        <div class="commandes">
+          <div class="champ"><label>Total TTC à faire apparaître (l'original est 1 686,00 €)</label><input type="number" id="total" step="1" value="1686"></div>
+          <div class="champ"><label>Soin de la retouche</label>
+            <select id="soin">
+              <option value="0">grossier : une autre police, un peu plus grande</option>
+              <option value="1">moyen : la même police, à peine plus grande, un peu décalée</option>
+              <option value="2">soigné : même police, même taille, même ligne</option>
+            </select></div>
+          <label class="case"><input type="checkbox" id="coherent"> recoller aussi le HT, la TVA et une ligne, pour que les comptes tombent juste</label>
+          <button class="btn" id="reset">Remettre la photo d'origine</button>
+        </div>
+      </div>
+    </div>
 
- <p class="foot">Démonstration statique sur une image <b>synthétique</b>. Pour une analyse sur vos propres documents, contactez-nous.</p>
-</div></body></html>
+    <div class="col">
+      <div class="carte">
+        <h2>Ce que lit le prototype <span class="tag ia">IA</span></h2>
+        <p class="sub">Le modèle lit le texte de la photo. Il lit bien. C'est le problème : un chiffre plausible ne lui donne aucune raison de douter.</p>
+        <div class="lecture" id="lecture"></div>
+        <div class="avis" id="avis"></div>
+      </div>
+
+      <div class="carte">
+        <h2>Ce que voit la vérification <span class="tag regle">Règle</span></h2>
+        <p class="sub">Trois règles, sans modèle, calculées ici sur la photo affichée. Deux regardent les pixels, pas le texte.</p>
+        <ul class="indices" id="indices"></ul>
+        <div class="verdict rien" id="verdict"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="note"><b>Facture fictive dessinée dans la page, aucun appel à un modèle.</b>
+  L'arithmétique se contourne : il suffit de recoller aussi le HT et la TVA. La matière de l'image, non : une zone recollée a été compressée une fois, le reste deux fois, et cette différence se mesure. C'est ce qu'un prototype qui « lit le document » ne fait pas tout seul, et c'est pour cela que la vérification est un métier à part, qui vient après le prototype.</p>
+</div>
+
+<script>
+  // ------------------------------------------------------------------
+  // La facture d'origine. Les lignes font le HT, le HT fait la TVA, la TVA
+  // fait le TTC : tout tombe juste, comme sur une vraie facture.
+  // ------------------------------------------------------------------
+  const ORIG = {lignes:[["Vitrage feuillete 44.2, 1,2 m2", 1200], ["Pose et deplacement", 180], ["Joint silicone, finitions", 25]]};
+  ORIG.ht = ORIG.lignes.reduce((a, l) => a + l[1], 0);
+  ORIG.tva = Math.round(ORIG.ht * 20) / 100;
+  ORIG.ttc = ORIG.ht + ORIG.tva;
+
+  const L = 440, H = 560;
+  // ou sont ecrits les montants : la meme grille sert a dessiner et a mesurer
+  const X_MONTANT = 392, Y_LIGNES = [232, 262, 292], Y_HT = 352, Y_TVA = 382, Y_TTC = 424;
+  const POLICE = 'bold 15px "Courier New", Courier, monospace';
+  const eur = v => v.toLocaleString("fr-FR", {minimumFractionDigits:2, maximumFractionDigits:2});
+
+  function dessinerFacture(ctx, v){
+    ctx.fillStyle = "#fbfaf6"; ctx.fillRect(0, 0, L, H);
+    ctx.fillStyle = "#1c1f26"; ctx.textAlign = "left";
+    ctx.font = 'bold 19px "Courier New", Courier, monospace'; ctx.fillText("VITRERIE MARTIN & FILS", 40, 70);
+    ctx.font = '13px "Courier New", Courier, monospace';
+    ctx.fillText("4 rue des Tanneurs, 49000 Angers", 40, 92);
+    ctx.fillText("SIRET 812 345 678 00019", 40, 110);
+    ctx.fillText("FACTURE N. 2026-0142", 40, 150); ctx.fillText("12/01/2026", 300, 150);
+    ctx.fillText("Client : M. LEROUX, sinistre bris de glace", 40, 170);
+    ctx.fillRect(40, 190, 360, 1);
+    ctx.font = POLICE;
+    v.lignes.forEach((l, i) => { ctx.fillText(l[0], 40, Y_LIGNES[i]); ctx.textAlign = "right"; ctx.fillText(eur(l[1]), X_MONTANT, Y_LIGNES[i]); ctx.textAlign = "left"; });
+    ctx.fillRect(40, 318, 360, 1);
+    ctx.fillText("Total HT", 40, Y_HT); ctx.textAlign = "right"; ctx.fillText(eur(v.ht), X_MONTANT, Y_HT); ctx.textAlign = "left";
+    ctx.fillText("TVA 20 %", 40, Y_TVA); ctx.textAlign = "right"; ctx.fillText(eur(v.tva), X_MONTANT, Y_TVA); ctx.textAlign = "left";
+    ctx.font = 'bold 17px "Courier New", Courier, monospace';
+    ctx.fillText("TOTAL TTC", 40, Y_TTC); ctx.textAlign = "right"; ctx.fillText(eur(v.ttc) + " EUR", X_MONTANT + 8, Y_TTC); ctx.textAlign = "left";
+    ctx.font = '12px "Courier New", Courier, monospace';
+    ctx.fillText("Reglement a reception. Merci de votre confiance.", 40, 480);
+    ctx.fillText("Facture fictive, demonstration.", 40, 520);
+  }
+
+  // la prise de vue : une legere rotation, une lumiere qui tombe d'un cote, du
+  // grain, puis l'enregistrement JPEG du telephone. C'est la « photo » d'origine.
+  function photographier(){
+    const c = document.createElement("canvas"); c.width = L; c.height = H;
+    const ctx = c.getContext("2d");
+    ctx.fillStyle = "#3d4047"; ctx.fillRect(0, 0, L, H);
+    ctx.save(); ctx.translate(L / 2, H / 2); ctx.rotate(0.012); ctx.translate(-L / 2, -H / 2);
+    dessinerFacture(ctx, ORIG); ctx.restore();
+    const g = ctx.createLinearGradient(0, 0, L, H); g.addColorStop(0, "rgba(255,255,255,0)"); g.addColorStop(1, "rgba(0,0,0,.16)");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, L, H);
+    const im = ctx.getImageData(0, 0, L, H), d = im.data;
+    for (let i = 0; i < d.length; i += 4) { const b = (Math.random() - .5) * 14; d[i] += b; d[i + 1] += b; d[i + 2] += b; }
+    ctx.putImageData(im, 0, 0);
+    return encoder(c, 0.58);
+  }
+  function encoder(canvas, q){
+    return new Promise(res => { const img = new Image(); img.onload = () => res(img); img.src = canvas.toDataURL("image/jpeg", q); });
+  }
+  function surCanvas(img){ const c = document.createElement("canvas"); c.width = L; c.height = H; c.getContext("2d").drawImage(img, 0, 0); return c; }
+
+  // ------------------------------------------------------------------
+  // La retouche : un rectangle de la couleur du papier par-dessus l'ancien
+  // montant, le nouveau montant ecrit dessus, et un nouvel enregistrement
+  // JPEG. Trois niveaux de soin, du montage visible a l'oeil au montage
+  // que seule l'image trahit encore.
+  // ------------------------------------------------------------------
+  const ZONES = {ttc:{x:290, y:Y_TTC - 17, l:120, h:24}, ht:{x:300, y:Y_HT - 14, l:100, h:20}, tva:{x:300, y:Y_TVA - 14, l:100, h:20}, l1:{x:300, y:Y_LIGNES[0] - 14, l:100, h:20}};
+  function coller(ctx, zone, texte, soin, gras){
+    // la couleur du papier, echantillonnee juste a cote : un fraudeur fait
+    // pareil, et le rectangle plat qu'il pose n'a plus le grain de la photo
+    const p = ctx.getImageData(zone.x, zone.y, zone.l, zone.h).data;
+    let r = 0, g = 0, b = 0, n = 0;
+    for (let i = 0; i < p.length; i += 4) if ((p[i] + p[i + 1] + p[i + 2]) / 3 > 150) { r += p[i]; g += p[i + 1]; b += p[i + 2]; n++; }
+    ctx.fillStyle = `rgb(${Math.round(r / n)},${Math.round(g / n)},${Math.round(b / n)})`;
+    ctx.fillRect(zone.x, zone.y, zone.l, zone.h);
+    if (soin > 0) {
+      // le fraudeur soigneux remet du grain sur sa piece : a l'oeil elle se
+      // fond, mais ce grain n'a connu qu'un seul enregistrement JPEG
+      const im = ctx.getImageData(zone.x, zone.y, zone.l, zone.h), d = im.data;
+      for (let i = 0; i < d.length; i += 4) { const k = (Math.random() - .5) * 14; d[i] += k; d[i + 1] += k; d[i + 2] += k; }
+      ctx.putImageData(im, zone.x, zone.y);
+    }
+    const base = gras ? 17 : 15;
+    const taille = soin === 0 ? base + 2 : soin === 1 ? Math.round(base * 1.1) : base;
+    const police = soin === 0 ? "Arial, Helvetica, sans-serif" : '"Courier New", Courier, monospace';
+    const dy = soin === 0 ? 3 : soin === 1 ? 2 : 0;
+    ctx.fillStyle = "#1c1f26"; ctx.textAlign = "right"; ctx.font = `bold ${taille}px ${police}`;
+    ctx.fillText(texte, zone.x + zone.l - (gras ? 10 : 18), zone.y + zone.h - 6 + dy);
+    ctx.textAlign = "left";
+  }
+
+  // ------------------------------------------------------------------
+  // Les trois regles. Aucune ne lit le texte avec un modele : la premiere
+  // fait des additions, les deux autres regardent les pixels.
+  // ------------------------------------------------------------------
+  function encre(ctx, zone){
+    // la boite des pixels sombres dans une zone : hauteur des chiffres et
+    // ligne de base, ce qu'une autre police ou une autre taille change
+    const d = ctx.getImageData(zone.x, zone.y, zone.l, zone.h).data;
+    let ymin = 1e9, ymax = -1, n = 0;
+    for (let y = 0; y < zone.h; y++) for (let x = 0; x < zone.l; x++) {
+      const i = (y * zone.l + x) * 4, lum = (d[i] + d[i + 1] + d[i + 2]) / 3;
+      if (lum < 115) { n++; if (y < ymin) ymin = y; if (y > ymax) ymax = y; }
+    }
+    return n ? {haut:ymax - ymin + 1, base:zone.y + ymax} : null;
+  }
+  async function carteCompression(canvas){
+    // l'analyse de niveau d'erreur : on recompresse toute l'image a une
+    // qualite fixe et on regarde ou elle change. Une zone deja compressee
+    // deux fois ne bouge presque plus ; une zone fraiche bouge beaucoup.
+    const re = surCanvas(await encoder(canvas, 0.7));
+    const a = canvas.getContext("2d").getImageData(0, 0, L, H).data, b = re.getContext("2d").getImageData(0, 0, L, H).data;
+    const diff = new Float32Array(L * H);
+    for (let i = 0; i < L * H; i++) diff[i] = (Math.abs(a[i * 4] - b[i * 4]) + Math.abs(a[i * 4 + 1] - b[i * 4 + 1]) + Math.abs(a[i * 4 + 2] - b[i * 4 + 2])) / 3;
+    return diff;
+  }
+  function moyenne(diff, zone){
+    let s = 0, n = 0;
+    for (let y = zone.y; y < zone.y + zone.h; y++) for (let x = zone.x; x < zone.x + zone.l; x++) { s += diff[y * L + x]; n++; }
+    return s / n;
+  }
+  // la reference : les libelles de gauche des memes lignes. Meme encre, meme
+  // photo, jamais recolles. Comparer a du papier nu donnerait un faux
+  // positif : un trait net reagit toujours plus a la recompression qu'un fond.
+  const REFERENCES = [...Y_LIGNES, Y_HT, Y_TVA, Y_TTC].map(y => ({x:40, y:y - 17, l:150, h:24}));
+  function moyenneHors(diff){
+    return REFERENCES.reduce((a, z) => a + moyenne(diff, z), 0) / REFERENCES.length;
+  }
+
+  // ------------------------------------------------------------------
+  // Le tout : on part de la photo d'origine, on retouche, on affiche, on mesure.
+  // ------------------------------------------------------------------
+  const $ = s => document.querySelector(s);
+  const photo = $("#photo"), ela = $("#ela");
+  let PHOTO0 = null, occupe = false, refaireEncore = false;
+
+  async function refaire(){
+    if (occupe) { refaireEncore = true; return; }
+    occupe = true;
+    const ttc = Math.max(0, +$("#total").value || 0), soin = +$("#soin").value, coherent = $("#coherent").checked;
+    const retouche = Math.abs(ttc - ORIG.ttc) > 0.005;
+    const v = {lignes:ORIG.lignes.map(l => l.slice()), ht:ORIG.ht, tva:ORIG.tva, ttc:ORIG.ttc};
+    let affichee, zonesCollees = [];
+    if (!retouche) {
+      affichee = surCanvas(PHOTO0);
+    } else {
+      const c = surCanvas(PHOTO0), ctx = c.getContext("2d");
+      v.ttc = ttc;
+      coller(ctx, ZONES.ttc, eur(ttc) + " EUR", soin, true); zonesCollees.push(ZONES.ttc);
+      if (coherent) {
+        v.ht = Math.round(ttc / 1.2 * 100) / 100; v.tva = Math.round((ttc - v.ht) * 100) / 100;
+        v.lignes[0][1] = Math.round((v.ht - ORIG.lignes[1][1] - ORIG.lignes[2][1]) * 100) / 100;
+        coller(ctx, ZONES.ht, eur(v.ht), soin, false); coller(ctx, ZONES.tva, eur(v.tva), soin, false); coller(ctx, ZONES.l1, eur(v.lignes[0][1]), soin, false);
+        zonesCollees.push(ZONES.ht, ZONES.tva, ZONES.l1);
+      }
+      affichee = surCanvas(await encoder(c, 0.92));   // le second enregistrement, celui du fraudeur
+    }
+    photo.getContext("2d").drawImage(affichee, 0, 0);
+    const ctx = affichee.getContext("2d");
+
+    // ce que lit le prototype
+    $("#lecture").innerHTML = v.lignes.map(l => l[0].padEnd(32) + eur(l[1]).padStart(10)).join("\n") +
+      "\n" + "Total HT".padEnd(32) + eur(v.ht).padStart(10) + "\n" + "TVA 20 %".padEnd(32) + eur(v.tva).padStart(10) +
+      "\n" + "TOTAL TTC".padEnd(32) + `<b>${eur(v.ttc).padStart(10)}</b>`;
+    $("#avis").innerHTML = retouche
+      ? `<b>Le prototype lit ${eur(v.ttc)} € et passe.</b> Le montant est plausible pour un vitrage, l'écriture est nette, le modèle n'a rien pour douter. Il ferait la même chose avec un vrai document.`
+      : `<b>Le prototype lit ${eur(v.ttc)} € et passe.</b> Ici il a raison. Il aurait aussi raison de passer si le chiffre était faux : il lit, il ne vérifie pas.`;
+
+    // regle 1 : les comptes
+    const sommeLignes = Math.round(v.lignes.reduce((a, l) => a + l[1], 0) * 100) / 100;
+    const ttcAttendu = Math.round(v.ht * 1.2 * 100) / 100;
+    const r1ok = Math.abs(sommeLignes - v.ht) < 0.011 && Math.abs(ttcAttendu - v.ttc) < 0.011 && Math.abs(v.ht + v.tva - v.ttc) < 0.011;
+    // regle 2 : la typographie, mesuree sur les pixels
+    const refs = Y_LIGNES.map((y, i) => encre(ctx, {x:300, y:y - 14, l:100, h:20})).filter(Boolean);
+    const hautRef = refs.reduce((a, e) => a + e.haut, 0) / refs.length;
+    const m = encre(ctx, {x:ZONES.ttc.x, y:ZONES.ttc.y, l:ZONES.ttc.l, h:ZONES.ttc.h});
+    const hautAttendu = hautRef * 17 / 15;                 // le TTC est en 17 px sur l'original
+    const ecartHaut = m ? m.haut / hautAttendu : 1;
+    const ecartBase = m ? m.base - (Y_TTC + 1) : 0;         // la ligne de base attendue, sous la rotation
+    const r2ok = Math.abs(ecartHaut - 1) < 0.09 && Math.abs(ecartBase) < 3;
+    // regle 3 : la compression
+    const diff = await carteCompression(affichee);
+    const dedans = moyenne(diff, ZONES.ttc), dehors = moyenneHors(diff);
+    const ratio = dedans / Math.max(dehors, 0.05);
+    const r3ok = ratio < 1.7;
+    // la carte, en surimpression si on la demande
+    const ec = ela.getContext("2d"), im = ec.createImageData(L, H);
+    for (let i = 0; i < L * H; i++) { const s = Math.min(255, diff[i] * 14); im.data[i * 4] = s; im.data[i * 4 + 1] = s * .25; im.data[i * 4 + 2] = s * .35; im.data[i * 4 + 3] = 255; }
+    ec.putImageData(im, 0, 0);
+
+    const regles = [
+      {ok:r1ok, nom:"Les comptes tombent-ils juste ?", oui:"lignes, HT, TVA et TTC se répondent", non:`les lignes font ${eur(sommeLignes)}, le HT dit ${eur(v.ht)}, le TTC attendu serait ${eur(ttcAttendu)}`,
+       mesure:`somme des lignes ${eur(sommeLignes)} · HT x 1,2 = ${eur(ttcAttendu)} · TTC lu ${eur(v.ttc)}`},
+      {ok:r2ok, nom:"Les chiffres du total ont-ils la même typographie que le reste ?", oui:"même hauteur d'encre, même ligne de base que les autres montants", non:"la hauteur des chiffres ou leur ligne de base ne suit pas le reste de la facture",
+       mesure:m ? `hauteur ${m.haut} px pour ${hautAttendu.toFixed(1)} attendus · ligne de base décalée de ${ecartBase} px` : "aucune encre mesurable"},
+      {ok:r3ok, nom:"La zone du total a-t-elle la même histoire de compression que le reste ?", oui:"la recompression change la zone autant que le reste : une seule prise de vue", non:"la zone du total réagit beaucoup plus à la recompression : elle a été enregistrée à part",
+       mesure:`variation moyenne ${dedans.toFixed(2)} dans la zone contre ${dehors.toFixed(2)} ailleurs, rapport ${ratio.toFixed(2)}`},
+    ];
+    $("#indices").innerHTML = regles.map((r, i) => `<li class="${r.ok ? "ok" : "ko"}"><span class="puce"></span><div><b>${i + 1}. ${r.nom}</b>${r.ok ? r.oui : r.non}<span class="mesure">${r.mesure}</span></div></li>`).join("");
+    const n = regles.filter(r => !r.ok).length;
+    const vd = $("#verdict");
+    vd.className = "verdict " + (n === 0 ? "rien" : n === 1 ? "verifier" : "stop");
+    vd.innerHTML = n === 0 ? "<b>Rien à signaler</b>Aucune règle ne réagit. Ce n'est pas une preuve d'authenticité, c'est l'absence d'indice."
+      : n === 1 ? "<b>À vérifier</b>Un seul indice, circonstanciel : une revue humaine, pas une accusation."
+      : `<b>Incohérent, revue humaine</b>${n} règles sur 3 réagissent. Le dossier ne se règle pas sur cette pièce : demander l'original, ou la facture au vitrier.`;
+
+    occupe = false;
+    if (refaireEncore) { refaireEncore = false; refaire(); }
+  }
+
+  ["#total", "#soin", "#coherent"].forEach(s => $(s).addEventListener("input", refaire));
+  $("#reset").addEventListener("click", () => { $("#total").value = ORIG.ttc; $("#soin").value = "0"; $("#coherent").checked = false; refaire(); });
+  $("#voir-ela").addEventListener("change", e => { ela.hidden = !e.target.checked; });
+
+  photographier().then(img => { PHOTO0 = img; refaire(); });
+</script>
+</body>
+</html>

@@ -1,155 +1,414 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Résultats réels — agent assurance (run archivé)</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'agent RAG au travail : il cherche, il lit, il cite, et on vérifie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--ink:#0f172a;--muted:#64748b;--blue:#1d4ed8;--bbg:#eef4ff;--bbd:#bfdbfe;
-        --green:#047857;--gbg:#ecfdf5;--gbd:#a7f3d0;--amber:#b45309;--abg:#fff8e6;--abd:#fde68a;
-        --vio:#6d28d9;--vbg:#f5f3ff;--vbd:#ddd6fe;--rose:#be123c;--rbg:#fff1f2;--rbd:#fecdd3;}
+  :root{
+    --navy:#13264A; --crimson:#BA1C3A; --steel:#3B547D; --teal:#1F6F6B; --amber:#92661D;
+    --sand:#E9E4E1; --sand-l:#F7F4F2; --line:#dcd8d4; --ink:#1f2733; --soft:#4a5567; --muted:#78828f;
+    --display:"Manrope","Segoe UI",sans-serif; --sans:"Inter","Segoe UI",Arial,sans-serif;
+    --mono:"JetBrains Mono",Consolas,monospace;
+  }
   *{box-sizing:border-box}
-  body{margin:0;background:#f8fafc;color:var(--ink);font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;line-height:1.55;}
-  .wrap{max-width:1000px;margin:0 auto;padding:26px 18px 70px;}
-  h1{font-size:23px;margin:0 0 4px;} .sub{color:var(--muted);font-size:14px;margin:0 0 16px;}
-  .real{display:inline-block;background:var(--gbg);border:1px solid var(--gbd);color:#065f46;
-    border-radius:999px;padding:3px 12px;font-size:12.5px;font-weight:700;margin-bottom:10px;}
-  .meta{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px 16px;margin-bottom:14px;font-size:13.5px;}
-  .meta b{color:var(--ink);} .meta .row{margin:3px 0;color:#334155;}
-  .meta code{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;background:#f1f5f9;padding:1px 5px;border-radius:4px;}
-  .qa{background:var(--bbg);border:1px solid var(--bbd);border-radius:12px;padding:13px 16px;margin-bottom:18px;}
-  .qa .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--blue);font-weight:700;}
-  .qa .q{font-size:15.5px;font-weight:600;margin-top:3px;}
-  h2{font-size:16px;margin:22px 0 8px;}
-  .tour{margin:14px 0;border-left:3px solid var(--bbd);padding-left:12px;}
-  .tourhd{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:6px;}
-  .tool{background:var(--abg);border:1px solid var(--abd);border-radius:9px;padding:9px 12px;margin:8px 0;}
-  .tool .call{font-family:ui-monospace,Consolas,monospace;font-size:13px;color:#7c2d12;font-weight:600;}
-  .tool .n{color:var(--amber);font-weight:700;}
-  .ex{font-size:12.5px;margin:5px 0 0 4px;padding-left:10px;border-left:2px solid #fcd9a8;color:#475569;}
-  .ex .src{color:var(--amber);font-weight:600;}
-  .zero{color:var(--rose);font-style:italic;font-size:12.5px;margin-top:4px;}
-  .read{background:var(--bbg);border:1px solid var(--bbd);border-radius:9px;padding:9px 12px;margin:8px 0;}
-  .read .call{font-family:ui-monospace,Consolas,monospace;font-size:13px;color:#1e3a8a;font-weight:600;}
-  .read .prev{font-size:12.5px;color:#475569;margin-top:5px;font-style:italic;}
-  .answer{background:var(--gbg);border:1px solid var(--gbd);border-radius:12px;padding:14px 16px;margin:18px 0;white-space:pre-wrap;font-size:14.5px;}
-  .answer .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--green);font-weight:700;display:block;margin-bottom:6px;}
-  .verif{margin-top:12px;}
-  .v{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed #e6ebf2;font-size:13px;}
-  .v:last-child{border-bottom:none;}
-  .vok{color:var(--green);font-weight:700;white-space:nowrap;}
-  .vko{color:var(--rose);font-weight:700;white-space:nowrap;}
-  .v .cite{font-style:italic;color:#334155;}
-  .v .where{font-size:11.5px;color:var(--muted);}
-  .lesson{background:var(--vbg);border:1px solid var(--vbd);border-radius:10px;padding:12px 16px;font-size:13.5px;margin:16px 0;}
-  .lesson b{color:var(--vio);}
-  .note{color:var(--muted);font-size:12.5px;margin-top:18px;border-top:1px solid #e2e8f0;padding-top:12px;}
+  html,body{margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:var(--sand-l);padding:14px 14px 26px;font-size:14.5px}
+  .wrap{max-width:1080px;margin:0 auto}
+
+  .top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--navy);color:#fff;
+       border-radius:12px;padding:11px 16px;margin-bottom:12px}
+  .top .logo{width:30px;height:30px;border-radius:8px;background:var(--crimson);color:#fff;display:grid;
+             place-items:center;font-family:var(--display);font-weight:800;font-size:.95rem;flex:none}
+  .top .qui{display:flex;align-items:center;gap:10px}
+  .top b{font-family:var(--display);font-size:.98rem;display:block;line-height:1.15}
+  .top .qui span{font-size:.76rem;color:#a9b7cc}
+  .legende{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-left:auto;font-size:.76rem;color:#c6d1e2}
+  .tag{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:700;border-radius:999px;
+       padding:2px 9px;white-space:nowrap}
+  .tag.ia{background:#fbeef1;color:var(--crimson)}
+  .tag.regle{background:#e8f3f2;color:var(--teal)}
+  .tag.humain{background:#fdf3e2;color:var(--amber)}
+
+  .grille{display:grid;grid-template-columns:1.05fr 1fr;gap:12px;align-items:start}
+  @media(max-width:760px){.grille{grid-template-columns:1fr}}
+  .col{display:grid;gap:12px;align-content:start}
+  .carte{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+         box-shadow:0 1px 2px rgba(19,38,74,.05),0 6px 18px rgba(19,38,74,.045)}
+  .carte h2{font-family:var(--display);font-size:.95rem;margin:0 0 3px;color:var(--navy);
+            display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .carte .sub{margin:0 0 11px;font-size:.79rem;color:var(--muted);line-height:1.45}
+
+  select,input[type=text]{font:inherit;font-size:.86rem;border:1px solid var(--line);border-radius:8px;padding:6px 9px;background:#fff;color:var(--ink);width:100%}
+  select:focus,input:focus{outline:none;border-color:var(--steel);box-shadow:0 0 0 3px rgba(59,84,125,.12)}
+  .btn{font:inherit;font-size:.8rem;font-weight:600;background:#fff;border:1px solid var(--line);border-radius:999px;
+       padding:6px 13px;cursor:pointer;color:var(--soft)}
+  .btn:hover{border-color:var(--steel);color:var(--navy)}
+  .btn.plein{background:var(--crimson);border-color:var(--crimson);color:#fff}
+  .btn.plein:hover{background:#d42749}
+  .btn[disabled]{opacity:.4;cursor:default}
+  .boutons{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+  /* la boucle : un tour = une decision, un appel d'outil, ce qui revient */
+  .tours{display:grid;gap:8px}
+  .tour{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff}
+  .tour .n{font-family:var(--display);font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--crimson);margin-bottom:3px}
+  .tour .dec{font-size:.85rem;color:var(--ink);line-height:1.45}
+  .tour .appel{font-family:var(--mono);font-size:.76rem;background:var(--navy);color:#e6ecf6;border-radius:7px;padding:6px 9px;margin:7px 0;display:inline-block}
+  .tour .appel i{color:#8ec9c4;font-style:normal}
+  .res{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+  .res li{font-size:.79rem;color:var(--soft);line-height:1.45;padding-left:10px;border-left:2px solid var(--sand)}
+  .res li b{font-family:var(--mono);font-size:.7rem;color:var(--amber);font-weight:500;margin-right:5px}
+  .res li.vide{color:var(--crimson);font-style:italic;border-left-color:#f2c3cd}
+  .res mark{background:#fde7c2;color:var(--navy);border-radius:3px;padding:0 2px}
+
+  /* le contrat : des onglets par page, la page lue en surbrillance */
+  .onglets{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
+  .onglets button{font:inherit;font-family:var(--mono);font-size:.72rem;border:1px solid var(--line);background:#fff;border-radius:6px;padding:3px 8px;cursor:pointer;color:var(--soft)}
+  .onglets button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+  .onglets button.lue{border-color:var(--amber);color:var(--amber)}
+  .onglets button.on.lue{background:var(--amber);color:#fff}
+  .page{font-family:Georgia,"Times New Roman",serif;font-size:.86rem;line-height:1.6;background:#fffdf8;border:1px solid var(--line);border-radius:9px;padding:12px 14px;min-height:180px;white-space:pre-wrap;color:#2a2f38}
+  .page .titre{font-family:var(--display);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+  .page mark{background:#fde7c2;border-radius:3px}
+
+  .reponse{font-size:.88rem;line-height:1.6;white-space:pre-wrap}
+  .reponse q{quotes:"« " " »";background:#fff8ec;border-bottom:2px solid #f0c27a;padding:1px 2px;outline:none}
+  .reponse q:focus{background:#fff;box-shadow:0 0 0 2px rgba(146,102,29,.35)}
+  .reponse .ref{font-family:var(--mono);font-size:.7rem;color:var(--muted)}
+  .verif{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+  .verif li{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start;font-size:.8rem;line-height:1.45;color:var(--soft)}
+  .verif .ok{color:var(--teal);font-weight:700;white-space:nowrap} .verif .ko{color:var(--crimson);font-weight:700;white-space:nowrap}
+  .verif i{color:var(--muted);font-size:.74rem}
+  .bilan{margin-top:8px;font-size:.8rem;border-radius:9px;padding:9px 11px;line-height:1.45}
+  .bilan.ok{background:#e8f3f2;color:var(--teal)} .bilan.ko{background:#fbeef1;color:var(--crimson)}
+  .vide-note{font-size:.8rem;color:var(--muted);font-style:italic}
+
+  .note{font-size:.76rem;color:var(--muted);line-height:1.55;margin:14px 0 0}
+  .note b{color:var(--soft)}
 </style>
 </head>
 <body>
-<div style="background:#0f172a;color:#fff;padding:11px 20px;font:14px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;display:flex;gap:16px;align-items:center;position:sticky;top:0;z-index:99999"><a href="https://doc-intel.github.io/fr/" style="color:#fff;text-decoration:none;font-weight:700">Enterprise Document Intelligence</a><a href="https://doc-intel.github.io/fr/cas/" style="color:#cbd5e1;text-decoration:none">Études de cas</a><a href="https://doc-intel.github.io/fr/cas/mrh-agentic.html" style="color:#cbd5e1;text-decoration:none;margin-left:auto">&larr; Retour au cas</a></div>
 <div class="wrap">
-  <span class="real">● RÉSULTATS RÉELS — run archivé, pas une simulation</span>
-  <h1>L'agent au travail, sur un vrai contrat MRH</h1>
-  <p class="sub">trace exacte d'un appel réel à l'endpoint : chaque recherche, chaque extrait, chaque page lue, la réponse et la vérification des citations. Rien n'est scripté ici (à la différence de <code>chat_agentique.html</code>).</p>
 
-  <div style="background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--vio);border-radius:12px;padding:14px 18px;margin:14px 0 18px;font-size:13.5px;color:#334155;line-height:1.65">
-    <b style="color:#0f172a">Ce que vous êtes en train de regarder</b> — Un agent RAG à qui on pose une question précise sur un contrat multirisque habitation réel. La question est concrète (perte de denrées dans un congélateur après une coupure), typique du genre qu'un gestionnaire sinistres reçoit. L'agent décide lui-même quelles recherches lancer, lit les pages qui remontent, et rend une réponse chiffrée avec les citations qui l'appuient. Chaque citation est ensuite <b>vérifiée par recherche exacte dans le PDF</b> : ✓ si la phrase existe telle quelle, ⚠ si l'agent a paraphrasé ou recomposé une valeur depuis un tableau. Cette double couche (boucle d'agent + vérification hors-agent) est la thèse : sans vérification, l'audit ne tient pas.
+  <header class="top">
+    <div class="qui">
+      <span class="logo">R</span>
+      <div><b>L'agent au travail sur un contrat</b><span>conditions générales habitation fictives, huit pages</span></div>
+    </div>
+    <div class="legende">
+      <span class="tag ia">IA</span> décide quoi chercher et rédige
+      <span class="tag regle">Règle</span> cherche, lit, vérifie
+      <span class="tag humain">Humain</span> relit les citations
+    </div>
+  </header>
+
+  <div class="grille">
+
+    <div class="col">
+      <div class="carte">
+        <h2>La question <span class="tag humain">Humain</span></h2>
+        <p class="sub">Une question de gestionnaire, concrète, dont la réponse est quelque part dans les huit pages.</p>
+        <select id="question"></select>
+        <div class="boutons">
+          <button class="btn plein" id="suivant">Tour suivant</button>
+          <button class="btn" id="tout">Tout dérouler</button>
+          <button class="btn" id="recommencer">Recommencer</button>
+        </div>
+      </div>
+
+      <div class="carte">
+        <h2>La boucle d'agent, tour par tour <span class="tag ia">IA</span> <span class="tag regle">Règle</span></h2>
+        <p class="sub">À chaque tour, le modèle décide d'un appel d'outil. L'outil, lui, est du code : il cherche vraiment dans les pages ci-contre, et ce qu'il rend est ce que vous voyez.</p>
+        <div class="tours" id="etapes"><p class="vide-note">Cliquez « Tour suivant ».</p></div>
+      </div>
+
+      <div class="carte" id="carte-reponse" hidden>
+        <h2>La réponse <span class="tag ia">IA</span></h2>
+        <p class="sub">Rédigée à partir des pages lues, chaque affirmation appuyée d'une citation entre guillemets. Les citations se modifient : changez un mot, et regardez la vérification en dessous.</p>
+        <div class="reponse" id="reponse"></div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="carte">
+        <h2>Le contrat, page par page <span class="tag regle">Règle</span></h2>
+        <p class="sub">Ce que l'agent peut lire. En ambre, les pages qu'il a ouvertes.</p>
+        <div class="onglets" id="onglets"></div>
+        <div class="page" id="page"></div>
+      </div>
+
+      <div class="carte">
+        <h2>Essayez l'outil vous-même <span class="tag regle">Règle</span></h2>
+        <p class="sub">Le même <code>rechercher</code> que celui de l'agent. Essayez « coupure de courant », puis « coupure ».</p>
+        <div style="display:flex;gap:8px"><input type="text" id="motif" placeholder="un mot ou une expression" value="coupure de courant"><button class="btn" id="chercher">Chercher</button></div>
+        <ul class="res" id="resultats-libres" style="margin-top:8px"></ul>
+      </div>
+
+      <div class="carte" id="carte-verif" hidden>
+        <h2>Vérification des citations <span class="tag regle">Règle</span></h2>
+        <p class="sub">Chaque citation est recherchée telle quelle dans le texte du contrat. Pas de modèle ici : une recherche exacte, et c'est ce qui rend la réponse auditable.</p>
+        <ul class="verif" id="verif"></ul>
+        <div class="bilan" id="bilan"></div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="meta" id="meta"></div>
-  <div class="qa"><span class="lbl">Question posée</span><div class="q" id="question"></div></div>
-
-  <div id="lesson"></div>
-
-  <h2>La boucle d'agent, pas à pas</h2>
-  <div id="steps"></div>
-
-  <h2>Réponse de l'agent</h2>
-  <div class="answer"><span class="lbl">Agent</span><span id="answer"></span></div>
-
-  <h2>Vérification des citations</h2>
-  <p class="sub">chaque « citation » de la réponse est recherchée dans le texte du PDF. ✓ = présente (et dans quel contrat) ; ⚠ = absente telle quelle (paraphrase, valeur recomposée depuis un tableau, ou titre).</p>
-  <div class="verif" id="verif"></div>
-
-  <p class="note" id="note"></p>
+  <p class="note"><b>Contrat fictif écrit pour la démonstration, aucun assureur réel, aucun appel à un modèle depuis cette page.</b>
+  Les décisions de l'agent sont rejouées telles qu'un modèle les prend sur ce genre de question ; les outils, eux, tournent pour de vrai sur les pages. La thèse est dans la dernière carte : une réponse d'agent ne vaut que si chaque citation se retrouve mot pour mot dans le document. Sans cette vérification, faite hors du modèle, l'audit ne tient pas.</p>
 </div>
 
-<script id="run-data" type="application/json">{"question": "Sur ce contrat, les denrees d'un congelateur perdues apres une coupure de courant sont-elles couvertes ? A quel plafond, et a quelle page ? Verifie aussi les exclusions.", "modele": "OpenAI v1 · modèle 'gpt-4.1' · Azure OpenAI, déploiement interne", "corpus": ["cg_mrh_assureur"], "date": "2026-06-04 14:42", "etapes": [{"tour": 1, "outil": "rechercher", "args": {"motif": "congélateur"}, "n_extraits": 3, "extraits": [{"contrat": "cg_mrh_assureur", "page": 3, "extrait": "......................................................... 16 2.13 Dommages aux appareils électriques ................................................................................................................................. 16 2.14 C"}, {"contrat": "cg_mrh_assureur", "page": 17, "extrait": "ns Particulières pour la garantie « Incendie et événements assimilés » > Franchise* applicable La garantie s’applique sous réserve de la franchise générale men­ tionnée aux Dispositions Particulières avec un minimum de 0,15 fois l’indice. 2"}, {"contrat": "cg_mrh_assureur", "page": 17, "extrait": "garantie s’applique sous réserve de la franchise générale men­ tionnée aux Dispositions Particulières avec un minimum de 0,15 fois l’indice. 2.14 Contenu du congélateur Nous garantissons les dommages matériels* aux denrées consom­ mables co"}]}, {"tour": 1, "outil": "rechercher", "args": {"motif": "denrées"}, "n_extraits": 1, "extraits": [{"contrat": "cg_mrh_assureur", "page": 17, "extrait": "ts assimilés » > Franchise* applicable La garantie s’applique sous réserve de la franchise générale men­ tionnée aux Dispositions Particulières avec un minimum de 0,15 fois l’indice. 2.14 Contenu du congélateur Nous garantissons les dommage"}]}, {"tour": 1, "outil": "rechercher", "args": {"motif": "coupure de courant"}, "n_extraits": 0, "extraits": [{"contrat": "tous", "page": null, "extrait": "(aucune occurrence)"}]}, {"tour": 1, "outil": "rechercher", "args": {"motif": "dommages électriques"}, "n_extraits": 1, "extraits": [{"contrat": "cg_mrh_assureur", "page": 10, "extrait": "as conformé à ces obligations conformément à l’article L122-8 du Code des assurances une franchise* de 5 000 euros s’appliquera en sus des franchises* prévues. > Ce qui est exclu 1. Les dommages de surtension causée par la foudre sur le mob"}]}, {"tour": 1, "outil": "rechercher", "args": {"motif": "exclusion"}, "n_extraits": 3, "extraits": [{"contrat": "cg_mrh_assureur", "page": 3, "extrait": ".................................................................................. 26 4.3 Dispositions communes aux garanties juridiques ......................................................................................................."}, {"contrat": "cg_mrh_assureur", "page": 3, "extrait": ".............................................. 27 5 - Exclusions................................................................................................................................................................................"}, {"contrat": "cg_mrh_assureur", "page": 3, "extrait": "........................................................................... 30 5.1 Exclusions communes à toutes les garanties .................................................................................................................."}]}, {"tour": 1, "outil": "rechercher", "args": {"motif": "plafond"}, "n_extraits": 3, "extraits": [{"contrat": "cg_mrh_assureur", "page": 6, "extrait": "ts de décoration ou d’ornementation, aménagements et installations, qui ne peuvent être détachés des biens immobiliers visés ci-dessus sans être détériorés, ni détériorer le bien immobilier : peinture, papiers peints, tout revêtement de sol"}, {"contrat": "cg_mrh_assureur", "page": 13, "extrait": "ntre les dommages d’incendie* et événements assimilés. La réparation des dommages matériels, y compris les frais de décontamination, et la réparation des dommages immatériels consécutifs* à ces dommages sont couverts dans les limites de fra"}, {"contrat": "cg_mrh_assureur", "page": 29, "extrait": "née à son terme, sans protocole signé 500 euros (3) • \u0007menée à son terme et ayant abouti à un protocole signé par les parties et agréé par L’ÉQUITÉ 1 000 euros (3) (1) par intervention (2) par décision (3) par affaire Les plafonds ainsi pré"}]}, {"tour": 2, "outil": "lire_page", "args": {"slug": "cg_mrh_assureur", "page": 17}, "apercu": "17/64 GA5X25J - Janvier 2022 > Tableau des montants maximum de garantie « Dommages aux appareils électriques » Dommages aux appareils électriques Montants maximum de garantie Dommages matériels* 25 % du montant de garantie fixé aux Dispositions Particulières pour la garantie « Incendie et événements assimilés » > Franchise* applicable La garantie s’applique sous réserve de la franchise générale men­ tionnée aux Dispositions Particulières avec un minimum de 0,15 fois l’indice. 2.14 Contenu du congélateur Nous garantissons les dommages matériels* aux denrées consom­ mables contenues dans les con"}, {"tour": 3, "outil": "rechercher", "args": {"motif": "exclusion", "slug": "cg_mrh_assureur"}, "n_extraits": 3, "extraits": [{"contrat": "cg_mrh_assureur", "page": 3, "extrait": ".................................................................................. 26 4.3 Dispositions communes aux garanties juridiques ......................................................................................................."}, {"contrat": "cg_mrh_assureur", "page": 3, "extrait": ".............................................. 27 5 - Exclusions................................................................................................................................................................................"}, {"contrat": "cg_mrh_assureur", "page": 3, "extrait": "........................................................................... 30 5.1 Exclusions communes à toutes les garanties .................................................................................................................."}]}, {"tour": 4, "outil": "lire_page", "args": {"slug": "cg_mrh_assureur", "page": 30}, "apercu": "30/64 GA5X25J - Janvier 2022 Cumul de la garantie Si vous êtes garanti par plusieurs polices pour le risque constituant l’objet du présent contrat, vous devez nous en informer, au plus tard, lors de la déclaration du sinistre. Il est entendu que vous pouvez vous adresser à l’Assureur de votre choix pour la prise en charge du sinistre. La garantie des polices contractées sans fraude produit ses effets dans les limites contractuelles prévues. S’il y a eu tromperie ou fraude de votre part, les sanctions prévues par l’Article L121-3 du Code des assurances sont applicables. Exécution des décisions "}, {"tour": 5, "outil": "lire_page", "args": {"slug": "cg_mrh_assureur", "page": 31}, "apercu": "31/64 GA5X25J - Janvier 2022 5.2 Exclusions communes aux garanties de vos biens 1. Les dommages subis par les biens mobiliers suivants : • hélicoptères, avions y compris aéronefs ultralégers motorisés ; • bateaux et engins nautiques de plus de 5,5 m ou munis de moteur de plus de 6 CV ; • les véhicules terrestres à moteur, y compris les remorques et les caravanes, dont vous ou toute personne dont vous êtes civilement responsable, avez la propriété, la conduite ou la garde, et autres que : - un fauteuil roulant d’handicapé à propulsion électrique, - kart ou jouet à moteur, dont la vitesse maxima"}], "reponse": "Oui, les denrées d’un congélateur perdues après une coupure de courant sont couvertes, sous réserve des exclusions générales.\n\nGarantie :\n« Nous garantissons les dommages matériels* aux denrées consommables contenues dans les congélateurs et réfrigérateurs à la suite d’un arrêt accidentel* de leur fonctionnement de plus de 24 heures y compris en cas de coupure accidentelle* de l’alimentation électrique. » (« cg_mrh_assureur », page 17)\n\nPlafond :\n« Dommages matériels* : 0,5 fois l’indice* » (« cg_mrh_assureur », page 17)\n\nFranchise :\n« La garantie s’applique sous réserve de la franchise générale mentionnée aux Dispositions Particulières. » (« cg_mrh_assureur », page 17)\n\nExclusions :\nAucune exclusion spécifique aux denrées de congélateur n’est mentionnée, seules les exclusions générales s’appliquent, notamment :\n- « Les dommages causés intentionnellement par l’assuré ou avec sa complicité » (« cg_mrh_assureur », page 30)\n- « Les dommages occasionnés par la vétusté*, l’usure ou le vice interne des biens lorsque vous en aviez eu connaissance avant le sinistre* et que vous n’y avez pas remédié. » (« cg_mrh_assureur », page 31)\n\nEn résumé : oui, couvert après 24h d’arrêt accidentel, y compris coupure de courant, dans la limite de 0,5 fois l’indice, franchise générale, exclusions générales applicables. Références : pages 17, 30 et 31 du contrat « cg_mrh_assureur ».", "citations": [{"texte": "Nous garantissons les dommages matériels* aux denrées consommables contenues dans les congélateurs et réfrigérateurs à la suite d’un arrêt accidentel* de leur fonctionnement de plus de 24 heures y compris en cas de coupure accidentelle* de l’alimentation électrique.", "verifiee": true, "contrat": "cg_mrh_assureur"}, {"texte": "Dommages matériels* : 0,5 fois l’indice*", "verifiee": true, "contrat": "cg_mrh_assureur"}, {"texte": "La garantie s’applique sous réserve de la franchise générale mentionnée aux Dispositions Particulières.", "verifiee": true, "contrat": "cg_mrh_assureur"}, {"texte": "Les dommages causés intentionnellement par l’assuré ou avec sa complicité", "verifiee": true, "contrat": "cg_mrh_assureur"}, {"texte": "Les dommages occasionnés par la vétusté*, l’usure ou le vice interne des biens lorsque vous en aviez eu connaissance avant le sinistre* et que vous n’y avez pas remédié.", "verifiee": true, "contrat": "cg_mrh_assureur"}]}</script>
 <script>
-const RUN = JSON.parse(document.getElementById("run-data").textContent);
-const esc = s => (s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+  // ------------------------------------------------------------------
+  // Le contrat : huit pages, ecrites pour la demonstration. Les montants sont
+  // exprimes « en indice », comme dans beaucoup de conditions generales, ce qui
+  // oblige l'agent a lire deux pages pour donner un chiffre.
+  // ------------------------------------------------------------------
+  const PAGES = [
+    `SOMMAIRE
+1. Définitions ........................................ page 2
+2. Les garanties de vos biens
+   2.1 Incendie et événements assimilés ................ page 3
+   2.2 Dégât des eaux .................................. page 4
+   2.3 Dommages aux appareils électriques .............. page 5
+   2.4 Contenu du congélateur .......................... page 5
+   2.5 Vol et vandalisme ............................... page 6
+3. Tableau des montants de garantie ................... page 7
+4. Exclusions communes à toutes les garanties ......... page 8`,
 
-// méta
-document.getElementById("meta").innerHTML =
-  `<div class="row"><b>Modèle :</b> <code>${esc(RUN.modele)}</code></div>`+
-  `<div class="row"><b>Document analysé :</b> ${RUN.corpus.map(c=>`<code>${esc(c)}</code>`).join(", ")} (un seul contrat)</div>`+
-  `<div class="row"><b>Run du :</b> ${esc(RUN.date)} · ${RUN.etapes.length} appels d'outils · ${RUN.citations.length} citations vérifiées</div>`;
-document.getElementById("question").textContent = RUN.question;
+    `1. DÉFINITIONS
+Indice : valeur de référence servant au calcul des montants de garantie et des franchises. Pour l'édition 2025 du présent contrat, l'indice vaut 1 100 euros.
+Franchise : somme restant à votre charge lors de chaque sinistre. La franchise générale est fixée à 0,15 fois l'indice.
+Arrêt accidentel : tout arrêt de fonctionnement d'un appareil qui n'est ni volontaire ni prévisible, y compris l'interruption de l'alimentation électrique par le fournisseur d'énergie.
+Antivol agréé : antivol à clé ou à combinaison portant la mention SRA ou FUB, fixant le cadre du vélo à un point fixe.
+Vétusté : dépréciation d'un bien due à l'usage ou au temps.`,
 
-// leçon : un mot évident à 0 occurrence, mais réponse "couvert"
-const zeros = RUN.etapes.filter(e=>e.outil==="rechercher" && e.n_extraits===0).map(e=>e.args.motif);
-const couvert = /couvert|garanti|oui/i.test(RUN.reponse.slice(0,120));
-if(zeros.length && couvert){
-  document.getElementById("lesson").innerHTML =
-   `<div class="lesson"><b>La leçon, en direct :</b> la recherche du mot évident `+
-   zeros.map(z=>`« ${esc(z)} »`).join(", ")+` renvoie <b>0</b> occurrence. `+
-   `Un moteur par mots-clés aurait conclu « non couvert ». L'agent élargit (synonymes, catégorie englobante), `+
-   `retrouve la clause, et la réponse est bien « couvert ». L'absence du mot n'est pas l'absence de garantie.</div>`;
-}
+    `2.1 INCENDIE ET ÉVÉNEMENTS ASSIMILÉS
+Nous garantissons les dommages matériels causés aux biens assurés par un incendie, une explosion, la chute de la foudre ou la fumée. Les frais de déblaiement et de démolition sont pris en charge dans la limite de 10 fois l'indice.
+Les bâtiments sont garantis en valeur de reconstruction à neuf, vétusté déduite au-delà de 25 %. Le mobilier est garanti dans la limite du capital mobilier indiqué aux Dispositions Particulières.`,
 
-// étapes, groupées par tour
-const byTour = {};
-RUN.etapes.forEach(e=>{ (byTour[e.tour] ||= []).push(e); });
-const stepsEl = document.getElementById("steps");
-Object.keys(byTour).sort((a,b)=>a-b).forEach(t=>{
-  const div = document.createElement("div"); div.className="tour";
-  const steps = byTour[t];
-  let html = `<div class="tourhd">Tour ${t} — le modèle appelle ${steps.length} outil(s)</div>`;
-  for(const e of steps){
-    if(e.outil==="rechercher"){
-      const cible = e.args.slug ? esc(e.args.slug) : "tous les contrats";
-      html += `<div class="tool"><div class="call">🔧 rechercher(« ${esc(e.args.motif)} », ${cible}) `+
-              `→ <span class="n">${e.n_extraits} extrait(s)</span></div>`;
-      if(e.n_extraits===0){
-        html += `<div class="zero">aucune occurrence — le mot n'apparaît pas tel quel</div>`;
-      }else{
-        const shown = e.extraits.filter(x=>x.page).slice(0,4);
-        for(const x of shown)
-          html += `<div class="ex"><span class="src">${esc(x.contrat)} p.${x.page}</span> «…${esc(x.extrait)}…»</div>`;
-        const more = e.n_extraits - shown.length;
-        if(more>0) html += `<div class="ex">… (+${more} autres extraits)</div>`;
+    `2.2 DÉGÂT DES EAUX
+Nous garantissons les dommages matériels causés par les fuites, ruptures et débordements de conduites, d'appareils à effet d'eau et d'installations de chauffage, ainsi que les infiltrations au travers des toitures.
+Les frais de recherche de fuite sont pris en charge dans la limite de 2 fois l'indice. Les dommages au mobilier sont garantis dans la limite de 60 fois l'indice.
+Ne sont pas garantis les dommages dus à un défaut de réparation ou d'entretien connu de vous avant le sinistre.`,
+
+    `2.3 DOMMAGES AUX APPAREILS ÉLECTRIQUES
+Nous garantissons les dommages causés aux appareils électriques et électroniques par une surtension due à la foudre ou à un incident sur le réseau, dans la limite de 5 fois l'indice par sinistre. La vétusté est déduite à raison de 10 % par année d'ancienneté.
+2.4 CONTENU DU CONGÉLATEUR
+Nous garantissons les dommages aux denrées consommables contenues dans les congélateurs et réfrigérateurs à la suite d'un arrêt accidentel de leur fonctionnement de plus de 24 heures, y compris en cas de coupure accidentelle de l'alimentation électrique.
+La garantie s'applique sous réserve de la franchise générale. Montant maximum de garantie : 0,5 fois l'indice par sinistre.`,
+
+    `2.5 VOL ET VANDALISME
+Nous garantissons la disparition, la destruction ou la détérioration des biens assurés à la suite d'un vol commis par effraction, escalade ou agression, ou d'un acte de vandalisme, dans la limite de 20 fois l'indice.
+Les objets de valeur sont garantis dans la limite de 30 % du capital mobilier.
+Les vélos sont garantis à l'intérieur de l'habitation, et à l'extérieur lorsqu'ils sont attachés à un point fixe par un antivol agréé, dans la limite de 1 500 euros par vélo et par sinistre, sur présentation de la facture d'achat et du récépissé de dépôt de plainte.`,
+
+    `3. TABLEAU DES MONTANTS DE GARANTIE
+Incendie, bâtiments ............ valeur de reconstruction à neuf
+Déblaiement et démolition ...... 10 fois l'indice
+Dégât des eaux, mobilier ....... 60 fois l'indice
+Recherche de fuite ............. 2 fois l'indice
+Appareils électriques .......... 5 fois l'indice
+Contenu du congélateur ......... 0,5 fois l'indice
+Vol, biens mobiliers ........... 20 fois l'indice
+Vélos .......................... 1 500 euros par vélo
+Franchise générale ............. 0,15 fois l'indice`,
+
+    `4. EXCLUSIONS COMMUNES À TOUTES LES GARANTIES
+Sont exclus :
+- les dommages causés intentionnellement par vous ou avec votre complicité ;
+- les dommages résultant de la vétusté ou d'un défaut d'entretien dont vous aviez connaissance avant le sinistre ;
+- les vols commis sans effraction, escalade ni agression, sauf pour les vélos attachés par un antivol agréé ;
+- les denrées perdues lorsque l'arrêt du congélateur résulte d'un défaut de paiement de l'électricité ou d'une coupure annoncée par le fournisseur ;
+- les dommages survenus pendant une inoccupation de plus de 90 jours consécutifs.`,
+  ];
+
+  // ------------------------------------------------------------------
+  // Les deux outils, du code ordinaire. La recherche ignore la casse et les
+  // accents, et c'est tout : elle ne comprend pas qu'une « coupure de
+  // courant » et une « coupure de l'alimentation électrique » sont la meme
+  // chose. C'est le modele qui doit reformuler.
+  // ------------------------------------------------------------------
+  const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ");
+  function rechercher(motif, max = 3){
+    const m = norm(motif.trim());
+    if (!m) return [];
+    const out = [];
+    PAGES.forEach((p, i) => {
+      const n = norm(p);
+      let k = n.indexOf(m);
+      while (k !== -1 && out.length < max) {
+        const d = Math.max(0, k - 90), f = Math.min(n.length, k + m.length + 90);
+        // on decoupe sur le texte d'origine aux memes positions : la
+        // normalisation garde la longueur, un caractere pour un caractere
+        const brut = p.replace(/\s+/g, " ");
+        out.push({page:i + 1, extrait:(d > 0 ? "…" : "") + brut.slice(d, k) + "⟦" + brut.slice(k, k + m.length) + "⟧" + brut.slice(k + m.length, f) + (f < n.length ? "…" : "")});
+        k = n.indexOf(m, k + 1);
       }
-      html += `</div>`;
-    } else if(e.outil==="lire_page"){
-      html += `<div class="read"><div class="call">📖 lire_page(${esc(e.args.slug)}, p.${esc(String(e.args.page))})</div>`+
-              `<div class="prev">↳ ${esc((e.apercu||"").slice(0,300))}…</div></div>`;
-    } else if(e.outil==="liste_contrats"){
-      html += `<div class="read"><div class="call">📦 liste_contrats() → ${(e.resultat||[]).length} contrats</div></div>`;
-    }
+    });
+    return out;
   }
-  div.innerHTML = html; stepsEl.appendChild(div);
-});
+  const lire_page = n => PAGES[n - 1];
 
-// réponse (les « citations » surlignées légèrement)
-document.getElementById("answer").innerHTML =
-  esc(RUN.reponse).replace(/«\s*(.+?)\s*»/gs, '«&nbsp;<span style="background:#fef9c3;border-radius:3px;padding:0 2px">$1</span>&nbsp;»');
+  // ------------------------------------------------------------------
+  // Les questions et le plan de l'agent : ce qu'un modele decide, tour apres
+  // tour, sur ce genre de question. Rejoue ici, les outils tournant pour de vrai.
+  // ------------------------------------------------------------------
+  const QUESTIONS = [
+    {
+      texte:"Les denrées de mon congélateur ont été perdues après une coupure de courant. Est-ce couvert, à quel plafond, et avec quelles exclusions ?",
+      plan:[
+        {dec:"Les mots de la question, d'abord : « coupure de courant ».", outil:"rechercher", arg:"coupure de courant",
+         apres:"Aucune occurrence. Le contrat ne parle pas comme le client : le modèle doit reformuler avec le mot le plus sûr de la question."},
+        {dec:"Reformuler : le mot qui ne peut pas manquer, c'est « congélateur ».", outil:"rechercher", arg:"congélateur",
+         apres:"Le sommaire, une clause en page 5, une ligne du tableau en page 7, une exclusion en page 8. La clause d'abord."},
+        {dec:"Lire la page de la clause.", outil:"lire_page", arg:5,
+         apres:"La garantie est là, avec la condition de 24 heures et la coupure d'alimentation électrique. Le plafond est « 0,5 fois l'indice » : il faut la valeur de l'indice."},
+        {dec:"Combien vaut l'indice ? C'est une définition.", outil:"rechercher", arg:"l'indice vaut",
+         apres:"Page 2, dans les définitions."},
+        {dec:"Lire les définitions.", outil:"lire_page", arg:2,
+         apres:"1 100 euros. Le plafond fait donc 550 euros, franchise générale 165 euros. Reste les exclusions."},
+        {dec:"Les exclusions, sur la page que le sommaire indique.", outil:"lire_page", arg:8,
+         apres:"Une exclusion vise précisément le congélateur : coupure annoncée ou défaut de paiement. Tout est lu, le modèle rédige."},
+      ],
+      reponse:[
+        {t:"Oui, sous conditions. La garantie « Contenu du congélateur » couvre les denrées : "},
+        {q:"Nous garantissons les dommages aux denrées consommables contenues dans les congélateurs et réfrigérateurs à la suite d'un arrêt accidentel de leur fonctionnement de plus de 24 heures, y compris en cas de coupure accidentelle de l'alimentation électrique.", p:5},
+        {t:"\n\nPlafond : "},
+        {q:"Montant maximum de garantie : 0,5 fois l'indice par sinistre.", p:5},
+        {t:" Avec "},
+        {q:"l'indice vaut 1 100 euros", p:2},
+        {t:", le plafond est de 550 euros, sous réserve de la franchise générale de 0,15 fois l'indice, soit 165 euros.\n\nExclusion à vérifier auprès du client : "},
+        {q:"les denrées perdues lorsque l'arrêt du congélateur résulte d'un défaut de paiement de l'électricité ou d'une coupure annoncée par le fournisseur", p:8},
+        {t:". Si la coupure était annoncée, rien n'est dû."},
+      ],
+    },
+    {
+      texte:"Mon vélo a été volé devant la gare, il était attaché. Est-ce couvert, et à quelles conditions ?",
+      plan:[
+        {dec:"Le mot sûr de la question : « vélo ».", outil:"rechercher", arg:"vélo",
+         apres:"Une clause en page 6, une ligne du tableau en page 7, une exclusion en page 8."},
+        {dec:"Lire la clause vol.", outil:"lire_page", arg:6,
+         apres:"Couvert à l'extérieur si attaché par un « antivol agréé », 1 500 euros par vélo, facture et dépôt de plainte exigés. Que veut dire « agréé » ?"},
+        {dec:"Le terme est défini quelque part.", outil:"rechercher", arg:"antivol agréé",
+         apres:"Page 2 pour la définition, page 8 pour l'exclusion qui y renvoie."},
+        {dec:"Lire la définition.", outil:"lire_page", arg:2,
+         apres:"Mention SRA ou FUB, cadre fixé à un point fixe. Il reste l'exclusion des vols sans effraction."},
+        {dec:"Vérifier l'exclusion.", outil:"lire_page", arg:8,
+         apres:"Les vols sans effraction sont exclus, sauf précisément les vélos attachés par un antivol agréé. Le modèle rédige."},
+      ],
+      reponse:[
+        {t:"Oui, si l'antivol était agréé. "},
+        {q:"Les vélos sont garantis à l'intérieur de l'habitation, et à l'extérieur lorsqu'ils sont attachés à un point fixe par un antivol agréé, dans la limite de 1 500 euros par vélo et par sinistre, sur présentation de la facture d'achat et du récépissé de dépôt de plainte.", p:6},
+        {t:"\n\nUn antivol agréé est défini page 2 : "},
+        {q:"antivol à clé ou à combinaison portant la mention SRA ou FUB, fixant le cadre du vélo à un point fixe", p:2},
+        {t:". Sans cette mention, l'exclusion générale s'applique : "},
+        {q:"les vols commis sans effraction, escalade ni agression, sauf pour les vélos attachés par un antivol agréé", p:8},
+        {t:".\n\nPièces à demander : la facture d'achat, le récépissé de plainte, et une photo ou la facture de l'antivol."},
+      ],
+    },
+  ];
 
-// vérifications
-const verifEl = document.getElementById("verif");
-RUN.citations.forEach(c=>{
-  const v = document.createElement("div"); v.className="v";
-  v.innerHTML = c.verifiee
-    ? `<span class="vok">✓ vérifiée</span><span class="cite">« ${esc(c.texte.slice(0,160))}${c.texte.length>160?"…":""} » <span class="where">— trouvée dans ${esc(c.contrat)}</span></span>`
-    : `<span class="vko">⚠ à vérifier</span><span class="cite">« ${esc(c.texte.slice(0,160))}${c.texte.length>160?"…":""} » <span class="where">— absente telle quelle (paraphrase / valeur de tableau recomposée)</span></span>`;
-  verifEl.appendChild(v);
-});
+  const $ = s => document.querySelector(s);
+  let question = 0, tour = 0;
+  const lues = new Set();
 
-const nOk = RUN.citations.filter(c=>c.verifiee).length;
-document.getElementById("note").textContent =
-  `${nOk}/${RUN.citations.length} citations vérifiées au mot près dans le PDF. `+
-  `Transcript embarqué dans cette page, généré par build_resultats_html.py depuis un run réel de chat_agentique.py --save.`;
+  // le contrat, page par page
+  const onglets = $("#onglets");
+  PAGES.forEach((_, i) => { const b = document.createElement("button"); b.textContent = "p. " + (i + 1); b.addEventListener("click", () => montrerPage(i + 1)); onglets.appendChild(b); });
+  function montrerPage(n, surligner = ""){
+    [...onglets.children].forEach((b, i) => { b.classList.toggle("on", i + 1 === n); b.classList.toggle("lue", lues.has(i + 1)); });
+    let html = echapper(PAGES[n - 1]);
+    if (surligner) { const re = new RegExp(surligner.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"); html = html.replace(re, m => "<mark>" + m + "</mark>"); }
+    $("#page").innerHTML = `<span class="titre">Conditions générales habitation, édition 2025 · page ${n} sur ${PAGES.length}</span>` + html;
+  }
+  function echapper(s){ return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+  // la recherche libre, pour le lecteur
+  function chercherLibre(){
+    const res = rechercher($("#motif").value, 6);
+    $("#resultats-libres").innerHTML = res.length ? res.map(r => `<li><b>p. ${r.page}</b>${echapper(r.extrait).replace("⟦", "<mark>").replace("⟧", "</mark>")}</li>`).join("")
+      : `<li class="vide">Aucune occurrence de « ${echapper($("#motif").value)} ». L'outil cherche des caractères, pas un sens : c'est au modèle de reformuler.</li>`;
+  }
+  $("#chercher").addEventListener("click", chercherLibre);
+  $("#motif").addEventListener("keydown", e => { if (e.key === "Enter") chercherLibre(); });
+
+  // la boucle
+  const sel = $("#question");
+  QUESTIONS.forEach((q, i) => { const o = document.createElement("option"); o.value = i; o.textContent = q.texte; sel.appendChild(o); });
+  sel.addEventListener("change", () => { question = +sel.value; recommencer(); });
+
+  function recommencer(){
+    tour = 0; lues.clear();
+    $("#etapes").innerHTML = '<p class="vide-note">Cliquez « Tour suivant ».</p>';
+    $("#carte-reponse").hidden = true; $("#carte-verif").hidden = true;
+    $("#suivant").disabled = false; $("#tout").disabled = false;
+    montrerPage(1);
+  }
+  function tourSuivant(){
+    const q = QUESTIONS[question];
+    if (tour === 0) $("#etapes").innerHTML = "";
+    if (tour >= q.plan.length) { rediger(); return; }
+    const e = q.plan[tour];
+    const div = document.createElement("div");
+    div.className = "tour";
+    let corps = "";
+    if (e.outil === "rechercher") {
+      const res = rechercher(e.arg);
+      corps = `<span class="appel"><i>rechercher</i>(motif = "${e.arg}")</span>` +
+        `<ul class="res">${res.length ? res.map(r => `<li><b>p. ${r.page}</b>${echapper(r.extrait).replace("⟦", "<mark>").replace("⟧", "</mark>")}</li>`).join("") : '<li class="vide">aucune occurrence</li>'}</ul>`;
+      if (res.length) montrerPage(res[0].page, e.arg);
+    } else {
+      lues.add(e.arg);
+      montrerPage(e.arg);
+      const txt = lire_page(e.arg).replace(/\s+/g, " ");
+      corps = `<span class="appel"><i>lire_page</i>(${e.arg})</span><ul class="res"><li><b>p. ${e.arg}</b>${echapper(txt.slice(0, 220))}…</li></ul>`;
+    }
+    div.innerHTML = `<div class="n">Tour ${tour + 1} · le modèle décide</div><div class="dec">${e.dec}</div>${corps}<div class="dec" style="color:var(--soft);font-size:.8rem;margin-top:6px">${e.apres}</div>`;
+    $("#etapes").appendChild(div);
+    div.scrollIntoView({block:"nearest", behavior:"smooth"});
+    tour++;
+    if (tour >= q.plan.length) $("#suivant").textContent = "Rédiger la réponse";
+  }
+  function rediger(){
+    const q = QUESTIONS[question];
+    $("#reponse").innerHTML = q.reponse.map(s => s.t !== undefined ? echapper(s.t) : `<q contenteditable spellcheck="false" data-p="${s.p}">${echapper(s.q)}</q> <span class="ref">(p. ${s.p})</span>`).join("");
+    $("#carte-reponse").hidden = false; $("#carte-verif").hidden = false;
+    $("#suivant").disabled = true; $("#tout").disabled = true; $("#suivant").textContent = "Tour suivant";
+    verifier();
+    $("#carte-reponse").scrollIntoView({block:"nearest", behavior:"smooth"});
+  }
+  $("#suivant").addEventListener("click", tourSuivant);
+  $("#tout").addEventListener("click", () => { while (!$("#suivant").disabled) tourSuivant(); });
+  $("#recommencer").addEventListener("click", recommencer);
+  $("#reponse").addEventListener("input", verifier);
+
+  // ------------------------------------------------------------------
+  // La verification, hors du modele : chaque citation est cherchee telle
+  // quelle dans le contrat. Trouvee, elle est auditable ; absente, elle est
+  // une paraphrase ou une invention, et la reponse ne vaut plus rien.
+  // ------------------------------------------------------------------
+  function verifier(){
+    const cites = [...$("#reponse").querySelectorAll("q")];
+    let ok = 0;
+    $("#verif").innerHTML = cites.map(c => {
+      const t = c.textContent.trim();
+      const page = PAGES.findIndex(p => norm(p).includes(norm(t))) + 1;
+      if (page) ok++;
+      return `<li><span class="${page ? "ok" : "ko"}">${page ? "✓ p. " + page : "⚠ absente"}</span><div>« ${echapper(t.length > 110 ? t.slice(0, 110) + "…" : t)} »` +
+             (page ? `<br><i>présente mot pour mot${page !== +c.dataset.p ? ", mais en page " + page + " et non " + c.dataset.p : ""}</i>` : "<br><i>introuvable telle quelle : paraphrase, valeur recomposée ou invention</i>") + "</div></li>";
+    }).join("");
+    const b = $("#bilan");
+    b.className = "bilan " + (ok === cites.length ? "ok" : "ko");
+    b.innerHTML = ok === cites.length
+      ? `<b>${ok} citations sur ${cites.length} retrouvées mot pour mot.</b> Chaque affirmation de la réponse se remonte à une page : c'est ce qui rend la réponse auditable.`
+      : `<b>${cites.length - ok} citation${cites.length - ok > 1 ? "s" : ""} introuvable${cites.length - ok > 1 ? "s" : ""}.</b> Une seule suffit à faire douter du reste : une réponse d'agent sans vérification hors du modèle n'est pas une réponse, c'est une opinion bien écrite.`;
+  }
+
+  recommencer(); chercherLibre();
 </script>
-<div style="background:#fff8e6;color:#7a5b08;padding:14px 20px;font:13px -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;text-align:center;border-top:1px solid #fde68a">Démonstration <b>statique</b> (données figées), <b>pas l'outil dynamique</b>. Pour un outil sur vos propres documents, <b>contactez-nous</b>. · <a href="https://doc-intel.github.io/fr/cas/" style="color:#1d4ed8;text-decoration:none">Études de cas</a></div>
 </body>
 </html>
