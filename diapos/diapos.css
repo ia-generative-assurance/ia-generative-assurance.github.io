@@ -22,10 +22,17 @@ body { margin: 0; background: #0d1830; color: var(--ink);
   display: flex; flex-direction: column; overflow: hidden; }
 
 /* ---------- la scene ---------- */
-.pupitre { flex: 1; display: grid; place-items: center; min-height: 0; padding: 10px 0 0; }
-.scene { width: var(--scene-l); height: var(--scene-h); position: relative;
+/* La scene est mise a l'echelle par un transform, qui ne change pas
+   l'encombrement : une scene de 1280 x 720 reduite a 0,95 occupe toujours
+   1280 x 720 dans la mise en page, et debordait sous la barre du bas. Le cadre
+   porte donc la taille REELLE apres mise a l'echelle (posee par diapos.js), et
+   la scene s'y accroche en haut a gauche. Plus rien ne se chevauche. */
+.pupitre { flex: 1; display: flex; align-items: center; justify-content: center;
+  min-height: 0; padding: 8px 14px; }
+.cadre { position: relative; }
+.scene { width: var(--scene-l); height: var(--scene-h); position: absolute; top: 0; left: 0;
   background: #fff; border-radius: 14px; overflow: hidden;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, .45); transform-origin: center center; }
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .45); transform-origin: top left; }
 
 .diapo { position: absolute; inset: 0; display: none; flex-direction: column; }
 .diapo.is-on { display: flex; }

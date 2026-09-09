@@ -28,13 +28,22 @@
   var suivante = scene.getAttribute('data-suivant') || '';
   var precedente = scene.getAttribute('data-precedent') || '';
 
-  // 1. la scene s'adapte a la fenetre, jamais l'inverse
+  // 1. la scene s'adapte a la fenetre, jamais l'inverse.
+  //    Le cadre prend la taille reelle de la scene apres mise a l'echelle :
+  //    sans cela son encombrement reste celui de 1280 x 720 et la scene passe
+  //    sous la barre de pilotage.
   function poserEchelle() {
     var pupitre = document.querySelector('.pupitre');
-    var l = pupitre.clientWidth - 28, h = pupitre.clientHeight - 14;
+    var cadre = document.querySelector('.cadre');
+    // clientWidth inclut le remplissage : on le retire, sinon la scene le mange
+    var cs = getComputedStyle(pupitre);
+    var l = pupitre.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    var h = pupitre.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    if (l <= 0 || h <= 0) { return; }
     var k = Math.min(l / cadreL, h / cadreH);
     scene.style.transform = 'scale(' + k.toFixed(4) + ')';
-    pupitre.style.setProperty('--k', k.toFixed(4));
+    cadre.style.width = Math.round(cadreL * k) + 'px';
+    cadre.style.height = Math.round(cadreH * k) + 'px';
   }
 
   // 2. une diapositive qui deborde se reduit, elle ne se coupe pas
