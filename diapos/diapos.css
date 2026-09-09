@@ -5,7 +5,7 @@
    repris tels quels, seule la mise en page change. Ce fichier vient APRES
    style.css, demo.css et fiches.css, et ne fait que trois choses :
 
-   1. poser une scene de 1200 x 675 (16 par 9), mise a l'echelle de l'ecran ;
+   1. poser une scene de 1280 x 720 (16 par 9), mise a l'echelle de l'ecran ;
    2. rendre visible ce que le site anime au defilement (.reveal) et retirer
       ce qui n'a pas de sens sans defilement (barre collante, sommaire lateral) ;
    3. resserrer les marges verticales, parce qu'une diapositive n'a pas la
@@ -15,7 +15,7 @@
    et fige dans le HTML produit.
    ========================================================================== */
 
-:root { --scene-l: 1200px; --scene-h: 675px; --colonne: 946px; }
+:root { --scene-l: 1280px; --scene-h: 720px; --colonne: 1160px; --colonne-large: 1240px; }
 
 html, body { height: 100%; }
 body { margin: 0; background: #0d1830; color: var(--ink);
@@ -39,11 +39,14 @@ body { margin: 0; background: #0d1830; color: var(--ink);
   color: var(--navy); }
 .diapo-tete .sep { color: var(--line); }
 
-/* le corps : la meme colonne que le site, donc les memes largeurs de schema */
+/* Le corps prend presque toute la scene : sur un ecran de projection, une
+   colonne de 946 comme sur le site laissait deux bandes blanches de chaque
+   cote (retour de Kezhan, 9 septembre : « essaie de faire plus large encore »).
+   Une seule exception, plus bas : les figures. */
 .diapo-cadre { flex: 1; min-height: 0; overflow: hidden; display: flex;
   justify-content: center; align-items: center; padding: 20px 34px 22px; }
 .diapo-corps { width: var(--colonne); transform-origin: center center; }
-.diapo.large .diapo-corps { width: 1120px; }
+.diapo.large .diapo-corps { width: var(--colonne-large); }
 .diapo-corps > * + * { margin-top: 18px; }
 .diapo-corps > :first-child { margin-top: 0; }
 
@@ -54,6 +57,14 @@ body { margin: 0; background: #0d1830; color: var(--ink);
 .band { padding: 0 !important; border: 0 !important; }
 .wrap, .wrap-narrow { padding: 0 !important; max-width: none !important; }
 .section-head { margin-bottom: 0 !important; }
+
+/* La figure est la seule chose qui ne prend pas toute la colonne. Un schema est
+   dessine sur une toile de 892 unites (SCHEMAS.md section 4) : etire a 1160,
+   son texte grossirait de 30 % et dominerait la prose autour. La limite tenue
+   ici est celle ou le texte du schema egale celui de la diapositive, 17 px, ce
+   qui donne 1040. La figure est donc plus grande que sur le site, sans jamais
+   ecraser ce qui l'entoure. */
+.diapo-corps > .figure-frame { max-width: 1040px; margin-left: auto; margin-right: auto; }
 
 /* ---------- densite : une diapo n'est pas une page ---------- */
 .diapo-corps h2 { font-size: 1.5rem; }
@@ -93,7 +104,7 @@ body { margin: 0; background: #0d1830; color: var(--ink);
 .diapo.titre.sombre .hero-cta { display: none; }
 
 /* ---------- un recit defilant : le schema a gauche, l'etape a droite ---------- */
-.recit { display: grid; grid-template-columns: 620px 1fr; gap: 26px; align-items: center; }
+.recit { display: grid; grid-template-columns: 660px 1fr; gap: 32px; align-items: center; }
 .recit .figure-frame { padding: 14px; }
 .recit .fig-scroll, .recit svg { width: 100%; }
 .recit-texte h4 { font-family: var(--display); font-size: 1.15rem; color: var(--navy);
@@ -106,19 +117,29 @@ body { margin: 0; background: #0d1830; color: var(--ink);
 .recit-ticks span.is-on { background: var(--crimson); }
 
 /* ---------- la barre de pilotage ---------- */
-.pilote { flex: none; display: flex; align-items: center; gap: 14px;
-  padding: 12px 22px 14px; color: #c6d1e2; font-size: .86rem; }
-.pilote button { font: inherit; font-family: var(--display); font-weight: 700;
-  color: #dbe4f2; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .16);
-  border-radius: 10px; padding: 7px 14px; cursor: pointer; display: inline-flex;
-  align-items: center; gap: 7px; }
-.pilote button:hover { background: rgba(255, 255, 255, .16); }
-.pilote button[disabled] { opacity: .35; cursor: default; }
-.pilote svg { width: 15px; height: 15px; }
-.pilote .rang { font-family: var(--mono); font-size: .82rem; color: #93a4c0; min-width: 5.5em; }
-.pilote .ou { color: #93a4c0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.pilote .droite { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-.pilote a { color: #93a4c0; text-decoration: none; font-size: .82rem; }
+/* Elle etait ecrite en gris sur le fond sombre de la page, et on ne la voyait
+   pas (retour de Kezhan, 9 septembre : « les boutons en bas sont un peu
+   caches »). Elle devient une vraie barre : un fond plus clair, un filet qui la
+   detache de la scene, des boutons contrastes, et le bouton Suivant en rouge,
+   parce que c'est le geste qu'on fait cent fois. */
+.pilote { flex: none; display: flex; align-items: center; gap: 12px;
+  padding: 11px 24px; background: #182848; border-top: 1px solid rgba(255, 255, 255, .14);
+  color: #e6ecf6; font-size: .88rem; }
+.pilote button { font: inherit; font-family: var(--display); font-weight: 800; font-size: .88rem;
+  color: #fff; background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: 10px; padding: 9px 16px; cursor: pointer; display: inline-flex;
+  align-items: center; gap: 8px; }
+.pilote button:hover { background: rgba(255, 255, 255, .26); }
+.pilote button.suiv { background: var(--crimson); border-color: var(--crimson); }
+.pilote button.suiv:hover { background: #d42749; }
+.pilote button[disabled] { opacity: .3; cursor: default; }
+.pilote svg { width: 16px; height: 16px; }
+.pilote .rang { font-family: var(--mono); font-size: .86rem; color: #fff; min-width: 5.5em;
+  text-align: center; }
+.pilote .ou { color: #a9b7cc; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pilote .droite { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.pilote .aide { color: #7d8ea9; font-size: .78rem; white-space: nowrap; }
+.pilote a { color: #cfd9ea; text-decoration: none; font-size: .84rem; font-weight: 600; }
 .pilote a:hover { color: #fff; text-decoration: underline; }
 
 .jauge { position: fixed; left: 0; top: 0; height: 3px; background: var(--crimson);

@@ -16,7 +16,8 @@
   var diapos = [].slice.call(document.querySelectorAll('.diapo'));
   if (!scene || !diapos.length) { return; }
 
-  var cadreL = 1200, cadreH = 675;
+  // la scene, en unites : diapos.css porte les memes valeurs
+  var cadreL = 1280, cadreH = 720;
   var i = 0;
   var jauge = document.querySelector('.jauge');
   var rang = document.querySelector('.pilote .rang');
