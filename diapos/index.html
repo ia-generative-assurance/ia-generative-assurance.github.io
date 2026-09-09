@@ -3,31 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IA générative en assurance</title>
+<title>IA générative en assurance · diapositives</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="assets/demo.css">
-<link rel="stylesheet" href="assets/fiches.css">
-<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="manifest" href="assets/site.webmanifest">
-<meta name="theme-color" content="#13264A">
-<meta name="description" content="Le support de la formation : quatre modules, des demonstrations a manipuler, et le PDF de chaque module.">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/demo.css">
+<link rel="stylesheet" href="../assets/fiches.css">
+<link rel="stylesheet" href="diapos.css">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+<meta name="theme-color" content="#0d1830">
 </head>
 <body>
-<header class="nav" id="site-nav"><a class="brand" href="index.html"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6 20 5.4v6.2c0 4.6-3.2 7.9-8 9.8-4.8-1.9-8-5.2-8-9.8V5.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8.4 11.9 11.3 9 14.2" fill="none" stroke="#EA617A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.6 14.2h3.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><span class="brand-txt"><span class="title">IA générative en assurance</span><span class="sub">Du premier prompt au prototype</span></span></a><button class="hamb" aria-label="Menu" id="hambBtn"><span></span><span></span><span></span></button><div class="navlinks"><a href="index.html" class="active">Accueil</a><div class="dd"><a class="ddbtn" href="decouvrir.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></span><span class="num">01</span> Je découvre <span class="car">&#9662;</span></a><div class="menu"><a class="menu-head" href="decouvrir.html"><b>Je découvre</b><small>tester les chatbots</small></a><span class="sep">Dans ce module</span><a href="decouvrir.html#moteur">Le moteur : un LLM qui écrit le mot suivant</a><a href="decouvrir.html#outils">Les outils qui le rendent utile</a><a href="decouvrir.html#modalites">Les modalités : vision, image, voix</a><a href="decouvrir.html#pont">Le pont vers les outils classiques</a><a href="decouvrir.html#panorama">Quel chatbot ? Le panorama</a><a href="decouvrir.html#prompter">Bien prompter</a><a href="decouvrir.html#limites">Où il s'arrête : des exemples de limites</a></div></div><div class="dd"><a class="ddbtn" href="comprendre.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span><span class="num">02</span> Je comprends <span class="car">&#9662;</span></a><div class="menu"><a class="menu-head" href="comprendre.html"><b>Je comprends</b><small>comment ça marche</small></a><span class="sep">Dans ce module</span><a href="comprendre.html#mots-cles">Je sais détecter des mots-clés</a><a href="comprendre.html#ml-classique">Je sais faire du ML classique</a><a href="comprendre.html#insuffisant">Les mots-clés ne suffisent pas</a><a href="comprendre.html#ordre">L'ordre des mots compte</a><a href="comprendre.html#modeles">Des modèles successifs, jusqu'aux LLM</a><a href="comprendre.html#vraie-vie">Dans la vraie vie : le texte n'arrive jamais propre</a><a href="comprendre.html#choisir">Pas toujours besoin d'un LLM</a></div></div><div class="dd"><a class="ddbtn" href="appliquer.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18"/></svg></span><span class="num">03</span> J'applique <span class="car">&#9662;</span></a><div class="menu"><a class="menu-head" href="appliquer.html"><b>J'applique</b><small>les gestes du métier, un par un</small></a><span class="sep">Dans ce module</span><a href="appliquer.html#assistant">Demander à un assistant qui agit</a><a href="appliquer.html#classer-mail">Classer un mail, technique par technique</a><a href="appliquer.html#documents">Lire et comparer des documents</a><a href="appliquer.html#rag">Chercher dans un corpus : le RAG</a><a href="appliquer.html#donnees">Interroger ses données en langage naturel</a><a href="appliquer.html#autres-gestes">Traduire, résumer, reformuler : les autres gestes</a><a href="appliquer.html#trois-endroits">Situer l'IA : trois endroits</a></div></div><div class="dd"><a class="ddbtn" href="prototyper.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="num">04</span> Je prototype <span class="car">&#9662;</span></a><div class="menu"><a class="menu-head" href="prototyper.html"><b>Je prototype</b><small>un processus complet, sans construire seul</small></a><span class="sep">Dans ce module</span><a href="prototyper.html#cas">La carte des cas d'usage : choisir le processus</a><a href="prototyper.html#outils">En un prompt : plein de cas, tout de suite</a><a href="prototyper.html#prototypes">Puis on peaufine : ce qui fait la différence</a><a href="prototyper.html#motifs">Ce qu'ils ont en commun, et ce qu'ils préparent</a><a href="prototyper.html#moyens">Les moyens : l'assistant de code, les outils pour tous</a><a href="prototyper.html#skills">Des skills, sans interface</a><a href="prototyper.html#outil-tri">La file de tri, du cas à l'outil</a><a href="prototyper.html#processus">La méthode, en résumé : l'écran d'abord</a><a href="prototyper.html#limites">Ce qu'un prototype n'est pas</a></div></div><a class="lien-diapos" href="diapos/index.html" title="La même page, découpée en diapositives"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Diapositives</span></a></div></header>
-
-<section class="hero">
+<div class="jauge"></div>
+<div class="pupitre">
+  <div class="scene" data-suivant="decouvrir.html" data-precedent="">
+<section class="diapo titre sombre" data-ou=""><div class="diapo-tete"><span class="mod">Accueil</span></div><div class="diapo-cadre"><div class="diapo-corps"><section class="hero">
   <div class="wrap hero-inner">
     <div>
       <div class="eyebrow eyebrow-light">Formation Foyer · théorie et application en assurance</div>
       <h1>L'IA générative, du premier prompt au prototype</h1>
       <p class="lede">Un chatbot écrit un mot, puis le suivant. Tout part de là : ce qu'il réussit, ce qu'il invente, ce qu'il ne fera jamais. Deux jours pour le voir de l'intérieur, l'appliquer aux dossiers de l'assurance, et prototyper ses propres outils.</p>
       <div class="hero-cta">
-        <a class="btn" href="#parcours">Voir le parcours <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn" href="#d2">Voir le parcours <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <div class="hero-facts">
         <div><b>2 jours</b><span>une demi-journée par module</span></div>
@@ -76,22 +74,18 @@
       </svg>
     </div>
   </div>
-</section>
-
-<section class="band" id="parcours">
-  <div class="wrap">
-    <div class="section-head center reveal">
+</section></div></div></section>
+<section class="diapo titre" data-ou="Le parcours"><div class="diapo-tete"><span class="mod">Accueil</span><span class="sep">·</span><span class="sec">Le parcours</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head center reveal">
       <div class="eyebrow">Le parcours</div>
       <h2>Quatre modules, dans l'ordre où l'on apprend vraiment</h2>
-    </div>
-    <div class="path reveal">
+    </div></div></div></section>
+<section class="diapo" data-ou="Le parcours"><div class="diapo-tete"><span class="mod">Accueil</span><span class="sep">·</span><span class="sec">Le parcours</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="path reveal">
       <div><div class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></div><b>Je découvre</b><span>je teste les chatbots, j'observe, je repère les limites</span></div>
       <div><div class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><b>Je comprends</b><span>j'ouvre le capot, du mot-clé au Transformer</span></div>
       <div><div class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18"/></svg></div><b>J'applique</b><span>les gestes du métier un par un, la technique la plus simple qui marche</span></div>
       <div><div class="p-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><b>Je prototype</b><span>un processus complet, sans construire seul</span></div>
-    </div>
-    <div class="grid grid-2">
-      <a class="card module reveal d1" href="decouvrir.html" style="color:inherit">
+    </div></div></div></section>
+<section class="diapo" data-ou="Le parcours"><div class="diapo-tete"><span class="mod">Accueil</span><span class="sep">·</span><span class="sec">Le parcours</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-2"><a class="card module reveal d1" href="decouvrir.html" style="color:inherit">
         <div class="m-num">01</div>
         <div class="m-ico c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></div>
         <h3>Je découvre</h3>
@@ -102,8 +96,7 @@
           <div><div class="ico crimson"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></div><div><strong>Ses limites, une parade</strong><p>Il ne calcule pas, il invente, il perd le fil, il s'arrête à une date, il cède : l'entourer d'outils et de règles.</p></div></div>
         </div>
         <span class="m-go">Ouvrir le module <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="card module reveal d2" href="comprendre.html" style="color:inherit">
+      </a><a class="card module reveal d2" href="comprendre.html" style="color:inherit">
         <div class="m-num">02</div>
         <div class="m-ico c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div>
         <h3>Je comprends</h3>
@@ -114,8 +107,8 @@
           <div><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"/><path d="M5 4h12l-2 4 2 4H5"/></svg></div><div><strong>La vraie vie, et pas toujours un LLM</strong><p>Le PDF complet, le mail sans contexte, les dix mille documents ; six niveaux et la règle pour choisir.</p></div></div>
         </div>
         <span class="m-go">Ouvrir le module <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="card module reveal d3" href="appliquer.html" style="color:inherit">
+      </a></div></div></div></section>
+<section class="diapo" data-ou="Le parcours"><div class="diapo-tete"><span class="mod">Accueil</span><span class="sep">·</span><span class="sec">Le parcours</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-2"><a class="card module reveal d3" href="appliquer.html" style="color:inherit">
         <div class="m-num">03</div>
         <div class="m-ico c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18"/></svg></div>
         <h3>J'applique</h3>
@@ -126,8 +119,7 @@
           <div><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg></div><div><strong>L'IA à trois endroits</strong><p>Pour réfléchir, pour créer l'outil, dans l'outil ou pas.</p></div></div>
         </div>
         <span class="m-go">Ouvrir le module <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="card module reveal d4" href="prototyper.html" style="color:inherit">
+      </a><a class="card module reveal d4" href="prototyper.html" style="color:inherit">
         <div class="m-num">04</div>
         <div class="m-ico c4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
         <h3>Je prototype</h3>
@@ -138,14 +130,8 @@
           <div><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><strong>Ce qu'un prototype n'est pas</strong><p>Sécurité, normes, industrialisation.</p></div></div>
         </div>
         <span class="m-go">Ouvrir le module <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<section class="band alt">
-  <div class="wrap">
-    <div class="grid grid-1-2" style="align-items:center">
+      </a></div></div></div></section>
+<section class="diapo" data-ou=""><div class="diapo-tete"><span class="mod">Accueil</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-1-2" style="align-items:center">
       <div class="reveal">
         <div class="eyebrow">Le fil rouge</div>
         <h2>Jamais d'IA en boîte noire</h2>
@@ -156,17 +142,12 @@
         <div class="card reveal d2"><div class="h-ico" style="margin-bottom:8px"><div class="ico navy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><h4>Comprendre ensuite</h4></div><p style="font-size:.93rem;margin:0">Ouvrir la boîte noire. Savoir ce qu'est un modèle, ce qu'il stocke, ce qu'il calcule.</p></div>
         <div class="card reveal d3"><div class="h-ico" style="margin-bottom:8px"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></div><h4>Appliquer enfin</h4></div><p style="font-size:.93rem;margin:0">Transposer aux cas métier, choisir la bonne technique, cadrer, prototyper.</p></div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="band">
-  <div class="wrap">
-    <div class="section-head reveal">
+    </div></div></div></section>
+<section class="diapo titre" data-ou="Ce qui tient un projet"><div class="diapo-tete"><span class="mod">Accueil</span><span class="sep">·</span><span class="sec">Ce qui tient un projet</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
       <div class="eyebrow">Ce qui tient un projet</div>
       <h2>Trois piliers, jamais un seul</h2>
-    </div>
-    <figure class="figure-frame reveal">
+    </div></div></div></section>
+<section class="diapo" data-ou="Ce qui tient un projet"><div class="diapo-tete"><span class="mod">Accueil</span><span class="sep">·</span><span class="sec">Ce qui tient un projet</span></div><div class="diapo-cadre"><div class="diapo-corps"><figure class="figure-frame reveal">
       <div class="fig-scroll"><svg viewBox="0 0 1100 620" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif" role="img" aria-label="Un temple : le toit est le projet réussi, il repose sur trois piliers (connaissance métier, théorie et mathématiques, IT et industrialisation), posés sur les outils et les données">
         <!-- le toit : le projet -->
         <path d="M 550 26 L 1032 152 L 68 152 Z" fill="#13264A" stroke="#13264A" stroke-width="6" stroke-linejoin="round"/>
@@ -238,22 +219,17 @@
         <text x="550" y="592" text-anchor="middle" font-size="15.5" font-weight="700" fill="#13264A">Données de l'entreprise et données externes à intégrer</text>
       </svg></div>
       <figcaption>Le toit ne tient que si les trois piliers sont là, et les piliers ne tiennent que sur un socle : des outils pour exploiter les données, et des données à intégrer. Retirez un pilier, le projet tombe, même si les deux autres sont solides.</figcaption>
-    </figure>
-    <div class="grid grid-3">
+    </figure></div></div></section>
+<section class="diapo" data-ou="Ce qui tient un projet"><div class="diapo-tete"><span class="mod">Accueil</span><span class="sep">·</span><span class="sec">Ce qui tient un projet</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-3">
       <div class="card reveal d1"><div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18"/></svg></div><h3>Connaissance métier</h3></div><p>Le pilier souvent oublié : processus, gestes des gestionnaires, exigences réglementaires, vocabulaire et codes du métier.</p><p style="color:var(--ink-mute);font-style:italic;margin:0">Sans elle, la meilleure technique produit des solutions inutiles.</p></div>
       <div class="card reveal d2"><div class="h-ico"><div class="ico navy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><h3>Théorie</h3></div><p>Le socle commun : machine learning classique, deep learning, NLP, architecture des LLM.</p><p style="color:var(--ink-mute);font-style:italic;margin:0">Sans elle, on choisit l'outil au hasard.</p></div>
       <div class="card reveal d3"><div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg></div><h3>Industrialisation</h3></div><p>Le pilier qui rend le modèle utile : Python, pipelines, déploiement, MLOps, gouvernance.</p><p style="color:var(--ink-mute);font-style:italic;margin:0">Sans elle, le modèle reste au laboratoire.</p></div>
     </div>
-    <div class="callout reveal">
+<div class="callout reveal">
       <span class="label">À retenir</span>
       <p>« L'IA, c'est tout le monde. » La compétence IA n'est pas réservée à l'IA Factory. Un projet réussi tient sur les trois piliers à la fois ; les échecs viennent du déséquilibre. Huit projets d'IA sur dix échouent en entreprise, et la cause principale n'est pas technique : le métier sait quoi faire, le technicien sait comment, et ils ne se parlent pas.</p>
-    </div>
-  </div>
-</section>
-
-<section class="band dark">
-  <div class="wrap">
-    <div class="grid grid-2-1" style="align-items:center">
+    </div></div></div></section>
+<section class="diapo" data-ou=""><div class="diapo-tete"><span class="mod">Accueil</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-2-1" style="align-items:center">
       <div class="reveal">
         <div class="eyebrow eyebrow-light">Les formateurs</div>
         <h2>Des profils qui combinent le métier et la technique</h2>
@@ -268,17 +244,20 @@
           <div><div class="ico" style="background:rgba(255,255,255,.1);color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></div><p style="color:#d9e1ee">Rendre un corpus interrogeable : découper, chercher, citer la source</p></div>
         </div>
       </div>
-    </div>
+    </div></div></div></section>
   </div>
-</section>
-
-
-<footer class="site-footer">
-  <div class="wrap">
-    <div>IA générative : théorie et application en assurance · Kezhan SHI · Foyer</div>
-    <div><a href="index.html">Accueil</a> · <a href="decouvrir.html">Je découvre</a> · <a href="comprendre.html">Je comprends</a> · <a href="appliquer.html">J'applique</a> · <a href="prototyper.html">Je prototype</a></div>
+</div>
+<div class="pilote">
+  <button type="button" class="prec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Précédent</button>
+  <button type="button" class="suiv">Suivant <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+  <span class="rang"></span>
+  <span class="ou"></span>
+  <div class="droite">
+    <button type="button" class="sommaire-btn">Sommaire</button>
+    <a href="../index.html">Version page</a>
   </div>
-</footer>
+</div>
+<div class="sommaire"><button type="button" class="fermer">Fermer</button><h2>Sommaire</h2><div class="groupe"><b>Ouverture</b><ol><li><button type="button" data-n="0"><b>1</b><span>Ouverture</span></button></li></ol></div><div class="groupe"><b>Le parcours</b><ol><li><button type="button" data-n="1"><b>2</b><span>Le parcours</span></button></li><li><button type="button" data-n="2"><b>3</b><span>Je découvre je teste les chatbots, j'observe, je repère les limites Je c…</span></button></li><li><button type="button" data-n="3"><b>4</b><span>Je découvre</span></button></li><li><button type="button" data-n="4"><b>5</b><span>J'applique</span></button></li></ol></div><div class="groupe"><b>Ouverture</b><ol><li><button type="button" data-n="5"><b>6</b><span>Expérimenter d'abord</span></button></li></ol></div><div class="groupe"><b>Ce qui tient un projet</b><ol><li><button type="button" data-n="6"><b>7</b><span>Ce qui tient un projet</span></button></li><li><button type="button" data-n="7"><b>8</b><span>Le toit ne tient que si les trois piliers sont là, et les piliers ne tie…</span></button></li><li><button type="button" data-n="8"><b>9</b><span>Connaissance métier</span></button></li></ol></div><div class="groupe"><b>Ouverture</b><ol><li><button type="button" data-n="9"><b>10</b><span>Objectifs pédagogiques</span></button></li></ol></div></div>
 
 <script>
 (function(){
@@ -563,5 +542,6 @@
 })();
 </script>
 
+<script src="diapos.js"></script>
 </body>
 </html>

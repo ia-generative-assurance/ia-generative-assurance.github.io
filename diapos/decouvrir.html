@@ -1,0 +1,1240 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01 · Je découvre · diapositives</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/demo.css">
+<link rel="stylesheet" href="../assets/fiches.css">
+<link rel="stylesheet" href="diapos.css">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+<meta name="theme-color" content="#0d1830">
+</head>
+<body>
+<div class="jauge"></div>
+<div class="pupitre">
+  <div class="scene" data-suivant="comprendre.html" data-precedent="index.html">
+<section class="diapo titre sombre" data-ou=""><div class="diapo-tete"><span class="mod">01 · Je découvre</span></div><div class="diapo-cadre"><div class="diapo-corps"><section class="page-head">
+  <div class="wrap page-head-inner">
+    <div>
+      <div class="eyebrow eyebrow-light">Module 01</div>
+      <h1>Je découvre : le chatbot vu de l'intérieur</h1>
+      <p class="lede">Les outils sont faciles à prendre en main, autant commencer par là. On teste, on s'étonne, on repère les limites par l'usage.</p><p class="timing"><span>Les réponses des exercices sont fermées par un code, donné par le formateur.</span></p>
+    </div>
+    <div class="page-head-art" aria-hidden="true">
+      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="150" cy="150" r="120" fill="#BA1C3A" fill-opacity=".18"/>
+        <circle cx="150" cy="150" r="80" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="1.5" stroke-dasharray="4 8"/>
+        <rect x="105" y="105" width="90" height="90" rx="20" fill="#3B547D" stroke="#fff" stroke-opacity=".3"/>
+        <g stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(126 126) scale(2)"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></g>
+        <g fill="#fff"><circle cx="150" cy="70" r="9"/><circle cx="219" cy="190" r="9"/><circle cx="81" cy="190" r="9"/></g>
+      </svg>
+    </div>
+  </div>
+</section></div></div></section>
+<section class="diapo large" data-ou="Le fil du module"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">Le fil du module</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="wrap fil-wrap">
+  <div class="eyebrow">Le fil du module, étape par étape</div>
+  <div class="fil-map fig-scroll"><svg viewBox="0 34 1144 296" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Le fil du module, en schéma"><defs><marker id="fm-decouvrir-s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7D92AC"/></marker><marker id="fm-decouvrir-c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#BA1C3A"/></marker></defs><rect x="20" y="44" width="470" height="262" rx="16" fill="#F7F4F2" stroke="#7D92AC" stroke-dasharray="4 4"/><text x="36" y="62" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".12em" fill="#3B547D">LE CHATBOT, PIÈCE PAR PIÈCE</text><a href="#d3" class="fm-a"><g><rect class="fm-box" x="40" y="146" width="180" height="58" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="63" cy="175" r="13" fill="#13264A"/><text x="63" y="179.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">1</text><text x="84" y="171.5" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Le moteur</text><text x="84" y="188.5" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">il écrit le mot suivant</text></g></a><a href="#d8" class="fm-a"><g><rect class="fm-box" x="280" y="71" width="190" height="58" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="303" cy="100" r="13" fill="#13264A"/><text x="303" y="104.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">2</text><text x="324" y="96.5" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Les outils</text><text x="324" y="113.5" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">web, Python, fichiers</text></g></a><path d="M220 175 L250 175 L250 100 L280 100" fill="none" stroke="#7D92AC" stroke-width="1.6"/><circle cx="250" cy="100" r="9" fill="#E9E4E1"/><text x="250" y="104" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="13" font-weight="800" fill="#3B547D">+</text><a href="#d17" class="fm-a"><g><rect class="fm-box" x="280" y="146" width="190" height="58" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="303" cy="175" r="13" fill="#13264A"/><text x="303" y="179.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">3</text><text x="324" y="171.5" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Les modalités</text><text x="324" y="188.5" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">vision, image, voix</text></g></a><path d="M220 175 L250 175 L250 175 L280 175" fill="none" stroke="#7D92AC" stroke-width="1.6"/><circle cx="250" cy="175" r="9" fill="#E9E4E1"/><text x="250" y="179" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="13" font-weight="800" fill="#3B547D">+</text><a href="#d20" class="fm-a"><g><rect class="fm-box" x="280" y="221" width="190" height="58" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="303" cy="250" r="13" fill="#13264A"/><text x="303" y="254.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">4</text><text x="324" y="246.5" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Le pont</text><text x="324" y="263.5" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">vers les outils classiques</text></g></a><path d="M220 175 L250 175 L250 250 L280 250" fill="none" stroke="#7D92AC" stroke-width="1.6"/><circle cx="250" cy="250" r="9" fill="#E9E4E1"/><text x="250" y="254" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="13" font-weight="800" fill="#3B547D">+</text><text x="40" y="290" text-anchor="start" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" font-style="italic" fill="#6C7683">un moteur seul ne fait pas grand-chose : les pièces s'assemblent</text><path d="M490 175 L540 175" fill="none" stroke="#7D92AC" stroke-width="1.6" marker-end="url(#fm-decouvrir-s)"/><rect x="490.6" y="142" width="48.8" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="515" y="155.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">PUIS</text><a href="#d24" class="fm-a"><g><rect class="fm-box" x="540" y="138" width="165" height="74" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="563" cy="175" r="13" fill="#13264A"/><text x="563" y="179.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">5</text><text x="584" y="163.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Quel chatbot ?</text><text x="584" y="180.0" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">le panorama,</text><text x="584" y="197.0" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">pour s'exercer</text></g></a><path d="M705 175 L740 175" fill="none" stroke="#7D92AC" stroke-width="1.6" marker-end="url(#fm-decouvrir-s)"/><rect x="705.3" y="142" width="33.4" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="722" y="155.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">ET</text><a href="#d28" class="fm-a"><g><rect class="fm-box" x="740" y="146" width="180" height="58" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="763" cy="175" r="13" fill="#13264A"/><text x="763" y="179.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">6</text><text x="784" y="171.5" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Comment lui parler</text><text x="784" y="188.5" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">bien prompter</text></g></a><path d="M920 175 L985 175" fill="none" stroke="#7D92AC" stroke-width="1.6" marker-end="url(#fm-decouvrir-s)"/><rect x="923.8" y="142" width="56.5" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="952" y="155.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">ENFIN</text><a href="#d36" class="fm-a"><g><rect class="fm-box" x="985" y="138" width="145" height="74" rx="12" fill="#fff" stroke="#BA1C3A" stroke-width="1.5"/><path d="M988.06 142 A12 12 0 0 1 997 138 L1118 138 A12 12 0 0 1 1126.94 142 Z" fill="#BA1C3A"/><circle class="fm-num" cx="1008" cy="175" r="13" fill="#BA1C3A"/><text x="1008" y="179.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">7</text><text x="1029" y="163.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Où il s'arrête</text><text x="1029" y="180.0" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">ses limites,</text><text x="1029" y="197.0" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">et la parade</text></g></a><text x="1130" y="316" text-anchor="end" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" font-style="italic" fill="#6C7683">il prédit du texte, il n'exécute rien : la parade est de lui adjoindre un outil</text></svg></div><ol class="fil-liste"><li><a href="#d3"><strong>Le moteur</strong></a> : il écrit le mot suivant</li><li><a href="#d8"><strong>Les outils</strong></a> : web, Python, fichiers</li><li><a href="#d17"><strong>Les modalités</strong></a> : vision, image, voix</li><li><a href="#d20"><strong>Le pont</strong></a> : vers les outils classiques</li><li><a href="#d24"><strong>Quel chatbot ?</strong></a> : le panorama,, pour s'exercer</li><li><a href="#d28"><strong>Comment lui parler</strong></a> : bien prompter</li><li><a href="#d36"><strong>Où il s'arrête</strong></a> : ses limites,, et la parade</li></ol><!-- /fil-map -->
+</div></div></div></section>
+<section class="diapo titre" data-ou="1 · Le moteur"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">1 · Le moteur</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
+    <div class="eyebrow">1 · Le moteur</div>
+    <div class="h-ico"><div class="ico navy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><h2>Un modèle qui écrit le mot suivant</h2></div>
+    <p class="lede">ChatGPT en 2022, c'était uniquement cela : un grand modèle de langue (LLM) qui, à partir de votre texte, génère la suite mot après mot. Pas de recherche, pas de calcul, pas de mémoire. Et c'était déjà une révolution : pour la première fois, la machine comprend le langage humain, et c'est vous, le métier, qui la commandez.</p>
+  </div></div></div></section>
+<section class="diapo" data-ou="1 · Le moteur"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">1 · Le moteur</span></div><div class="diapo-cadre"><div class="diapo-corps"><figure class="figure-frame">
+    <div class="fig-scroll"><svg viewBox="0 0 892 514" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Le moteur ajoute un mot, relit tout, et recommence">
+      <!-- Convention des schemas : voir nlp/site/SCHEMAS.md. Premier schema du
+           parcours, dans le module ou l'on teste : UNE seule idee, la phrase
+           qui grandit d'un mot a chaque tour. Les tokens, les probabilites et
+           la taille du modele sont au module 02, pas ici. -->
+      <defs>
+        <marker id="mo" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#13264A"/></marker>
+        <filter id="omb" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="1.5" dy="2" stdDeviation="2" flood-color="#13264A" flood-opacity="0.16"/></filter>
+      </defs>
+
+      <text x="446" y="45.9515" text-anchor="middle" font-size="19" font-weight="700" fill="#13264A">Il ajoute un mot, puis il recommence</text>
+
+      <text x="27.0303" y="75.6848" font-size="12.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">TOUR 1</text>
+      <g filter="url(#omb)"><rect x="27.0303" y="86.497" width="529.794" height="62.1697" rx="14.8667" fill="#f6e3bf" stroke="#92661D" stroke-width="2.02727"/></g>
+      <text x="48.6545" y="125.691" font-size="14.5"><tspan fill="#78500f">J'ai eu un dégât des eaux, je veux</tspan></text>
+      <path d="M559.527 116.23 L573.042 116.23" stroke="#13264A" stroke-width="2.97333" marker-end="url(#mo)"/>
+      <rect x="581.152" y="93.2545" width="129.745" height="45.9515" rx="12.1636" fill="#13264A"/>
+      <text x="646.024" y="122.988" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">le moteur</text>
+      <path d="M713.6 116.23 L729.818 116.23" stroke="#13264A" stroke-width="2.97333" marker-end="url(#mo)"/>
+      <g filter="url(#omb)"><rect x="737.927" y="89.2" width="127.042" height="54.0606" rx="13.5152" fill="#bfe0dd" stroke="#1F6F6B" stroke-width="2.02727"/></g>
+      <text x="801.448" y="124.339" text-anchor="middle" font-size="16" font-weight="700" fill="#0f4b48">déclarer</text>
+
+      <text x="27.0303" y="181.103" font-size="12.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">TOUR 2</text>
+      <g filter="url(#omb)"><rect x="27.0303" y="191.915" width="529.794" height="62.1697" rx="14.8667" fill="#f6e3bf" stroke="#92661D" stroke-width="2.02727"/></g>
+      <text x="48.6545" y="231.109" font-size="14.5"><tspan fill="#78500f">J'ai eu un dégât des eaux, je veux</tspan><tspan fill="#0f4b48" font-weight="700"> déclarer</tspan></text>
+      <path d="M559.527 221.648 L573.042 221.648" stroke="#13264A" stroke-width="2.97333" marker-end="url(#mo)"/>
+      <rect x="581.152" y="198.673" width="129.745" height="45.9515" rx="12.1636" fill="#13264A"/>
+      <text x="646.024" y="228.406" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">le moteur</text>
+      <path d="M713.6 221.648 L729.818 221.648" stroke="#13264A" stroke-width="2.97333" marker-end="url(#mo)"/>
+      <g filter="url(#omb)"><rect x="737.927" y="194.618" width="127.042" height="54.0606" rx="13.5152" fill="#bfe0dd" stroke="#1F6F6B" stroke-width="2.02727"/></g>
+      <text x="801.448" y="229.758" text-anchor="middle" font-size="16" font-weight="700" fill="#0f4b48">un</text>
+
+      <text x="27.0303" y="286.521" font-size="12.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">TOUR 3</text>
+      <g filter="url(#omb)"><rect x="27.0303" y="297.333" width="529.794" height="62.1697" rx="14.8667" fill="#f6e3bf" stroke="#92661D" stroke-width="2.02727"/></g>
+      <text x="48.6545" y="336.527" font-size="14.5"><tspan fill="#78500f">J'ai eu un dégât des eaux, je veux</tspan><tspan fill="#0f4b48" font-weight="700"> déclarer</tspan><tspan fill="#0f4b48" font-weight="700"> un</tspan></text>
+      <path d="M559.527 327.067 L573.042 327.067" stroke="#13264A" stroke-width="2.97333" marker-end="url(#mo)"/>
+      <rect x="581.152" y="304.091" width="129.745" height="45.9515" rx="12.1636" fill="#13264A"/>
+      <text x="646.024" y="333.824" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">le moteur</text>
+      <path d="M713.6 327.067 L729.818 327.067" stroke="#13264A" stroke-width="2.97333" marker-end="url(#mo)"/>
+      <g filter="url(#omb)"><rect x="737.927" y="300.036" width="127.042" height="54.0606" rx="13.5152" fill="#bfe0dd" stroke="#1F6F6B" stroke-width="2.02727"/></g>
+      <text x="801.448" y="335.176" text-anchor="middle" font-size="16" font-weight="700" fill="#0f4b48">sinistre</text>
+
+      <text x="446" y="427.079" text-anchor="middle" font-size="15" fill="#4a5567">À chaque tour, il relit toute la phrase et ajoute un mot.</text>
+      <text x="446" y="462.218" text-anchor="middle" font-size="15" fill="#4a5567">Puis il recommence. C’est tout ce qu’il fait.</text>
+    </svg></div>
+    <figcaption>Le moteur ne répond pas d’un bloc. Il ajoute un mot, relit tout depuis le début, ajoute le suivant. Une réponse de cent mots, c’est cent tours.</figcaption>
+  </figure></div></div></section>
+<section class="diapo" data-ou="1 · Le moteur"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">1 · Le moteur</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-2">
+    <div class="card">
+      <h3>Pourquoi c'est impressionnant</h3>
+      <ul class="clean">
+        <li><strong>Il comprend votre demande</strong> telle que vous la formulez, avec vos fautes, vos approximations, votre jargon.</li>
+        <li><strong>Une seule mécanique</strong> fait la traduction, le résumé, la reformulation, le code, la réponse à une question.</li>
+        <li><strong>Le savoir de milliers de spécialistes</strong> est compressé dedans : livres techniques, documentation, jurisprudence.</li>
+        <li><strong>Le métier commande directement</strong>, sans passer par un informaticien pour chaque demande.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Ce qu'il faut garder en tête</h3>
+      <ul class="clean">
+        <li><strong>Il anticipe, il ne sait pas.</strong> Il donne la réponse la plus probable dans le contexte. Quand le contexte est pauvre, la réponse la plus probable peut être fausse.</li>
+        <li><strong>L'hallucination n'est pas une panne</strong>, c'est le mécanisme normal. Il « hallucine » tout le temps ; l'erreur dépend du contexte.</li>
+        <li><strong>Il ne calcule rien.</strong> Un « nombre au hasard », une somme, un tri : il produit la suite la plus fréquente dans ses données, pas un résultat calculé.</li>
+        <li><strong>Ses poids ne changent pas</strong> quand vous discutez. « Se souvenir » d'une conversation n'est pas « apprendre ».</li>
+      </ul>
+    </div>
+  </div></div></div></section>
+<section class="diapo" data-ou="1 · Le moteur"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">1 · Le moteur</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="try">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
+    <p><strong>Quelques expériences de deux minutes</strong>, dans n'importe quel chatbot, pour sentir le moteur nu. Faites chaque test avant de déplier la réponse.</p>
+    <ol class="steps">
+      <li><strong>Le nombre aléatoire.</strong><p>Demandez « donne-moi un nombre entre 1 et 10 ». Recommencez dans une nouvelle conversation, cinq ou six fois. Quel nombre sort le plus souvent ? Puis la même chose entre 0 et 30. Enfin, demandez « tire un nombre entre 1 et 10 avec Python » et recommencez.</p>
+        <details class="answer"><summary>Voir la réponse</summary>
+          <p>Sans outil, c'est très souvent 7. Entre 0 et 30, une majorité de 23. Rien d'aléatoire là-dedans : le moteur donne la suite de mots la plus probable dans ses données, et quand on demande un nombre « au hasard » à des humains, 7 revient plus que les autres. Le modèle reproduit cette préférence. Ce n'est ni logique, ni intelligent, ni aléatoire : c'est fréquent.</p>
+          <p>Avec « avec Python », le moteur écrit une ligne de code, une machine l'exécute, et le tirage est vraiment aléatoire. Les chatbots récents savent lancer du code, il suffit de le demander. Même réflexe pour un calcul : « calcule avec Python » plutôt que « combien font ».</p>
+          <p>Ce soir, posez la question au chatbot lui-même : « pendant la formation, tout le monde a obtenu 7 à “donne un nombre aléatoire”, pourquoi ? ». Sur un sujet aussi documenté, sa réponse est fiable, et elle vaut une lecture.</p>
+        </details>
+      </li>
+      <li><strong>La Ligue des champions : il comprend, mais c'est statistique.</strong><p>Demandez « quelle équipe a gagné la Ligue des champions ? », sans préciser le sport. Avant de déplier : pourquoi répond-il ce qu'il répond ?</p>
+        <details class="answer"><summary>Voir la réponse</summary>
+          <p>Il répond football. Personne ne lui a dit « foot », et la Ligue des champions de handball existe aussi. Il a compris comme la plupart des gens l'auraient compris. On pourrait dire qu'il est intelligent. En réalité, il ne comprend pas le terme au sens littéral : il le comprend par rapport à un contexte, et dans ses données d'entraînement, « Ligue des champions » veut dire football la plupart du temps. Ce n'est pas du raisonnement, c'est statistique. Même mécanisme que le 7 du test précédent : il ne comprend pas le sens des mots, il restitue une fréquence.</p>
+          <p>Maintenant, imaginez un professionnel du handball, dont toutes les conversations tournent autour du hand. L'idéal serait qu'à la même question, on lui donne l'équipe de hand. C'est faisable, et c'est ce que ChatGPT et Claude commencent à faire avec la mémoire et le contexte : on ne répond plus avec le modèle nu, on récupère d'abord ce qu'on sait de vous. Le modèle est basique ; toute la valeur est dans le contexte autour, et ce contexte, c'est de l'ingénierie classique, pas de l'IA. Dans une compagnie d'assurance, chaque mot a son sens à vous, une prime, une police, une franchise, un CRM : c'est le dictionnaire métier (module 02) et le contexte du prompt (section 6).</p>
+        </details>
+      </li>
+      <li><strong>La fausse référence.</strong><p>Demandez l'article du Code des assurances qui régit un point précis et peu courant, puis vérifiez sur Légifrance.</p>
+        <details class="answer"><summary>Voir la réponse</summary>
+          <p>Sur un article très cité, la référence tombe juste : elle est fréquente dans ses données. Sur un point rare, le numéro a la bonne forme et il est souvent faux. Le moteur ne consulte pas le Code, il produit la suite de caractères la plus probable. La parade : lui donner le texte à lire (c'est le RAG, module 03), et vérifier toute référence avant de la citer.</p>
+        </details>
+      </li>
+      <li><strong>La fausse prémisse.</strong><p>Demandez « si la capitale de la France était Lyon, quelle serait la capitale de la Chine ? ». Puis « sois créatif : quelle est la capitale de la Chine ? ».</p>
+        <details class="answer"><summary>Voir la réponse</summary>
+          <p>Pékin, les deux fois, et il vous signale au passage que Lyon n'est pas la capitale. Il ne se laisse pas piéger par la fausse prémisse, et « sois créatif » ne change rien à un fait dominant : Paris, Pékin restent fixes. La créativité n'ouvre que les réponses ouvertes, un poème, un nombre, où d'autres possibilités existent dans ses données. Là encore, ni logique ni fantaisie : des fréquences, très marquées ou très étalées. Ce curseur porte un nom, la <strong>température</strong>, et dans un outil c'est le développeur qui le règle : au plus bas pour une extraction qu'on veut identique à chaque appel, plus haut pour de la rédaction.</p>
+        </details>
+      </li>
+    </ol>
+  </div></div></div></section>
+<section class="diapo" data-ou="1 · Le moteur"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">1 · Le moteur</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="callout reveal">
+    <span class="label">Ce n'est pas la machine qui répond</span>
+    <p>Le mot « statistique » fait penser à une moyenne tirée au hasard sur Internet. Regardez plutôt d'où vient la réponse : sur une question de droit des assurances, ce qui pèse dans ses données, ce sont les manuels, les commentaires d'arrêt et les articles de spécialistes. Ce ne sont pas les gens en moyenne qui votent, ce sont <strong>les spécialistes du sujet</strong>.</p>
+    <p style="margin:0">D'où le renversement utile pour la suite : ce n'est pas l'homme contre la machine, c'est vous face à ce que des dizaines de milliers de gens ont écrit. Ça explique la puissance sur les sujets bien documentés, et la faiblesse dès qu'on entre dans ce que personne n'a jamais écrit : votre processus, vos codes produits, votre façon de répondre à un assuré.</p>
+  </div></div></div></section>
+<section class="diapo titre" data-ou="2 · Les outils"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">2 · Les outils</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
+    <div class="eyebrow">2 · Les outils</div>
+    <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l7-7"/><path d="M14 4l6 6-3 3-6-6z"/><path d="M10 10l-2 2 4 4 2-2"/></svg></div><h2>Les outils rendent le moteur utile</h2></div>
+    <p class="lede">Depuis 2023, le chatbot n'est plus seulement le moteur. Il détecte votre intention et route vers un outil : recherche sur le web, exécution de code Python, lecture de vos fichiers. C'est là que la plupart des usages quotidiens prennent leur valeur.</p>
+  </div></div></div></section>
+<section class="diapo" data-ou="2 · Les outils"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">2 · Les outils</span></div><div class="diapo-cadre"><div class="diapo-corps"><p>Suivons une demande du début à la fin, avec deux contrats en pièce jointe. Descendez : le dessin avance d'un temps à chaque étape.</p></div></div></section>
+<section class="diapo large" data-ou="2 · Les outils"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">2 · Les outils</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="recit"><div class="recit-figure"><figure class="figure-frame"><svg viewBox="0 0 620 330" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Une demande traitée par le moteur et ses outils, en cinq temps">
+          <!-- pellicule de cinq vignettes de 620x330 : le script cadre l'etape
+               courante, le PDF montre les cinq a la suite. -->
+          <defs><marker id="ch" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#BA1C3A"/></marker></defs>
+
+          <!-- 1. la demande -->
+          <g data-step="1" transform="translate(0 0)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">1 · CE QUE VOUS DEMANDEZ</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="66" width="580" height="72" rx="12" fill="#F7F4F2" stroke="#dcd8d4"/>
+            <text x="38" y="92" font-size="14" fill="#13264A">« Voici deux contrats. Compare les franchises</text>
+            <text x="38" y="114" font-size="14" fill="#13264A">et calcule l'écart. »</text>
+            <text x="38" y="130" font-size="12" fill="#6C7683">deux PDF joints, 48 et 52 pages</text>
+            <g font-size="12.5" font-weight="700">
+              <rect x="20" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="75" y="181" text-anchor="middle" fill="#13264A">texte</text>
+              <rect x="140" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="195" y="181" text-anchor="middle" fill="#13264A">fichiers</text>
+              <rect x="260" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="315" y="181" text-anchor="middle" fill="#13264A">image</text>
+              <rect x="380" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="435" y="181" text-anchor="middle" fill="#13264A">voix</text>
+            </g>
+            <text x="20" y="240" font-size="14" font-style="italic" fill="#6C7683">Une demande en langage libre, comme à un collègue.</text>
+            <text x="20" y="264" font-size="14" font-style="italic" fill="#6C7683">Vous ne dites pas quel outil utiliser : c'est justement la question.</text>
+          </g>
+
+          <!-- 2. le moteur choisit -->
+          <g data-step="2" transform="translate(0 330)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">2 · LE MOTEUR DÉCIDE, IL NE FAIT PAS</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="200" height="96" rx="14" fill="#13264A"/>
+            <text x="120" y="98" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">Le moteur</text>
+            <text x="120" y="120" text-anchor="middle" font-size="12.5" fill="#c6d1e2">lit la demande,</text>
+            <text x="120" y="138" text-anchor="middle" font-size="12.5" fill="#c6d1e2">choisit les outils</text>
+            <g font-size="12.5">
+              <path d="M228 82 L268 82" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+              <rect x="278" y="62" width="322" height="38" rx="9" fill="#fbeef1" stroke="#BA1C3A" stroke-width="1.5"/>
+              <text x="294" y="86" font-weight="700" fill="#BA1C3A">Lire les fichiers joints</text>
+              <path d="M228 128 L268 128" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+              <rect x="278" y="108" width="322" height="38" rx="9" fill="#fbeef1" stroke="#BA1C3A" stroke-width="1.5"/>
+              <text x="294" y="132" font-weight="700" fill="#BA1C3A">Exécuter du code pour calculer</text>
+              <rect x="278" y="154" width="322" height="38" rx="9" fill="#fff" stroke="#dcd8d4"/>
+              <text x="294" y="178" fill="#6C7683">Chercher sur le web : pas utile ici</text>
+            </g>
+            <text x="20" y="240" font-size="14" font-style="italic" fill="#6C7683">Il a compris l'intention : lire, puis calculer.</text>
+            <text x="20" y="264" font-size="14" font-style="italic" fill="#6C7683">C'est un chef d'orchestre, pas un musicien.</text>
+          </g>
+
+          <!-- 3. les outils executent -->
+          <g data-step="3" transform="translate(0 660)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">3 · LES OUTILS EXÉCUTENT</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="285" height="104" rx="12" fill="#fff" stroke="#3B547D" stroke-width="1.5"/>
+            <text x="36" y="86" font-size="13.5" font-weight="700" fill="#13264A">Lecture des PDF</text>
+            <text x="36" y="108" font-size="12.5" fill="#4a5567">le texte est extrait, page par page</text>
+            <text x="36" y="126" font-size="12.5" fill="#4a5567">contrat A : franchise 90 €</text>
+            <text x="36" y="144" font-size="12.5" fill="#4a5567">contrat B : franchise 150 €</text>
+            <rect x="315" y="62" width="285" height="104" rx="12" fill="#fff" stroke="#BA1C3A" stroke-width="1.5"/>
+            <text x="331" y="86" font-size="13.5" font-weight="700" fill="#BA1C3A">Code exécuté</text>
+            <text x="331" y="110" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">ecart = 150 - 90</text>
+            <text x="331" y="132" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">print(ecart)</text>
+            <text x="331" y="152" font-size="12.5" font-weight="700" fill="#13264A">→ 60</text>
+            <text x="20" y="212" font-size="14" font-style="italic" fill="#6C7683">Un PDF n'est pas lu comme par un humain : son texte est extrait.</text>
+            <text x="20" y="236" font-size="14" font-style="italic" fill="#6C7683">Un calcul n'est pas deviné : le moteur écrit le code,</text>
+            <text x="20" y="260" font-size="14" font-style="italic" fill="#6C7683">et une vraie machine l'exécute.</text>
+          </g>
+
+          <!-- 4. le retour -->
+          <g data-step="4" transform="translate(0 990)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">4 · LE RÉSULTAT REVIENT AU MOTEUR</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="330" y="66" width="270" height="76" rx="12" fill="#fff" stroke="#3B547D" stroke-width="1.5"/>
+            <text x="348" y="90" font-size="13" font-weight="700" fill="#13264A">Ce que les outils renvoient</text>
+            <text x="348" y="112" font-size="12.5" fill="#4a5567">deux montants, un écart de 60 €,</text>
+            <text x="348" y="130" font-size="12.5" fill="#4a5567">et les pages d'où ils viennent</text>
+            <path d="M322 104 L262 104" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+            <rect x="20" y="66" width="232" height="76" rx="14" fill="#13264A"/>
+            <text x="136" y="98" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">Le moteur, à nouveau</text>
+            <text x="136" y="122" text-anchor="middle" font-size="12.5" fill="#c6d1e2">il relit tout, avec le résultat</text>
+            <text x="20" y="196" font-size="14" fill="#4a5567">Le résultat de l'outil rentre dans la conversation</text>
+            <text x="20" y="218" font-size="14" fill="#4a5567">comme un texte de plus. Rien d'autre.</text>
+            <text x="20" y="266" font-size="14" font-style="italic" fill="#6C7683">C'est pour cela qu'un outil qui se trompe ne se voit pas :</text>
+            <text x="20" y="290" font-size="14" font-style="italic" fill="#6C7683">le moteur reçoit son résultat comme une vérité.</text>
+          </g>
+
+          <!-- 5. la reponse -->
+          <g data-step="5" transform="translate(0 1320)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">5 · LA RÉPONSE, MISE EN FORME</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="580" height="96" rx="12" fill="#e8f3f2" stroke="#1F6F6B"/>
+            <text x="38" y="88" font-size="13.5" fill="#13264A">« Le contrat B a une franchise de 150 €, contre 90 € pour</text>
+            <text x="38" y="110" font-size="13.5" fill="#13264A">le contrat A : 60 € d'écart, soit 67 % de plus. »</text>
+            <text x="38" y="136" font-size="12.5" font-weight="700" fill="#1F6F6B">Article 5 des deux contrats, pages 13 et 15.</text>
+            <rect x="20" y="176" width="580" height="70" rx="12" fill="#fdf3e2" stroke="#92661D"/>
+            <text x="38" y="202" font-size="13" font-weight="700" fill="#92661D">Sans outil, la même question</text>
+            <text x="38" y="224" font-size="12.5" fill="#4a5567">un écart plausible, écrit avec le même aplomb, et faux</text>
+            <text x="20" y="292" font-size="14" font-style="italic" fill="#6C7683">La différence entre les deux réponses ne se voit pas à l'œil.</text>
+          </g>
+        </svg><div class="recit-ticks"><span class="is-on"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span></div></figure></div><div class="recit-texte">
+        <h4>Vous demandez, en langage libre</h4>
+        <p>Deux contrats en pièce jointe, une phrase de consigne. Vous ne dites pas quel outil employer, ni comment lire un PDF, ni comment faire la soustraction. C'est le point de départ de tout usage quotidien.</p>
+        <p>La demande peut arriver en texte, en fichier, en photo ou à la voix. Ce sont les modalités : plusieurs portes d'entrée vers le même moteur.</p>
+      </div></div></div></div></section>
+<section class="diapo large" data-ou="2 · Les outils"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">2 · Les outils</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="recit"><div class="recit-figure"><figure class="figure-frame"><svg viewBox="0 330 620 330" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Une demande traitée par le moteur et ses outils, en cinq temps">
+          <!-- pellicule de cinq vignettes de 620x330 : le script cadre l'etape
+               courante, le PDF montre les cinq a la suite. -->
+          <defs><marker id="ch" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#BA1C3A"/></marker></defs>
+
+          <!-- 1. la demande -->
+          <g data-step="1" transform="translate(0 0)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">1 · CE QUE VOUS DEMANDEZ</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="66" width="580" height="72" rx="12" fill="#F7F4F2" stroke="#dcd8d4"/>
+            <text x="38" y="92" font-size="14" fill="#13264A">« Voici deux contrats. Compare les franchises</text>
+            <text x="38" y="114" font-size="14" fill="#13264A">et calcule l'écart. »</text>
+            <text x="38" y="130" font-size="12" fill="#6C7683">deux PDF joints, 48 et 52 pages</text>
+            <g font-size="12.5" font-weight="700">
+              <rect x="20" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="75" y="181" text-anchor="middle" fill="#13264A">texte</text>
+              <rect x="140" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="195" y="181" text-anchor="middle" fill="#13264A">fichiers</text>
+              <rect x="260" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="315" y="181" text-anchor="middle" fill="#13264A">image</text>
+              <rect x="380" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="435" y="181" text-anchor="middle" fill="#13264A">voix</text>
+            </g>
+            <text x="20" y="240" font-size="14" font-style="italic" fill="#6C7683">Une demande en langage libre, comme à un collègue.</text>
+            <text x="20" y="264" font-size="14" font-style="italic" fill="#6C7683">Vous ne dites pas quel outil utiliser : c'est justement la question.</text>
+          </g>
+
+          <!-- 2. le moteur choisit -->
+          <g data-step="2" transform="translate(0 330)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">2 · LE MOTEUR DÉCIDE, IL NE FAIT PAS</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="200" height="96" rx="14" fill="#13264A"/>
+            <text x="120" y="98" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">Le moteur</text>
+            <text x="120" y="120" text-anchor="middle" font-size="12.5" fill="#c6d1e2">lit la demande,</text>
+            <text x="120" y="138" text-anchor="middle" font-size="12.5" fill="#c6d1e2">choisit les outils</text>
+            <g font-size="12.5">
+              <path d="M228 82 L268 82" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+              <rect x="278" y="62" width="322" height="38" rx="9" fill="#fbeef1" stroke="#BA1C3A" stroke-width="1.5"/>
+              <text x="294" y="86" font-weight="700" fill="#BA1C3A">Lire les fichiers joints</text>
+              <path d="M228 128 L268 128" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+              <rect x="278" y="108" width="322" height="38" rx="9" fill="#fbeef1" stroke="#BA1C3A" stroke-width="1.5"/>
+              <text x="294" y="132" font-weight="700" fill="#BA1C3A">Exécuter du code pour calculer</text>
+              <rect x="278" y="154" width="322" height="38" rx="9" fill="#fff" stroke="#dcd8d4"/>
+              <text x="294" y="178" fill="#6C7683">Chercher sur le web : pas utile ici</text>
+            </g>
+            <text x="20" y="240" font-size="14" font-style="italic" fill="#6C7683">Il a compris l'intention : lire, puis calculer.</text>
+            <text x="20" y="264" font-size="14" font-style="italic" fill="#6C7683">C'est un chef d'orchestre, pas un musicien.</text>
+          </g>
+
+          <!-- 3. les outils executent -->
+          <g data-step="3" transform="translate(0 660)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">3 · LES OUTILS EXÉCUTENT</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="285" height="104" rx="12" fill="#fff" stroke="#3B547D" stroke-width="1.5"/>
+            <text x="36" y="86" font-size="13.5" font-weight="700" fill="#13264A">Lecture des PDF</text>
+            <text x="36" y="108" font-size="12.5" fill="#4a5567">le texte est extrait, page par page</text>
+            <text x="36" y="126" font-size="12.5" fill="#4a5567">contrat A : franchise 90 €</text>
+            <text x="36" y="144" font-size="12.5" fill="#4a5567">contrat B : franchise 150 €</text>
+            <rect x="315" y="62" width="285" height="104" rx="12" fill="#fff" stroke="#BA1C3A" stroke-width="1.5"/>
+            <text x="331" y="86" font-size="13.5" font-weight="700" fill="#BA1C3A">Code exécuté</text>
+            <text x="331" y="110" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">ecart = 150 - 90</text>
+            <text x="331" y="132" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">print(ecart)</text>
+            <text x="331" y="152" font-size="12.5" font-weight="700" fill="#13264A">→ 60</text>
+            <text x="20" y="212" font-size="14" font-style="italic" fill="#6C7683">Un PDF n'est pas lu comme par un humain : son texte est extrait.</text>
+            <text x="20" y="236" font-size="14" font-style="italic" fill="#6C7683">Un calcul n'est pas deviné : le moteur écrit le code,</text>
+            <text x="20" y="260" font-size="14" font-style="italic" fill="#6C7683">et une vraie machine l'exécute.</text>
+          </g>
+
+          <!-- 4. le retour -->
+          <g data-step="4" transform="translate(0 990)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">4 · LE RÉSULTAT REVIENT AU MOTEUR</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="330" y="66" width="270" height="76" rx="12" fill="#fff" stroke="#3B547D" stroke-width="1.5"/>
+            <text x="348" y="90" font-size="13" font-weight="700" fill="#13264A">Ce que les outils renvoient</text>
+            <text x="348" y="112" font-size="12.5" fill="#4a5567">deux montants, un écart de 60 €,</text>
+            <text x="348" y="130" font-size="12.5" fill="#4a5567">et les pages d'où ils viennent</text>
+            <path d="M322 104 L262 104" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+            <rect x="20" y="66" width="232" height="76" rx="14" fill="#13264A"/>
+            <text x="136" y="98" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">Le moteur, à nouveau</text>
+            <text x="136" y="122" text-anchor="middle" font-size="12.5" fill="#c6d1e2">il relit tout, avec le résultat</text>
+            <text x="20" y="196" font-size="14" fill="#4a5567">Le résultat de l'outil rentre dans la conversation</text>
+            <text x="20" y="218" font-size="14" fill="#4a5567">comme un texte de plus. Rien d'autre.</text>
+            <text x="20" y="266" font-size="14" font-style="italic" fill="#6C7683">C'est pour cela qu'un outil qui se trompe ne se voit pas :</text>
+            <text x="20" y="290" font-size="14" font-style="italic" fill="#6C7683">le moteur reçoit son résultat comme une vérité.</text>
+          </g>
+
+          <!-- 5. la reponse -->
+          <g data-step="5" transform="translate(0 1320)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">5 · LA RÉPONSE, MISE EN FORME</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="580" height="96" rx="12" fill="#e8f3f2" stroke="#1F6F6B"/>
+            <text x="38" y="88" font-size="13.5" fill="#13264A">« Le contrat B a une franchise de 150 €, contre 90 € pour</text>
+            <text x="38" y="110" font-size="13.5" fill="#13264A">le contrat A : 60 € d'écart, soit 67 % de plus. »</text>
+            <text x="38" y="136" font-size="12.5" font-weight="700" fill="#1F6F6B">Article 5 des deux contrats, pages 13 et 15.</text>
+            <rect x="20" y="176" width="580" height="70" rx="12" fill="#fdf3e2" stroke="#92661D"/>
+            <text x="38" y="202" font-size="13" font-weight="700" fill="#92661D">Sans outil, la même question</text>
+            <text x="38" y="224" font-size="12.5" fill="#4a5567">un écart plausible, écrit avec le même aplomb, et faux</text>
+            <text x="20" y="292" font-size="14" font-style="italic" fill="#6C7683">La différence entre les deux réponses ne se voit pas à l'œil.</text>
+          </g>
+        </svg><div class="recit-ticks"><span class=""></span><span class="is-on"></span><span class=""></span><span class=""></span><span class=""></span></div></figure></div><div class="recit-texte">
+        <h4>Le moteur décide, il ne fait pas</h4>
+        <p>Il lit la demande, reconnaît deux intentions, lire des fichiers et calculer, et appelle les outils correspondants. La recherche sur le web ne sert à rien ici, il ne l'appelle pas.</p>
+        <p>C'est le renversement de 2023. Le moteur n'est plus celui qui répond tout seul, il est celui qui coordonne. Un chef d'orchestre, pas un musicien.</p>
+      </div></div></div></div></section>
+<section class="diapo large" data-ou="2 · Les outils"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">2 · Les outils</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="recit"><div class="recit-figure"><figure class="figure-frame"><svg viewBox="0 660 620 330" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Une demande traitée par le moteur et ses outils, en cinq temps">
+          <!-- pellicule de cinq vignettes de 620x330 : le script cadre l'etape
+               courante, le PDF montre les cinq a la suite. -->
+          <defs><marker id="ch" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#BA1C3A"/></marker></defs>
+
+          <!-- 1. la demande -->
+          <g data-step="1" transform="translate(0 0)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">1 · CE QUE VOUS DEMANDEZ</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="66" width="580" height="72" rx="12" fill="#F7F4F2" stroke="#dcd8d4"/>
+            <text x="38" y="92" font-size="14" fill="#13264A">« Voici deux contrats. Compare les franchises</text>
+            <text x="38" y="114" font-size="14" fill="#13264A">et calcule l'écart. »</text>
+            <text x="38" y="130" font-size="12" fill="#6C7683">deux PDF joints, 48 et 52 pages</text>
+            <g font-size="12.5" font-weight="700">
+              <rect x="20" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="75" y="181" text-anchor="middle" fill="#13264A">texte</text>
+              <rect x="140" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="195" y="181" text-anchor="middle" fill="#13264A">fichiers</text>
+              <rect x="260" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="315" y="181" text-anchor="middle" fill="#13264A">image</text>
+              <rect x="380" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="435" y="181" text-anchor="middle" fill="#13264A">voix</text>
+            </g>
+            <text x="20" y="240" font-size="14" font-style="italic" fill="#6C7683">Une demande en langage libre, comme à un collègue.</text>
+            <text x="20" y="264" font-size="14" font-style="italic" fill="#6C7683">Vous ne dites pas quel outil utiliser : c'est justement la question.</text>
+          </g>
+
+          <!-- 2. le moteur choisit -->
+          <g data-step="2" transform="translate(0 330)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">2 · LE MOTEUR DÉCIDE, IL NE FAIT PAS</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="200" height="96" rx="14" fill="#13264A"/>
+            <text x="120" y="98" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">Le moteur</text>
+            <text x="120" y="120" text-anchor="middle" font-size="12.5" fill="#c6d1e2">lit la demande,</text>
+            <text x="120" y="138" text-anchor="middle" font-size="12.5" fill="#c6d1e2">choisit les outils</text>
+            <g font-size="12.5">
+              <path d="M228 82 L268 82" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+              <rect x="278" y="62" width="322" height="38" rx="9" fill="#fbeef1" stroke="#BA1C3A" stroke-width="1.5"/>
+              <text x="294" y="86" font-weight="700" fill="#BA1C3A">Lire les fichiers joints</text>
+              <path d="M228 128 L268 128" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+              <rect x="278" y="108" width="322" height="38" rx="9" fill="#fbeef1" stroke="#BA1C3A" stroke-width="1.5"/>
+              <text x="294" y="132" font-weight="700" fill="#BA1C3A">Exécuter du code pour calculer</text>
+              <rect x="278" y="154" width="322" height="38" rx="9" fill="#fff" stroke="#dcd8d4"/>
+              <text x="294" y="178" fill="#6C7683">Chercher sur le web : pas utile ici</text>
+            </g>
+            <text x="20" y="240" font-size="14" font-style="italic" fill="#6C7683">Il a compris l'intention : lire, puis calculer.</text>
+            <text x="20" y="264" font-size="14" font-style="italic" fill="#6C7683">C'est un chef d'orchestre, pas un musicien.</text>
+          </g>
+
+          <!-- 3. les outils executent -->
+          <g data-step="3" transform="translate(0 660)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">3 · LES OUTILS EXÉCUTENT</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="285" height="104" rx="12" fill="#fff" stroke="#3B547D" stroke-width="1.5"/>
+            <text x="36" y="86" font-size="13.5" font-weight="700" fill="#13264A">Lecture des PDF</text>
+            <text x="36" y="108" font-size="12.5" fill="#4a5567">le texte est extrait, page par page</text>
+            <text x="36" y="126" font-size="12.5" fill="#4a5567">contrat A : franchise 90 €</text>
+            <text x="36" y="144" font-size="12.5" fill="#4a5567">contrat B : franchise 150 €</text>
+            <rect x="315" y="62" width="285" height="104" rx="12" fill="#fff" stroke="#BA1C3A" stroke-width="1.5"/>
+            <text x="331" y="86" font-size="13.5" font-weight="700" fill="#BA1C3A">Code exécuté</text>
+            <text x="331" y="110" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">ecart = 150 - 90</text>
+            <text x="331" y="132" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">print(ecart)</text>
+            <text x="331" y="152" font-size="12.5" font-weight="700" fill="#13264A">→ 60</text>
+            <text x="20" y="212" font-size="14" font-style="italic" fill="#6C7683">Un PDF n'est pas lu comme par un humain : son texte est extrait.</text>
+            <text x="20" y="236" font-size="14" font-style="italic" fill="#6C7683">Un calcul n'est pas deviné : le moteur écrit le code,</text>
+            <text x="20" y="260" font-size="14" font-style="italic" fill="#6C7683">et une vraie machine l'exécute.</text>
+          </g>
+
+          <!-- 4. le retour -->
+          <g data-step="4" transform="translate(0 990)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">4 · LE RÉSULTAT REVIENT AU MOTEUR</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="330" y="66" width="270" height="76" rx="12" fill="#fff" stroke="#3B547D" stroke-width="1.5"/>
+            <text x="348" y="90" font-size="13" font-weight="700" fill="#13264A">Ce que les outils renvoient</text>
+            <text x="348" y="112" font-size="12.5" fill="#4a5567">deux montants, un écart de 60 €,</text>
+            <text x="348" y="130" font-size="12.5" fill="#4a5567">et les pages d'où ils viennent</text>
+            <path d="M322 104 L262 104" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+            <rect x="20" y="66" width="232" height="76" rx="14" fill="#13264A"/>
+            <text x="136" y="98" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">Le moteur, à nouveau</text>
+            <text x="136" y="122" text-anchor="middle" font-size="12.5" fill="#c6d1e2">il relit tout, avec le résultat</text>
+            <text x="20" y="196" font-size="14" fill="#4a5567">Le résultat de l'outil rentre dans la conversation</text>
+            <text x="20" y="218" font-size="14" fill="#4a5567">comme un texte de plus. Rien d'autre.</text>
+            <text x="20" y="266" font-size="14" font-style="italic" fill="#6C7683">C'est pour cela qu'un outil qui se trompe ne se voit pas :</text>
+            <text x="20" y="290" font-size="14" font-style="italic" fill="#6C7683">le moteur reçoit son résultat comme une vérité.</text>
+          </g>
+
+          <!-- 5. la reponse -->
+          <g data-step="5" transform="translate(0 1320)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">5 · LA RÉPONSE, MISE EN FORME</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="580" height="96" rx="12" fill="#e8f3f2" stroke="#1F6F6B"/>
+            <text x="38" y="88" font-size="13.5" fill="#13264A">« Le contrat B a une franchise de 150 €, contre 90 € pour</text>
+            <text x="38" y="110" font-size="13.5" fill="#13264A">le contrat A : 60 € d'écart, soit 67 % de plus. »</text>
+            <text x="38" y="136" font-size="12.5" font-weight="700" fill="#1F6F6B">Article 5 des deux contrats, pages 13 et 15.</text>
+            <rect x="20" y="176" width="580" height="70" rx="12" fill="#fdf3e2" stroke="#92661D"/>
+            <text x="38" y="202" font-size="13" font-weight="700" fill="#92661D">Sans outil, la même question</text>
+            <text x="38" y="224" font-size="12.5" fill="#4a5567">un écart plausible, écrit avec le même aplomb, et faux</text>
+            <text x="20" y="292" font-size="14" font-style="italic" fill="#6C7683">La différence entre les deux réponses ne se voit pas à l'œil.</text>
+          </g>
+        </svg><div class="recit-ticks"><span class=""></span><span class=""></span><span class="is-on"></span><span class=""></span><span class=""></span></div></figure></div><div class="recit-texte">
+        <h4>Les outils exécutent, chacun son métier</h4>
+        <p>La lecture de fichiers extrait le texte des PDF, page par page. Elle ne les comprend pas, elle les transcrit. Puis le moteur écrit trois lignes de code, et une vraie machine les exécute pour obtenir l'écart.</p>
+        <p>Un PDF n'est pas lu comme par un humain, son texte est extrait. Un Excel n'est pas analysé directement, c'est du code généré qui le traite. Un tableau scanné de travers casse ici, pas plus loin.</p>
+      </div></div></div></div></section>
+<section class="diapo large" data-ou="2 · Les outils"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">2 · Les outils</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="recit"><div class="recit-figure"><figure class="figure-frame"><svg viewBox="0 990 620 330" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Une demande traitée par le moteur et ses outils, en cinq temps">
+          <!-- pellicule de cinq vignettes de 620x330 : le script cadre l'etape
+               courante, le PDF montre les cinq a la suite. -->
+          <defs><marker id="ch" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#BA1C3A"/></marker></defs>
+
+          <!-- 1. la demande -->
+          <g data-step="1" transform="translate(0 0)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">1 · CE QUE VOUS DEMANDEZ</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="66" width="580" height="72" rx="12" fill="#F7F4F2" stroke="#dcd8d4"/>
+            <text x="38" y="92" font-size="14" fill="#13264A">« Voici deux contrats. Compare les franchises</text>
+            <text x="38" y="114" font-size="14" fill="#13264A">et calcule l'écart. »</text>
+            <text x="38" y="130" font-size="12" fill="#6C7683">deux PDF joints, 48 et 52 pages</text>
+            <g font-size="12.5" font-weight="700">
+              <rect x="20" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="75" y="181" text-anchor="middle" fill="#13264A">texte</text>
+              <rect x="140" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="195" y="181" text-anchor="middle" fill="#13264A">fichiers</text>
+              <rect x="260" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="315" y="181" text-anchor="middle" fill="#13264A">image</text>
+              <rect x="380" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="435" y="181" text-anchor="middle" fill="#13264A">voix</text>
+            </g>
+            <text x="20" y="240" font-size="14" font-style="italic" fill="#6C7683">Une demande en langage libre, comme à un collègue.</text>
+            <text x="20" y="264" font-size="14" font-style="italic" fill="#6C7683">Vous ne dites pas quel outil utiliser : c'est justement la question.</text>
+          </g>
+
+          <!-- 2. le moteur choisit -->
+          <g data-step="2" transform="translate(0 330)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">2 · LE MOTEUR DÉCIDE, IL NE FAIT PAS</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="200" height="96" rx="14" fill="#13264A"/>
+            <text x="120" y="98" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">Le moteur</text>
+            <text x="120" y="120" text-anchor="middle" font-size="12.5" fill="#c6d1e2">lit la demande,</text>
+            <text x="120" y="138" text-anchor="middle" font-size="12.5" fill="#c6d1e2">choisit les outils</text>
+            <g font-size="12.5">
+              <path d="M228 82 L268 82" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+              <rect x="278" y="62" width="322" height="38" rx="9" fill="#fbeef1" stroke="#BA1C3A" stroke-width="1.5"/>
+              <text x="294" y="86" font-weight="700" fill="#BA1C3A">Lire les fichiers joints</text>
+              <path d="M228 128 L268 128" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+              <rect x="278" y="108" width="322" height="38" rx="9" fill="#fbeef1" stroke="#BA1C3A" stroke-width="1.5"/>
+              <text x="294" y="132" font-weight="700" fill="#BA1C3A">Exécuter du code pour calculer</text>
+              <rect x="278" y="154" width="322" height="38" rx="9" fill="#fff" stroke="#dcd8d4"/>
+              <text x="294" y="178" fill="#6C7683">Chercher sur le web : pas utile ici</text>
+            </g>
+            <text x="20" y="240" font-size="14" font-style="italic" fill="#6C7683">Il a compris l'intention : lire, puis calculer.</text>
+            <text x="20" y="264" font-size="14" font-style="italic" fill="#6C7683">C'est un chef d'orchestre, pas un musicien.</text>
+          </g>
+
+          <!-- 3. les outils executent -->
+          <g data-step="3" transform="translate(0 660)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">3 · LES OUTILS EXÉCUTENT</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="285" height="104" rx="12" fill="#fff" stroke="#3B547D" stroke-width="1.5"/>
+            <text x="36" y="86" font-size="13.5" font-weight="700" fill="#13264A">Lecture des PDF</text>
+            <text x="36" y="108" font-size="12.5" fill="#4a5567">le texte est extrait, page par page</text>
+            <text x="36" y="126" font-size="12.5" fill="#4a5567">contrat A : franchise 90 €</text>
+            <text x="36" y="144" font-size="12.5" fill="#4a5567">contrat B : franchise 150 €</text>
+            <rect x="315" y="62" width="285" height="104" rx="12" fill="#fff" stroke="#BA1C3A" stroke-width="1.5"/>
+            <text x="331" y="86" font-size="13.5" font-weight="700" fill="#BA1C3A">Code exécuté</text>
+            <text x="331" y="110" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">ecart = 150 - 90</text>
+            <text x="331" y="132" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">print(ecart)</text>
+            <text x="331" y="152" font-size="12.5" font-weight="700" fill="#13264A">→ 60</text>
+            <text x="20" y="212" font-size="14" font-style="italic" fill="#6C7683">Un PDF n'est pas lu comme par un humain : son texte est extrait.</text>
+            <text x="20" y="236" font-size="14" font-style="italic" fill="#6C7683">Un calcul n'est pas deviné : le moteur écrit le code,</text>
+            <text x="20" y="260" font-size="14" font-style="italic" fill="#6C7683">et une vraie machine l'exécute.</text>
+          </g>
+
+          <!-- 4. le retour -->
+          <g data-step="4" transform="translate(0 990)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">4 · LE RÉSULTAT REVIENT AU MOTEUR</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="330" y="66" width="270" height="76" rx="12" fill="#fff" stroke="#3B547D" stroke-width="1.5"/>
+            <text x="348" y="90" font-size="13" font-weight="700" fill="#13264A">Ce que les outils renvoient</text>
+            <text x="348" y="112" font-size="12.5" fill="#4a5567">deux montants, un écart de 60 €,</text>
+            <text x="348" y="130" font-size="12.5" fill="#4a5567">et les pages d'où ils viennent</text>
+            <path d="M322 104 L262 104" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+            <rect x="20" y="66" width="232" height="76" rx="14" fill="#13264A"/>
+            <text x="136" y="98" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">Le moteur, à nouveau</text>
+            <text x="136" y="122" text-anchor="middle" font-size="12.5" fill="#c6d1e2">il relit tout, avec le résultat</text>
+            <text x="20" y="196" font-size="14" fill="#4a5567">Le résultat de l'outil rentre dans la conversation</text>
+            <text x="20" y="218" font-size="14" fill="#4a5567">comme un texte de plus. Rien d'autre.</text>
+            <text x="20" y="266" font-size="14" font-style="italic" fill="#6C7683">C'est pour cela qu'un outil qui se trompe ne se voit pas :</text>
+            <text x="20" y="290" font-size="14" font-style="italic" fill="#6C7683">le moteur reçoit son résultat comme une vérité.</text>
+          </g>
+
+          <!-- 5. la reponse -->
+          <g data-step="5" transform="translate(0 1320)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">5 · LA RÉPONSE, MISE EN FORME</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="580" height="96" rx="12" fill="#e8f3f2" stroke="#1F6F6B"/>
+            <text x="38" y="88" font-size="13.5" fill="#13264A">« Le contrat B a une franchise de 150 €, contre 90 € pour</text>
+            <text x="38" y="110" font-size="13.5" fill="#13264A">le contrat A : 60 € d'écart, soit 67 % de plus. »</text>
+            <text x="38" y="136" font-size="12.5" font-weight="700" fill="#1F6F6B">Article 5 des deux contrats, pages 13 et 15.</text>
+            <rect x="20" y="176" width="580" height="70" rx="12" fill="#fdf3e2" stroke="#92661D"/>
+            <text x="38" y="202" font-size="13" font-weight="700" fill="#92661D">Sans outil, la même question</text>
+            <text x="38" y="224" font-size="12.5" fill="#4a5567">un écart plausible, écrit avec le même aplomb, et faux</text>
+            <text x="20" y="292" font-size="14" font-style="italic" fill="#6C7683">La différence entre les deux réponses ne se voit pas à l'œil.</text>
+          </g>
+        </svg><div class="recit-ticks"><span class=""></span><span class=""></span><span class=""></span><span class="is-on"></span><span class=""></span></div></figure></div><div class="recit-texte">
+        <h4>Le résultat revient dans la conversation</h4>
+        <p>Ce que les outils renvoient rentre dans la conversation comme un texte de plus, et le moteur relit l'ensemble. Il n'y a pas de mémoire cachée ni de canal spécial.</p>
+        <p>Conséquence à connaître : le moteur reçoit le résultat d'un outil comme une vérité. Si l'extraction a mal lu un tableau, la réponse sera fausse, et rien dans son ton ne le signalera.</p>
+      </div></div></div></div></section>
+<section class="diapo large" data-ou="2 · Les outils"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">2 · Les outils</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="recit"><div class="recit-figure"><figure class="figure-frame"><svg viewBox="0 1320 620 330" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Une demande traitée par le moteur et ses outils, en cinq temps">
+          <!-- pellicule de cinq vignettes de 620x330 : le script cadre l'etape
+               courante, le PDF montre les cinq a la suite. -->
+          <defs><marker id="ch" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#BA1C3A"/></marker></defs>
+
+          <!-- 1. la demande -->
+          <g data-step="1" transform="translate(0 0)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">1 · CE QUE VOUS DEMANDEZ</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="66" width="580" height="72" rx="12" fill="#F7F4F2" stroke="#dcd8d4"/>
+            <text x="38" y="92" font-size="14" fill="#13264A">« Voici deux contrats. Compare les franchises</text>
+            <text x="38" y="114" font-size="14" fill="#13264A">et calcule l'écart. »</text>
+            <text x="38" y="130" font-size="12" fill="#6C7683">deux PDF joints, 48 et 52 pages</text>
+            <g font-size="12.5" font-weight="700">
+              <rect x="20" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="75" y="181" text-anchor="middle" fill="#13264A">texte</text>
+              <rect x="140" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="195" y="181" text-anchor="middle" fill="#13264A">fichiers</text>
+              <rect x="260" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="315" y="181" text-anchor="middle" fill="#13264A">image</text>
+              <rect x="380" y="160" width="110" height="32" rx="16" fill="#E9E4E1"/><text x="435" y="181" text-anchor="middle" fill="#13264A">voix</text>
+            </g>
+            <text x="20" y="240" font-size="14" font-style="italic" fill="#6C7683">Une demande en langage libre, comme à un collègue.</text>
+            <text x="20" y="264" font-size="14" font-style="italic" fill="#6C7683">Vous ne dites pas quel outil utiliser : c'est justement la question.</text>
+          </g>
+
+          <!-- 2. le moteur choisit -->
+          <g data-step="2" transform="translate(0 330)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">2 · LE MOTEUR DÉCIDE, IL NE FAIT PAS</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="200" height="96" rx="14" fill="#13264A"/>
+            <text x="120" y="98" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">Le moteur</text>
+            <text x="120" y="120" text-anchor="middle" font-size="12.5" fill="#c6d1e2">lit la demande,</text>
+            <text x="120" y="138" text-anchor="middle" font-size="12.5" fill="#c6d1e2">choisit les outils</text>
+            <g font-size="12.5">
+              <path d="M228 82 L268 82" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+              <rect x="278" y="62" width="322" height="38" rx="9" fill="#fbeef1" stroke="#BA1C3A" stroke-width="1.5"/>
+              <text x="294" y="86" font-weight="700" fill="#BA1C3A">Lire les fichiers joints</text>
+              <path d="M228 128 L268 128" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+              <rect x="278" y="108" width="322" height="38" rx="9" fill="#fbeef1" stroke="#BA1C3A" stroke-width="1.5"/>
+              <text x="294" y="132" font-weight="700" fill="#BA1C3A">Exécuter du code pour calculer</text>
+              <rect x="278" y="154" width="322" height="38" rx="9" fill="#fff" stroke="#dcd8d4"/>
+              <text x="294" y="178" fill="#6C7683">Chercher sur le web : pas utile ici</text>
+            </g>
+            <text x="20" y="240" font-size="14" font-style="italic" fill="#6C7683">Il a compris l'intention : lire, puis calculer.</text>
+            <text x="20" y="264" font-size="14" font-style="italic" fill="#6C7683">C'est un chef d'orchestre, pas un musicien.</text>
+          </g>
+
+          <!-- 3. les outils executent -->
+          <g data-step="3" transform="translate(0 660)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">3 · LES OUTILS EXÉCUTENT</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="285" height="104" rx="12" fill="#fff" stroke="#3B547D" stroke-width="1.5"/>
+            <text x="36" y="86" font-size="13.5" font-weight="700" fill="#13264A">Lecture des PDF</text>
+            <text x="36" y="108" font-size="12.5" fill="#4a5567">le texte est extrait, page par page</text>
+            <text x="36" y="126" font-size="12.5" fill="#4a5567">contrat A : franchise 90 €</text>
+            <text x="36" y="144" font-size="12.5" fill="#4a5567">contrat B : franchise 150 €</text>
+            <rect x="315" y="62" width="285" height="104" rx="12" fill="#fff" stroke="#BA1C3A" stroke-width="1.5"/>
+            <text x="331" y="86" font-size="13.5" font-weight="700" fill="#BA1C3A">Code exécuté</text>
+            <text x="331" y="110" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">ecart = 150 - 90</text>
+            <text x="331" y="132" font-size="12.5" font-family="JetBrains Mono, Consolas, monospace" fill="#4a5567">print(ecart)</text>
+            <text x="331" y="152" font-size="12.5" font-weight="700" fill="#13264A">→ 60</text>
+            <text x="20" y="212" font-size="14" font-style="italic" fill="#6C7683">Un PDF n'est pas lu comme par un humain : son texte est extrait.</text>
+            <text x="20" y="236" font-size="14" font-style="italic" fill="#6C7683">Un calcul n'est pas deviné : le moteur écrit le code,</text>
+            <text x="20" y="260" font-size="14" font-style="italic" fill="#6C7683">et une vraie machine l'exécute.</text>
+          </g>
+
+          <!-- 4. le retour -->
+          <g data-step="4" transform="translate(0 990)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">4 · LE RÉSULTAT REVIENT AU MOTEUR</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="330" y="66" width="270" height="76" rx="12" fill="#fff" stroke="#3B547D" stroke-width="1.5"/>
+            <text x="348" y="90" font-size="13" font-weight="700" fill="#13264A">Ce que les outils renvoient</text>
+            <text x="348" y="112" font-size="12.5" fill="#4a5567">deux montants, un écart de 60 €,</text>
+            <text x="348" y="130" font-size="12.5" fill="#4a5567">et les pages d'où ils viennent</text>
+            <path d="M322 104 L262 104" stroke="#BA1C3A" stroke-width="2.5" marker-end="url(#ch)"/>
+            <rect x="20" y="66" width="232" height="76" rx="14" fill="#13264A"/>
+            <text x="136" y="98" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">Le moteur, à nouveau</text>
+            <text x="136" y="122" text-anchor="middle" font-size="12.5" fill="#c6d1e2">il relit tout, avec le résultat</text>
+            <text x="20" y="196" font-size="14" fill="#4a5567">Le résultat de l'outil rentre dans la conversation</text>
+            <text x="20" y="218" font-size="14" fill="#4a5567">comme un texte de plus. Rien d'autre.</text>
+            <text x="20" y="266" font-size="14" font-style="italic" fill="#6C7683">C'est pour cela qu'un outil qui se trompe ne se voit pas :</text>
+            <text x="20" y="290" font-size="14" font-style="italic" fill="#6C7683">le moteur reçoit son résultat comme une vérité.</text>
+          </g>
+
+          <!-- 5. la reponse -->
+          <g data-step="5" transform="translate(0 1320)">
+            <text x="20" y="26" font-size="12" font-weight="800" letter-spacing=".12em" fill="#BA1C3A">5 · LA RÉPONSE, MISE EN FORME</text>
+            <line x1="20" y1="38" x2="600" y2="38" stroke="#dcd8d4"/>
+            <rect x="20" y="62" width="580" height="96" rx="12" fill="#e8f3f2" stroke="#1F6F6B"/>
+            <text x="38" y="88" font-size="13.5" fill="#13264A">« Le contrat B a une franchise de 150 €, contre 90 € pour</text>
+            <text x="38" y="110" font-size="13.5" fill="#13264A">le contrat A : 60 € d'écart, soit 67 % de plus. »</text>
+            <text x="38" y="136" font-size="12.5" font-weight="700" fill="#1F6F6B">Article 5 des deux contrats, pages 13 et 15.</text>
+            <rect x="20" y="176" width="580" height="70" rx="12" fill="#fdf3e2" stroke="#92661D"/>
+            <text x="38" y="202" font-size="13" font-weight="700" fill="#92661D">Sans outil, la même question</text>
+            <text x="38" y="224" font-size="12.5" fill="#4a5567">un écart plausible, écrit avec le même aplomb, et faux</text>
+            <text x="20" y="292" font-size="14" font-style="italic" fill="#6C7683">La différence entre les deux réponses ne se voit pas à l'œil.</text>
+          </g>
+        </svg><div class="recit-ticks"><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="is-on"></span></div></figure></div><div class="recit-texte">
+        <h4>La réponse est mise en forme, avec ses sources</h4>
+        <p>Le moteur rédige la réponse à partir du résultat, et cite les articles et les pages. C'est cette dernière étape qui donne l'impression qu'il a lu les contrats, alors qu'il a surtout su qui appeler.</p>
+        <p>Posez la même question sans les outils : vous obtiendrez un écart plausible, écrit avec le même aplomb, et faux. La différence entre les deux réponses ne se voit pas à l'œil, elle se vérifie par les sources.</p>
+      <p class="recit-legende">Une demande, du début à la fin. Le moteur comprend et coordonne, les outils exécutent, et la réponse revient mise en forme.</p></div></div></div></div></section>
+<section class="diapo" data-ou="2 · Les outils"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">2 · Les outils</span></div><div class="diapo-cadre"><div class="diapo-corps"><h3 style="margin:34px 0 14px">L'expérience qui révèle tout : combien de « r » dans strawberry ?</h3>
+<p style="margin:0 0 12px">Posez la question telle quelle à un chatbot. Puis recommencez en ajoutant « utilise Python pour compter ». Dépliez ensuite.</p>
+<details class="answer"><summary>Voir la réponse</summary>
+    <div class="ba">
+    <div class="before">
+      <div class="ba-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg> Le moteur seul</div>
+      <div class="ba-body">
+        <div class="prompt">Combien de lettres « r » dans le mot strawberry ?</div>
+        <p style="margin-top:14px">Réponse : <strong>2</strong>. Faux. Le mot est un seul « token » pour le moteur, pas une suite de lettres. Il n'a pas accès aux caractères, seulement à leur représentation.</p>
+      </div>
+      <div class="verdict">Même chose pour les sommes, les comparaisons, le tri, le hasard.</div>
+    </div>
+    <div class="after">
+      <div class="ba-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Le moteur + un outil</div>
+      <div class="ba-body">
+        <div class="prompt">Combien de lettres « r » dans le mot strawberry ? Utilise Python pour compter.</div>
+        <p style="margin-top:14px">Réponse : <strong>3</strong>. Juste. Le moteur écrit trois lignes de code, une machine les exécute, le moteur restitue. Le calcul est déterministe.</p>
+      </div>
+      <div class="verdict">Une phrase de prompt suffit à basculer sur l'outil.</div>
+    </div>
+  </div>
+  </details>
+<div class="callout">
+    <span class="label">Démystification</span>
+    <p>Ce n'est pas « l'IA qui sait compter maintenant ». C'est le moteur qui a appris à <strong>déléguer</strong> à un programme classique ce qu'il ne sait pas faire. Toute la suite de la formation tient dans ce geste : combiner le moteur avec les bons outils. Une astuce : formuler une <strong>commande</strong> (« calcule », « cherche ») plutôt qu'une question améliore le routage vers l'outil.</p>
+  </div>
+<div class="callout">
+    <span class="label">Ce que ça change pour vous</span>
+    <p style="margin:0">Puisque c’est un vrai programme qui tourne, vous pouvez demander le résultat sous la forme qui vous arrange : un fichier Excel, un graphique, un tableau trié. À essayer sur le prochain calcul : « refais-moi ça en fichier Excel ».</p>
+  </div></div></div></section>
+<section class="diapo" data-ou="2 · Les outils"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">2 · Les outils</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="try">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> Un second outil à tester : la recherche</span>
+    <p>Demandez « qui a gagné la Ligue des champions cette année ? ». D'abord dans un chatbot sans accès au web (ou en désactivant la recherche), puis avec la recherche activée. Comparez.</p>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p>Sans outil, le moteur ne peut pas savoir : ses connaissances s'arrêtent à une date, celle de la fin de son entraînement. Un bon chatbot le dit ; un moins bon répond avec la dernière saison qu'il connaît, au présent, comme si c'était cette année. Avec la recherche web, il lit une page récente et répond avec la source. Même mécanisme que pour Python : il n'a pas appris la réponse, il a appris à aller la chercher. Réentraîner un modèle coûte des millions, on ne le refait pas pour un résultat de match.</p>
+    </details>
+  </div></div></div></section>
+<section class="diapo titre" data-ou="3 · Les modalités"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">3 · Les modalités</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
+    <div class="eyebrow">3 · Les modalités</div>
+    <div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div><h2>Le chatbot voit, dessine et parle</h2></div>
+    <p class="lede">Le texte n'est plus la seule porte d'entrée. Trois capacités se sont ajoutées au moteur, et deux d'entre elles vont par paire.</p>
+  </div></div></div></section>
+<section class="diapo" data-ou="3 · Les modalités"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">3 · Les modalités</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-3">
+    <div class="card accent">
+      <div class="tag">Vision</div>
+      <h3>Lire une image</h3>
+      <p>Photo d'un sinistre, constat manuscrit, facture scannée, capture d'écran : le modèle décrit, extrait, compare. Le moteur et la vision sont un seul modèle (« multimodal »).</p>
+      <p style="font-size:.9rem;color:var(--ink-mute);margin:0">À tester : photographiez un ticket de caisse et demandez le total TTC et la date.</p>
+    </div>
+    <div class="card accent">
+      <div class="tag">Image</div>
+      <h3>Générer une image</h3>
+      <p>Décrire une scène, retoucher (« ajoute une cravate sans changer le visage »), décliner en variantes. La génération et la lecture convergent : on part d'une image existante et on la modifie en mots.</p>
+      <p style="font-size:.9rem;color:var(--ink-mute);margin:0">Le revers : les faux documents deviennent bon marché. On y revient au module 04, avec la fraude documentaire.</p>
+    </div>
+    <div class="card accent">
+      <div class="tag">Voix</div>
+      <h3>Parler et écouter</h3>
+      <p>Le mode vocal n'est plus « dictée puis synthèse ». Les modèles récents traitent la voix directement, en entrée comme en sortie : l'intonation, l'hésitation, une forme d'émotion passent dans les deux sens.</p>
+      <p style="font-size:.9rem;color:var(--ink-mute);margin:0">Domaine encore en mouvement : les résultats varient beaucoup d'un outil à l'autre.</p>
+    </div>
+  </div>
+<div class="callout assurance">
+    <span class="label">En assurance</span>
+    <p>La vision est la modalité la plus directement utile : elle transforme une <strong>photo de dégât</strong>, un <strong>constat</strong> ou un <strong>justificatif</strong> en données exploitables. La voix ouvre le call center augmenté : transcription en direct, aide à la saisie, résumé d'appel. L'image générée sert surtout la communication, et inquiète la lutte contre la fraude.</p>
+  </div></div></div></section>
+<section class="diapo" data-ou="3 · Les modalités"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">3 · Les modalités</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="try">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
+    <p>Donnez une image au chatbot, une photo ou un logo, et demandez « redonne-moi exactement la même image ». Comparez les deux, de près.</p>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p>Ce n'est jamais exactement la même : un détail bouge, un texte change, une proportion glisse. Le modèle ne copie pas, il génère une nouvelle image à partir d'une description de la vôtre. Même logique que pour le texte : la sortie la plus probable, pas une reproduction. Pour copier un fichier, il y a le copier-coller ; pour créer ou retoucher, il y a le modèle.</p>
+    </details>
+  </div>
+<div class="try">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
+    <p>Deux demandes, à passer telles quelles : « dessine des montres qui affichent 12h23 avec leurs aiguilles », puis « dessine quelqu'un qui écrit de la main gauche ». Regardez ce qui sort.</p>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p>Les montres affichent dix heures dix, la position des aiguilles sur à peu près toutes les photos publicitaires, et la personne écrit de la main droite. La consigne est explicite, elle est ignorée. Ce n'est pas un défaut du générateur d'images : le modèle produit ce qui est <strong>statistiquement majoritaire</strong>, et une heure rare ou un gaucher ne pèsent pas lourd contre des millions d'exemples contraires. La même mécanique fait sortir un homme quand on demande un chirurgien, et une femme quand on demande une infirmière : le modèle restitue la répartition de ses données, pas la vôtre. La parade est la même partout : décomposer la demande (le cadran d'abord, les aiguilles ensuite), et vérifier au lieu de supposer.</p>
+    </details>
+  </div></div></div></section>
+<section class="diapo titre" data-ou="4 · Le pont"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">4 · Le pont</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
+    <div class="eyebrow">4 · Le pont</div>
+    <div class="h-ico"><div class="ico steel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg></div><h2>Un pont vers les outils classiques</h2></div>
+    <p class="lede">La quatrième pièce est celle qu'on oublie : une base, une API, une calculatrice font leur travail sans aucune IA, de manière fiable et pas chère. Le rôle du moteur est de comprendre la demande en langage humain et de la traduire vers ces outils.</p>
+  </div></div></div></section>
+<section class="diapo" data-ou="4 · Le pont"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">4 · Le pont</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="try">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg> À votre avis</span>
+    <p>Cinq demandes en français. Pour lesquelles le résultat est-il exact sans relecture, et pour lesquelles faut-il vérifier ?</p>
+    <ol class="steps">
+      <li>« Combien de sinistres habitation en Île-de-France en 2024 ? »</li>
+      <li>« Quelle est la prime pour ce profil ? »</li>
+      <li>« Ce sinistre du 12 mars est-il couvert ? »</li>
+      <li>« Résume-moi ces trois avis clients »</li>
+      <li>« Quel article de loi s'applique ? »</li>
+    </ol>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <div class="table-wrap">
+    <table>
+      <thead><tr><th>La demande, en français</th><th>Ce que fait le moteur</th><th>L'outil classique qui exécute</th><th>Fiabilité</th></tr></thead>
+      <tbody>
+        <tr><td>« Combien de sinistres habitation en Île-de-France en 2024 ? »</td><td>Traduit en requête SQL</td><td class="rowhead">Base de données</td><td><span class="pill good">Exacte</span></td></tr>
+        <tr><td>« Quelle est la prime pour ce profil ? »</td><td>Appelle le tarificateur avec les bons paramètres</td><td class="rowhead">API métier</td><td><span class="pill good">Exacte</span></td></tr>
+        <tr><td>« Ce sinistre du 12 mars est-il couvert ? »</td><td>Retrouve le contrat, passe la date et la garantie au moteur de règles</td><td class="rowhead">Moteur de règles</td><td><span class="pill good">Exacte</span></td></tr>
+        <tr><td>« Résume-moi ces trois avis clients »</td><td>Génère le résumé lui-même</td><td class="rowhead">Aucun</td><td><span class="pill warn">À relire</span></td></tr>
+        <tr><td>« Quel article de loi s'applique ? »</td><td>Génère de mémoire</td><td class="rowhead">Aucun, sans RAG</td><td><span class="pill bad">À vérifier</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+      <p>Trois réponses exactes sur cinq : celles où le moteur passe la main à un outil (base de données, tarificateur, moteur de règles). Le moteur ne décide jamais lui-même si le sinistre est couvert, il retrouve les bons éléments et laisse la règle trancher. Les deux autres sortent du moteur seul : un résumé se relit, un article de loi se vérifie.</p>
+    </details>
+  </div></div></div></section>
+<section class="diapo" data-ou="4 · Le pont"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">4 · Le pont</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="callout">
+    <span class="label">À retenir</span>
+    <p>Plus la demande touche à un <strong>fait précis</strong> ou à un <strong>calcul</strong>, plus il faut que le moteur passe la main à un outil déterministe. Le moteur excelle quand il reste dans son rôle : comprendre, reformuler, mettre en forme, orchestrer. C'est le principe que le module 03 démonte en construisant une recherche dans les documents, le RAG, et que le module 04 met en prototype.</p>
+  </div></div></div></section>
+<section class="diapo titre sombre" data-ou="Pause"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">Pause</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="pause-mark"><span>Pause · vers 10 h 45</span></div></div></div></section>
+<section class="diapo titre" data-ou="5 · Le panorama"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">5 · Le panorama</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
+    <div class="eyebrow">5 · Le panorama</div>
+    <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><h2>Quel chatbot ? Quatre généralistes, des spécialisés</h2></div>
+    <p class="lede">Le chatbot est démonté pièce par pièce ; reste à en choisir un pour s'exercer. Les écarts de performance se réduisent d'un modèle à l'autre. Le choix se fait de plus en plus sur l'écosystème dans lequel le chatbot s'intègre, et sur la souveraineté des données.</p>
+  </div></div></div></section>
+<section class="diapo" data-ou="5 · Le panorama"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">5 · Le panorama</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="demo-embed demo-shot reveal">
+    <div class="demo-head"><span><b>Vingt outils, filtrés et comparés</b> · choisissez une famille, puis deux ou trois cartes à mettre côte à côte</span><a href="../demos/panorama_chatbots.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
+    <div class="demo-steps">
+      <figure>
+        <a href="../demos/panorama_chatbots.html" target="_blank" rel="noopener"><img src="../assets/demo_panorama_chatbots_1.png" width="1640" height="1120" alt="Vingt outils, filtrables par famille et par origine" loading="lazy"></a>
+        <figcaption><b>1</b> Vingt outils, filtrables par famille et par origine</figcaption>
+      </figure>
+      <figure>
+        <a href="../demos/panorama_chatbots.html" target="_blank" rel="noopener"><img src="../assets/demo_panorama_chatbots_2.png" width="1640" height="1120" alt="Deux ou trois outils mis côte à côte" loading="lazy"></a>
+        <figcaption><b>2</b> Deux ou trois outils mis côte à côte</figcaption>
+      </figure>
+    </div>
+    <a class="demo-cta" href="../demos/panorama_chatbots.html" target="_blank" rel="noopener">Ouvrir la démonstration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <div class="print-note">
+      <p style="margin:0 0 14px">Le comparateur du site couvre vingt outils, avec filtres par famille et par origine, et une vue de comparaison. Voici les quatre généralistes que tout le monde croise ; les autres familles suivent dans le tableau ci-dessous.</p>
+      <div class="grid grid-2">
+        <div class="tool"><div class="dot" style="background:#BA1C3A">G</div><div><h4>ChatGPT · OpenAI</h4><p>Le pionnier grand public. Écosystème le plus riche : GPTs, plugins, API, outils intégrés.</p><span class="meta">Polyvalent · le point de départ le plus courant</span></div></div>
+        <div class="tool"><div class="dot" style="background:#1F6F6B">C</div><div><h4>Claude · Anthropic</h4><p>Longs documents, rédaction nuancée, grande fenêtre de contexte. Le plus utilisé en entreprise pour le code.</p><span class="meta">Documents longs · développement</span></div></div>
+        <div class="tool"><div class="dot" style="background:#9A6B1E">G</div><div><h4>Gemini · Google</h4><p>Web en temps réel, intégré à Workspace. Google possède toute la chaîne, et a inventé les Transformers.</p><span class="meta">Recherche · suite Google</span></div></div>
+        <div class="tool"><div class="dot" style="background:#3B547D">M</div><div><h4>Copilot · Microsoft</h4><p>Pas de modèle propre (OpenAI dessous), mais intégré partout dans Office 365 avec le contexte de l'entreprise.</p><span class="meta">Bureautique · Teams, Outlook, Word</span></div></div>
+      </div>
+    </div>
+  </div></div></div></section>
+<section class="diapo" data-ou="5 · Le panorama"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">5 · Le panorama</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="callout reveal">
+    <span class="label">Deux façons de payer, à ne pas confondre</span>
+    <p>L'<strong>abonnement</strong> (une vingtaine d'euros par mois et par personne) donne accès au chatbot et à ses outils. C'est le bon choix pour l'assistant du quotidien : forfaitaire, prévisible, aucun développement.</p>
+    <p style="margin:0">L'<strong>API</strong> se paie au volume de texte traité, et sert quand un programme appelle le modèle : une extraction sur dix mille documents, un tri de mails automatique. Comparer les deux tarifs n'a pas de sens, ils ne répondent pas au même besoin. Les conditions de confidentialité diffèrent aussi, à vérifier avant de coller quoi que ce soit.</p>
+  </div></div></div></section>
+<section class="diapo" data-ou="5 · Le panorama"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">5 · Le panorama</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="table-wrap">
+    <table>
+      <thead><tr><th>Les spécialisés</th><th>Ce qu'ils apportent</th><th>Souveraineté</th><th>Quand y penser</th></tr></thead>
+      <tbody>
+        <tr><td class="rowhead">Mistral, avec Vibe</td><td>Modèles français, ouverts, déployables sur vos serveurs. Le chatbot Le Chat a été renommé Vibe en 2026</td><td><span class="pill good">Données en Europe</span></td><td>Données sensibles, exigence réglementaire</td></tr>
+        <tr><td class="rowhead">Perplexity</td><td>Réponses avec sources citées, recherche augmentée</td><td><span class="pill warn">Cloud US</span></td><td>Veille, vérification rapide d'un fait</td></tr>
+        <tr><td class="rowhead">DeepSeek, Qwen, Kimi, GLM</td><td>Modèles ouverts de haut niveau, coût par appel bien plus bas</td><td><span class="pill warn">Origine Chine</span></td><td>Coût, déploiement interne</td></tr>
+        <tr><td class="rowhead">Ollama, LM Studio</td><td>De quoi faire tourner un modèle ouvert sur votre poste ou votre serveur</td><td><span class="pill good">Rien ne sort</span></td><td>Données confidentielles, essais sans budget</td></tr>
+      </tbody>
+    </table>
+  </div>
+<div class="callout assurance">
+    <span class="label">En assurance</span>
+    <p>Le schéma courant : <strong>Copilot</strong> pour la bureautique de tous, <strong>Mistral ou Azure OpenAI</strong> quand la souveraineté l'impose, <strong>Claude ou GPT via API</strong> pour les briques métier construites en interne (RAG, extraction). Le marché se concentre : l'intégration devient le critère décisif.</p>
+  </div></div></div></section>
+<section class="diapo titre" data-ou="6 · Bien prompter"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">6 · Bien prompter</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
+    <div class="eyebrow">6 · Bien prompter</div>
+    <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1L19 8l-3-3L5 16z"/><path d="M14 7l3 3"/></svg></div><h2>Bien prompter : il connaît la méthode, pas votre intention</h2></div>
+    <p class="lede">Les grilles et les bonnes pratiques, le modèle les connaît mieux que vous : inutile de les retenir. La seule chose qu'il ne peut pas savoir, c'est ce que vous voulez exactement. Si l'IA ne vous comprend pas, un développeur vous comprendrait encore moins.</p>
+  </div></div></div></section>
+<section class="diapo" data-ou="6 · Bien prompter"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">6 · Bien prompter</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-2" style="margin-bottom:26px">
+    <div class="card accent">
+      <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"/><path d="M5 4h12l-2 4 2 4H5"/></svg></div><h3>Dites l'objectif, pas la méthode</h3></div>
+      <p>C'est ce qui a changé. Avant, il fallait décrire la marche à suivre étape par étape. Aujourd'hui, si l'objectif est clair, le modèle trouve les moyens : il choisit la structure, appelle un outil, propose parfois une meilleure voie que la vôtre.</p>
+      <p style="margin:0">« Fais un tableau croisé des mails par famille » impose la méthode. « Je veux savoir quelles demandes prennent le plus de temps à mon service, propose la vue la plus parlante » donne l'objectif, et laisse une chance à une réponse meilleure que celle que vous aviez en tête.</p>
+    </div>
+    <div class="card navy">
+      <h3>Faites écrire le prompt par l'IA</h3>
+      <p style="color:#c6d1e2">Plus rapide que d'apprendre une grille : demandez <em>« écris le prompt que je devrais te donner pour obtenir ceci »</em>. Vous lisez ce qu'il propose, vous corrigez ce qui ne colle pas à votre métier, vous relancez. Le modèle sait mieux que vous comment on lui parle.</p>
+      <p style="color:#c6d1e2;margin:0">Gardez la version corrigée. C'est elle qui devient un outil : réutilisable la semaine suivante, transmissible à un collègue, et modifiable quand le besoin bouge.</p>
+    </div>
+  </div></div></div></section>
+<section class="diapo" data-ou="6 · Bien prompter"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">6 · Bien prompter</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="callout">
+    <span class="label">N'apprenez pas la grille par cœur</span>
+    <p>Contexte, objectif, style, ton, audience, réponse : ces check-lists ont rendu service au début, quand les modèles comblaient mal les trous. Aujourd'hui le modèle connaît ces grilles, il les applique tout seul, et il vous dira lesquelles utiliser si vous le lui demandez. <strong>Retenir l'acronyme n'est plus le sujet.</strong></p>
+    <p style="margin:0">Ce qu'aucune grille ne remplacera : le contexte que vous êtes seul à connaître, et ce que vous voulez obtenir. C'est la seule part du travail qui reste à vous.</p>
+  </div>
+<div class="callout">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg> Commencez vite, peaufinez ensuite</span>
+    <p>La bonne demande ne s'écrit pas du premier coup, et ce n'est pas un problème de compétence. On ne sait pas toujours ce qu'on veut avant de voir une première proposition.</p>
+    <p style="margin:0"><strong>Le geste</strong> : lancez une demande courte, regardez ce qui revient, et corrigez ce qui ne va pas. Deux ou trois allers-retours valent mieux qu'un quart d'heure à composer le prompt parfait. Le premier jet sert à découvrir votre besoin, pas à obtenir le résultat.</p>
+  </div></div></div></section>
+<section class="diapo" data-ou="6 · Bien prompter"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">6 · Bien prompter</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-2" style="margin-bottom:26px">
+    <div class="card accent">
+      <div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg></div><h3>Citez un outil qu'il connaît</h3></div>
+      <p>Plus court que trois paragraphes de description : nommez un outil connu. « Compare ces deux versions comme le fait <strong>Diffchecker</strong> », « présente le résultat comme <strong>Draftable</strong> », et la mise en page tombe juste du premier coup.</p>
+      <p style="margin:0">La raison est toujours la même : ces outils sont décrits partout en ligne, donc très présents dans ses données. Même effet sur un jeu comme Snake, obtenu en une phrase. À l'inverse, l'écran propre à votre métier n'existe nulle part : celui-là, il faut le décrire.</p>
+    </div>
+    <div class="card accent">
+      <div class="h-ico"><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></div><h3>Le texte qui sent l'IA</h3></div>
+      <p>Deux marques trahissent un texte envoyé sans relecture : le <strong>tiret long</strong> qui coupe une phrase en deux, et un vocabulaire trop soutenu, des mots que personne n'emploie à l'oral. En anglais, le mot témoin est « delve ».</p>
+      <p style="margin:0">Le lecteur les repère, et il en conclut que vous n'avez pas relu. La parade tient en une ligne à garder dans votre prompt de style : pas de tiret long, vocabulaire courant, phrases courtes.</p>
+    </div>
+  </div></div></div></section>
+<section class="diapo" data-ou="6 · Bien prompter"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">6 · Bien prompter</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="try">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
+    <p>Demandez « combien de secondes dans une heure ? ». Puis « donne-moi juste le nombre ». Puis « réponds au format JSON, avec une clé secondes ». Regardez la forme de chaque réponse.</p>
+    <details class="answer"><summary>Voir la réponse</summary>
+      <p>La première réponse est une phrase, parfois un paragraphe avec le calcul : c'est la forme la plus fréquente dans ses données. La deuxième tient en un nombre, 3600. La troisième est un objet qu'un programme peut lire directement. Le contenu n'a pas changé, la forme se demande. C'est ce qu'on appellera plus loin une sortie structurée : la brique qui permet de brancher le moteur sur un outil.</p>
+    </details>
+  </div></div></div></section>
+<section class="diapo" data-ou="6 · Bien prompter"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">6 · Bien prompter</span></div><div class="diapo-cadre"><div class="diapo-corps"><h3 style="margin:36px 0 10px">Un peu suffit à changer beaucoup</h3>
+<p>Deux demandes, la même à cinq mots près. Un cas de la vie courante, vu du client.</p>
+<div class="grid grid-2">
+    <div class="card">
+      <h4>La demande</h4>
+      <div class="prompt">Écris un message à Deliveroo, j'ai pas reçu ma commande.</div>
+    </div>
+    <div class="card">
+      <h4>La même, plus cinq mots</h4>
+      <div class="prompt">Écris un message à Deliveroo, j'ai pas reçu ma commande. <strong>Comme si tu étais un avocat.</strong></div>
+    </div>
+  </div>
+<div class="try">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
+    <p>Lancez les deux, l'une après l'autre, et comparez ce qui revient.</p>
+    <details class="answer"><summary>Ce qu'on observe en général</summary>
+      <p>Le premier message est court et poli, il pourrait être écrit par n'importe qui. Le second change de registre : il se structure, prend le ton d'une mise en demeure, et renvoie au droit applicable.</p>
+      <p>Aucun fait n'a été ajouté, aucune consigne de format, aucune longueur imposée. Cinq mots ont déplacé le ton, le vocabulaire et la structure. C'est le geste le moins cher du prompting : dire d'où l'on parle.</p>
+    </details>
+  </div></div></div></section>
+<section class="diapo" data-ou="6 · Bien prompter"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">6 · Bien prompter</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-2" style="margin-top:26px">
+    <div class="card">
+      <h3>Le vocabulaire métier change tout</h3>
+      <p>Pour une image d'architecture, « une belle maison moderne » donne une image banale ; « cantilevered second floor, floor-to-ceiling glazing, golden hour, 24 mm » donne une image de professionnel. Le moteur a vu des milliers d'exemples étiquetés avec ces termes : le vocabulaire technique désambiguïse la demande.</p>
+      <p style="margin:0">Vrai pour l'image, le code, le droit, et l'assurance.</p>
+    </div>
+    <div class="card">
+      <h3>Transposé à vos métiers</h3>
+      <ul class="clean" style="font-size:.95rem">
+        <li><strong>Souscription</strong> : KBIS, bilan certifié, courtage en gros, rétrocession.</li>
+        <li><strong>Sinistres</strong> : mise en cause, subrogation, provision pour sinistres à payer.</li>
+        <li><strong>Réassurance</strong> : stop loss, quote-part, cession proportionnelle.</li>
+        <li><strong>Réglementaire</strong> : ORSA, pilier 2 de Solvabilité II, MCR, SCR.</li>
+      </ul>
+      <p style="margin:0;font-size:.93rem;color:var(--ink-soft)">Savoir prompter ne suffit pas : il faut connaître le domaine. C'est pour cela qu'un assistant métier se co-conçoit entre le métier et la technique.</p>
+    </div>
+  </div></div></div></section>
+<section class="diapo" data-ou="6 · Bien prompter"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">6 · Bien prompter</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="try">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
+    <p><strong>La réponse à une réclamation</strong>, en trois versions, cette fois depuis votre chaise. D'abord « rédige une réponse à une réclamation ». Puis la même avec un rôle et les faits : « comme si tu étais juriste en assurance », un assuré multirisque habitation conteste son indemnisation de dégât des eaux, l'expertise retient 2 400 € dont 600 € de vétusté déduite, la vétusté est prévue au contrat, le client est chez vous depuis onze ans. Enfin, demandez au modèle d'écrire lui-même le prompt idéal pour ce cas, corrigez ce qui ne correspond pas à votre pratique, et relancez.</p>
+    <details class="answer"><summary>Ce qu'on observe en général</summary>
+      <p>La première version est un courrier passe-partout : elle s'excuse, ne dit rien du dossier, et ne répond pas à la contestation. La deuxième explique la vétusté, renvoie à la clause, et garde le client de onze ans dans le ton. La troisième est souvent la meilleure : le prompt écrit par le modèle pense à ce que vous aviez oublié, le délai de réponse réglementaire, le rappel des voies de recours, la proposition d'un second passage de l'expert, et vos corrections lui rendent votre pratique. Le gain ne vient pas d'un meilleur modèle, il vient du contexte que vous lui donnez.</p>
+    </details>
+  </div></div></div></section>
+<section class="diapo titre" data-ou="7 · Où il s’arrête"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">7 · Où il s’arrête</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
+    <div class="eyebrow">7 · Où il s’arrête</div>
+    <div class="h-ico"><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></div><h2>Des exemples de limites, et la parade à chaque fois</h2></div>
+    <p class="lede">Les tests du module ont buté plusieurs fois. Ces dix cas sont des exemples, pas un inventaire : l'objectif est de prendre la mesure de ce que le moteur ne sait pas faire, pour reconnaître la prochaine limite quand elle se présentera.</p>
+  </div></div></div></section>
+<section class="diapo" data-ou="7 · Où il s’arrête"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">7 · Où il s’arrête</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="table-wrap">
+    <table>
+      <thead><tr><th>La limite</th><th>Ce qu'on observe</th><th>Pourquoi</th><th>La parade</th><th>Vu au module</th></tr></thead>
+      <tbody><tr><td class="rowhead">Il ne calcule pas</td><td>Additions fausses, comptage raté, « hasard » qui n'en est pas</td><td>Il prédit du texte, il n'exécute rien</td><td>Déléguer à Python, à un tableur, à une API</td><td><span class="pill neutral">01 · outils</span></td></tr><tr><td class="rowhead">Il invente des faits</td><td>Dates, citations, articles de loi plausibles et faux</td><td>Le mécanisme normal : la réponse la plus probable, pas la vraie</td><td>Le RAG : chercher dans une base fiable et citer la source</td><td><span class="pill neutral">03 · RAG</span></td></tr><tr><td class="rowhead">Il perd le fil</td><td>Sur un long document, il dérive, se contredit, oublie le format</td><td>Pas de mémoire structurée, contexte limité</td><td>Découper (chunking), imposer une sortie structurée, vérifier</td><td><span class="pill neutral">03 · RAG</span></td></tr><tr><td class="rowhead">Il s'arrête à une date</td><td>Il ignore ce qui s'est passé après son entraînement, et le dit rarement</td><td>Ses poids sont figés à la date de coupure</td><td>La recherche web, et des sources tenues à jour</td><td><span class="pill neutral">01 · outils</span></td></tr></tbody></table></div></div></div></section>
+<section class="diapo" data-ou="7 · Où il s’arrête"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">7 · Où il s’arrête</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="table-wrap">
+    <table>
+      <thead><tr><th>La limite</th><th>Ce qu'on observe</th><th>Pourquoi</th><th>La parade</th><th>Vu au module</th></tr></thead>
+      <tbody><tr><td class="rowhead">Il ne se répète pas</td><td>Deux fois la même demande, deux réponses ; « la même image » n'est jamais la même</td><td>Il tire la sortie la plus probable, avec une part de hasard</td><td>Une sortie structurée, un réglage sans hasard, des tests sur un échantillon</td><td><span class="pill neutral">04 · mesurer</span></td></tr><tr><td class="rowhead">Il cède sous la contradiction</td><td>« Es-tu sûr ? » et il change de réponse</td><td>Entraîné à plaire à celui qui lui parle</td><td>Ne jamais s'en servir comme référence : vérifier contre la source</td><td><span class="pill neutral">03 · RAG</span></td></tr><tr><td class="rowhead">Il ne connaît pas votre entreprise</td><td>Vos noms de formules, vos codes de motif, vos seuils de délégation : il les invente ou les ignore</td><td>Entraîné sur Internet : il connaît le vocabulaire du métier, pas ce qui n'existe que chez vous</td><td>Les lui donner : dictionnaire maison, extraits de vos contrats, exemples de vos dossiers</td><td><span class="pill neutral">03 · RAG</span></td></tr><tr><td class="rowhead">Il obéit au texte qu'il lit</td><td>Un mail dit « ignore tes instructions », et il le fait</td><td>Il ne distingue pas la consigne du document</td><td>Borner ses droits, valider avant qu'il agisse</td><td><span class="pill neutral">03 · demander</span></td></tr></tbody></table></div></div></div></section>
+<section class="diapo" data-ou="7 · Où il s’arrête"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">7 · Où il s’arrête</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="table-wrap">
+    <table>
+      <thead><tr><th>La limite</th><th>Ce qu'on observe</th><th>Pourquoi</th><th>La parade</th><th>Vu au module</th></tr></thead>
+      <tbody><tr><td class="rowhead">Il produit le plus courant</td><td>Des montres à 12h23 qui affichent toutes dix heures dix, un gaucher qui écrit de la main droite</td><td>La sortie majoritaire l’emporte sur une consigne rare</td><td>Décomposer la demande en étapes, et vérifier le résultat</td><td><span class="pill neutral">01 · modalités</span></td></tr><tr><td class="rowhead">Ce que vous tapez sort de chez vous</td><td>Le texte collé part chez l'éditeur du chatbot, et sert à entraîner le modèle suivant : c'est le prix de la gratuité</td><td>C'est un service en ligne, pas un logiciel installé</td><td>Anonymiser avant, ou un modèle sur vos serveurs</td><td><span class="pill neutral">02 · anonymiser</span></td></tr></tbody></table></div>
+<div class="callout warn">
+    <span class="label">Deux familles, et la même idée</span>
+    <p>Les trois premières ont la même cause : le moteur <strong>prédit du texte</strong>, et la parade est de <strong>lui adjoindre un outil</strong> déterministe. Les suivantes viennent de la façon dont il est fabriqué : figé à une date, entraîné pour plaire, hébergé chez un éditeur, et entraîné sur ce qui domine dans les données, donc porté à redonner le cas majoritaire. La parade est alors du contexte, des règles et des droits autour du modèle. Dans les deux cas, on ne corrige pas le moteur, on l'entoure. La suite de la formation apprend à combiner.</p>
+  </div></div></div></section>
+<section class="diapo titre sombre" data-ou="Pause"><div class="diapo-tete"><span class="mod">01 · Je découvre</span><span class="sep">·</span><span class="sec">Pause</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="exo-mark"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1L19 8l-3-3L5 16z"/><path d="M14 7l3 3"/></svg>Exercices · on reprend les blocs « À vous » du module</span></div></div></div></section>
+<section class="diapo" data-ou=""><div class="diapo-tete"><span class="mod">01 · Je découvre</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="eyebrow">À retenir du module 01</div>
+<h2 style="margin-bottom:22px">Le chatbot, pièce par pièce</h2>
+<div class="kpis">
+    <div><b>1</b><span>moteur qui écrit le mot suivant : la révolution, et sa limite</span></div>
+    <div><b>3</b><span>outils qui le rendent utile : web, Python, fichiers</span></div>
+    <div><b>3</b><span>modalités : vision, image, voix</span></div>
+    <div><b>1</b><span>pont vers les outils classiques : le moteur traduit, l'outil exécute</span></div>
+  </div>
+<p style="margin:26px 0 0">Vous savez maintenant tester un chatbot en connaissance de cause, prompter avec méthode, et reconnaître les situations où il faut passer la main à un outil, ou l'entourer de règles. Il est temps d'ouvrir le capot.</p></div></div></section>
+  </div>
+</div>
+<div class="pilote">
+  <button type="button" class="prec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Précédent</button>
+  <button type="button" class="suiv">Suivant <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+  <span class="rang"></span>
+  <span class="ou"></span>
+  <div class="droite">
+    <button type="button" class="sommaire-btn">Sommaire</button>
+    <a href="../decouvrir.html">Version page</a>
+  </div>
+</div>
+<div class="sommaire"><button type="button" class="fermer">Fermer</button><h2>Sommaire</h2><div class="groupe"><b>Ouverture</b><ol><li><button type="button" data-n="0"><b>1</b><span>Ouverture</span></button></li></ol></div><div class="groupe"><b>Le fil du module</b><ol><li><button type="button" data-n="1"><b>2</b><span>Le fil du module</span></button></li></ol></div><div class="groupe"><b>1 · Le moteur</b><ol><li><button type="button" data-n="2"><b>3</b><span>1 · Le moteur</span></button></li><li><button type="button" data-n="3"><b>4</b><span>Le moteur ne répond pas d’un bloc. Il ajoute un mot, relit tout depuis l…</span></button></li><li><button type="button" data-n="4"><b>5</b><span>Pourquoi c'est impressionnant</span></button></li><li><button type="button" data-n="5"><b>6</b><span>À tester maintenant</span></button></li><li><button type="button" data-n="6"><b>7</b><span>Ce n'est pas la machine qui répond</span></button></li></ol></div><div class="groupe"><b>2 · Les outils</b><ol><li><button type="button" data-n="7"><b>8</b><span>2 · Les outils</span></button></li><li><button type="button" data-n="8"><b>9</b><span>Suivons une demande du début à la fin, avec deux contrats en pièce joint…</span></button></li><li><button type="button" data-n="9"><b>10</b><span>Vous demandez, en langage libre</span></button></li><li><button type="button" data-n="10"><b>11</b><span>Le moteur décide, il ne fait pas</span></button></li><li><button type="button" data-n="11"><b>12</b><span>Les outils exécutent, chacun son métier</span></button></li><li><button type="button" data-n="12"><b>13</b><span>Le résultat revient dans la conversation</span></button></li><li><button type="button" data-n="13"><b>14</b><span>La réponse est mise en forme, avec ses sources</span></button></li><li><button type="button" data-n="14"><b>15</b><span>L'expérience qui révèle tout : combien de « r » dans strawberry ?</span></button></li><li><button type="button" data-n="15"><b>16</b><span>Un second outil à tester : la recherche</span></button></li></ol></div><div class="groupe"><b>3 · Les modalités</b><ol><li><button type="button" data-n="16"><b>17</b><span>3 · Les modalités</span></button></li><li><button type="button" data-n="17"><b>18</b><span>Lire une image</span></button></li><li><button type="button" data-n="18"><b>19</b><span>À tester maintenant</span></button></li></ol></div><div class="groupe"><b>4 · Le pont</b><ol><li><button type="button" data-n="19"><b>20</b><span>4 · Le pont</span></button></li><li><button type="button" data-n="20"><b>21</b><span>À votre avis</span></button></li><li><button type="button" data-n="21"><b>22</b><span>À retenir</span></button></li></ol></div><div class="groupe"><b>Pause</b><ol><li><button type="button" data-n="22"><b>23</b><span>Pause</span></button></li></ol></div><div class="groupe"><b>5 · Le panorama</b><ol><li><button type="button" data-n="23"><b>24</b><span>5 · Le panorama</span></button></li><li><button type="button" data-n="24"><b>25</b><span>ChatGPT · OpenAI</span></button></li><li><button type="button" data-n="25"><b>26</b><span>Deux façons de payer, à ne pas confondre</span></button></li><li><button type="button" data-n="26"><b>27</b><span>Les spécialisés Ce qu'ils apportent Souveraineté Quand y penser Mistral,…</span></button></li></ol></div><div class="groupe"><b>6 · Bien prompter</b><ol><li><button type="button" data-n="27"><b>28</b><span>6 · Bien prompter</span></button></li><li><button type="button" data-n="28"><b>29</b><span>Dites l'objectif, pas la méthode</span></button></li><li><button type="button" data-n="29"><b>30</b><span>N'apprenez pas la grille par cœur</span></button></li><li><button type="button" data-n="30"><b>31</b><span>Citez un outil qu'il connaît</span></button></li><li><button type="button" data-n="31"><b>32</b><span>À tester maintenant</span></button></li><li><button type="button" data-n="32"><b>33</b><span>Un peu suffit à changer beaucoup</span></button></li><li><button type="button" data-n="33"><b>34</b><span>Le vocabulaire métier change tout</span></button></li><li><button type="button" data-n="34"><b>35</b><span>À tester maintenant</span></button></li></ol></div><div class="groupe"><b>7 · Où il s’arrête</b><ol><li><button type="button" data-n="35"><b>36</b><span>7 · Où il s’arrête</span></button></li><li><button type="button" data-n="36"><b>37</b><span>La limite Ce qu'on observe Pourquoi La parade Vu au module Il ne calcule…</span></button></li><li><button type="button" data-n="37"><b>38</b><span>La limite Ce qu'on observe Pourquoi La parade Vu au module Il ne se répè…</span></button></li><li><button type="button" data-n="38"><b>39</b><span>La limite Ce qu'on observe Pourquoi La parade Vu au module Il produit le…</span></button></li></ol></div><div class="groupe"><b>Pause</b><ol><li><button type="button" data-n="39"><b>40</b><span>Pause</span></button></li></ol></div><div class="groupe"><b>Ouverture</b><ol><li><button type="button" data-n="40"><b>41</b><span>À retenir du module 01</span></button></li></ol></div></div>
+
+<script>
+(function(){
+  var header = document.getElementById('site-nav');
+  var hb = document.getElementById('hambBtn');
+  if (hb) hb.addEventListener('click', function(e){ e.stopPropagation(); header.classList.toggle('open'); });
+  // les sous-menus s'ouvrent au survol (CSS) ; le bouton de module est un
+  // lien, le clic mene au haut de la page du module
+
+  // apparition au defilement
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, {threshold: .12});
+    els.forEach(function(el){ io.observe(el); });
+  } else { els.forEach(function(el){ el.classList.add('in'); }); }
+
+  // sommaire lateral : bouton masquer, poignee de reouverture, choix memorise
+  var toc = document.querySelector('.toc');
+  var tocWrap = document.querySelector('.with-toc');
+  if (toc && tocWrap) {
+    var title = toc.querySelector('.toc-title');
+    if (title) {
+      var head = document.createElement('div');
+      head.className = 'toc-head';
+      toc.insertBefore(head, title);
+      head.appendChild(title);
+      var hide = document.createElement('button');
+      hide.type = 'button';
+      hide.className = 'toc-btn';
+      hide.title = 'Masquer le sommaire';
+      hide.setAttribute('aria-label', 'Masquer le sommaire');
+      hide.innerHTML = '&#9664;';
+      head.appendChild(hide);
+      var open = document.createElement('button');
+      open.type = 'button';
+      open.className = 'toc-reopen';
+      open.title = 'Afficher le sommaire';
+      open.textContent = 'Sommaire';
+      tocWrap.appendChild(open);
+      var KEY = 'nlpTocOff';
+      var setOff = function(off, persist){
+        tocWrap.classList.toggle('toc-off', off);
+        if (persist) { try { localStorage.setItem(KEY, off ? '1' : '0'); } catch (e) {} }
+      };
+      try { if (localStorage.getItem(KEY) === '1') setOff(true, false); } catch (e) {}
+      hide.addEventListener('click', function(){ setOff(true, true); });
+      open.addEventListener('click', function(){ setOff(false, true); });
+    }
+  }
+
+  // sommaire lateral : entree active
+  if (toc) {
+    var links = Array.from(toc.querySelectorAll('a[href^="#"]'));
+    var targets = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+    var onScroll = function(){
+      var y = window.scrollY + 160, cur = targets[0];
+      targets.forEach(function(t){ if (t.offsetTop <= y) cur = t; });
+      links.forEach(function(a){ a.classList.toggle('active', cur && a.getAttribute('href') === '#' + cur.id); });
+    };
+    window.addEventListener('scroll', onScroll, {passive: true}); onScroll();
+  }
+
+  // Demos en iframe : ajuster la hauteur au contenu.
+  // Une hauteur fixe est fausse des que le contenu change (filtres, bascule
+  // cartes/tableau) ou que la largeur change : le panorama fait 1339px en
+  // cartes, 1626px en tableau et 3353px sous 760px de large. L'ecart produit
+  // une barre de defilement dans l'iframe, dans une page qui defile deja.
+  // Sur file:// l'iframe est une origine opaque : on garde alors la hauteur
+  // de l'attribut, sans casser.
+  //
+  // Piege : une demo qui remplit son cadre (html,body{height:100%}, comme
+  // ELIZA) a un scrollHeight toujours egal a la hauteur de l'iframe. Une
+  // version precedente relevait l'iframe a scrollHeight + 2 a chaque mesure,
+  // et l'observateur relancait la mesure a chaque changement : l'iframe
+  // grandissait sans fin, 2px par tour. D'ou les deux garde-fous ci-dessous :
+  // on mesure la hauteur naturelle du document (offsetHeight, independante
+  // du cadre) tant que rien ne deborde, et on ne touche a l'iframe que si
+  // l'ecart avec sa hauteur actuelle est reel.
+  var frames = document.querySelectorAll('.demo-embed iframe');
+  var mesurer = function(d){
+    var html = d.documentElement, body = d.body;
+    var cadre = html.clientHeight;
+    var deborde = Math.max(body.scrollHeight, html.scrollHeight);
+    var naturelle = Math.max(html.offsetHeight, body.offsetHeight);
+    return deborde > cadre ? deborde : naturelle;
+  };
+  var ajuster = function(f){
+    try {
+      var d = f.contentDocument;
+      if (!d || !d.body) return;
+      var h = mesurer(d);
+      if (h <= 80 || Math.abs(h - f.clientHeight) <= 4) return;
+      f.style.height = (h + 2) + 'px';
+    } catch (e) { /* origine opaque : hauteur statique conservee */ }
+  };
+  frames.forEach(function(f){
+    var fit = function(){ ajuster(f); };
+    var brancher = function(){
+      fit();
+      try {
+        var d = f.contentDocument;
+        if (!d) return;
+        if (window.ResizeObserver && d.body) new ResizeObserver(fit).observe(d.body);
+        d.addEventListener('click', function(){ setTimeout(fit, 60); });
+        d.addEventListener('change', function(){ setTimeout(fit, 60); });
+      } catch (e) {}
+    };
+    f.addEventListener('load', brancher);
+    try { if (f.contentDocument && f.contentDocument.readyState === 'complete') brancher(); }
+    catch (e) {}
+  });
+  if (frames.length) {
+    var minuteur;
+    window.addEventListener('resize', function(){
+      clearTimeout(minuteur);
+      minuteur = setTimeout(function(){ frames.forEach(ajuster); }, 180);
+    });
+  }
+
+  // Recit defilant : le schema reste en place, le texte descend, et la vignette
+  // change d'etape. Le SVG est une pellicule verticale de N vignettes de meme
+  // hauteur, empilees : on cadre l'etape courante en changeant le viewBox.
+  // Sans script, et a l'impression, le viewBox d'origine montre les N vignettes
+  // a la suite : le PDF garde donc tout le schema, sans rien de special a faire.
+  document.querySelectorAll('.scrolly').forEach(function(sc){
+    var svg = sc.querySelector('.scrolly-figure svg');
+    var etapes = Array.prototype.slice.call(sc.querySelectorAll('.scrolly-step'));
+    if (!svg || !etapes.length || !('IntersectionObserver' in window)) return;
+    var vb = (svg.getAttribute('viewBox') || '').split(/[\s,]+/).map(Number);
+    if (vb.length !== 4) return;
+    var n = etapes.length, h = vb[3] / n;
+    svg.setAttribute('data-viewbox-complet', svg.getAttribute('viewBox'));
+    sc.classList.add('js-on');
+    // les reperes d'etape, sous le schema
+    var reperes = document.createElement('div');
+    reperes.className = 'scrolly-ticks';
+    reperes.setAttribute('aria-hidden', 'true');
+    etapes.forEach(function(){ reperes.appendChild(document.createElement('span')); });
+    sc.querySelector('.scrolly-figure').appendChild(reperes);
+    var courant = 0;
+    var cadrer = function(i){
+      if (i === courant) return;
+      courant = i;
+      svg.setAttribute('viewBox', vb[0] + ' ' + (vb[1] + i * h) + ' ' + vb[2] + ' ' + h);
+      etapes.forEach(function(e, k){ e.classList.toggle('is-on', k === i); });
+      reperes.querySelectorAll('span').forEach(function(s, k){ s.classList.toggle('is-on', k === i); });
+    };
+    var io = new IntersectionObserver(function(entrees){
+      entrees.forEach(function(en){
+        if (en.isIntersecting) cadrer(etapes.indexOf(en.target));
+      });
+    }, {rootMargin: '-45% 0px -45% 0px', threshold: 0});
+    etapes.forEach(function(e){ io.observe(e); });
+    courant = -1; cadrer(0);
+  });
+
+  // Reponses fermees par un code. But : casser le reflexe d'ouvrir la reponse
+  // avant d'avoir cherche, pas proteger un secret (la reponse reste dans le
+  // HTML). Le code est demande une fois, puis vaut pour toute la visite.
+  // A l'impression, tout s'affiche : le PDF est le support du formateur.
+  var reps = document.querySelectorAll('details.answer');
+  if (reps.length) {
+    var CLES = '0002b592,7c7973f7'.split(','), MEM = 'nlpReponses';
+    var empreinte = function(mot){
+      var h = 5381;
+      mot = mot.trim().toLowerCase();
+      for (var i = 0; i < mot.length; i++) h = ((h * 33) ^ mot.charCodeAt(i)) >>> 0;
+      return ('0000000' + h.toString(16)).slice(-8);
+    };
+    var ouvert = false;
+    try { ouvert = CLES.indexOf(sessionStorage.getItem(MEM)) >= 0; } catch (e) {}
+    var deverrouiller = function(){
+      try { sessionStorage.setItem(MEM, CLES[0]); } catch (e) {}
+      document.querySelectorAll('details.answer.locked').forEach(function(d){
+        d.classList.remove('locked');
+        var v = d.querySelector('.answer-lock');
+        if (v) v.remove();
+      });
+    };
+    if (!ouvert) {
+      reps.forEach(function(d){
+        d.classList.add('locked');
+        var boite = document.createElement('div');
+        boite.className = 'answer-lock';
+        boite.innerHTML = '<span>Cherchez d\'abord. Le formateur donne le code.</span>' +
+          '<input type="password" aria-label="Code des réponses" autocomplete="off" spellcheck="false">' +
+          '<button type="button">Ouvrir</button><em></em>';
+        var champ = boite.querySelector('input'), bouton = boite.querySelector('button'),
+            note = boite.querySelector('em');
+        var rates = 0;
+        var essai = function(){
+          if (CLES.indexOf(empreinte(champ.value)) >= 0) { deverrouiller(); return; }
+          rates++;
+          note.textContent = rates < 2 ? 'Ce n\'est pas le code.'
+            : 'Ce n\'est pas le code. Indice : le nombre que tout le monde obtient en demandant un nombre au hasard.';
+          champ.select();
+        };
+        bouton.addEventListener('click', essai);
+        champ.addEventListener('keydown', function(e){ if (e.key === 'Enter') { e.preventDefault(); essai(); } });
+        d.appendChild(boite);
+      });
+    }
+  }
+
+  // Les captures d'une demo : deux au plus, cote a cote, et le bouton ouvre la
+  // demo. Il y a eu un carrousel ici, avec fleches et numeros. Kezhan, le 7
+  // septembre : « c'est une tres mauvaise idee de faire un carrousel avec des
+  // images qui deroulent, tu peux juste faire une ou deux images, et tu
+  // demandes a cliquer pour voir le site ». Une demo est un site a visiter, pas
+  // une bande dessinee : la faire defiler sur place retenait le lecteur devant
+  // des images au lieu de l'envoyer sur l'outil. La regle des deux captures est
+  // tenue par capture_demos.py ; il ne reste ici qu'a charger les images tout de
+  // suite, la page reserve deja leur place par width et height.
+  document.querySelectorAll('.demo-steps img').forEach(function(img){
+    img.loading = 'eager';
+  });
+
+  // Le catalogue : des fiches en paysage qu'on fait defiler. A ne pas confondre
+  // avec le carrousel de captures retire juste au dessus : la, les images ne
+  // faisaient que montrer un outil a visiter ailleurs, ici la fiche EST le
+  // contenu, et les fiches d'un catalogue se comparent l'une apres l'autre.
+  // Demande de Kezhan, 7 septembre : « ce style est bien pour faire des cartes
+  // successives avec un catalogue de methodes, ou d'exemples, ou des chatbots
+  // [...] et tu pourrais faire un carrousel pour defiler ces cartes ».
+  //
+  // Les fiches sont empilees dans une seule cellule de grille (fiches.css) : le
+  // cadre prend la hauteur de la plus haute, changer de fiche ne deplace donc
+  // rien. Sans script, et a l'impression, elles se lisent a la suite.
+  document.querySelectorAll('.catalogue').forEach(function(cat){
+    var fiches = [].slice.call(cat.querySelectorAll(':scope > .fiche'));
+    if (fiches.length < 2) return;
+    var i = 0;
+    var nav = document.createElement('div');
+    nav.className = 'cat-nav';
+    nav.innerHTML =
+      '<button type="button" class="fleche" data-pas="-1" aria-label="Fiche precedente">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" '
+      + 'stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>'
+      + '<span class="cat-dots"></span>'
+      + '<button type="button" class="fleche" data-pas="1" aria-label="Fiche suivante">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" '
+      + 'stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>'
+      + '<span class="cat-titre"></span>';
+    cat.parentNode.insertBefore(nav, cat.nextSibling);
+    var dots = nav.querySelector('.cat-dots'), titre = nav.querySelector('.cat-titre');
+    var puces = fiches.map(function(f, n){
+      var d = document.createElement('button');
+      d.type = 'button'; d.className = 'cat-dot';
+      d.textContent = n + 1;
+      var nom = f.getAttribute('data-nom') || ('Fiche ' + (n + 1));
+      d.setAttribute('aria-label', nom);
+      d.title = nom;
+      d.addEventListener('click', function(){ aller(n); });
+      dots.appendChild(d);
+      return d;
+    });
+    function peindre(){
+      fiches.forEach(function(f, n){ f.classList.toggle('is-on', n === i); });
+      puces.forEach(function(d, n){
+        d.classList.toggle('is-on', n === i);
+        d.setAttribute('aria-current', n === i ? 'true' : 'false');
+      });
+      titre.innerHTML = '<b>' + (i + 1) + '</b> / ' + fiches.length
+        + ' · ' + (fiches[i].getAttribute('data-nom') || '');
+    }
+    function aller(n){ if (n !== i) { i = n; peindre(); } }
+    nav.querySelectorAll('.fleche').forEach(function(b){
+      b.addEventListener('click', function(){
+        aller((i + (+b.dataset.pas) + fiches.length) % fiches.length);
+      });
+    });
+    cat.tabIndex = 0;
+    cat.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); aller((i - 1 + fiches.length) % fiches.length); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); aller((i + 1) % fiches.length); }
+    });
+    cat.classList.add('carrousel');
+    peindre();
+  });
+})();
+</script>
+
+<script src="diapos.js"></script>
+</body>
+</html>

@@ -3,24 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Je comprends · IA générative en assurance</title>
+<title>02 · Je comprends · diapositives</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/style.css">
-<link rel="stylesheet" href="assets/demo.css">
-<link rel="stylesheet" href="assets/fiches.css">
-<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="manifest" href="assets/site.webmanifest">
-<meta name="theme-color" content="#13264A">
-<meta name="description" content="Le support de la formation : quatre modules, des demonstrations a manipuler, et le PDF de chaque module.">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/demo.css">
+<link rel="stylesheet" href="../assets/fiches.css">
+<link rel="stylesheet" href="diapos.css">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+<meta name="theme-color" content="#0d1830">
 </head>
 <body>
-<header class="nav" id="site-nav"><a class="brand" href="index.html"><span class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6 20 5.4v6.2c0 4.6-3.2 7.9-8 9.8-4.8-1.9-8-5.2-8-9.8V5.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8.4 11.9 11.3 9 14.2" fill="none" stroke="#EA617A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.6 14.2h3.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span><span class="brand-txt"><span class="title">IA générative en assurance</span><span class="sub">Du premier prompt au prototype</span></span></a><button class="hamb" aria-label="Menu" id="hambBtn"><span></span><span></span><span></span></button><div class="navlinks"><a href="index.html">Accueil</a><div class="dd"><a class="ddbtn" href="decouvrir.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></span><span class="num">01</span> Je découvre <span class="car">&#9662;</span></a><div class="menu"><a class="menu-head" href="decouvrir.html"><b>Je découvre</b><small>tester les chatbots</small></a><span class="sep">Dans ce module</span><a href="decouvrir.html#moteur">Le moteur : un LLM qui écrit le mot suivant</a><a href="decouvrir.html#outils">Les outils qui le rendent utile</a><a href="decouvrir.html#modalites">Les modalités : vision, image, voix</a><a href="decouvrir.html#pont">Le pont vers les outils classiques</a><a href="decouvrir.html#panorama">Quel chatbot ? Le panorama</a><a href="decouvrir.html#prompter">Bien prompter</a><a href="decouvrir.html#limites">Où il s'arrête : des exemples de limites</a></div></div><div class="dd"><a class="ddbtn active" href="comprendre.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span><span class="num">02</span> Je comprends <span class="car">&#9662;</span></a><div class="menu"><a class="menu-head" href="comprendre.html"><b>Je comprends</b><small>comment ça marche</small></a><span class="sep">Dans ce module</span><a href="comprendre.html#mots-cles">Je sais détecter des mots-clés</a><a href="comprendre.html#ml-classique">Je sais faire du ML classique</a><a href="comprendre.html#insuffisant">Les mots-clés ne suffisent pas</a><a href="comprendre.html#ordre">L'ordre des mots compte</a><a href="comprendre.html#modeles">Des modèles successifs, jusqu'aux LLM</a><a href="comprendre.html#vraie-vie">Dans la vraie vie : le texte n'arrive jamais propre</a><a href="comprendre.html#choisir">Pas toujours besoin d'un LLM</a></div></div><div class="dd"><a class="ddbtn" href="appliquer.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18"/></svg></span><span class="num">03</span> J'applique <span class="car">&#9662;</span></a><div class="menu"><a class="menu-head" href="appliquer.html"><b>J'applique</b><small>les gestes du métier, un par un</small></a><span class="sep">Dans ce module</span><a href="appliquer.html#assistant">Demander à un assistant qui agit</a><a href="appliquer.html#classer-mail">Classer un mail, technique par technique</a><a href="appliquer.html#documents">Lire et comparer des documents</a><a href="appliquer.html#rag">Chercher dans un corpus : le RAG</a><a href="appliquer.html#donnees">Interroger ses données en langage naturel</a><a href="appliquer.html#autres-gestes">Traduire, résumer, reformuler : les autres gestes</a><a href="appliquer.html#trois-endroits">Situer l'IA : trois endroits</a></div></div><div class="dd"><a class="ddbtn" href="prototyper.html"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span><span class="num">04</span> Je prototype <span class="car">&#9662;</span></a><div class="menu"><a class="menu-head" href="prototyper.html"><b>Je prototype</b><small>un processus complet, sans construire seul</small></a><span class="sep">Dans ce module</span><a href="prototyper.html#cas">La carte des cas d'usage : choisir le processus</a><a href="prototyper.html#outils">En un prompt : plein de cas, tout de suite</a><a href="prototyper.html#prototypes">Puis on peaufine : ce qui fait la différence</a><a href="prototyper.html#motifs">Ce qu'ils ont en commun, et ce qu'ils préparent</a><a href="prototyper.html#moyens">Les moyens : l'assistant de code, les outils pour tous</a><a href="prototyper.html#skills">Des skills, sans interface</a><a href="prototyper.html#outil-tri">La file de tri, du cas à l'outil</a><a href="prototyper.html#processus">La méthode, en résumé : l'écran d'abord</a><a href="prototyper.html#limites">Ce qu'un prototype n'est pas</a></div></div><a class="lien-diapos" href="diapos/comprendre.html" title="La même page, découpée en diapositives"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Diapositives</span></a></div></header>
-
-<section class="page-head">
+<div class="jauge"></div>
+<div class="pupitre">
+  <div class="scene" data-suivant="appliquer.html" data-precedent="decouvrir.html">
+<section class="diapo titre sombre" data-ou=""><div class="diapo-tete"><span class="mod">02 · Je comprends</span></div><div class="diapo-cadre"><div class="diapo-corps"><section class="page-head">
   <div class="wrap page-head-inner">
     <div>
       <div class="eyebrow eyebrow-light">Module 02</div>
@@ -41,38 +39,18 @@
       </svg>
     </div>
   </div>
-</section>
-
-<div class="wrap fil-wrap">
+</section></div></div></section>
+<section class="diapo large" data-ou="Le fil du module"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">Le fil du module</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="wrap fil-wrap">
   <div class="eyebrow">Le fil du module, marche par marche</div>
-  <div class="fil-map fig-scroll"><svg viewBox="0 0 1144 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Le fil du module, en schéma"><defs><marker id="fm-comprendre-s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7D92AC"/></marker><marker id="fm-comprendre-c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#BA1C3A"/></marker></defs><rect x="8" y="160" width="260" height="198" rx="16" fill="#F7F4F2" stroke="#7D92AC" stroke-dasharray="4 4"/><text x="24" y="178" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".12em" fill="#3B547D">CE QUE JE SAIS DÉJÀ</text><a href="#mots-cles" class="fm-a"><g><rect class="fm-box" x="20" y="189" width="236" height="74" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="43" cy="226" r="13" fill="#13264A"/><text x="43" y="230.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">1</text><text x="64" y="214.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Je sais détecter</text><text x="64" y="231.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">des mots-clés</text><text x="64" y="248.0" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">regex, dictionnaire, entités</text></g></a><a href="#ml-classique" class="fm-a"><g><rect class="fm-box" x="20" y="273" width="236" height="74" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="43" cy="310" r="13" fill="#13264A"/><text x="43" y="314.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">2</text><text x="64" y="298.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Je sais faire</text><text x="64" y="315.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">du ML classique</text><text x="64" y="332.0" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">poids et arbres, sur un tableau</text></g></a><path d="M268 226 L281 226 L281 186 L306 186" fill="none" stroke="#7D92AC" stroke-width="1.6" marker-end="url(#fm-comprendre-s)"/><rect x="256.6" y="196" width="48.8" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="281" y="209.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">MAIS</text><a href="#insuffisant" class="fm-a"><g><rect class="fm-box" x="306" y="157" width="236" height="58" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="329" cy="186" r="13" fill="#13264A"/><text x="329" y="190.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">3</text><text x="350" y="182.5" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Ils ne suffisent pas</text><text x="350" y="199.5" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">fautes, synonymes : trois parades</text></g></a><path d="M542 186 L567 186 L567 136 L592 136" fill="none" stroke="#7D92AC" stroke-width="1.6" marker-end="url(#fm-comprendre-s)"/><rect x="550.3" y="151" width="33.4" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="567" y="164.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">ET</text><a href="#ordre" class="fm-a"><g><rect class="fm-box" x="592" y="107" width="236" height="58" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="615" cy="136" r="13" fill="#13264A"/><text x="615" y="140.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">4</text><text x="636" y="132.5" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">L'ordre des mots compte</text><text x="636" y="149.5" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">RNN, CNN, attention</text></g></a><path d="M828 136 L853 136 L853 86 L878 86" fill="none" stroke="#7D92AC" stroke-width="1.6" marker-end="url(#fm-comprendre-s)"/><rect x="828.6" y="101" width="48.8" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="853" y="114.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">D'OÙ</text><a href="#modeles" class="fm-a"><g><rect class="fm-box" x="878" y="57" width="236" height="58" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="901" cy="86" r="13" fill="#13264A"/><text x="901" y="90.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">5</text><text x="922" y="82.5" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Des modèles successifs</text><text x="922" y="99.5" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">jusqu'aux LLM</text></g></a><text x="40" y="130" text-anchor="start" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" font-style="italic" fill="#6C7683">la montée : chaque rupture lève une limite sans remplacer la précédente</text><path d="M996 115 L996 316 L866 316" fill="none" stroke="#7D92AC" stroke-width="1.6" marker-end="url(#fm-comprendre-s)"/><rect x="979.3" y="215" width="33.4" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="996" y="228.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">OR</text><a href="#vraie-vie" class="fm-a"><g><rect class="fm-box" x="630" y="279" width="236" height="74" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="653" cy="316" r="13" fill="#13264A"/><text x="653" y="320.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">6</text><text x="674" y="304.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Dans la vraie vie</text><text x="674" y="321.0" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">PDF complet, mail sans contexte,</text><text x="674" y="338.0" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">dix mille documents</text></g></a><path d="M630 316 L536 316" fill="none" stroke="#7D92AC" stroke-width="1.6" marker-end="url(#fm-comprendre-s)"/><rect x="543.2" y="306" width="79.6" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="583" y="319.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">POURTANT</text><a href="#choisir" class="fm-a"><g><rect class="fm-box" x="300" y="279" width="236" height="74" rx="12" fill="#fff" stroke="#BA1C3A" stroke-width="1.5"/><path d="M303.06 283 A12 12 0 0 1 312 279 L524 279 A12 12 0 0 1 532.94 283 Z" fill="#BA1C3A"/><circle class="fm-num" cx="323" cy="316" r="13" fill="#BA1C3A"/><text x="323" y="320.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">7</text><text x="344" y="304.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Pas toujours besoin</text><text x="344" y="321.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">d'un LLM</text><text x="344" y="338.0" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">six niveaux, partir du bas</text></g></a><path d="M300 316 L270 316" fill="none" stroke="#BA1C3A" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#fm-comprendre-c)"/><rect x="110.8" y="372" width="318.3" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="270" y="385.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">PARTIR DU BAS, MONTER QUAND ÇA PLAFONNE</text></svg></div><ol class="fil-liste"><li><a href="#mots-cles"><strong>Je sais détecter des mots-clés</strong></a> : regex, dictionnaire, entités</li><li><a href="#ml-classique"><strong>Je sais faire du ML classique</strong></a> : poids et arbres, sur un tableau</li><li><a href="#insuffisant"><strong>Ils ne suffisent pas</strong></a> : fautes, synonymes : trois parades</li><li><a href="#ordre"><strong>L'ordre des mots compte</strong></a> : RNN, CNN, attention</li><li><a href="#modeles"><strong>Des modèles successifs</strong></a> : jusqu'aux LLM</li><li><a href="#vraie-vie"><strong>Dans la vraie vie</strong></a> : PDF complet, mail sans contexte,, dix mille documents</li><li><a href="#choisir"><strong>Pas toujours besoin d'un LLM</strong></a> : six niveaux, partir du bas</li></ol><!-- /fil-map -->
-</div>
-
-<div class="wrap with-toc" style="margin-top:30px">
-<aside class="toc">
-  <div class="toc-title">Dans ce module</div>
-  <a href="#mots-cles">1 · Je sais détecter des mots-clés</a>
-  <a href="#ml-classique">2 · Je sais faire du ML classique</a>
-  <a href="#insuffisant">3 · Ils ne suffisent pas</a><span class="toc-pause">Pause · 15 h 30</span>
-  <a href="#ordre">4 · L'ordre des mots compte</a>
-  <a href="#modeles">5 · Des modèles successifs, jusqu'aux LLM</a>
-  <a href="#vraie-vie">6 · Dans la vraie vie</a>
-  <a href="#choisir">7 · Pas toujours un LLM</a>
-  <a href="#retenir">À retenir</a>
-</aside>
-
-<div>
-
-<!-- ===================== 1. MOTS-CLES ===================== -->
-<section id="mots-cles" class="band" style="padding-top:0">
-  <div class="section-head reveal">
+  <div class="fil-map fig-scroll"><svg viewBox="0 0 1144 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Le fil du module, en schéma"><defs><marker id="fm-comprendre-s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7D92AC"/></marker><marker id="fm-comprendre-c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#BA1C3A"/></marker></defs><rect x="8" y="160" width="260" height="198" rx="16" fill="#F7F4F2" stroke="#7D92AC" stroke-dasharray="4 4"/><text x="24" y="178" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".12em" fill="#3B547D">CE QUE JE SAIS DÉJÀ</text><a href="#d3" class="fm-a"><g><rect class="fm-box" x="20" y="189" width="236" height="74" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="43" cy="226" r="13" fill="#13264A"/><text x="43" y="230.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">1</text><text x="64" y="214.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Je sais détecter</text><text x="64" y="231.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">des mots-clés</text><text x="64" y="248.0" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">regex, dictionnaire, entités</text></g></a><a href="#d12" class="fm-a"><g><rect class="fm-box" x="20" y="273" width="236" height="74" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="43" cy="310" r="13" fill="#13264A"/><text x="43" y="314.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">2</text><text x="64" y="298.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Je sais faire</text><text x="64" y="315.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">du ML classique</text><text x="64" y="332.0" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">poids et arbres, sur un tableau</text></g></a><path d="M268 226 L281 226 L281 186 L306 186" fill="none" stroke="#7D92AC" stroke-width="1.6" marker-end="url(#fm-comprendre-s)"/><rect x="256.6" y="196" width="48.8" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="281" y="209.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">MAIS</text><a href="#d14" class="fm-a"><g><rect class="fm-box" x="306" y="157" width="236" height="58" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="329" cy="186" r="13" fill="#13264A"/><text x="329" y="190.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">3</text><text x="350" y="182.5" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Ils ne suffisent pas</text><text x="350" y="199.5" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">fautes, synonymes : trois parades</text></g></a><path d="M542 186 L567 186 L567 136 L592 136" fill="none" stroke="#7D92AC" stroke-width="1.6" marker-end="url(#fm-comprendre-s)"/><rect x="550.3" y="151" width="33.4" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="567" y="164.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">ET</text><a href="#d23" class="fm-a"><g><rect class="fm-box" x="592" y="107" width="236" height="58" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="615" cy="136" r="13" fill="#13264A"/><text x="615" y="140.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">4</text><text x="636" y="132.5" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">L'ordre des mots compte</text><text x="636" y="149.5" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">RNN, CNN, attention</text></g></a><path d="M828 136 L853 136 L853 86 L878 86" fill="none" stroke="#7D92AC" stroke-width="1.6" marker-end="url(#fm-comprendre-s)"/><rect x="828.6" y="101" width="48.8" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="853" y="114.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">D'OÙ</text><a href="#d26" class="fm-a"><g><rect class="fm-box" x="878" y="57" width="236" height="58" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="901" cy="86" r="13" fill="#13264A"/><text x="901" y="90.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">5</text><text x="922" y="82.5" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Des modèles successifs</text><text x="922" y="99.5" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">jusqu'aux LLM</text></g></a><text x="40" y="130" text-anchor="start" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" font-style="italic" fill="#6C7683">la montée : chaque rupture lève une limite sans remplacer la précédente</text><path d="M996 115 L996 316 L866 316" fill="none" stroke="#7D92AC" stroke-width="1.6" marker-end="url(#fm-comprendre-s)"/><rect x="979.3" y="215" width="33.4" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="996" y="228.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">OR</text><a href="#d38" class="fm-a"><g><rect class="fm-box" x="630" y="279" width="236" height="74" rx="12" fill="#fff" stroke="#dcd8d4" stroke-width="1"/><circle class="fm-num" cx="653" cy="316" r="13" fill="#13264A"/><text x="653" y="320.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">6</text><text x="674" y="304.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Dans la vraie vie</text><text x="674" y="321.0" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">PDF complet, mail sans contexte,</text><text x="674" y="338.0" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">dix mille documents</text></g></a><path d="M630 316 L536 316" fill="none" stroke="#7D92AC" stroke-width="1.6" marker-end="url(#fm-comprendre-s)"/><rect x="543.2" y="306" width="79.6" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="583" y="319.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">POURTANT</text><a href="#d41" class="fm-a"><g><rect class="fm-box" x="300" y="279" width="236" height="74" rx="12" fill="#fff" stroke="#BA1C3A" stroke-width="1.5"/><path d="M303.06 283 A12 12 0 0 1 312 279 L524 279 A12 12 0 0 1 532.94 283 Z" fill="#BA1C3A"/><circle class="fm-num" cx="323" cy="316" r="13" fill="#BA1C3A"/><text x="323" y="320.5" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="12.5" font-weight="800" fill="#fff">7</text><text x="344" y="304.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">Pas toujours besoin</text><text x="344" y="321.0" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="14" font-weight="800" fill="#13264A">d'un LLM</text><text x="344" y="338.0" font-family="Inter, 'Segoe UI', sans-serif" font-size="11.5" fill="#4a5567">six niveaux, partir du bas</text></g></a><path d="M300 316 L270 316" fill="none" stroke="#BA1C3A" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#fm-comprendre-c)"/><rect x="110.8" y="372" width="318.3" height="20" rx="10" fill="#fff" stroke="#dcd8d4"/><text x="270" y="385.8" text-anchor="middle" font-family="Manrope, Inter, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing=".1em" fill="#BA1C3A">PARTIR DU BAS, MONTER QUAND ÇA PLAFONNE</text></svg></div><ol class="fil-liste"><li><a href="#d3"><strong>Je sais détecter des mots-clés</strong></a> : regex, dictionnaire, entités</li><li><a href="#d12"><strong>Je sais faire du ML classique</strong></a> : poids et arbres, sur un tableau</li><li><a href="#d14"><strong>Ils ne suffisent pas</strong></a> : fautes, synonymes : trois parades</li><li><a href="#d23"><strong>L'ordre des mots compte</strong></a> : RNN, CNN, attention</li><li><a href="#d26"><strong>Des modèles successifs</strong></a> : jusqu'aux LLM</li><li><a href="#d38"><strong>Dans la vraie vie</strong></a> : PDF complet, mail sans contexte,, dix mille documents</li><li><a href="#d41"><strong>Pas toujours besoin d'un LLM</strong></a> : six niveaux, partir du bas</li></ol><!-- /fil-map -->
+</div></div></div></section>
+<section class="diapo titre" data-ou="1 · Le point de départ"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">1 · Le point de départ</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
     <div class="eyebrow">1 · Le point de départ</div>
     <div class="h-ico"><div class="ico navy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg></div><h2>Je sais détecter des mots-clés</h2></div>
     <p class="lede">Un texte arrive : une description d'activité, un mail, un contrat. Le premier réflexe, le bon, est de chercher des mots et des motifs. C'est déterministe, gratuit, et un juriste peut l'auditer. Avant de sortir un modèle, on épuise cette voie.</p>
-  </div>
-
-  <p>Deux exemples nous suivent jusqu'à la fin du module. À chaque marche, on regarde ce que la technique en fait, et où elle casse. Le mail, lui, est le cas du module 03.</p>
-  <div class="grid grid-2 reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="1 · Le point de départ"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">1 · Le point de départ</span></div><div class="diapo-cadre"><div class="diapo-corps"><p>Deux exemples nous suivent jusqu'à la fin du module. À chaque marche, on regarde ce que la technique en fait, et où elle casse. Le mail, lui, est le cas du module 03.</p>
+<div class="grid grid-2 reveal">
     <div class="card flat">
       <div class="tag">Exemple 1</div>
       <h4>Détecter l'activité</h4>
@@ -84,8 +62,7 @@
       <p style="font-size:.93rem;margin:0">Un avis ou un mail doit devenir une note : <em>« Toujours pas de réponse, c'est inadmissible »</em> est négatif, <em>« Merci pour la rapidité »</em> est positif. C'est le geste du service client : repérer l'insatisfaction avant la résiliation.</p>
     </div>
   </div>
-
-  <figure class="figure-frame reveal">
+<figure class="figure-frame reveal">
     <div class="fig-scroll"><svg viewBox="0 0 1100 200" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif">
       <defs><marker id="c1" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#BA1C3A"/></marker></defs>
       <g font-size="14">
@@ -112,9 +89,8 @@
       <text x="550" y="185" text-anchor="middle" font-size="13" fill="#78828f">Le même pipeline précède toutes les techniques qui suivent : un bon prétraitement vaut souvent mieux qu'un meilleur modèle.</text>
     </svg></div>
     <figcaption>Nettoyer, découper, détecter. Les termes « sanitaire », « installation », « artisan » déclenchent la détection d'activité : plomberie.</figcaption>
-  </figure>
-
-  <div class="grid grid-2 reveal">
+  </figure></div></div></section>
+<section class="diapo" data-ou="1 · Le point de départ"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">1 · Le point de départ</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-2 reveal">
     <div class="card">
       <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></svg></div><h3>Le motif exact : la regex</h3></div>
       <div class="table-wrap" style="box-shadow:none">
@@ -140,22 +116,20 @@
     </details>
       </div>
     </div>
-  </div>
-
-  <h3 style="margin:34px 0 8px">1966 : un chatbot sans aucun modèle</h3>
-  <p>En 1966, un programme tenait une conversation assez bien pour faire illusion, sans aucun apprentissage. Il tourne ci-dessous, à l'identique. Discutez avec lui deux minutes, puis répondez à deux questions : est-ce qu'il vous a fait illusion, et combien de règles y a-t-il derrière, à votre avis ?</p>
-  <div class="demo-embed reveal">
-    <div class="demo-head"><span><b>ELIZA</b> · trois versions dans le menu du bandeau : en français, au guichet sinistres, et l'original de 1966 en anglais. Essayez « je suis triste à cause du travail », « ma mère est toujours en colère », « j'ai peur de perdre mon travail », puis une phrase quelconque</span><a href="demos/eliza.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
-    <iframe src="demos/eliza.html" title="ELIZA, le chatbot de 1966" height="600" loading="lazy"></iframe>
+  </div></div></div></section>
+<section class="diapo" data-ou="1 · Le point de départ"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">1 · Le point de départ</span></div><div class="diapo-cadre"><div class="diapo-corps"><h3 style="margin:34px 0 8px">1966 : un chatbot sans aucun modèle</h3>
+<p>En 1966, un programme tenait une conversation assez bien pour faire illusion, sans aucun apprentissage. Il tourne ci-dessous, à l'identique. Discutez avec lui deux minutes, puis répondez à deux questions : est-ce qu'il vous a fait illusion, et combien de règles y a-t-il derrière, à votre avis ?</p></div></div></section>
+<section class="diapo" data-ou="1 · Le point de départ"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">1 · Le point de départ</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="demo-embed reveal">
+    <div class="demo-head"><span><b>ELIZA</b> · trois versions dans le menu du bandeau : en français, au guichet sinistres, et l'original de 1966 en anglais. Essayez « je suis triste à cause du travail », « ma mère est toujours en colère », « j'ai peur de perdre mon travail », puis une phrase quelconque</span><a href="../demos/eliza.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
+    <iframe src="../demos/eliza.html" title="ELIZA, le chatbot de 1966" height="600" loading="lazy"></iframe>
     <div class="print-note">Démo interactive sur le site (demos/eliza.html), trois versions au choix. En français : « je suis triste à cause du travail » donne « Je suis désolée de vous savoir triste. » ; « ma mère est toujours en colère » donne « Parlez-moi de votre famille. » ; « j'ai peur de perdre mon travail » donne « Qu'est-ce qui vous fait peur, dans perdre votre travail ? » ; une phrase quelconque donne une relance passe-partout, « Continuez, je vous en prie. » Au guichet sinistres : « j'ai un dégât des eaux » donne « La fuite est-elle arrêtée ? », et « combien vais-je toucher » donne « Le montant dépend de votre contrat et de l'expertise. »</div>
   </div>
-  <details class="answer"><summary>Voir la réponse</summary>
+<details class="answer"><summary>Voir la réponse</summary>
     <p>Il ne comprend rien. Il repère un mot dans votre phrase, il recopie le reste de la phrase dans une réponse toute faite, et il retourne les pronoms : votre « ma mère » devient « votre mère ». C'est tout.</p>
     <p>Aucun modèle, aucune donnée d'apprentissage : des règles écrites à la main, une par une. La version française en compte trente-six, celle de 1966 quarante-deux. Quand aucun mot connu n'apparaît, il relance avec une formule passe-partout, « Continuez, je vous en prie. »</p>
     <p>C'est là que l'illusion tombe : une phrase sans mot prévu, un mot mal orthographié, et il n'a plus rien à dire. Beaucoup d'utilisateurs de l'époque lui ont pourtant prêté une compréhension qu'il n'avait pas, y compris la secrétaire de Weizenbaum, qui lui demandait de quitter la pièce.</p>
-  </details>
-
-  <details class="deeper">
+  </details></div></div></section>
+<section class="diapo" data-ou="1 · Le point de départ"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">1 · Le point de départ</span></div><div class="diapo-cadre"><div class="diapo-corps"><details class="deeper">
     <summary>Les trois mécanismes, en détail <small>ce qu'il y a exactement dans les règles</small></summary>
     <div class="deeper-body">
       <p><strong>Des mots-clés classés par priorité.</strong> Chaque mot connu porte un rang. Dans « je suis triste à cause du travail », la tristesse a un rang plus élevé que le travail : c'est elle qui décide de la réponse. Le rang est ce qui évite qu'un mot anodin l'emporte sur le mot important.</p>
@@ -164,11 +138,10 @@
       <p>Il y a un quatrième mécanisme, plus discret : une mémoire. Quand vous dites « ma… », la phrase est mise de côté et ressort plus tard, au moment où plus aucun mot-clé ne matche. « Tout à l'heure, vous parliez de votre… » : c'est la réplique qui impressionne le plus, et c'est une ligne de code.</p>
       <p>La version guichet sinistres montre la même mécanique pointée sur un métier, avec dix-huit mots-clés : sinistre, expert, franchise, garantie, remboursement. Elle tient trois échanges, puis elle tourne en rond, parce qu'elle n'a accès à aucun dossier. C'est exactement ce qu'on savait faire avant les modèles de langue, et c'est encore la limite d'un dictionnaire métier utilisé seul.</p>
     </div>
-  </details>
-
-  <h3 style="margin:34px 0 12px">Étiqueter chaque mot : la base de l'extraction et de l'anonymisation</h3>
-  <p>La reconnaissance d'entités nommées (NER) repère dans le texte brut les personnes, dates, lieux, organisations, numéros. C'est ce qui permet de retirer les données personnelles <strong>avant</strong> d'envoyer un texte à un modèle externe.</p>
-  <div class="card reveal" style="font-size:1.05rem;line-height:2">
+  </details></div></div></section>
+<section class="diapo" data-ou="1 · Le point de départ"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">1 · Le point de départ</span></div><div class="diapo-cadre"><div class="diapo-corps"><h3 style="margin:34px 0 12px">Étiqueter chaque mot : la base de l'extraction et de l'anonymisation</h3>
+<p>La reconnaissance d'entités nommées (NER) repère dans le texte brut les personnes, dates, lieux, organisations, numéros. C'est ce qui permet de retirer les données personnelles <strong>avant</strong> d'envoyer un texte à un modèle externe.</p>
+<div class="card reveal" style="font-size:1.05rem;line-height:2">
     <span style="background:#e7ecf5;color:#13264A;padding:2px 8px;border-radius:6px;font-weight:600">Marie Dupont<sup style="font-size:.6em;color:#3B547D"> PER</sup></span> déclare un dégât des eaux survenu le
     <span style="background:#e8f3f2;color:#1F6F6B;padding:2px 8px;border-radius:6px;font-weight:600">12/03/2026<sup style="font-size:.6em"> DATE</sup></span> dans son appartement de
     <span style="background:#fdf3e2;color:#9A6B1E;padding:2px 8px;border-radius:6px;font-weight:600">Lyon<sup style="font-size:.6em"> LOC</sup></span>, contrat
@@ -176,51 +149,43 @@
     <span style="background:#fbeef1;color:#BA1C3A;padding:2px 8px;border-radius:6px;font-weight:600">Novassur<sup style="font-size:.6em"> ORG</sup></span>. Contact :
     <span style="background:#f0ecf6;color:#6a4ea0;padding:2px 8px;border-radius:6px;font-weight:600">06 12 34 56 78<sup style="font-size:.6em"> NUM</sup></span>.
   </div>
-
-  <div class="callout assurance reveal">
+<div class="callout assurance reveal">
     <span class="label">Résultat mesuré sur des contrats d'assurance</span>
     <p>Une cascade regex + dictionnaire, puis deux modèles de NER, puis un LLM par-dessus. À votre avis, que gagne chaque couche ?</p>
     <details class="answer"><summary>Voir la réponse</summary>
       <p>Sur un corpus de test de 61 données personnelles, une cascade <strong>regex + dictionnaire</strong> en retrouve 77 % avec 98 % de précision. En ajoutant deux modèles de NER, on atteint <strong>100 % de rappel</strong>. En ajoutant un LLM par-dessus : <strong>aucun gain mesurable</strong>. Les couches déterministes sont en plus reproductibles et auditables pour le DPO, ce qu'un pipeline « tout LLM » n'est pas.</p>
     </details>
-  </div>
-
-  <div class="try reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="1 · Le point de départ"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">1 · Le point de départ</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="try reveal">
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
     <p>Prenez trois descriptions d'activité (un site web, un KBIS, un devis) et trois avis clients. Sur papier, listez les mots-clés qui suffiraient à coder l'activité, puis ceux qui suffiraient à dire si l'avis est positif ou négatif. Cherchez ensuite le texte qui met votre liste en échec : une faute, un synonyme, une formulation détournée. C'est la section suivante.</p>
     <details class="answer"><summary>Ce que vous allez trouver</summary>
       <p>Une courte liste de mots code la majorité des activités et note la majorité des avis sans se tromper. Elle casse sur trois profils : la faute de frappe (« plonbier »), le synonyme ou la périphrase (« fuite sous l'évier » sans le mot plomberie, « je ne reviendrai pas » sans un seul mot négatif), et le texte qui n'a aucun mot de votre liste. Ce sont les trois parades de la section suivante, de la plus simple à la plus profonde. « Pas mécontent du tout », qui contient un mot négatif et dit le contraire, est une autre limite : l'ordre des mots, section 4.</p>
     </details>
-  </div>
-
-  <div class="demo-embed demo-shot reveal">
-    <div class="demo-head"><span><b>Des mots-clés qui font un vrai travail</b> · repérer les données personnelles dans un texte, par motifs</span><a href="demos/anonymisation.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
+  </div></div></div></section>
+<section class="diapo" data-ou="1 · Le point de départ"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">1 · Le point de départ</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="demo-embed demo-shot reveal">
+    <div class="demo-head"><span><b>Des mots-clés qui font un vrai travail</b> · repérer les données personnelles dans un texte, par motifs</span><a href="../demos/anonymisation.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
     <div class="demo-steps">
       <figure>
-        <a href="demos/anonymisation.html" target="_blank" rel="noopener"><img src="assets/demo_anonymisation_1.png" width="1640" height="1120" alt="Le document reçu, et le compte de ce qui a été masqué" loading="lazy"></a>
+        <a href="../demos/anonymisation.html" target="_blank" rel="noopener"><img src="../assets/demo_anonymisation_1.png" width="1640" height="1120" alt="Le document reçu, et le compte de ce qui a été masqué" loading="lazy"></a>
         <figcaption><b>1</b> Le document reçu, et le compte de ce qui a été masqué</figcaption>
       </figure>
       <figure>
-        <a href="demos/anonymisation.html" target="_blank" rel="noopener"><img src="assets/demo_anonymisation_2.png" width="1640" height="1120" alt="Le texte, avec ce que les motifs repèrent seuls" loading="lazy"></a>
+        <a href="../demos/anonymisation.html" target="_blank" rel="noopener"><img src="../assets/demo_anonymisation_2.png" width="1640" height="1120" alt="Le texte, avec ce que les motifs repèrent seuls" loading="lazy"></a>
         <figcaption><b>2</b> Le texte, avec ce que les motifs repèrent seuls</figcaption>
       </figure>
     </div>
-    <a class="demo-cta" href="demos/anonymisation.html" target="_blank" rel="noopener">Ouvrir la démonstration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a class="demo-cta" href="../demos/anonymisation.html" target="_blank" rel="noopener">Ouvrir la démonstration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     <div class="print-note">
       <p style="margin:0">La démonstration surligne, dans un texte, ce qu'une couche de motifs repère seule : noms, adresses, numéros, dates. Aucun modèle n'intervient. C'est exactement le niveau « je sais détecter des mots-clés », appliqué à un cas où il suffit. À voir sur le site.</p>
     </div>
-  </div>
-</section>
-
-<!-- ===================== 2. ML CLASSIQUE ===================== -->
-<section id="ml-classique" class="band">
-  <div class="section-head reveal">
+  </div></div></div></section>
+<section class="diapo titre" data-ou="2 · L'autre point de départ"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">2 · L'autre point de départ</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
     <div class="eyebrow">2 · L'autre point de départ</div>
     <div class="h-ico"><div class="ico navy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div><h2>Je sais faire du ML classique</h2></div>
     <p class="lede">Deuxième chose que l'on sait déjà faire : apprendre une règle à partir d'exemples, quand les données tiennent dans un tableau. Une ligne par dossier, une colonne par caractéristique, une cible connue. Le modèle trouve seul ce qui pèse. C'est le quotidien de l'actuaire et du data scientist, et l'IA générative ne l'a pas remplacé.</p>
-  </div>
-
-  <div class="grid grid-2 reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="2 · L'autre point de départ"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">2 · L'autre point de départ</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-2 reveal">
     <div class="card flat">
       <div class="tag">Des poids</div>
       <h4>La régression logistique : une somme et un seuil</h4>
@@ -232,21 +197,16 @@
       <p style="font-size:.93rem;margin:0">Une suite de questions apprises : le véhicule a-t-il plus de dix ans ? le conducteur moins de vingt-cinq ? Une forêt en fait voter des centaines, le boosting les enchaîne, chacun corrigeant le précédent. C'est ce qui prédit une résiliation, un sinistre, une fraude sur des données structurées.</p>
     </div>
   </div>
-  <div class="callout assurance reveal">
+<div class="callout assurance reveal">
     <span class="label">Ce qui manque</span>
     <p>Ces modèles veulent un tableau de nombres. Un texte n'en est pas un : une description d'activité, un mail, un avis client arrivent en mots libres. Toute la suite du module répond à une seule question : comment transformer du texte en nombres, pour que ce que je sais déjà faire s'applique. La première réponse, le sac de mots, arrive à la section suivante.</p>
-  </div>
-</section>
-
-<!-- ===================== 3. INSUFFISANT ===================== -->
-<section id="insuffisant" class="band">
-  <div class="section-head reveal">
+  </div></div></div></section>
+<section class="diapo titre" data-ou="3 · La première limite"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">3 · La première limite</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
     <div class="eyebrow">3 · La première limite</div>
     <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></div><h2>Les mots-clés ne suffisent pas</h2></div>
     <p class="lede">Le monde réel n'écrit pas comme un dictionnaire. « Gros Malhon » devient « Gros Malon », et un texte parle de plomberie sans jamais écrire « plomberie » : « sanitaire », « robinet », « fuite ». Trois parades, de la plus simple à la plus profonde.</p>
-  </div>
-
-  <div class="grid grid-3 reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="3 · La première limite"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">3 · La première limite</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-3 reveal">
     <div class="card accent">
       <div class="tag">Parade 1</div>
       <h3>Le motif approché</h3>
@@ -265,11 +225,10 @@
       <p>L'embedding place chaque mot dans un espace où les <strong>sens proches sont proches</strong>. « Plombier » et « sanitaire » deviennent voisins, « j'ai cassé ma vitre » retrouve « bris de glace ». Un mot jamais vu a quand même une position.</p>
       <p style="margin:0;font-size:.9rem;color:var(--ink-mute)">C'est la brique qui porte tout le reste : recherche sémantique, RAG, LLM.</p>
     </div>
-  </div>
-
-  <h3 style="margin:36px 0 10px">La parade 2, en détail : on cesse d'écrire les règles, la machine les apprend</h3>
-  <p>Jusqu'ici, quelqu'un écrivait les règles : la regex, le dictionnaire. Le sac de mots ramène le texte à ce que la section 2 sait traiter : un tableau. On donne des <strong>exemples déjà classés</strong>, et le modèle classique apprend seul quels mots pèsent pour quelle famille. C'est lui qui code encore aujourd'hui l'essentiel des activités, et qui traite l'essentiel du courrier d'un assureur. Sur l'exemple 1 : quatre descriptions d'activité, trois déjà codées, une à prédire.</p>
-  <div class="table-wrap reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="3 · La première limite"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">3 · La première limite</span></div><div class="diapo-cadre"><div class="diapo-corps"><h3 style="margin:36px 0 10px">La parade 2, en détail : on cesse d'écrire les règles, la machine les apprend</h3>
+<p>Jusqu'ici, quelqu'un écrivait les règles : la regex, le dictionnaire. Le sac de mots ramène le texte à ce que la section 2 sait traiter : un tableau. On donne des <strong>exemples déjà classés</strong>, et le modèle classique apprend seul quels mots pèsent pour quelle famille. C'est lui qui code encore aujourd'hui l'essentiel des activités, et qui traite l'essentiel du courrier d'un assureur. Sur l'exemple 1 : quatre descriptions d'activité, trois déjà codées, une à prédire.</p>
+<div class="table-wrap reveal">
     <table class="compact">
       <thead><tr><th>Description (extrait)</th><th class="num">sanitaire</th><th class="num">robinet</th><th class="num">tableau</th><th class="num">câblage</th><th class="num">toiture</th><th>Activité</th></tr></thead>
       <tbody>
@@ -279,8 +238,8 @@
         <tr><td>« Tableau de bord sanitaire des bâtiments, audit et conseil »</td><td class="num">1</td><td class="num">0</td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td><span class="pill warn">à prédire</span></td></tr>
       </tbody>
     </table>
-  </div>
-  <div class="grid grid-3 reveal" style="margin-top:22px">
+  </div></div></div></section>
+<section class="diapo" data-ou="3 · La première limite"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">3 · La première limite</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-3 reveal" style="margin-top:22px">
     <div class="card">
       <div class="tag">Sac de mots</div>
       <h4>Un texte devient une ligne de chiffres</h4>
@@ -296,14 +255,13 @@
       <h4>Des poids appris, une somme, un seuil</h4>
       <p style="font-size:.93rem;margin:0">Une régression logistique apprend un poids par mot et par activité : « sanitaire » vaut + 2,1 pour Plomberie, − 0,8 pour Électricité. Pour une nouvelle description, on additionne les poids des mots présents, l'activité au score le plus haut gagne, et l'écart avec la deuxième donne la confiance. Pour le sentiment, même mécanique : « inadmissible » pèse − 3, « merci » + 1.</p>
     </div>
-  </div>
-  <div class="callout assurance reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="3 · La première limite"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">3 · La première limite</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="callout assurance reveal">
     <span class="label">Ce que ça règle, ce que ça ne règle pas</span>
     <p>Sur des familles bien séparées, ce niveau atteint souvent 90 % de bon classement avec quelques milliers d'exemples, pour un coût nul par texte et une explication lisible : les mots qui ont pesé. C'est l'étage qui code la majorité des activités, et qui absorbe la majorité du courrier dans la cascade du module 03. La quatrième description montre sa limite : « sanitaire » et « tableau » sont là, mais c'est un bureau d'études qui audite des bâtiments, ni un plombier ni un électricien. Pour le sentiment, « pas mécontent » compte un mot négatif. Il lui manque le sens des mots et leur ordre : la parade 3, puis la section suivante.</p>
-  </div>
-
-  <h3 style="margin:36px 0 10px">La parade 3, en détail : chaque mot reçoit des nombres</h3>
-  <figure class="figure-frame reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="3 · La première limite"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">3 · La première limite</span></div><div class="diapo-cadre"><div class="diapo-corps"><h3 style="margin:36px 0 10px">La parade 3, en détail : chaque mot reçoit des nombres</h3>
+<figure class="figure-frame reveal">
     <div class="fig-scroll"><svg viewBox="0 0 1100 160" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif">
       <line x1="40" y1="95" x2="1060" y2="95" stroke="#13264A" stroke-width="3"/>
       <polygon points="1060,95 1044,87 1044,103" fill="#13264A"/>
@@ -321,20 +279,18 @@
     </svg></div>
     <figcaption>Une seule dimension, le sentiment. Un vrai embedding fait exactement cela sur 200 à 6 000 dimensions à la fois : sentiment, technicité, registre, domaine. Un mot = une liste de nombres.</figcaption>
   </figure>
-
-  <details class="deeper">
+<details class="deeper">
     <summary>La même chose, mesurée sur des données réelles <small>un graphique d'analyse, en anglais</small></summary>
     <div class="deeper-body">
       <p>L'axe ci-dessus est dessiné à la main pour l'exemple. Celui-ci est calculé : un modèle a lu des milliers d'avis de clients et placé chaque mot sur une seule dimension, sans qu'on lui donne de dictionnaire.</p>
       <figure class="figure-frame">
-        <img src="assets/emb_sentiment_1d.png" width="1600" height="627" alt="Embedding entraîné en une dimension sur des avis">
+        <img src="../assets/emb_sentiment_1d.png" width="1600" height="627" alt="Embedding entraîné en une dimension sur des avis">
         <figcaption>Horizontalement, la position apprise. « worst » et « awful » se retrouvent à gauche, « excellent » et « amazing » à droite. Personne n'a écrit de dictionnaire : la position vient des contextes d'apparition. Verticalement, le nombre de fois où le mot apparaît, qui ne sert qu'à étaler le nuage.</figcaption>
       </figure>
     </div>
   </details>
-  <p>L'analogie, à construire soi-même. Choisissez un cas, puis cliquez sur le schéma : deux mots, un troisième, le même déplacement, et le mot qui apparaît. Les deux derniers cas sont ceux de l'assurance.</p>
-<!-- analogie -->
-  <div class="demo reveal" id="demo-analogie">
+<p>L'analogie, à construire soi-même. Choisissez un cas, puis cliquez sur le schéma : deux mots, un troisième, le même déplacement, et le mot qui apparaît. Les deux derniers cas sont ceux de l'assurance.</p></div></div></section>
+<section class="diapo" data-ou="3 · La première limite"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">3 · La première limite</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="demo reveal" id="demo-analogie">
     <div class="demo-bar an-tabs" role="tablist" aria-label="Choisir un cas">
       <button class="an-tab is-on" data-case="classique" type="button">Le classique</button>
       <button class="an-tab" data-case="geo" type="button">Les capitales</button>
@@ -507,11 +463,9 @@
       </div>
     </div>
     <p class="an-note">Sur le site, chaque analogie se construit clic par clic : les deux mots du bas, le troisième, le même déplacement, le résultat.</p>
-  </div>
-<!-- /analogie -->
-
-  <h3 style="margin:36px 0 12px">La parade 3, appliquée : chercher sans mots communs</h3>
-  <div class="ba reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="3 · La première limite"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">3 · La première limite</span></div><div class="diapo-cadre"><div class="diapo-corps"><h3 style="margin:36px 0 12px">La parade 3, appliquée : chercher sans mots communs</h3>
+<div class="ba reveal">
     <div class="before">
       <div class="ba-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg> Ctrl-F, recherche exacte</div>
       <div class="ba-body">
@@ -531,26 +485,20 @@ similarité cosinus : 0,87</div>
       <div class="verdict">Retrouve « carte verte » depuis « Green Card », et « chauffagiste » depuis « pose de chaudière ». Robuste aux fautes de frappe.</div>
     </div>
   </div>
-
-  <div class="callout warn reveal">
+<div class="callout warn reveal">
     <span class="label">Le piège à connaître</span>
     <p>Pour un embedding, « Capitale de la France ? » et « Capitale de l'Italie ? » sont-elles proches ou éloignées ?</p>
     <details class="answer"><summary>Voir la réponse</summary>
       <p>Un embedding mesure une <strong>ressemblance</strong>, pas une réponse. « Capitale de la France ? » est très proche de « Capitale de l'Italie ? » : même forme, réponses différentes. La parade, et la répartition des rôles entre embeddings et LLM, sont au module 03, quand on cherche dans un corpus.</p>
     </details>
-  </div>
-</section>
-
-<!-- ===================== 4. ORDRE ===================== -->
-<div class="pause-mark"><span>Pause · vers 15 h 30</span></div>
-<section id="ordre" class="band">
-  <div class="section-head reveal">
+  </div></div></div></section>
+<section class="diapo titre sombre" data-ou="Pause"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">Pause</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="pause-mark"><span>Pause · vers 15 h 30</span></div></div></div></section>
+<section class="diapo titre" data-ou="4 · La deuxième limite"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">4 · La deuxième limite</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
     <div class="eyebrow">4 · La deuxième limite</div>
     <div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5M3 17l9 5 9-5"/></svg></div><h2>L'ordre des mots compte</h2></div>
     <p class="lede">Moyenner les vecteurs des mots donne un vecteur par phrase. Pratique, mais l'ordre disparaît : « le gestionnaire a été réactif » et « n'a pas été réactif » deviennent presque identiques. Il faut des modèles qui lisent la séquence.</p>
-  </div>
-
-  <div class="grid grid-3 reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="4 · La deuxième limite"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">4 · La deuxième limite</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-3 reveal">
     <div class="card">
       <div class="tag">1990</div>
       <h3>Le RNN lit dans l'ordre</h3>
@@ -566,10 +514,9 @@ similarité cosinus : 0,87</div>
       <h3>L'attention regarde tout</h3>
       <p>Chaque mot regarde tous les autres, en parallèle, et se met à jour avec le contexte. C'est le Transformer, « Attention Is All You Need ». La base de tous les LLM.</p>
     </div>
-  </div>
-
-  <h3 style="margin:36px 0 10px">L'attention en une phrase : le contexte désambiguïse chaque mot</h3>
-  <figure class="figure-frame reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="4 · La deuxième limite"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">4 · La deuxième limite</span></div><div class="diapo-cadre"><div class="diapo-corps"><h3 style="margin:36px 0 10px">L'attention en une phrase : le contexte désambiguïse chaque mot</h3>
+<figure class="figure-frame reveal">
     <div class="fig-scroll"><svg viewBox="0 0 1100 150" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif">
       <g font-size="23" font-weight="700" fill="#1f2733">
         <text x="60" y="80">La</text>
@@ -593,8 +540,7 @@ similarité cosinus : 0,87</div>
     </svg></div>
     <figcaption>Le mot « souris » n'a pas un sens, il en a deux. C'est le reste de la phrase qui tranche.</figcaption>
   </figure>
-
-  <details class="deeper">
+<details class="deeper">
     <summary>Comment la machine mesure cette influence <small>le calcul derrière le mot « attention »</small></summary>
     <div class="deeper-body">
       <p>Chaque mot est déjà une liste de nombres. Pour savoir combien « fromage » compte dans le sens de « souris », la machine compare les deux listes, deux à deux, et en tire un score. Elle fait la même comparaison pour toutes les paires de la phrase, en même temps.</p>
@@ -602,23 +548,17 @@ similarité cosinus : 0,87</div>
       <p>Les opérations sont des multiplications, des additions et des divisions. Rien de plus. En atelier, on l'implémente cellule par cellule dans un tableur.</p>
     </div>
   </details>
-
-  <div class="grid grid-3 reveal">
+<div class="grid grid-3 reveal">
     <div class="card flat"><h4>Encodeur seul · BERT</h4><p style="font-size:.93rem;margin:0">Lit tout le texte dans les deux sens. Le meilleur pour <strong>comprendre</strong> : classer, extraire, repérer des entités. Le choix naturel pour coder une activité, noter un avis ou classer un mail.</p></div>
     <div class="card flat"><h4>Décodeur seul · GPT</h4><p style="font-size:.93rem;margin:0">Lit de gauche à droite et <strong>génère</strong> le mot suivant. La famille de tous les chatbots. Excellent pour rédiger, résumer, dialoguer.</p></div>
     <div class="card flat"><h4>Les deux · T5</h4><p style="font-size:.93rem;margin:0">Encode l'entrée, décode la sortie. Le format naturel de la <strong>traduction</strong> et de la réécriture : un texte entre, un autre texte sort.</p></div>
-  </div>
-</section>
-
-<!-- ===================== 5. MODELES ===================== -->
-<section id="modeles" class="band">
-  <div class="section-head reveal">
+  </div></div></div></section>
+<section class="diapo titre" data-ou="5 · La grande histoire"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">5 · La grande histoire</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
     <div class="eyebrow">5 · La grande histoire</div>
     <div class="h-ico"><div class="ico navy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><h2>Des modèles successifs, jusqu'aux LLM</h2></div>
     <p class="lede">Chaque rupture lève une limite sans remplacer la précédente. La prédiction du mot suivant, elle, a 75 ans : ce qui a changé en 2017, c'est l'échelle, et la possibilité d'apprendre sur tout Internet sans que personne n'étiquette quoi que ce soit.</p>
-  </div>
-
-  <figure class="figure-frame reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="5 · La grande histoire"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">5 · La grande histoire</span></div><div class="diapo-cadre"><div class="diapo-corps"><figure class="figure-frame reveal">
     <div class="fig-scroll"><svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif">
       <line x1="60" y1="70" x2="1040" y2="70" stroke="#13264A" stroke-width="3"/>
       <g font-size="13">
@@ -631,9 +571,8 @@ similarité cosinus : 0,87</div>
       <text x="550" y="190" text-anchor="middle" font-size="13.5" fill="#78828f">regex fragile aux variations → TF-IDF aveugle aux synonymes → embeddings sans ordre → RNN essoufflé sur les longs textes → attention</text>
     </svg></div>
     <figcaption>Cinq dates suffisent à raconter le NLP. Chaque étape répond à la limite de la précédente, et reste utile là où elle suffit.</figcaption>
-  </figure>
-
-  <div class="grid grid-2 reveal">
+  </figure></div></div></section>
+<section class="diapo" data-ou="5 · La grande histoire"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">5 · La grande histoire</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-2 reveal">
     <div class="card">
       <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></div><h3>Le texte est son propre label</h3></div>
       <p>La rupture n'est pas seulement l'attention, c'est l'<strong>auto-supervision</strong> : on cache un mot et on demande au modèle de le deviner. Aucun humain n'étiquette. Tout Internet devient un jeu d'entraînement gratuit. Puis viennent des phases coûteuses, où des humains écrivent et notent des réponses pour rendre le modèle serviable. C'est de là que viennent le ton et les tournures reconnaissables. Le détail de ces étapes est plus bas.</p>
@@ -647,8 +586,7 @@ similarité cosinus : 0,87</div>
       </div>
     </div>
   </div>
-
-  <details class="deeper reveal">
+<details class="deeper reveal">
     <summary>Sous le capot : d'une phrase au mot suivant <small>le calcul complet, en cinq temps</small></summary>
     <div class="deeper-body">
   <p>On dit « il prédit le mot suivant » sans jamais montrer le chemin. Le voici en entier, sur une phrase de déclaration. Descendez : le dessin change à chaque étape. Rien ici n'est hors de portée, ce sont des additions, des multiplications et une division.</p>
@@ -807,9 +745,8 @@ similarité cosinus : 0,87</div>
     </div>
   </div>
     </div>
-  </details>
-
-  <details class="deeper reveal">
+  </details></div></div></section>
+<section class="diapo" data-ou="5 · La grande histoire"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">5 · La grande histoire</span></div><div class="diapo-cadre"><div class="diapo-corps"><details class="deeper reveal">
     <summary>Sous le capot : comment il apprend <small>ce que veut dire « entraîner »</small></summary>
     <div class="deeper-body">
   <p>Entraîner, ce n'est pas remplir une base de connaissances. C'est régler des milliards de boutons, un tout petit peu à la fois, jusqu'à ce que le modèle se trompe moins. Le principe tient en une boucle, et cette boucle est la même pour une régression linéaire de tableur et pour un LLM.</p>
@@ -828,12 +765,10 @@ similarité cosinus : 0,87</div>
     <p>Un modèle est figé après l'entraînement : il ne retient rien de vos échanges, et sa connaissance s'arrête à une date. Tout ce qui ressemble à de la mémoire, dans un chatbot, est du texte qu'on lui renvoie à chaque appel. Les trois façons de le spécialiser sur votre métier, du plus léger au plus lourd, sont au module 03, avec le RAG.</p>
   </div>
     </div>
-  </details>
-
-  <h3 style="margin:36px 0 10px">Du texte brut à l'assistant : les trois entraînements</h3>
-  <p class="reveal">Un modèle ne sort pas de l'usine en sachant répondre. Il passe par des entraînements successifs, et chacun produit un modèle utilisable, publié à part. C'est ce que veut dire le mot <code>instruct</code> qu'on lit dans le nom de presque tous les modèles téléchargeables.</p>
-
-  <figure class="figure-frame reveal">
+  </details></div></div></section>
+<section class="diapo" data-ou="5 · La grande histoire"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">5 · La grande histoire</span></div><div class="diapo-cadre"><div class="diapo-corps"><h3 style="margin:36px 0 10px">Du texte brut à l'assistant : les trois entraînements</h3>
+<p class="reveal">Un modèle ne sort pas de l'usine en sachant répondre. Il passe par des entraînements successifs, et chacun produit un modèle utilisable, publié à part. C'est ce que veut dire le mot <code>instruct</code> qu'on lit dans le nom de presque tous les modèles téléchargeables.</p></div></div></section>
+<section class="diapo" data-ou="5 · La grande histoire"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">5 · La grande histoire</span></div><div class="diapo-cadre"><div class="diapo-corps"><figure class="figure-frame reveal">
     <div class="fig-scroll"><svg viewBox="0 0 892 581" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Les trois entraînements successifs, du modèle de base au modèle aligné">
       <defs>
       <marker id="flPas" markerWidth="8" markerHeight="8" refX="7" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#3B547D"/></marker>
@@ -893,11 +828,9 @@ similarité cosinus : 0,87</div>
       <text x="27.0303" y="559.527" font-size="15" fill="#4a5567">Sur Hugging Face : l'étape 1 donne le dépôt de base, les étapes 2 et 3 le modèle instruct.</text>
     </svg></div>
     <figcaption>Le modèle de base est un moteur de complétion, pas un assistant. Tout ce qui fait le chatbot, la question suivie d'une réponse et le ton, vient des deux étapes du bas.</figcaption>
-  </figure>
-
-  <p class="reveal">La différence se voit sur une seule question, posée aux deux versions du même modèle.</p>
-
-  <div class="ba reveal">
+  </figure></div></div></section>
+<section class="diapo" data-ou="5 · La grande histoire"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">5 · La grande histoire</span></div><div class="diapo-cadre"><div class="diapo-corps"><p class="reveal">La différence se voit sur une seule question, posée aux deux versions du même modèle.</p>
+<div class="ba reveal">
     <div class="before">
       <div class="ba-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg> Le modèle de base, après l'étape 1</div>
       <div class="ba-body">
@@ -915,9 +848,8 @@ similarité cosinus : 0,87</div>
       </div>
       <div class="verdict">Mêmes poids, mêmes connaissances. On a seulement ajouté l'habitude de répondre.</div>
     </div>
-  </div>
-
-  <div class="grid grid-3 reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="5 · La grande histoire"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">5 · La grande histoire</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-3 reveal">
     <div class="card flat">
       <h4>C'est la chaîne des décodeurs</h4>
       <p style="font-size:.93rem;margin:0">Elle vaut pour la famille GPT, celle qui génère du texte. Un encodeur comme BERT ou CamemBERT suit un autre chemin : pré-entraîné en cachant des mots, puis ajusté sur vos exemples annotés pour une tâche précise. Il n'existe donc aucun <code>camembert-instruct</code> : un encodeur ne dialogue pas.</p>
@@ -930,64 +862,46 @@ similarité cosinus : 0,87</div>
       <h4>Ce que vous téléchargez</h4>
       <p style="font-size:.93rem;margin:0">Toujours la version instruct. Le modèle de base ne sert qu'à celui qui va l'ajuster lui-même, et une API ne donne accès qu'au modèle aligné. La vraie question n'est donc pas base ou instruct, mais la taille du modèle et sa licence.</p>
     </div>
-  </div>
-
-  <h3 style="margin:36px 0 10px">Les mêmes poids, deux dépôts : des exemples réels</h3>
-  <p class="reveal">Hugging Face est le dépôt public où les éditeurs publient leurs modèles. Chercher <code>Mistral-7B</code> y donne les deux versions côte à côte, à un suffixe près.</p>
-
-  <div class="table-wrap reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="5 · La grande histoire"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">5 · La grande histoire</span></div><div class="diapo-cadre"><div class="diapo-corps"><h3 style="margin:36px 0 10px">Les mêmes poids, deux dépôts : des exemples réels</h3>
+<p class="reveal">Hugging Face est le dépôt public où les éditeurs publient leurs modèles. Chercher <code>Mistral-7B</code> y donne les deux versions côte à côte, à un suffixe près.</p>
+<div class="table-wrap reveal">
     <table>
       <thead><tr><th>Dépôt</th><th>Version</th><th>Ce qu'il fait</th><th>Quand on le prend</th></tr></thead>
-      <tbody>
-        <tr><td class="rowhead"><code>mistralai/Mistral-7B-v0.3</code></td><td><span class="pill neutral">base</span></td><td>Il continue le texte, il ne répond pas aux questions</td><td>Seulement si on l'ajuste soi-même</td></tr>
-        <tr><td class="rowhead"><code>mistralai/Mistral-7B-Instruct-v0.3</code></td><td><span class="pill good">instruct</span></td><td>Les mêmes poids, passés par les étapes 2 et 3</td><td>Ce qu'on déploie sur ses propres serveurs</td></tr>
-        <tr><td class="rowhead"><code>meta-llama/Llama-3.1-8B-Instruct</code></td><td><span class="pill good">instruct</span></td><td>8 milliards de paramètres, le modèle ouvert le plus répandu</td><td>Le point de comparaison de tous les autres</td></tr>
-        <tr><td class="rowhead"><code>google/gemma-2-9b-it</code></td><td><span class="pill good">it</span></td><td>Même idée, le suffixe se dit ici <em>instruction tuned</em></td><td>Rappel qu'il faut lire la carte du modèle, pas le nom</td></tr>
-        <tr><td class="rowhead"><code>deepseek-ai/DeepSeek-R1</code></td><td><span class="pill warn">raisonnement</span></td><td>Le quatrième entraînement, publié ouvertement</td><td>Problèmes à étapes, quand l'attente est acceptable</td></tr>
-        <tr><td class="rowhead"><code>almanach/camembert-base</code></td><td><span class="pill neutral">encodeur</span></td><td>Un BERT français : il comprend, il ne génère pas</td><td>À ajuster sur vos exemples pour classer</td></tr>
-        <tr><td class="rowhead"><code>openai-community/gpt2</code></td><td><span class="pill neutral">base</span></td><td>Le GPT-2 de 2019, 124 millions de paramètres</td><td>Assez petit pour tourner sur un portable, en atelier</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <p class="reveal" style="font-size:.9rem;color:var(--ink-mute)">Ces noms changent tous les six mois. Ce qui reste, c'est la façon de les lire : le suffixe dit l'entraînement, le nombre dit la taille, la licence dit ce qu'on a le droit d'en faire, et la carte du modèle dit sur quoi il a été entraîné.</p>
-
-  <div class="try reveal">
+      <tbody><tr><td class="rowhead"><code>mistralai/Mistral-7B-v0.3</code></td><td><span class="pill neutral">base</span></td><td>Il continue le texte, il ne répond pas aux questions</td><td>Seulement si on l'ajuste soi-même</td></tr><tr><td class="rowhead"><code>mistralai/Mistral-7B-Instruct-v0.3</code></td><td><span class="pill good">instruct</span></td><td>Les mêmes poids, passés par les étapes 2 et 3</td><td>Ce qu'on déploie sur ses propres serveurs</td></tr><tr><td class="rowhead"><code>meta-llama/Llama-3.1-8B-Instruct</code></td><td><span class="pill good">instruct</span></td><td>8 milliards de paramètres, le modèle ouvert le plus répandu</td><td>Le point de comparaison de tous les autres</td></tr><tr><td class="rowhead"><code>google/gemma-2-9b-it</code></td><td><span class="pill good">it</span></td><td>Même idée, le suffixe se dit ici <em>instruction tuned</em></td><td>Rappel qu'il faut lire la carte du modèle, pas le nom</td></tr></tbody></table></div></div></div></section>
+<section class="diapo" data-ou="5 · La grande histoire"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">5 · La grande histoire</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="table-wrap reveal">
+    <table>
+      <thead><tr><th>Dépôt</th><th>Version</th><th>Ce qu'il fait</th><th>Quand on le prend</th></tr></thead>
+      <tbody><tr><td class="rowhead"><code>deepseek-ai/DeepSeek-R1</code></td><td><span class="pill warn">raisonnement</span></td><td>Le quatrième entraînement, publié ouvertement</td><td>Problèmes à étapes, quand l'attente est acceptable</td></tr><tr><td class="rowhead"><code>almanach/camembert-base</code></td><td><span class="pill neutral">encodeur</span></td><td>Un BERT français : il comprend, il ne génère pas</td><td>À ajuster sur vos exemples pour classer</td></tr><tr><td class="rowhead"><code>openai-community/gpt2</code></td><td><span class="pill neutral">base</span></td><td>Le GPT-2 de 2019, 124 millions de paramètres</td><td>Assez petit pour tourner sur un portable, en atelier</td></tr></tbody></table></div>
+<p class="reveal" style="font-size:.9rem;color:var(--ink-mute)">Ces noms changent tous les six mois. Ce qui reste, c'est la façon de les lire : le suffixe dit l'entraînement, le nombre dit la taille, la licence dit ce qu'on a le droit d'en faire, et la carte du modèle dit sur quoi il a été entraîné.</p>
+<div class="try reveal">
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg> À votre avis</span>
     <p>Vous devez classer les mails du service en douze familles. Le service dispose de 10 000 mails déjà classés à la main. Trois dépôts du tableau sont candidats : le Mistral de base, le Mistral instruct, le CamemBERT. Lequel, et pourquoi ?</p>
     <details class="answer"><summary>Voir la réponse</summary>
       <p>CamemBERT, ajusté sur les 10 000 mails. Avec un corpus annoté, un encodeur de petite taille bat le LLM sur le coût et souvent sur la précision : c'est le niveau 5 de l'échelle de la section 7. Le Mistral instruct sert à démarrer sans exemples, ou à traiter les mails que le premier ne tranche pas. Le Mistral de base ne sert à rien tel quel : il continuerait le mail au lieu de le classer.</p>
     </details>
-  </div>
-
-  <div class="callout warn reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="5 · La grande histoire"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">5 · La grande histoire</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="callout warn reveal">
     <span class="label">Ce qu'il refuse de dire : l'alignement</span>
     <p>Un modèle ne peut pas tout répondre, et ce n'est pas lui qui décide, c'est son entraînement. Tay, le chatbot de Microsoft lâché sur Twitter en 2016, a été fermé en moins de vingt-quatre heures pour propos racistes : pas « raciste », des données sans garde-fou. À l'inverse, DeepSeek, modèle chinois, n'aborde pas Tiananmen : entraîné à ne pas répondre. Trois leviers pour empêcher une réponse : la modération du prompt, le prompt système, les données d'entraînement. Un modèle peut donc être orienté dans le sens voulu, et c'est l'entreprise qui le conçoit qui décide de ses valeurs : c'est ce qu'on appelle l'alignement, aussi important que la capacité à répondre.</p>
   </div>
-
-  <div class="callout assurance reveal">
+<div class="callout assurance reveal">
     <span class="label">Sur nos deux exemples</span>
     <p>Chaque étape a rendu service, et aucune n'a remplacé la précédente. Le dictionnaire code les activités écrites comme dans la nomenclature et note les avis tranchés. TF-IDF et un classifieur apprennent sur des exemples et absorbent la majorité des cas. BERT lit la négation et les nuances. Le LLM code une activité jamais vue et lit l'ironie d'un avis sans un seul exemple annoté, cent à mille fois plus cher par texte. La cascade du module 03 est exactement cet empilement.</p>
-  </div>
-
-  <div class="try reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="5 · La grande histoire"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">5 · La grande histoire</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="try reveal">
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> Atelier : coder un modèle génératif en vingt lignes</span>
     <p>Sur un corpus de déclarations de sinistres, on compte les paires de mots : après « dégât », « des » apparaît 412 fois, « important » 87 fois. On normalise en probabilités. La table de comptage <strong>est</strong> le modèle. On génère ensuite en tirant le mot suivant et en recommençant : <em>« suite à un dégât des eaux de la toiture de la déclaration de la fuite… »</em>. Localement plausible, globalement incohérent. Puis on agrandit le contexte. Question : avec un vocabulaire de 30 000 mots, combien de cases dans la table avec un mot de contexte ? Avec deux ? Avec trois ?</p>
     <details class="answer"><summary>Voir la réponse</summary>
       <p>Un mot de contexte : 30 000 × 30 000, soit 900 millions de cases. Deux mots : 30 000 au cube, soit 27 000 milliards. Trois mots : 810 millions de milliards. Aucun corpus ne remplit une table pareille, presque toutes les cases resteraient vides. C'est la limite qui appelle un réseau qui compresse et généralise. Le bigramme et GPT partagent la même tâche, la même boucle, les mêmes symptômes ; seule la qualité du contexte change.</p>
     </details>
-  </div>
-</section>
-
-<!-- ===================== 6. VRAIE VIE ===================== -->
-<section id="vraie-vie" class="band">
-  <div class="section-head reveal">
+  </div></div></div></section>
+<section class="diapo titre" data-ou="6 · Dans la vraie vie"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">6 · Dans la vraie vie</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
     <div class="eyebrow">6 · Dans la vraie vie</div>
     <div class="h-ico"><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></div><h2>Le texte n'arrive jamais propre</h2></div>
     <p class="lede">Tout ce qui précède travaille sur une phrase isolée. Dans la vraie vie, l'activité est à la page 3 d'un KBIS, le mail ne se comprend qu'avec le dossier, et les documents sont dix mille. Trois exemples parmi d'autres : aucun modèle ne règle cela à votre place, et c'est là que passe le temps d'un projet.</p>
-  </div>
-
-  <div class="grid grid-3 reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="6 · Dans la vraie vie"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">6 · Dans la vraie vie</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-3 reveal">
     <div class="card">
       <div class="tag">Exemple 1</div>
       <h4>Le PDF complet, pas la phrase</h4>
@@ -1006,31 +920,24 @@ similarité cosinus : 0,87</div>
       <p style="font-size:.93rem">« Quelle activité ce client déclarait-il il y a deux ans ? » Aucun modèle ne relit dix mille documents à chaque question. Il faut un index (les vecteurs, calculés une fois), des métadonnées (client, contrat, date, type de pièce), des droits d'accès, des versions. Un modèle ne remplace pas une gestion documentaire, il s'appuie dessus.</p>
       <p style="margin:0;font-size:.9rem;color:var(--ink-mute)">Organiser avant de chercher. Module 03, le RAG ; module 04, la GED 2.0.</p>
     </div>
-  </div>
-
-  <div class="callout warn reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="6 · Dans la vraie vie"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">6 · Dans la vraie vie</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="callout warn reveal">
     <span class="label">Pas de miracle</span>
     <p>Le modèle travaille sur une fenêtre de texte. Tout ce qui amène le bon texte dans cette fenêtre, extraire, rattacher, indexer, est de l'ingénierie classique, sans IA générative. C'est là que les projets réussissent ou échouent, et c'est là que passe le temps : 90 % sur les données, moins de 1 % sur le modèle.</p>
   </div>
-
-  <div class="try reveal">
+<div class="try reveal">
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
     <p>Deux tests de cinq minutes. Donnez à un chatbot un PDF de trente pages (un contrat, un rapport) et posez une question dont la réponse est à la page 25. Puis collez un seul mail, sans son fil, et demandez « que veut ce client, et est-il satisfait ? ». Dépliez ensuite.</p>
     <details class="answer"><summary>Ce qu'on observe en général</summary>
       <p>Sur le PDF, la réponse est souvent juste, parfois hors sujet, et rarement sourcée à la page : le texte a été extrait et découpé sans que vous le voyiez, et la bonne page n'est pas toujours dans ce que le modèle a lu. Sur le mail isolé, le modèle répond avec assurance en inventant le contexte qui manque. Dans les deux cas, ce n'est pas le modèle qui manque, c'est ce qu'on lui a donné.</p>
     </details>
-  </div>
-</section>
-
-<!-- ===================== 7. CHOISIR ===================== -->
-<section id="choisir" class="band">
-  <div class="section-head reveal">
+  </div></div></div></section>
+<section class="diapo titre" data-ou="7 · La conclusion qui compte"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">7 · La conclusion qui compte</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head reveal">
     <div class="eyebrow">7 · La conclusion qui compte</div>
     <div class="h-ico"><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"/><path d="M5 4h12l-2 4 2 4H5"/></svg></div><h2>Pas toujours besoin d'un LLM</h2></div>
     <p class="lede">Le fil aboutit à une décision : quelle technique pour mon cas ? Six niveaux, du plus simple au plus puissant. Le bon réflexe est de partir du bas et de monter seulement quand le niveau courant plafonne. La plus simple est rarement le LLM.</p>
-  </div>
-
-  <div class="table-wrap reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="7 · La conclusion qui compte"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">7 · La conclusion qui compte</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="table-wrap reveal">
     <table>
       <thead><tr><th>Niveau</th><th>Technique</th><th>Quand elle suffit</th><th>Coût</th><th>Explicable</th></tr></thead>
       <tbody>
@@ -1042,18 +949,15 @@ similarité cosinus : 0,87</div>
         <tr><td class="rowhead">6</td><td>LLM (prompt, RAG)</td><td>Peu de données, tâches variées, texte vraiment libre</td><td><span class="pill bad">Élevé, par requête</span></td><td><span class="pill bad">Faible</span></td></tr>
       </tbody>
     </table>
-  </div>
-
-  <div class="grid grid-3 reveal" style="margin-top:26px">
+  </div></div></div></section>
+<section class="diapo" data-ou="7 · La conclusion qui compte"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">7 · La conclusion qui compte</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-3 reveal" style="margin-top:26px">
     <div class="card"><div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></div><h4>Motif précis et stable</h4></div><p style="margin:0;font-size:.93rem">Regex et lexiques. Une date, un SIRET, un code de garantie ne demandent aucun modèle.</p></div>
     <div class="card"><div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></div><h4>Corpus annoté disponible</h4></div><p style="margin:0;font-size:.93rem">ML classique ou BERT. Une journée de data scientist et 500 exemples annotés rivalisent souvent avec un LLM, pour 100 fois moins cher à l'inférence.</p></div>
     <div class="card"><div class="h-ico"><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></div><h4>Peu de données, tâches variées</h4></div><p style="margin:0;font-size:.93rem">Le LLM. Et même là, avec un RAG pour l'ancrer et des règles autour pour le contenir.</p></div>
-  </div>
-
-  <h3 style="margin:36px 0 8px">Les six niveaux, en fiches</h3>
-  <p class="reveal">Le tableau sert à décider vite. Les fiches disent, pour chaque niveau, ce qui entre, ce qui sort, ce qu'il faut avoir sous la main, et où il casse. Passez de l'une à l'autre avec les flèches ou les numéros.</p>
-
-  <div class="catalogue reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="7 · La conclusion qui compte"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">7 · La conclusion qui compte</span></div><div class="diapo-cadre"><div class="diapo-corps"><h3 style="margin:36px 0 8px">Les six niveaux, en fiches</h3>
+<p class="reveal">Le tableau sert à décider vite. Les fiches disent, pour chaque niveau, ce qui entre, ce qui sort, ce qu'il faut avoir sous la main, et où il casse. Passez de l'une à l'autre avec les flèches ou les numéros.</p>
+<div class="catalogue reveal">
 
     <article class="fiche" data-fam="regle" data-nom="Regex et dictionnaires">
       <div class="fiche-haut">
@@ -1283,9 +1187,8 @@ similarité cosinus : 0,87</div>
       <div class="fiche-pied"><span class="src">module 02 · niveau 6</span><span>Le plus puissant, le dernier essayé</span></div>
     </article>
 
-  </div>
-
-  <div class="try reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="7 · La conclusion qui compte"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">7 · La conclusion qui compte</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="try reveal">
     <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg> À votre avis</span>
     <p>Quatre besoins, un niveau chacun. Cherchez dans le tableau avant de déplier.</p>
     <ol class="steps">
@@ -1297,9 +1200,8 @@ similarité cosinus : 0,87</div>
     <details class="answer"><summary>Voir la réponse</summary>
       <p>Niveau 1 pour le numéro de contrat : une regex, coût nul, aucune erreur inexpliquée. Niveau 3 pour l'activité : TF-IDF et un classifieur, entraînés sur les 10 000 exemples ; on monte au niveau 4 ou 5 quand les synonymes et les libellés inédits font plafonner, et 700 codes finissent par le demander. Niveau 6 pour les 200 avis : à ce volume, un LLM lit l'ironie et coûte quelques centimes par mois ; à 50 000 avis par an, on annoterait 500 avis en une après-midi pour redescendre au niveau 4. Niveau 6 pour les questions libres : un LLM, ancré par un RAG sur les conditions générales, et des règles autour. Sur ces quatre besoins, le LLM n'est la bonne réponse que deux fois, et chaque fois parce qu'il manque quelque chose : des exemples, ou un texte fermé.</p>
     </details>
-  </div>
-
-  <div class="grid grid-2 reveal" style="margin-top:26px">
+  </div></div></div></section>
+<section class="diapo" data-ou="7 · La conclusion qui compte"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">7 · La conclusion qui compte</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-2 reveal" style="margin-top:26px">
     <div class="card">
       <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div><h3>Le ML classique n'a pas disparu</h3></div>
       <p>Prédire une résiliation, un sinistre, une fraude sur des données <strong>structurées</strong> se fait sans aucune IA générative : un arbre de décision, une forêt, un gradient boosting, les modèles de la section 2. Le jeu de données Titanic est un dossier d'assurance déguisé : des caractéristiques, une cible, une règle apprise (« femmes et enfants d'abord » = sexe + âge).</p>
@@ -1313,20 +1215,15 @@ similarité cosinus : 0,87</div>
       <div class="h-ico"><div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></div><h3>Ce qui rend le plus de service n'est pas génératif</h3></div>
       <p style="margin:0">Dans un portefeuille réel de cas d'usage d'un assureur, rangés selon <strong>qui déclenche</strong> le traitement : l'IA classique déclenchée par un événement (27 cas), le traitement documentaire déclenché par l'arrivée d'une pièce (13), l'assistant déclenché par une personne (30). Parmi les cas déjà en service, la majorité n'est pas générative.</p>
     </div>
-  </div>
-
-  <div class="callout reveal">
+  </div></div></div></section>
+<section class="diapo" data-ou="7 · La conclusion qui compte"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">7 · La conclusion qui compte</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="callout reveal">
     <span class="label">L'effet IA, et qui contient quoi</span>
     <p>Personne ne définit « IA » exactement, et dès qu'un problème est résolu, « ce n'est plus de l'IA » : calculer, puis résumer, à chaque réussite la barre se déplace. C'est l'effet IA, et c'est pour cela que la Silicon Valley parle maintenant d'AGI. Ce qui se définit bien s'emboîte : le machine learning (la machine apprend des données, la base de tout), dedans le deep learning (le même apprentissage appliqué au texte et aux images), dedans l'IA générative (qui génère des mots). Une seule architecture, en générant des mots, fait la traduction et le résumé d'un coup, là où il fallait un modèle par tâche.</p>
-  </div>
-</section>
-
-<!-- ===================== À RETENIR ===================== -->
-<div class="exo-mark"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1L19 8l-3-3L5 16z"/><path d="M14 7l3 3"/></svg>Exercices · on reprend les blocs « À vous » du module</span></div>
-<section id="retenir" class="band alt reveal" style="border-radius:var(--radius);padding:44px 32px">
-  <div class="eyebrow">À retenir du module 02</div>
-  <h2 style="margin-bottom:22px">Le fil, marche par marche</h2>
-  <ol class="steps crimson">
+  </div></div></div></section>
+<section class="diapo titre sombre" data-ou="Pause"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">Pause</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="exo-mark"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1L19 8l-3-3L5 16z"/><path d="M14 7l3 3"/></svg>Exercices · on reprend les blocs « À vous » du module</span></div></div></div></section>
+<section class="diapo" data-ou=""><div class="diapo-tete"><span class="mod">02 · Je comprends</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="eyebrow">À retenir du module 02</div>
+<h2 style="margin-bottom:22px">Le fil, marche par marche</h2></div></div></section>
+<section class="diapo" data-ou=""><div class="diapo-tete"><span class="mod">02 · Je comprends</span></div><div class="diapo-cadre"><div class="diapo-corps"><ol class="steps crimson">
     <li><strong>Je sais détecter des mots-clés.</strong><p>Regex, listes, dictionnaire métier, entités nommées. Déterministe, gratuit, auditable. Ça règle déjà la moitié des cas : l'activité écrite comme dans la nomenclature, l'avis tranché.</p></li>
     <li><strong>Je sais faire du ML classique.</strong><p>Des poids (régression logistique) ou des arbres (forêt, boosting), appris sur des exemples rangés en tableau. Il leur manque une chose : un texte n'est pas un tableau.</p></li>
     <li><strong>Ils ne suffisent pas.</strong><p>Fautes et variantes : le fuzzy. Puis le sac de mots et TF-IDF ramènent le texte à un tableau, et le classifieur de la marche 2 apprend les règles sur des exemples. Synonymes et sens : les embeddings, qui placent les mots dans un espace où les sens proches sont proches.</p></li>
@@ -1334,16 +1231,13 @@ similarité cosinus : 0,87</div>
     <li><strong>Les modèles se sont succédé sans se remplacer.</strong><p>Jusqu'aux Transformers, entraînés sur tout Internet sans étiquette humaine. Un LLM est un fichier de nombres qui prédit le token suivant.</p></li>
     <li><strong>Dans la vraie vie, pas de miracle.</strong><p>Le PDF complet, le mail sans contexte, les dix mille documents : amener le bon texte au modèle est de l'ingénierie classique, et c'est là que passe le temps.</p></li>
     <li><strong>Pas toujours besoin d'un LLM.</strong><p>Six niveaux, trois règles. Partir du bas, monter quand ça plafonne. Le générique sait moins que le dictionnaire du métier.</p></li>
-  </ol>
-</section>
-
-<section class="band reveal">
-  <div class="section-head">
+  </ol></div></div></section>
+<section class="diapo titre" data-ou="Pour aller plus loin"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">Pour aller plus loin</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="section-head">
     <div class="eyebrow">Pour aller plus loin</div>
     <div class="h-ico"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></div><h2>Trois lectures, si le sujet vous a plu</h2></div>
     <p class="lede">Rien d'obligatoire, et rien d'universitaire. Trois ressources gratuites, dans l'ordre de difficulté, pour qui veut voir ce qu'il y a sous le capot.</p>
-  </div>
-  <div class="grid grid-3">
+  </div></div></div></section>
+<section class="diapo" data-ou="Pour aller plus loin"><div class="diapo-tete"><span class="mod">02 · Je comprends</span><span class="sep">·</span><span class="sec">Pour aller plus loin</span></div><div class="diapo-cadre"><div class="diapo-corps"><div class="grid grid-3">
     <div class="card accent">
       <h4>3Blue1Brown, en vidéo</h4>
       <p style="font-size:.93rem">La série sur les réseaux de neurones et les Transformers. Tout est animé, rien n'est supposé connu. La meilleure porte d'entrée visuelle.</p>
@@ -1359,55 +1253,20 @@ similarité cosinus : 0,87</div>
       <p style="font-size:.93rem">« Let's build GPT » : il code un modèle de zéro, en direct, en expliquant chaque ligne. Pour qui veut vraiment voir, et sait lire du Python.</p>
       <p style="font-size:.88rem;color:var(--ink-mute);margin:0">Deux heures, exigeant.</p>
     </div>
+  </div></div></div></section>
   </div>
-</section>
-
-<div class="next-step reveal" style="margin-top:34px">
-  <div>
-    <h3>Module 03 · J'applique</h3>
-    <p>Les gestes élémentaires du métier, un par un : demander à l'assistant, classer un mail, lire et comparer des documents, chercher dans un corpus, interroger ses données. Pour chacun, la technique la plus simple qui marche. Et pour finir, la grille qui dit où l'IA intervient.</p>
+</div>
+<div class="pilote">
+  <button type="button" class="prec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Précédent</button>
+  <button type="button" class="suiv">Suivant <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+  <span class="rang"></span>
+  <span class="ou"></span>
+  <div class="droite">
+    <button type="button" class="sommaire-btn">Sommaire</button>
+    <a href="../comprendre.html">Version page</a>
   </div>
-  <a class="btn" href="appliquer.html">Continuer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
 </div>
-
-</div>
-</div>
-
-<!-- analogie-js -->
-<script>
-(function(){
-  var root = document.getElementById("demo-analogie"); if (!root) return;
-  var TEXTS = {"classique": ["« homme » et « femme ». Le déplacement de l'un à l'autre, c'est la direction « féminin ». Cliquez sur le schéma pour continuer.", "Un troisième mot, « roi ». De « homme » à « roi », c'est une autre direction : « royauté ».", "On applique à « roi » le même déplacement « féminin ». Où arrive-t-on ?", "Sur « reine ». roi − homme + femme = reine : les deux directions se combinent, et personne ne les a écrites, elles viennent des contextes d'apparition."], "geo": ["« France » et « Italie ». De l'une à l'autre : on change de pays.", "« Paris », la capitale. De « France » à « Paris », c'est la direction « capitale ».", "On change de pays depuis « Paris ». Où arrive-t-on ?", "À « Rome ». Paris − France + Italie = Rome. Le même vecteur « capitale » relie Berlin à l'Allemagne, Madrid à l'Espagne : une régularité apprise sur le texte, jamais déclarée."], "souscription": ["« domotique » et « sanitaire », deux prestations. De l'une à l'autre : la direction « plomberie ».", "« électricien », le métier qui fait la domotique. De la prestation au métier : la direction « métier ».", "On applique à « électricien » le même déplacement « plomberie ». Quel métier trouve-t-on ?", "« plombier ». électricien − domotique + sanitaire = plombier. Une description jamais vue, « installation de chaudière », se place près de « plombier » : c'est ce qui code l'activité d'un artisan depuis son texte libre, sans dictionnaire à maintenir."], "sinistres": ["« auto » et « habitation », deux branches. De l'une à l'autre : on change de branche.", "« collision », le sinistre typique de l'auto. De la branche au sinistre : la direction « sinistre ».", "On change de branche depuis « collision ». Quel sinistre trouve-t-on ?", "« dégât des eaux ». collision − auto + habitation = dégât des eaux. Un embedding entraîné sur des déclarations apprend la branche et le type de sinistre sans qu'on les lui donne : de quoi router une déclaration écrite en mots libres."]};
-  var cur = "classique", step = 0;
-  var tabs = root.querySelectorAll(".an-tab"), panels = root.querySelectorAll(".an-panel");
-  var text = document.getElementById("an-text"), next = document.getElementById("an-next"), reset = document.getElementById("an-reset");
-  function paint(){
-    tabs.forEach(function(t){ t.classList.toggle("is-on", t.dataset.case === cur); t.setAttribute("aria-selected", t.dataset.case === cur); });
-    panels.forEach(function(p){
-      p.classList.toggle("is-on", p.dataset.case === cur);
-      p.querySelectorAll(".an-s").forEach(function(g){ g.classList.toggle("is-off", +g.dataset.s > step); });
-      p.querySelectorAll(".an-q").forEach(function(g){ g.classList.toggle("is-off", step !== 2); });
-    });
-    text.textContent = TEXTS[cur][step];
-    next.querySelector("span").textContent = step < 3 ? "Étape suivante" : "Recommencer";
-  }
-  function advance(){ step = step < 3 ? step + 1 : 0; paint(); }
-  tabs.forEach(function(t){ t.addEventListener("click", function(){ cur = t.dataset.case; step = 0; paint(); }); });
-  panels.forEach(function(p){ p.addEventListener("click", advance); });
-  next.addEventListener("click", advance);
-  reset.addEventListener("click", function(){ step = 0; paint(); });
-  paint();
-})();
-</script>
-<!-- /analogie-js -->
-
-
-<footer class="site-footer">
-  <div class="wrap">
-    <div>IA générative : théorie et application en assurance · Kezhan SHI · Foyer</div>
-    <div><a href="index.html">Accueil</a> · <a href="decouvrir.html">Je découvre</a> · <a href="comprendre.html">Je comprends</a> · <a href="appliquer.html">J'applique</a> · <a href="prototyper.html">Je prototype</a></div>
-  </div>
-</footer>
+<div class="sommaire"><button type="button" class="fermer">Fermer</button><h2>Sommaire</h2><div class="groupe"><b>Ouverture</b><ol><li><button type="button" data-n="0"><b>1</b><span>Ouverture</span></button></li></ol></div><div class="groupe"><b>Le fil du module</b><ol><li><button type="button" data-n="1"><b>2</b><span>Le fil du module</span></button></li></ol></div><div class="groupe"><b>1 · Le point de départ</b><ol><li><button type="button" data-n="2"><b>3</b><span>1 · Le point de départ</span></button></li><li><button type="button" data-n="3"><b>4</b><span>Deux exemples nous suivent jusqu'à la fin du module. À chaque marche, on…</span></button></li><li><button type="button" data-n="4"><b>5</b><span>Le motif exact : la regex</span></button></li><li><button type="button" data-n="5"><b>6</b><span>1966 : un chatbot sans aucun modèle</span></button></li><li><button type="button" data-n="6"><b>7</b><span>ELIZA · trois versions dans le menu du bandeau : en français, au guichet…</span></button></li><li><button type="button" data-n="7"><b>8</b><span>Des mots-clés classés par priorité.</span></button></li><li><button type="button" data-n="8"><b>9</b><span>Étiqueter chaque mot : la base de l'extraction et de l'anonymisation</span></button></li><li><button type="button" data-n="9"><b>10</b><span>À tester maintenant</span></button></li><li><button type="button" data-n="10"><b>11</b><span>1 Le document reçu, et le compte de ce qui a été masqué</span></button></li></ol></div><div class="groupe"><b>2 · L'autre point de départ</b><ol><li><button type="button" data-n="11"><b>12</b><span>2 · L'autre point de départ</span></button></li><li><button type="button" data-n="12"><b>13</b><span>La régression logistique : une somme et un seuil</span></button></li></ol></div><div class="groupe"><b>3 · La première limite</b><ol><li><button type="button" data-n="13"><b>14</b><span>3 · La première limite</span></button></li><li><button type="button" data-n="14"><b>15</b><span>Le motif approché</span></button></li><li><button type="button" data-n="15"><b>16</b><span>La parade 2, en détail : on cesse d'écrire les règles, la machine les ap…</span></button></li><li><button type="button" data-n="16"><b>17</b><span>Un texte devient une ligne de chiffres</span></button></li><li><button type="button" data-n="17"><b>18</b><span>Ce que ça règle, ce que ça ne règle pas</span></button></li><li><button type="button" data-n="18"><b>19</b><span>La parade 3, en détail : chaque mot reçoit des nombres</span></button></li><li><button type="button" data-n="19"><b>20</b><span>L'EXEMPLE CLASSIQUE masculin, féminin personne, souverain + féminin homm…</span></button></li><li><button type="button" data-n="20"><b>21</b><span>La parade 3, appliquée : chercher sans mots communs</span></button></li></ol></div><div class="groupe"><b>Pause</b><ol><li><button type="button" data-n="21"><b>22</b><span>Pause</span></button></li></ol></div><div class="groupe"><b>4 · La deuxième limite</b><ol><li><button type="button" data-n="22"><b>23</b><span>4 · La deuxième limite</span></button></li><li><button type="button" data-n="23"><b>24</b><span>Le RNN lit dans l'ordre</span></button></li><li><button type="button" data-n="24"><b>25</b><span>L'attention en une phrase : le contexte désambiguïse chaque mot</span></button></li></ol></div><div class="groupe"><b>5 · La grande histoire</b><ol><li><button type="button" data-n="25"><b>26</b><span>5 · La grande histoire</span></button></li><li><button type="button" data-n="26"><b>27</b><span>Cinq dates suffisent à raconter le NLP. Chaque étape répond à la limite …</span></button></li><li><button type="button" data-n="27"><b>28</b><span>Le texte est son propre label</span></button></li><li><button type="button" data-n="28"><b>29</b><span>Ce que ça change pour vous</span></button></li><li><button type="button" data-n="29"><b>30</b><span>Du texte brut à l'assistant : les trois entraînements</span></button></li><li><button type="button" data-n="30"><b>31</b><span>Le modèle de base est un moteur de complétion, pas un assistant. Tout ce…</span></button></li><li><button type="button" data-n="31"><b>32</b><span>La différence se voit sur une seule question, posée aux deux versions du…</span></button></li><li><button type="button" data-n="32"><b>33</b><span>C'est la chaîne des décodeurs</span></button></li><li><button type="button" data-n="33"><b>34</b><span>Les mêmes poids, deux dépôts : des exemples réels</span></button></li><li><button type="button" data-n="34"><b>35</b><span>Dépôt Version Ce qu'il fait Quand on le prend deepseek-ai/DeepSeek-R1 ra…</span></button></li><li><button type="button" data-n="35"><b>36</b><span>Ce qu'il refuse de dire : l'alignement</span></button></li><li><button type="button" data-n="36"><b>37</b><span>Atelier : coder un modèle génératif en vingt lignes</span></button></li></ol></div><div class="groupe"><b>6 · Dans la vraie vie</b><ol><li><button type="button" data-n="37"><b>38</b><span>6 · Dans la vraie vie</span></button></li><li><button type="button" data-n="38"><b>39</b><span>Le PDF complet, pas la phrase</span></button></li><li><button type="button" data-n="39"><b>40</b><span>Pas de miracle</span></button></li></ol></div><div class="groupe"><b>7 · La conclusion qui compte</b><ol><li><button type="button" data-n="40"><b>41</b><span>7 · La conclusion qui compte</span></button></li><li><button type="button" data-n="41"><b>42</b><span>Niveau Technique Quand elle suffit Coût Explicable 1 Regex, mots-clés, d…</span></button></li><li><button type="button" data-n="42"><b>43</b><span>Motif précis et stable</span></button></li><li><button type="button" data-n="43"><b>44</b><span>Les six niveaux, en fiches</span></button></li><li><button type="button" data-n="44"><b>45</b><span>À votre avis</span></button></li><li><button type="button" data-n="45"><b>46</b><span>Le ML classique n'a pas disparu</span></button></li><li><button type="button" data-n="46"><b>47</b><span>L'effet IA, et qui contient quoi</span></button></li></ol></div><div class="groupe"><b>Pause</b><ol><li><button type="button" data-n="47"><b>48</b><span>Pause</span></button></li></ol></div><div class="groupe"><b>Ouverture</b><ol><li><button type="button" data-n="48"><b>49</b><span>À retenir du module 02</span></button></li><li><button type="button" data-n="49"><b>50</b><span>Je sais détecter des mots-clés.</span></button></li></ol></div><div class="groupe"><b>Pour aller plus loin</b><ol><li><button type="button" data-n="50"><b>51</b><span>Pour aller plus loin</span></button></li><li><button type="button" data-n="51"><b>52</b><span>3Blue1Brown, en vidéo</span></button></li></ol></div></div>
 
 <script>
 (function(){
@@ -1692,5 +1551,6 @@ similarité cosinus : 0,87</div>
 })();
 </script>
 
+<script src="diapos.js"></script>
 </body>
 </html>
