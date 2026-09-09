@@ -274,9 +274,10 @@
 
   // les commandes qui cassent le diff naif et qui ne cassent pas l'autre
   $("#melanger").addEventListener("click", () => {
+    // une rotation, pas un tirage au sort : chaque ligne bouge, et la page
+    // fait la meme chose a chaque clic, donc les captures et le controle aussi
     const l = lire("v2");
-    for (let i = l.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [l[i], l[j]] = [l[j], l[i]]; }
-    poser("v2", l); comparer();
+    poser("v2", l.slice(2).concat(l.slice(0, 2))); comparer();
   });
   $("#reformater").addEventListener("click", () => {
     const l = lire("v2").map(([g, p, f]) => [g, String(normMontant(p)).replace(".", ",") + " EUR", String(normMontant(f)) + ",00 €"]);
