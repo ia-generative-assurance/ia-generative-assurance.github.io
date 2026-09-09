@@ -85,23 +85,31 @@ body { margin: 0; background: #0d1830; color: var(--ink);
 .diapo.titre .page-head-art, .diapo.titre .hero-art { display: none; }
 .diapo.titre .h-ico .ico { width: 56px; height: 56px; border-radius: 15px; }
 .diapo.titre .h-ico .ico svg { width: 28px; height: 28px; }
-/* le bandeau sombre du site devient un fond de diapositive */
-.diapo.titre.sombre { background: var(--navy); position: relative; }
+/* Une bande sombre du site (le bloc des formateurs, un repere de pause) garde
+   son fond sur la diapositive : son texte est ecrit en clair, sur blanc il
+   devenait illisible (retour de Kezhan, 9 septembre). */
+/* pas de position ici : .diapo est deja en absolute, et le redeclarer en
+   relative sortait la diapositive de son cadre, qui ne faisait plus la hauteur
+   de la scene */
+.diapo.sombre { background: var(--navy); }
 /* le degrade du bandeau du site dessinait un rectangle flottant au milieu de
    la diapositive : il devient le fond de la diapositive entiere */
-.diapo.titre.sombre::before { content: ""; position: absolute; inset: 0;
+.diapo.sombre::before { content: ""; position: absolute; inset: 0;
   background: radial-gradient(900px 420px at 88% 0%, rgba(186, 28, 58, .32), transparent 62%),
               radial-gradient(700px 380px at 0% 110%, rgba(59, 84, 125, .55), transparent 62%); }
 .diapo .page-head::before, .diapo .hero::before { display: none; }
 .diapo .page-head, .diapo .hero { background: none; overflow: visible; }
-.diapo.titre.sombre .diapo-tete { background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .14); }
-.diapo.titre.sombre .diapo-tete .sec { color: #fff; }
-.diapo.titre.sombre .diapo-tete .mod { color: var(--crimson-l); }
-.diapo.titre.sombre h1, .diapo.titre.sombre h2 { color: #fff; }
-.diapo.titre.sombre .lede, .diapo.titre.sombre p { color: #c6d1e2; }
-.diapo.titre.sombre .eyebrow { color: var(--crimson-l); }
-.diapo.titre.sombre .hero-facts b { color: #fff; }
-.diapo.titre.sombre .hero-cta { display: none; }
+.diapo.sombre .diapo-tete { background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .14); }
+.diapo.sombre .diapo-tete .sec { color: #fff; }
+.diapo.sombre .diapo-tete .mod { color: var(--crimson-l); }
+.diapo.sombre h1, .diapo.sombre h2 { color: #fff; }
+.diapo.sombre .lede, .diapo.sombre p, .diapo.sombre li { color: #c6d1e2; }
+.diapo.sombre h3, .diapo.sombre h4, .diapo.sombre strong, .diapo.sombre b { color: #fff; }
+.diapo.sombre .card { background: rgba(255, 255, 255, .07); border-color: rgba(255, 255, 255, .16); }
+.diapo.sombre .feat .ico { background: rgba(255, 255, 255, .12); color: #fff; }
+.diapo.sombre .eyebrow { color: var(--crimson-l); }
+.diapo.sombre .hero-facts b { color: #fff; }
+.diapo.sombre .hero-cta { display: none; }
 
 /* ---------- un recit defilant : le schema a gauche, l'etape a droite ---------- */
 .recit { display: grid; grid-template-columns: 660px 1fr; gap: 32px; align-items: center; }
