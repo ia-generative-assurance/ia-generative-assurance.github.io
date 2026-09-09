@@ -809,6 +809,14 @@ similarité cosinus : 0,87</div>
     </div>
   </details>
 
+  <div class="try reveal">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> Les cinq temps, en vrai, dans votre navigateur</span>
+    <p>Le <a href="https://poloclub.github.io/transformer-explainer/" target="_blank" rel="noopener">Transformer Explainer</a> de Georgia Tech fait tourner un vrai GPT-2 dans l'onglet, sans rien installer. Vous tapez une phrase et vous voyez le schéma ci-dessus s'animer sur vos mots : le découpage en tokens, les colonnes de nombres, les traits d'attention qui relient un mot aux autres, et la liste des mots suivants avec leurs probabilités. Le curseur de température est là aussi : mettez-le à zéro, la même phrase donne toujours la même suite ; montez-le, elle part ailleurs.</p>
+    <details class="answer"><summary>Ce qu'il faut regarder</summary>
+      <p>Deux choses valent le détour. D'abord les traits d'attention sur une phrase à ambiguïté, du genre « la souris est cassée » : le mot qui décide du sens attire le trait le plus épais. Ensuite la sortie, qui n'est jamais un mot mais toujours une liste de candidats avec des pourcentages, y compris quand la phrase parle de quelque chose que le modèle n'a jamais vu. C'est la même mécanique que dans un modèle d'aujourd'hui, en cent fois plus petit : GPT-2 pèse 124 millions de paramètres, contre des centaines de milliards.</p>
+    </details>
+  </div>
+
   <details class="deeper reveal">
     <summary>Sous le capot : comment il apprend <small>ce que veut dire « entraîner »</small></summary>
     <div class="deeper-body">
