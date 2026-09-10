@@ -656,6 +656,118 @@ response_format={"type": "json_object"},</div>
     </div>
   </div>
 
+  <h3 style="margin:40px 0 10px">Du mail au dossier : ranger le mail n'est que le premier geste</h3>
+  <p>Un mail de service n'arrive jamais seul. Il porte des pièces, et ces pièces portent les informations qui remplissent le dossier. Le classer dans une famille dit où l'envoyer ; cela ne dit ni de quel dossier on parle, ni ce qu'on peut faire ensuite. Le processus complet tient en six temps, et le premier piège est là : <strong>un fichier n'est pas un document</strong>.</p>
+
+  <figure class="figure-frame reveal" id="fig-mail-dossier">
+    <div class="fig-scroll"><svg viewBox="0 0 892 640" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Un fichier de cinq pages devient trois documents, puis un dossier rempli et des actions">
+      <!-- Convention des schemas : voir nlp/site/SCHEMAS.md. L'idee unique est
+           l'entonnoir : un fichier se defait en pages, les pages se recollent
+           en documents, les documents remplissent un dossier. Le detail du
+           parsing et de l'extraction est section 5, il n'est pas repris ici.
+           Flux vertical : c'est la seule mise en page ou les pastilles tiennent
+           sur leurs fleches a cette largeur de toile. -->
+      <defs>
+        <marker id="mdf" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#13264A"/></marker>
+        <filter id="mdo" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="1.5" dy="2" stdDeviation="2" flood-color="#13264A" flood-opacity="0.16"/></filter>
+      </defs>
+
+      <text x="446" y="40" text-anchor="middle" font-size="19" font-weight="700" fill="#13264A">Un fichier, cinq pages, trois documents, un dossier</text>
+
+      <rect x="20" y="64" width="852" height="76" rx="14" fill="#fdf3e2"/><text x="44" y="86" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">CE QUI ENTRE, TEL QUEL</text>
+      <g filter="url(#mdo)"><rect x="44" y="94" width="196" height="36" rx="10" fill="#f6e3bf" stroke="#92661D" stroke-width="2"/></g>
+      <text x="142" y="118" text-anchor="middle" font-size="14.5" font-weight="700" fill="#78500f">scan001.pdf</text>
+      <text x="264" y="110" font-size="15.5" fill="#4a5567">un seul envoi, cinq pages, conservé sans être modifié</text>
+      <text x="264" y="130" font-size="12.8" font-style="italic" fill="#6C7683">Le nom du fichier ne dit rien de ce qu'il contient.</text>
+
+      <path d="M446 140 L446 176" stroke="#13264A" stroke-width="2.6" marker-end="url(#mdf)"/><g filter="url(#mdo)"><rect x="357" y="145" width="178" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g><text x="446" y="163" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">éclater en pages</text>
+
+      <rect x="20" y="182" width="852" height="124" rx="14" fill="#eef1f6"/><text x="44" y="204" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">CHAQUE PAGE REÇOIT UN TYPE ET UNE CONFIANCE</text>
+      <rect x="56" y="214" width="140" height="76" rx="10" fill="#f6e3bf" stroke="#92661D" stroke-width="1.6"/><text x="70" y="236" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">p. 1</text><text x="126" y="262" text-anchor="middle" font-size="14.5" font-weight="700" fill="#92661D">Constat</text><text x="126" y="281" text-anchor="middle" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">71 %</text><rect x="216" y="214" width="140" height="76" rx="10" fill="#f6e3bf" stroke="#92661D" stroke-width="1.6"/><text x="230" y="236" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">p. 2</text><text x="286" y="262" text-anchor="middle" font-size="14.5" font-weight="700" fill="#92661D">Constat</text><text x="286" y="281" text-anchor="middle" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">66 %</text><rect x="376" y="214" width="140" height="76" rx="10" fill="#F7F4F2" stroke="#9aa3b0" stroke-width="1.6"/><text x="390" y="236" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">p. 3</text><text x="446" y="262" text-anchor="middle" font-size="14.5" font-weight="700" fill="#6C7683">Page blanche</text><text x="446" y="281" text-anchor="middle" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">98 %</text><rect x="536" y="214" width="140" height="76" rx="10" fill="#f6e3bf" stroke="#92661D" stroke-width="2.4" stroke-dasharray="5 4"/><text x="550" y="236" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">p. 4</text><text x="606" y="262" text-anchor="middle" font-size="14.5" font-weight="700" fill="#92661D">Facture</text><text x="606" y="281" text-anchor="middle" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">58 %</text><rect x="696" y="214" width="140" height="76" rx="10" fill="#f6e3bf" stroke="#92661D" stroke-width="1.6"/><text x="710" y="236" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">p. 5</text><text x="766" y="262" text-anchor="middle" font-size="14.5" font-weight="700" fill="#92661D">RIB</text><text x="766" y="281" text-anchor="middle" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">83 %</text>
+
+      <path d="M446 306 L446 342" stroke="#13264A" stroke-width="2.6" marker-end="url(#mdf)"/><g filter="url(#mdo)"><rect x="317" y="311" width="258" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g><text x="446" y="329" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">recoller les pages voisines</text>
+
+      <rect x="20" y="348" width="852" height="92" rx="14" fill="#eef1f6"/><text x="44" y="370" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">LES DOCUMENTS, ET LEUR MÉTHODE D'EXTRACTION</text>
+      <g filter="url(#mdo)"><rect x="50" y="379" width="180" height="46" rx="10" fill="#fff" stroke="#3B547D" stroke-width="1.6"/></g><text x="140" y="399" text-anchor="middle" font-size="14.5" font-weight="700" fill="#13264A">Constat amiable</text><text x="140" y="416" text-anchor="middle" font-size="12.8" fill="#6C7683">p. 1-2 · gabarit</text><g filter="url(#mdo)"><rect x="254" y="379" width="180" height="46" rx="10" fill="#fff" stroke="#3B547D" stroke-width="1.6"/></g><text x="344" y="399" text-anchor="middle" font-size="14.5" font-weight="700" fill="#13264A">Facture</text><text x="344" y="416" text-anchor="middle" font-size="12.8" fill="#6C7683">p. 4 · clé-valeur</text><g filter="url(#mdo)"><rect x="458" y="379" width="180" height="46" rx="10" fill="#fff" stroke="#3B547D" stroke-width="1.6"/></g><text x="548" y="399" text-anchor="middle" font-size="14.5" font-weight="700" fill="#13264A">RIB</text><text x="548" y="416" text-anchor="middle" font-size="12.8" fill="#6C7683">p. 5 · motif</text><g filter="url(#mdo)"><rect x="662" y="379" width="180" height="46" rx="10" fill="#fff" stroke="#9aa3b0" stroke-width="1.6" stroke-dasharray="5 4"/></g><text x="752" y="399" text-anchor="middle" font-size="14.5" font-weight="700" fill="#6C7683">Page 3</text><text x="752" y="416" text-anchor="middle" font-size="12.8" fill="#6C7683">vide · écartée</text>
+
+      <path d="M446 440 L446 476" stroke="#13264A" stroke-width="2.6" marker-end="url(#mdf)"/><g filter="url(#mdo)"><rect x="341" y="445" width="210" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g><text x="446" y="463" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">extraire et rattacher</text>
+
+      <rect x="20" y="482" width="852" height="116" rx="14" fill="#e8f3f2"/><text x="44" y="504" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">CE QUI SORT</text>
+      <g filter="url(#mdo)"><rect x="44" y="512" width="392" height="72" rx="12" fill="#bfe0dd" stroke="#1F6F6B" stroke-width="2"/></g>
+      <text x="62" y="536" font-size="14.5" font-weight="700" fill="#0f4b48">Le dossier</text>
+      <text x="62" y="558" font-size="12.8" fill="#0f4b48">sinistre rattaché · date de survenance · immatriculation</text>
+      <text x="62" y="576" font-size="12.8" fill="#0f4b48">montant · IBAN · les trois pièces liées à leur page d'origine</text>
+      <text x="460" y="536" font-size="14.5" font-weight="700" fill="#BA1C3A">Et ce qui manque</text>
+      <text x="460" y="558" font-size="12.8" fill="#4a5567">une seule relance au client, avec la liste complète.</text>
+      <text x="460" y="576" font-size="12.8" font-style="italic" fill="#6C7683">Ce n'est pas une erreur, c'est la prochaine tâche.</text>
+
+      <text x="446" y="620" text-anchor="middle" font-size="15" fill="#4a5567">La page porte le type, le document décide de la méthode, le dossier décide de ce qui se déclenche.</text>
+    </svg></div>
+    <figcaption>Le cas le plus fréquent en production : un seul PDF scanné, mal nommé, qui contient trois documents et une page blanche. Tant que l'unité de travail reste le fichier, rien de tout cela n'est possible. La page 4 est en pointillé : le modèle hésite, elle passe en revue humaine. Dans la démonstration, il se trompe carrément, et la corriger complète le dossier et débloque le règlement.</figcaption>
+  </figure>
+
+  <h3 style="margin:36px 0 10px">Les informations à sortir du mail, et ce qui les reconnaît</h3>
+  <p>Ce sont les mêmes trois couches que pour l'anonymisation, au module 02 : une forme régulière, une liste, puis un modèle seulement pour ce qui n'a ni l'une ni l'autre. La dernière ligne est la seule qui demande un modèle.</p>
+  <div class="table-wrap reveal">
+    <table>
+      <thead><tr><th>L'information</th><th>Ce qui la reconnaît</th><th>Le piège, celui qu'on découvre en production</th></tr></thead>
+      <tbody>
+        <tr><td class="rowhead">Numéro de sinistre, de contrat, d'affilié</td><td>Une forme fixe, donc une expression régulière. Zéro coût, rejouable à l'identique.</td><td>Plusieurs formats cohabitent après une migration, et le client cite volontiers le numéro de son ancien contrat.</td></tr>
+        <tr><td class="rowhead">Immatriculation, IBAN</td><td>Une forme fixe, avec une clé de contrôle pour l'IBAN.</td><td>L'IBAN est une donnée sensible : il se masque partout où il n'est pas nécessaire, et un IBAN de tiers est un signal à regarder.</td></tr>
+        <tr><td class="rowhead">Les dates</td><td>Une forme, puis le mot qui la précède : « déclaré le », « accident du », « soins du ».</td><td>Un mail porte trois dates. « La date » ne veut rien dire tant que le service n'a pas dit laquelle fait foi, exactement comme « client actif » au geste précédent.</td></tr>
+        <tr><td class="rowhead">Montants</td><td>Une forme, puis un contrôle : les lignes, le hors taxe et le total doivent tomber juste.</td><td>Un total qui ne tombe pas juste n'est pas forcément une fraude, mais c'est toujours une pièce à regarder à deux fois.</td></tr>
+        <tr><td class="rowhead">Nom, adresse, circonstances</td><td>Ni forme ni liste : c'est ici, et seulement ici, qu'un modèle sert.</td><td>Un modèle appelé sur les quatre lignes du dessus coûte cher et rend un résultat moins sûr que trois expressions régulières.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="margin:36px 0 10px">Les pièces jointes, et ce que chacune permet</h3>
+  <p>Le type du fichier ne dit rien : un PDF peut être un constat, une facture ou un relevé. C'est le type du <em>document</em> qui décide de la méthode, et le reconnaître est lui-même une classification, avec la même cascade que pour le mail : le nom du fichier, puis les premiers mots de la page, puis un modèle.</p>
+  <div class="table-wrap reveal">
+    <table>
+      <thead><tr><th>La pièce</th><th>Ce qu'elle apporte au dossier</th><th>Comment on l'extrait</th><th>Ce qui la rend difficile</th></tr></thead>
+      <tbody>
+        <tr><td class="rowhead">Constat amiable</td><td>Date et lieu, immatriculations, circonstances, identité du tiers</td><td>Par gabarit : la mise en page est fixe, les cases sont toujours au même endroit</td><td>Rempli à la main, croix à cheval entre deux cases, et deux exemplaires à rapprocher</td></tr>
+        <tr><td class="rowhead">Facture de réparation ou de soins</td><td>Montant, prestataire, postes détaillés, date</td><td>Par clé-valeur, puis un contrôle arithmétique du total</td><td>Mise en page libre : chaque prestataire a la sienne, et un gabarit par fournisseur ne tient pas à l'échelle</td></tr>
+        <tr><td class="rowhead">Ordonnance</td><td>Rien d'automatique, dans l'immense majorité des cas</td><td>Elle ne s'extrait pas, elle se lit</td><td>Manuscrite. C'est la pièce qui rappelle qu'une revue humaine reste une étape du processus, pas un échec</td></tr>
+        <tr><td class="rowhead">Relevé de la caisse de santé</td><td>Actes, dates, tarifs, part déjà prise en charge, reste à charge</td><td>Par extraction de tableau, ligne à ligne</td><td>C'est un tableau, pas du texte : le lire comme du texte mélange les colonnes et fausse tous les montants</td></tr>
+        <tr><td class="rowhead">Relevé d'identité bancaire</td><td>L'IBAN du bénéficiaire du règlement</td><td>Par motif, avec le contrôle de clé</td><td>Il vient parfois d'un tiers : la pièce est lisible, c'est le rapprochement avec l'assuré qui compte</td></tr>
+        <tr><td class="rowhead">Photo de dégât</td><td>Rien de textuel</td><td>Un autre métier : la vision, pas le langage</td><td>Elle sert à constater, pas à remplir. Voir aussi ce qu'une photo trahit, au module 04</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout reveal">
+    <span class="label">Deux classifications, à ne pas confondre</span>
+    <p>Ce que la pièce <strong>est</strong> (un constat) et ce que le client <strong>veut</strong> (déclarer, compléter un dossier ouvert, réclamer) sont deux questions différentes, traitées par deux modèles différents. Un constat accompagne aussi bien une déclaration qu'un dossier vieux de trois semaines : le type des pièces ne tranche pas, c'est le corps du mail. Se contenter de la première question donne une pile de documents bien rangés dont personne ne sait quoi faire.</p>
+  </div>
+
+  <div class="demo-embed demo-shot reveal">
+    <div class="demo-head"><span><b>Du mail au dossier, les six temps</b> · stocker, éclater, classer, recoller, extraire, agir</span><a href="demos/mail-dossier.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
+    <div class="demo-steps">
+      <figure>
+        <a href="demos/mail-dossier.html" target="_blank" rel="noopener"><img src="assets/demo_mail_dossier_1.png" width="1640" height="1120" alt="Un seul scan de cinq pages : chacune reçoit un type, et le modèle se trompe sur la quatrième" loading="lazy"></a>
+        <figcaption><b>1</b> Un seul scan de cinq pages : chacune reçoit un type, et le modèle se trompe sur la quatrième</figcaption>
+      </figure>
+      <figure>
+        <a href="demos/mail-dossier.html" target="_blank" rel="noopener"><img src="assets/demo_mail_dossier_2.png" width="1640" height="1120" alt="La page corrigée à la main : le dossier se complète, chaque valeur avec sa source" loading="lazy"></a>
+        <figcaption><b>2</b> La page corrigée à la main : le dossier se complète, chaque valeur avec sa source</figcaption>
+      </figure>
+    </div>
+    <a class="demo-cta" href="demos/mail-dossier.html" target="_blank" rel="noopener">Ouvrir la démonstration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <div class="print-note">
+      <p style="margin:0">La démonstration déroule les six temps sur trois mails fictifs : une déclaration auto complète, un remboursement santé avec une ordonnance illisible et un IBAN manquant, et un scan groupé de cinq pages contenant trois documents. Chaque page se reclasse d'un clic, et le dossier, la demande et les actions se refont. À voir sur le site.</p>
+    </div>
+  </div>
+
+  <div class="try reveal">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À tester maintenant</span>
+    <p>Ouvrez trois mails de votre boîte partagée, au hasard. Pour chacun, comptez trois choses : combien de <strong>fichiers</strong>, combien de <strong>pages</strong>, et combien de <strong>documents distincts</strong>. Puis regardez, pour chaque fichier, si son nom dit ce qu'il contient.</p>
+    <details class="answer"><summary>Ce qu'on observe en général</summary>
+      <p>Les trois comptes sont presque toujours différents, et c'est tout le sujet : les pièces arrivent souvent groupées dans un seul scan, parfois une même pièce est coupée en deux envois, et il traîne des pages blanches et des accusés de réception. Les noms de fichiers, eux, viennent du photocopieur ou du téléphone : « scan001.pdf », « IMG_4472.jpg ». Une règle sur le nom du fichier marche bien en démonstration et s'effondre en production, parce que le nom est écrit par un appareil, pas par quelqu'un qui sait ce qu'il envoie. Conséquence pratique : c'est la page qu'il faut classer, et le stockage doit garder le lien entre chaque page et le fichier d'origine, sans quoi on ne sait plus de quoi vient une information.</p>
+    </details>
+  </div>
+
   <div class="callout assurance reveal">
     <span class="label">Ordres de grandeur, vécus</span>
     <p>Un service estimait recevoir 6 000 mails par an. Une fois comptés, combien ? Et combien de temps les gestionnaires passaient-ils chaque matin à les ouvrir ?</p>

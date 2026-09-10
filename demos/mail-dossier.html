@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Du mail au dossier : stocker, éclater en pages, classer, extraire, agir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#13264A; --crimson:#BA1C3A; --steel:#3B547D; --teal:#1F6F6B; --amber:#92661D;
+    --sand:#E9E4E1; --sand-l:#F7F4F2; --line:#dcd8d4; --ink:#1f2733; --soft:#4a5567; --muted:#78828f;
+    --display:"Manrope","Segoe UI",sans-serif; --sans:"Inter","Segoe UI",Arial,sans-serif;
+    --mono:"JetBrains Mono",Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:var(--sand-l);padding:14px 14px 26px;font-size:14.5px}
+  .wrap{max-width:1180px;margin:0 auto}
+
+  .top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--navy);color:#fff;
+       border-radius:12px;padding:11px 16px;margin-bottom:12px}
+  .top .logo{width:30px;height:30px;border-radius:8px;background:var(--crimson);color:#fff;display:grid;
+             place-items:center;font-family:var(--display);font-weight:800;font-size:.95rem;flex:none}
+  .top .qui{display:flex;align-items:center;gap:10px}
+  .top b{font-family:var(--display);font-size:.98rem;display:block;line-height:1.15}
+  .top .qui span{font-size:.76rem;color:#a9b7cc}
+  .legende{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-left:auto;font-size:.76rem;color:#c6d1e2}
+  .tag{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:700;border-radius:999px;
+       padding:2px 9px;white-space:nowrap}
+  .tag.ia{background:#fbeef1;color:var(--crimson)}
+  .tag.regle{background:#e8f3f2;color:var(--teal)}
+  .tag.humain{background:#fdf3e2;color:var(--amber)}
+
+  /* la file de mails, comme une file de travail */
+  .file{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .file .lab{font-family:var(--display);font-size:.68rem;font-weight:800;letter-spacing:.12em;
+             text-transform:uppercase;color:var(--muted)}
+  .dem{font:inherit;font-size:.82rem;background:#fff;border:1px solid var(--line);border-radius:999px;
+       padding:7px 14px;cursor:pointer;color:var(--soft);display:flex;align-items:center;gap:8px}
+  .dem:hover{border-color:var(--steel)}
+  .dem.on{background:var(--navy);border-color:var(--navy);color:#fff}
+  .dem .num{font-family:var(--mono);font-size:.72rem;opacity:.75}
+
+  /* le ruban des six temps */
+  .temps{display:flex;gap:6px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:12px;
+         padding:9px 12px;margin-bottom:12px;align-items:center}
+  .temps .t{font-size:.78rem;color:var(--muted);border-radius:999px;padding:5px 11px;white-space:nowrap;
+            display:flex;align-items:center;gap:6px;border:1px solid transparent}
+  .temps .t .n{font-family:var(--mono);font-size:.72rem}
+  .temps .t.fait{color:var(--teal);background:#e8f3f2}
+  .temps .t.on{color:#fff;background:var(--navy);border-color:var(--navy);font-weight:700}
+  .temps .btns{margin-left:auto;display:flex;gap:8px}
+  .btn{font:inherit;font-size:.8rem;font-weight:600;background:#fff;border:1px solid var(--line);
+       border-radius:999px;padding:6px 13px;cursor:pointer;color:var(--soft)}
+  .btn:hover{border-color:var(--steel);color:var(--navy)}
+  .btn.plein{background:var(--crimson);border-color:var(--crimson);color:#fff}
+  .btn.plein:hover{background:#d42749}
+
+  .grille{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+  @media(max-width:860px){.grille{grid-template-columns:1fr}}
+  .col{display:grid;gap:12px;align-content:start}
+  .carte{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+         box-shadow:0 1px 2px rgba(19,38,74,.05),0 6px 18px rgba(19,38,74,.045)}
+  .carte.eteint{opacity:.35}
+  .carte h2{font-family:var(--display);font-size:.95rem;margin:0 0 3px;color:var(--navy);
+            display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .carte h2 .n{font-family:var(--mono);font-size:.72rem;color:var(--muted);font-weight:400}
+  .carte .sub{margin:0 0 11px;font-size:.79rem;color:var(--muted);line-height:1.45}
+
+  /* le mail tel qu'il arrive */
+  .entete{font-size:.8rem;color:var(--soft);line-height:1.6;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:9px}
+  .entete b{color:var(--navy)}
+  .corps{font-size:.86rem;line-height:1.7;background:var(--sand-l);border-radius:9px;padding:11px 13px;
+         border-left:3px solid var(--sand);white-space:pre-wrap}
+  .corps mark{background:#fde7c2;color:var(--navy);border-radius:3px;padding:0 2px;font-weight:600}
+  .pj{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .pj div{font-size:.78rem;color:var(--soft);background:var(--sand-l);border:1px solid var(--line);
+          border-radius:8px;padding:5px 10px;font-family:var(--mono)}
+
+  /* le coffre : ce qui est garde tel quel */
+  .coffre{display:grid;gap:5px;font-size:.79rem;color:var(--soft)}
+  .coffre div{display:grid;grid-template-columns:130px 1fr;gap:10px}
+  .coffre span:first-child{color:var(--muted)}
+  .coffre code{font-family:var(--mono);font-size:.76rem;color:var(--navy);word-break:break-all}
+
+  /* les pages : une vignette par page, cliquable */
+  .pages{display:flex;gap:9px;flex-wrap:wrap}
+  .page{width:120px;border:1.5px solid var(--line);border-radius:9px;background:#fff;padding:7px;text-align:left}
+  .page .apercu{height:58px;background:var(--sand-l);border-radius:5px;padding:5px;overflow:hidden;
+                font-family:var(--mono);font-size:6.5px;line-height:1.5;color:#8b93a0}
+  .page .np{font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-top:5px}
+  .page .type{font-size:.72rem;font-weight:700;color:var(--navy);line-height:1.3;margin-top:1px}
+  .page .conf{font-family:var(--mono);font-size:.66rem;color:var(--muted)}
+  .page select{font:inherit;font-size:.7rem;font-weight:700;color:var(--navy);background:#fff;
+               border:1px solid var(--line);border-radius:6px;padding:2px 3px;width:100%;margin-top:3px;cursor:pointer}
+  .page select:focus{outline:none;border-color:var(--steel)}
+  .page.corrigee select{border-color:var(--crimson);color:var(--crimson)}
+  .page.sure{border-color:var(--teal)}
+  .page.doute{border-color:var(--amber);background:#fffaf0}
+  .page.corrigee{border-color:var(--crimson)}
+  .page.vide .type{color:var(--muted);font-weight:400}
+  .aide{font-size:.78rem;color:var(--muted);margin-top:9px;line-height:1.45}
+
+  /* les documents recolles */
+  .docs{display:grid;gap:7px}
+  .doc{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border:1px solid var(--line);
+       border-radius:9px;padding:8px 11px;font-size:.82rem}
+  .doc .pastille{width:9px;height:9px;border-radius:50%;background:var(--teal)}
+  .doc.ko .pastille{background:var(--crimson)}
+  .doc.ko{background:#fff6f7;border-color:#f2c3cd}
+  .doc b{color:var(--navy);font-weight:600}
+  .doc .meth{font-family:var(--mono);font-size:.7rem;color:var(--muted);white-space:nowrap}
+  .doc small{display:block;color:var(--soft);font-size:.76rem}
+
+  /* les informations extraites */
+  table{width:100%;border-collapse:collapse;font-size:.81rem}
+  thead th{background:var(--sand-l);color:var(--muted);text-align:left;padding:6px 8px;font-family:var(--display);
+           font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--line)}
+  tbody td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  td.val{font-family:var(--mono);font-size:.78rem;color:var(--navy)}
+  td.src{font-size:.72rem;color:var(--muted);white-space:nowrap}
+  tr.manque td{background:#fff6f7}
+  tr.manque .val{color:var(--crimson);font-style:italic;font-family:var(--sans)}
+
+  .demande{background:#eef1f6;border-radius:9px;padding:10px 12px;font-size:.84rem;color:var(--ink);line-height:1.5}
+  .demande b{color:var(--navy);font-family:var(--display)}
+  .demande .conf{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+
+  /* les actions */
+  .actions{display:grid;gap:7px}
+  .act{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;border-radius:9px;padding:9px 11px;
+       font-size:.82rem;line-height:1.45}
+  .act.ok{background:#e8f3f2;color:#0f4b48}
+  .act.bloque{background:#fff6f7;color:#8c1631}
+  .act.humain{background:#fdf3e2;color:#6f4d16}
+  .act b{display:block;font-family:var(--display);font-size:.85rem}
+  .act .p{width:9px;height:9px;border-radius:50%;margin-top:5px}
+  .act.ok .p{background:var(--teal)} .act.bloque .p{background:var(--crimson)} .act.humain .p{background:var(--amber)}
+
+  .note{font-size:.76rem;color:var(--muted);line-height:1.55;margin:14px 0 0}
+  .note b{color:var(--soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="qui">
+      <span class="logo">✉</span>
+      <div><b>Du mail au dossier</b><span>le processus complet, de la boîte partagée aux actions déclenchées</span></div>
+    </div>
+    <div class="legende">
+      <span class="tag regle">Règle</span> stocke, découpe, contrôle
+      <span class="tag ia">IA</span> classe et extrait
+      <span class="tag humain">Humain</span> tranche le reste
+    </div>
+  </header>
+
+  <div class="file">
+    <span class="lab">Boîte partagée du service</span>
+    <div id="file-boutons" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+  </div>
+
+  <div class="temps">
+    <div class="t" data-t="1"><span class="n">1</span> Stocker</div>
+    <div class="t" data-t="2"><span class="n">2</span> Éclater en pages</div>
+    <div class="t" data-t="3"><span class="n">3</span> Classer chaque page</div>
+    <div class="t" data-t="4"><span class="n">4</span> Recoller en documents</div>
+    <div class="t" data-t="5"><span class="n">5</span> Extraire et rattacher</div>
+    <div class="t" data-t="6"><span class="n">6</span> Catégoriser et agir</div>
+    <div class="btns">
+      <button class="btn plein" id="suivant" type="button">Temps suivant</button>
+      <button class="btn" id="tout" type="button">Tout dérouler</button>
+      <button class="btn" id="reset" type="button">Recommencer</button>
+    </div>
+  </div>
+
+  <div class="grille">
+
+    <div class="col">
+      <div class="carte" id="c1">
+        <h2><span class="n">1</span> Le mail, tel qu'il arrive <span class="tag regle">Règle</span></h2>
+        <p class="sub">Rien n'est encore compris. On garde l'original intact, avec un identifiant et une empreinte : c'est ce qu'on pourra rejouer dans deux ans devant un contrôleur.</p>
+        <div class="entete" id="entete"></div>
+        <div class="corps" id="corps"></div>
+        <div class="pj" id="pj"></div>
+        <div class="coffre" id="coffre" style="margin-top:11px"></div>
+      </div>
+
+      <div class="carte eteint" id="c2">
+        <h2><span class="n">2 · 3</span> Les pages, une par une <span class="tag ia">IA</span> <span class="tag humain">Humain</span></h2>
+        <p class="sub">L'unité n'est pas le fichier, c'est la page : un seul PDF contient souvent plusieurs documents. Chaque page reçoit un type et une confiance. Choisissez le bon type dans la liste : le recollage, l'extraction, le dossier et les actions se refont.</p>
+        <div class="pages" id="pages"></div>
+        <div class="aide" id="aide-pages"></div>
+      </div>
+
+      <div class="carte eteint" id="c3">
+        <h2><span class="n">4</span> Les documents recollés <span class="tag regle">Règle</span></h2>
+        <p class="sub">Les pages voisines de même type d'un même fichier forment un document. C'est le document, pas la page, qui décide de la méthode d'extraction.</p>
+        <div class="docs" id="docs"></div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="carte eteint" id="c4">
+        <h2><span class="n">5</span> Les informations, et d'où elles viennent <span class="tag ia">IA</span></h2>
+        <p class="sub">Chaque valeur porte sa source et sa méthode. Une information sans source n'est pas vérifiable, donc pas utilisable dans un dossier.</p>
+        <table><thead><tr><th>Information</th><th>Valeur</th><th>Source</th></tr></thead><tbody id="infos"></tbody></table>
+        <div class="aide" id="aide-infos"></div>
+      </div>
+
+      <div class="carte eteint" id="c5">
+        <h2><span class="n">6</span> La demande, et le dossier <span class="tag ia">IA</span></h2>
+        <p class="sub">Deux classifications différentes : ce que la pièce <em>est</em>, et ce que le client <em>veut</em>. La seconde ne se déduit pas de la première.</p>
+        <div class="demande" id="demande"></div>
+        <table style="margin-top:10px"><thead><tr><th>Champ du dossier</th><th>Valeur</th><th>Source</th></tr></thead><tbody id="dossier"></tbody></table>
+      </div>
+
+      <div class="carte eteint" id="c6">
+        <h2><span class="n">6</span> Ce qui se déclenche <span class="tag regle">Règle</span> <span class="tag humain">Humain</span></h2>
+        <p class="sub">Une action ne part que si ses conditions sont réunies. Ce qui manque n'est pas une erreur à cacher, c'est la prochaine tâche.</p>
+        <div class="actions" id="actions"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="note"><b>Trois mails fictifs, aucun assuré réel, aucun appel à un modèle depuis cette page.</b>
+  Le classement des pages est rejoué tel qu'un modèle le rend sur ce genre de pièces ; le reste tourne pour de vrai : les motifs qui repèrent un numéro de sinistre ou un IBAN, le recollage des pages, le remplissage du dossier et les conditions des actions. Le détail du parsing et de l'extraction est dans la section « Lire un document » du module 03.</p>
+</div>
+
+<script>
+(function(){
+  // ------------------------------------------------------------------
+  // Trois mails. Le premier est complet, le deuxieme a une piece illisible et
+  // une piece manquante, le troisieme est le cas le plus frequent en vrai :
+  // un seul scan de plusieurs pages, mal nomme, qui contient trois documents.
+  // ------------------------------------------------------------------
+  var TYPES = {
+    constat:    {nom:"Constat amiable",   meth:"gabarit",     ok:true},
+    facture:    {nom:"Facture",           meth:"clé-valeur",  ok:true},
+    ordonnance: {nom:"Ordonnance",        meth:"manuscrit",   ok:false},
+    releve:     {nom:"Relevé CNS",        meth:"tableau",     ok:true},
+    rib:        {nom:"RIB",               meth:"motif",       ok:true},
+    photo:      {nom:"Photo de dégât",    meth:"aucune",      ok:true},
+    vide:       {nom:"Page blanche",      meth:"aucune",      ok:true},
+    inconnu:    {nom:"Non reconnu",       meth:"revue humaine", ok:false}
+  };
+
+  var MAILS = [
+    {
+      ref:"MSG-2026-031200418", de:"j.leroux@exemple.lu", recu:"12/03/2026 08:41",
+      objet:"Accident ce matin, constat joint",
+      corps:"Bonjour,\n\nJ'ai eu un accident ce matin sur le parking d'un centre commercial. L'autre conducteur a rayé toute l'aile avant.\nMon contrat est le CTR-4471902, le véhicule immatriculé LX 4471.\n\nLe constat est rempli et signé, la facture du garage suit. Merci de me dire ce qu'il faut de plus.\n\nJean Leroux",
+      pages:[
+        {f:"constat_amiable.pdf", np:1, type:"constat", conf:96, txt:"CONSTAT AMIABLE D'ACCIDENT AUTOMOBILE\n1. date de l'accident : 12/03/2026\n2. lieu : Luxembourg, parking\n3. blesses meme legers : non\nVehicule A  immatriculation LX 4471", champs:{survenance:"12/03/2026", immat:"LX 4471", circonstances:"stationnement, choc latéral"}},
+        {f:"constat_amiable.pdf", np:2, type:"constat", conf:93, txt:"croquis de l'accident\nobservations vehicule A\nsignature A          signature B\nassureur B : police 88-2201", champs:{tiers:"police tiers 88-2201"}},
+        {f:"garage_devis.pdf", np:1, type:"facture", conf:91, txt:"CARROSSERIE DU NORD\nfacture n. 2026-0412\naile avant droite      840,00\nmain d'oeuvre 4 h     260,00\nTOTAL TTC           1 287,00 EUR", champs:{montant:"1 287,00 €", prestataire:"Carrosserie du Nord"}},
+        {f:"degat.jpg", np:1, type:"photo", conf:88, txt:"", champs:{}}
+      ]
+    },
+    {
+      ref:"MSG-2026-031200907", de:"m.wagner@exemple.lu", recu:"12/03/2026 09:07",
+      objet:"Remboursement frais médicaux",
+      corps:"Bonjour,\n\nJe vous envoie l'ordonnance et le décompte de la CNS pour les soins du 04/02/2026.\nJe suis affiliée sous le numéro 1985030412345, contrat CTR-2210488.\n\nMerci de me rembourser le complément.\n\nMarie Wagner",
+      pages:[
+        {f:"scan_ordonnance.pdf", np:1, type:"ordonnance", conf:54, txt:"Dr ...........\nprescription manuscrite\nillisible en partie\n04/02/2026", champs:{}},
+        {f:"decompte_cns.pdf", np:1, type:"releve", conf:94, txt:"CAISSE NATIONALE DE SANTE\ndecompte de prestations\nacte        date       tarif   part CNS\nconsult.  04/02/2026  48,00   40,80", champs:{soins:"04/02/2026", montant:"48,00 €", pris_en_charge:"40,80 €"}},
+        {f:"decompte_cns.pdf", np:2, type:"releve", conf:90, txt:"suite du decompte\nkinesitherapie 04/02/2026  22,00   17,60\ntotal part assure           11,60", champs:{reste:"11,60 €"}}
+      ]
+    },
+    {
+      ref:"MSG-2026-031201533", de:"contact@exemple.lu", recu:"12/03/2026 15:33",
+      objet:"Documents",
+      corps:"Bonjour, vous trouverez ci-joint les documents demandés pour le sinistre SIN-2026-04412, déclaré le 09/03/2026. L'accident date du 07/03/2026.\n\nCordialement",
+      pages:[
+        {f:"scan001.pdf", np:1, type:"constat", conf:71, txt:"CONSTAT AMIABLE D'ACCIDENT AUTOMOBILE\ndate de l'accident : 07/03/2026\nvehicule A  immatriculation LX 9902", champs:{survenance:"07/03/2026", immat:"LX 9902"}},
+        {f:"scan001.pdf", np:2, type:"constat", conf:66, txt:"croquis\nobservations\nsignatures des deux conducteurs", champs:{}},
+        {f:"scan001.pdf", np:3, type:"vide", conf:98, txt:"", champs:{}},
+        {f:"scan001.pdf", np:4, type:"facture", vu:"releve", conf:58, txt:"GARAGE CENTRAL\nremplacement pare-brise\nTOTAL TTC   612,50 EUR", champs:{montant:"612,50 €", prestataire:"Garage Central"}},
+        {f:"scan001.pdf", np:5, type:"rib", conf:83, txt:"RELEVE D'IDENTITE BANCAIRE\ntitulaire : P. Schmit\nIBAN LU28 0019 4006 4475 0000", champs:{iban:"LU28 0019 4006 4475 0000"}}
+      ]
+    }
+  ];
+
+  // ------------------------------------------------------------------
+  // Les motifs qui lisent le corps du mail. Une forme fixe se repere sans
+  // modele, et se rejoue a l'identique : c'est la premiere couche, la moins
+  // chere et la seule auditable telle quelle.
+  // ------------------------------------------------------------------
+  var MOTIFS = [
+    {cle:"sinistre",  nom:"Numéro de sinistre", re:/\bSIN-\d{4}-\d{4,6}\b/},
+    {cle:"contrat",   nom:"Numéro de contrat",  re:/\bCTR-\d{6,9}\b/},
+    {cle:"affilie",   nom:"Numéro d'affilié",   re:/\b\d{13}\b/},
+    {cle:"immat",     nom:"Immatriculation",    re:/\b[A-Z]{2}\s?\d{3,4}\b/},
+    {cle:"iban",      nom:"IBAN",               re:/\bLU\d{2}(?:\s?[0-9A-Z]{4}){3}\s?[0-9A-Z]{4}\b/}
+  ];
+  // les dates ne se resument pas a une forme : le mail en porte souvent
+  // plusieurs, et c'est le mot qui precede qui dit laquelle est laquelle
+  var DATES = [
+    {cle:"declaration", nom:"Date de déclaration", re:/déclaré le\s+(\d{2}\/\d{2}\/\d{4})/},
+    {cle:"survenance",  nom:"Date de survenance",  re:/(?:accident date du|sinistre du)\s+(\d{2}\/\d{2}\/\d{4})/},
+    {cle:"soins",       nom:"Date des soins",      re:/soins du\s+(\d{2}\/\d{2}\/\d{4})/}
+  ];
+
+  // ce que chaque categorie de demande exige pour que le dossier soit complet
+  var DEMANDES = [
+    {cle:"declaration", nom:"Déclarer un sinistre auto", mots:["accident","constat","rayé","choc"],
+     champs:[["contrat","Numéro de contrat"],["survenance","Date de survenance"],["immat","Immatriculation"],
+             ["circonstances","Circonstances"],["montant","Montant réclamé"],["iban","IBAN de règlement"]]},
+    {cle:"sante", nom:"Demander un remboursement santé", mots:["remboursement","ordonnance","cns","soins","médicaux"],
+     champs:[["contrat","Numéro de contrat"],["affilie","Numéro d'affilié"],["soins","Date des soins"],
+             ["montant","Montant des soins"],["reste","Reste à charge"],["iban","IBAN de règlement"]]},
+    {cle:"complement", nom:"Compléter un dossier existant", mots:["documents demandés","ci-joint","pièces"],
+     champs:[["sinistre","Numéro de sinistre"],["survenance","Date de survenance"],["immat","Immatriculation"],
+             ["montant","Montant réclamé"],["iban","IBAN de règlement"]]}
+  ];
+
+  var $ = function(id){ return document.getElementById(id); };
+  var m = 0, temps = 0, corrections = {};
+
+  function empreinte(s){          // djb2 : de quoi montrer une empreinte stable
+    var h = 5381;
+    for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
+    return ("00000000" + h.toString(16)).slice(-8);
+  }
+  function esc(s){ return String(s).replace(/[&<>]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]; }); }
+  function norm(s){ return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
+
+  // ce que le modele a repondu (« vu »), et ce qui est retenu apres correction
+  function vuDe(i){ var p = MAILS[m].pages[i]; return p.vu || p.type; }
+  function typeDe(i){ return corrections[m + ":" + i] || vuDe(i); }
+
+  // ---- 5 · l'extraction : le corps du mail, puis les documents ----
+  function extraire(){
+    var mail = MAILS[m], out = {};
+    MOTIFS.forEach(function(p){
+      var r = mail.corps.match(p.re);
+      if (r) out[p.cle] = {v:r[0], src:"corps du mail", meth:"motif"};
+    });
+    DATES.forEach(function(d){
+      var r = norm(mail.corps).match(d.re) || mail.corps.match(d.re);
+      if (r) out[d.cle] = {v:r[1], src:"corps du mail", meth:"motif + mot déclencheur"};
+    });
+    // les pieces ne rendent leurs champs que si leur type est exploitable
+    mail.pages.forEach(function(pg, i){
+      var t = typeDe(i);
+      // la methode d'extraction est celle du type retenu : appliquee a la
+      // mauvaise piece, elle ne trouve rien. Mal classer, c'est perdre.
+      if (t !== pg.type || !TYPES[t].ok) return;
+      Object.keys(pg.champs).forEach(function(k){
+        if (!out[k]) out[k] = {v:pg.champs[k], src:pg.f + ", p. " + pg.np, meth:TYPES[t].meth};
+      });
+    });
+    return out;
+  }
+
+  function nomInfo(cle){
+    var t = MOTIFS.concat(DATES).filter(function(p){ return p.cle === cle; })[0];
+    if (t) return t.nom;
+    return {survenance:"Date de survenance", immat:"Immatriculation", circonstances:"Circonstances",
+            montant:"Montant", prestataire:"Prestataire", tiers:"Tiers identifié", soins:"Date des soins",
+            pris_en_charge:"Part prise en charge", reste:"Reste à charge", iban:"IBAN"}[cle] || cle;
+  }
+
+  // ---- 6 · la demande : ce que le client veut, pas ce que la piece est ----
+  function categoriser(){
+    var t = norm(MAILS[m].objet + " " + MAILS[m].corps), best = null, score = 0;
+    DEMANDES.forEach(function(d){
+      var n = d.mots.filter(function(w){ return t.indexOf(norm(w)) >= 0; }).length;
+      if (n > score) { score = n; best = d; }
+    });
+    return {d:best || DEMANDES[0], conf: score ? Math.min(95, 55 + 13 * score) : 0};
+  }
+
+  // ------------------------------------------------------------------
+  // Le rendu, temps par temps
+  // ------------------------------------------------------------------
+  function peindre(){
+    var mail = MAILS[m];
+    document.querySelectorAll("#file-boutons .dem").forEach(function(b, i){ b.classList.toggle("on", i === m); });
+    document.querySelectorAll(".temps .t").forEach(function(t){
+      var n = +t.dataset.t;
+      t.classList.toggle("fait", n < temps); t.classList.toggle("on", n === temps);
+    });
+    [["c1",1],["c2",3],["c3",4],["c4",5],["c5",6],["c6",6]].forEach(function(p){
+      $(p[0]).classList.toggle("eteint", temps < p[1]);
+    });
+    $("suivant").disabled = temps >= 6;
+    $("suivant").style.opacity = temps >= 6 ? ".4" : "1";
+
+    // 1 · le mail et son coffre
+    $("entete").innerHTML = "De <b>" + esc(mail.de) + "</b> · reçu le " + esc(mail.recu) +
+      "<br>Objet : <b>" + esc(mail.objet) + "</b>";
+    var infos = temps >= 5 ? extraire() : {};
+    var corps = esc(mail.corps);
+    if (temps >= 5) {
+      Object.keys(infos).forEach(function(k){
+        if (infos[k].src !== "corps du mail") return;
+        corps = corps.replace(infos[k].v, "<mark>" + esc(infos[k].v) + "</mark>");
+      });
+    }
+    $("corps").innerHTML = corps;
+    var fichiers = [];
+    mail.pages.forEach(function(p){ if (fichiers.indexOf(p.f) < 0) fichiers.push(p.f); });
+    $("pj").innerHTML = fichiers.map(function(f){
+      var n = mail.pages.filter(function(p){ return p.f === f; }).length;
+      return "<div>" + esc(f) + " · " + n + " p.</div>";
+    }).join("");
+    $("coffre").innerHTML = temps >= 1 ? [
+      ["Identifiant", mail.ref],
+      ["Reçu le", mail.recu],
+      ["Pièces", fichiers.length + " fichier(s), " + mail.pages.length + " page(s)"],
+      ["Empreinte", "sha·" + empreinte(mail.ref + mail.corps)],
+      ["Original", "conservé tel quel, jamais modifié"]
+    ].map(function(l){ return "<div><span>" + l[0] + "</span><code>" + esc(l[1]) + "</code></div>"; }).join("") : "";
+
+    // 2 et 3 · les pages
+    $("pages").innerHTML = mail.pages.map(function(p, i){
+      var t = typeDe(i), corrigee = t !== vuDe(i);
+      var cls = corrigee ? "corrigee" : (temps < 3 ? "" : (p.conf >= 80 ? "sure" : "doute"));
+      var choix = Object.keys(TYPES).map(function(k){
+        return '<option value="' + k + '"' + (k === t ? " selected" : "") + ">" + esc(TYPES[k].nom) + "</option>";
+      }).join("");
+      return '<div class="page ' + cls + (t === "vide" ? " vide" : "") + '">' +
+        '<div class="apercu">' + esc(p.txt).replace(/\n/g, "<br>") + "</div>" +
+        '<div class="np">' + esc(p.f.slice(0, 13)) + " p." + p.np + "</div>" +
+        (temps < 3 ? '<div class="type">à classer</div><div class="conf"></div>'
+                   : '<select data-i="' + i + '">' + choix + "</select>" +
+                     '<div class="conf">' + (corrigee ? "corrigé à la main" : p.conf + " %") + "</div>") +
+        "</div>";
+    }).join("");
+    var doutes = mail.pages.filter(function(p, i){ return temps >= 3 && p.conf < 80 && !corrections[m + ":" + i]; }).length;
+    $("aide-pages").innerHTML = temps < 3 ? "Les pages sont extraites du mail, aucune n'est encore identifiée."
+      : (doutes ? "<b>" + doutes + " page(s) sous 80 % de confiance</b>, en ambre : elles partent en revue humaine. Un fichier mal nommé (« scan001.pdf ») ne donne aucun indice, il faut classer sur le contenu de la page. Une page mal classée ne rend rien : changez son type et regardez le dossier se compléter."
+                : "Toutes les pages sont classées au dessus du seuil. Changez le type de l'une d'elles : le recollage, l'extraction et les actions se refont.");
+
+    // 4 · les documents recolles
+    var docs = [];
+    mail.pages.forEach(function(p, i){
+      var t = typeDe(i), d = docs[docs.length - 1];
+      if (d && d.f === p.f && d.type === t) { d.fin = p.np; d.pages.push(i); }
+      else docs.push({f:p.f, type:t, deb:p.np, fin:p.np, pages:[i]});
+    });
+    $("docs").innerHTML = temps < 4 ? "" : docs.filter(function(d){ return d.type !== "vide"; }).map(function(d){
+      var T = TYPES[d.type];
+      return '<div class="doc' + (T.ok ? "" : " ko") + '"><span class="pastille"></span>' +
+        "<div><b>" + esc(T.nom) + "</b><small>" + esc(d.f) + " · page" + (d.deb === d.fin ? " " + d.deb : "s " + d.deb + " à " + d.fin) + "</small></div>" +
+        '<span class="meth">' + esc(T.meth) + "</span></div>";
+    }).join("") + (docs.some(function(d){ return d.type === "vide"; })
+      ? '<div class="doc" style="opacity:.55"><span class="pastille" style="background:var(--line)"></span><div><b>Page blanche écartée</b><small>une page vide n\'est pas un document</small></div><span class="meth">ignorée</span></div>' : "");
+
+    // 5 · les informations
+    $("infos").innerHTML = temps < 5 ? "" : Object.keys(infos).map(function(k){
+      return "<tr><td>" + esc(nomInfo(k)) + '</td><td class="val">' + esc(infos[k].v) +
+        '</td><td class="src">' + esc(infos[k].src) + "<br>" + esc(infos[k].meth) + "</td></tr>";
+    }).join("");
+    var illisibles = mail.pages.filter(function(p, i){ return !TYPES[typeDe(i)].ok; }).length;
+    $("aide-infos").innerHTML = temps < 5 ? "" : (illisibles
+      ? "<b>" + illisibles + " pièce(s) n'ont rien rendu</b> : une ordonnance manuscrite ne s'extrait pas, elle se lit. C'est une tâche pour un gestionnaire, pas un échec du modèle."
+      : "Chaque valeur porte sa source. Corrigez le type d'une page : les valeurs qu'elle portait disparaissent ou reviennent.");
+
+    // 6 · la demande, le dossier, les actions
+    var cat = categoriser();
+    $("demande").innerHTML = temps < 6 ? "" :
+      "<b>" + esc(cat.d.nom) + '</b> <span class="conf">confiance ' + cat.conf + ' %</span><br>' +
+      "Le type des pièces ne suffisait pas à le dire : un constat accompagne aussi bien une déclaration qu'un dossier déjà ouvert. C'est le corps du mail qui tranche.";
+    var manquants = [];
+    $("dossier").innerHTML = temps < 6 ? "" : cat.d.champs.map(function(c){
+      var v = infos[c[0]];
+      if (!v) manquants.push(c[1]);
+      return "<tr" + (v ? "" : ' class="manque"') + "><td>" + esc(c[1]) + '</td><td class="val">' +
+        (v ? esc(v.v) : "manquant") + '</td><td class="src">' + (v ? esc(v.src) : "à demander") + "</td></tr>";
+    }).join("");
+
+    var actions = [];
+    actions.push({e:"ok", t:"Attacher les pièces au dossier",
+                  d:docs.filter(function(d){ return d.type !== "vide"; }).length + " document(s) rattachés, chacun avec sa page d'origine."});
+    if (illisibles) actions.push({e:"humain", t:"Mettre en revue humaine",
+                  d:illisibles + " pièce(s) illisibles par la machine. Un gestionnaire les lit, sa lecture est stockée comme les autres."});
+    if (cat.d.cle === "declaration")
+      actions.push(infos.contrat && infos.survenance
+        ? {e:"ok", t:"Créer le sinistre", d:"Contrat " + infos.contrat.v + ", survenance " + infos.survenance.v + ". Le dossier peut s'ouvrir."}
+        : {e:"bloque", t:"Créer le sinistre", d:"Il manque le contrat ou la date de survenance. Sans eux, aucun dossier ne s'ouvre."});
+    if (cat.d.cle === "complement")
+      actions.push(infos.sinistre
+        ? {e:"ok", t:"Rattacher au sinistre existant", d:"Sinistre " + infos.sinistre.v + ", trouvé dans le corps du mail."}
+        : {e:"bloque", t:"Rattacher au sinistre existant", d:"Aucun numéro de sinistre trouvé : la pièce reste non rattachée, et c'est une information à suivre."});
+    actions.push(infos.iban && infos.montant
+      ? {e:"ok", t:"Préparer le règlement", d:"Montant " + infos.montant.v + " vers " + infos.iban.v + ". Un humain valide avant l'envoi."}
+      : {e:"bloque", t:"Préparer le règlement", d:"Il manque " + (infos.iban ? "le montant" : "l'IBAN") + ". Rien ne part."});
+    if (manquants.length) actions.push({e:"humain", t:"Demander les pièces manquantes",
+      d:"Un seul message au client, avec la liste complète : " + manquants.join(", ").toLowerCase() + "."});
+    $("actions").innerHTML = temps < 6 ? "" : actions.map(function(a){
+      return '<div class="act ' + a.e + '"><span class="p"></span><div><b>' + esc(a.t) + "</b>" + esc(a.d) + "</div></div>";
+    }).join("");
+  }
+
+  // ------------------------------------------------------------------
+  // Les commandes
+  // ------------------------------------------------------------------
+  $("file-boutons").innerHTML = MAILS.map(function(x, i){
+    var n = x.pages.length;
+    return '<button class="dem" type="button" data-m="' + i + '"><span class="num">' + x.ref.slice(-6) +
+      "</span> " + esc(x.objet) + " · " + n + " p.</button>";
+  }).join("");
+  $("file-boutons").addEventListener("click", function(e){
+    var b = e.target.closest("button[data-m]"); if (!b) return;
+    m = +b.dataset.m; temps = 1; corrections = {}; peindre();
+  });
+  $("pages").addEventListener("change", function(e){
+    var sel = e.target.closest("select[data-i]"); if (!sel) return;
+    corrections[m + ":" + sel.dataset.i] = sel.value;
+    peindre();
+  });
+  $("suivant").addEventListener("click", function(){ if (temps < 6) { temps++; peindre(); } });
+  $("tout").addEventListener("click", function(){ temps = 6; peindre(); });
+  $("reset").addEventListener("click", function(){ temps = 1; corrections = {}; peindre(); });
+
+  temps = 1; peindre();
+  document.body.setAttribute("data-pret", "1");
+})();
+</script>
+</body>
+</html>
