@@ -332,20 +332,179 @@ response_format={"type": "json_object"},</div>
 
   <h3 style="margin:34px 0 6px">3.2 Ce que ça gère, sans que personne l'ait codé</h3>
   <p>C'est ce qui frappe à la première démonstration : le lecteur n'a pas besoin de deviner le vocabulaire du document, la machine fait le pont toute seule. Personne n'a écrit de table de synonymes.</p>
-  <div class="grid grid-3 reveal">
-    <div class="card">
-      <div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg></div><h4>Le mot de l'utilisateur, celui du contrat</h4></div>
-      <p style="font-size:.93rem;margin:0">« comment je résilie » retrouve « procédure de fin de contrat », sans un mot commun. « frais » retrouve « cotisation », « coût mensuel » retrouve « prime ».</p>
-    </div>
-    <div class="card">
-      <div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1L19 8l-3-3L5 16z"/><path d="M14 7l3 3"/></svg></div><h4>Les fautes de frappe</h4></div>
-      <p style="font-size:.93rem;margin:0">« assurence » tombe encore à côté de « assurance », et « resiliation » sans accent trouve la bonne page. Les modèles ont été entraînés sur du texte web, plein de fautes.</p>
-    </div>
-    <div class="card">
-      <div class="h-ico"><div class="ico teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></div><h4>Une langue vers une autre</h4></div>
-      <p style="font-size:.93rem;margin:0">Une question en français retrouve un passage anglais sur le même sujet, si le modèle est multilingue. Utile sur un corpus qui mélange contrats français et correspondance anglaise.</p>
-    </div>
+<!-- exemples-embeddings -->
+  <p class="reveal">Les exemples des articles, un par fiche : la question telle qu'elle arrive, le passage que la recherche par le sens retrouve, et ce que la recherche exacte aurait donné. Passez de l'une à l'autre avec les flèches ou les numéros ; la dernière est le piège.</p>
+  <div class="catalogue reveal">
+    <article class="fiche" data-fam="vecteur" data-nom="La date d'effet">
+      <div class="fiche-haut">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span class="fam"><i></i>CE QUE ÇA GÈRE</span><span class="niv">Exemple 1</span>
+        </div>
+        <div class="kick"><b>Le cas</b><span>Aucun mot en commun</span></div>
+      </div>
+      <div class="trait"></div>
+      <div class="fiche-corps">
+        <div>
+          <h3>La question et le contrat n'ont pas un mot en commun</h3>
+          <p class="st">On cherche la date d'effet. Le contrat ne dit jamais « date d'effet ».</p>
+          <div class="vitaux" style="grid-template-columns:repeat(3,1fr)"><div><span>Mots en commun</span><b class="cher">Aucun</b></div><div><span>Ctrl-F</span><b class="cher">Zéro résultat</b></div><div><span>Par le sens</span><b class="bon">Trouvé · 0,87</b></div></div>
+          <div class="flux">
+            <div class="zone"><span>La question</span><div class="pilule entree">« date d'effet du contrat »</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone milieu"><span>La méthode</span><div class="pilule methode">deux vecteurs,<br>un cosinus</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone"><span>Le passage retrouvé</span><div class="pilule sortie">« la date à laquelle votre couverture commence »</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="lignes"><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span><div><b>Pourquoi ça marche</b><p>Les deux phrases veulent dire la même chose, et le modèle les place au même endroit. La similarité cosinus vaut 0,87 : même sens, vecteurs proches.</p></div></div><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span><div><b>La phrase entière compte</b><p>Le groupe de mots l'emporte sur les mots isolés. « Date » seul irait partout ; « date d'effet du contrat » va au bon paragraphe.</p></div></div><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></span><div><b>Ce que Ctrl-F aurait donné</b><p>Aucun mot commun, zéro résultat. La recherche exacte rate les synonymes, les fautes, les reformulations, les langues.</p></div></div></div>
+          <div class="alerte"><b>À retenir</b><p>Personne n'a écrit de table de synonymes. Le pont entre le mot du lecteur et le mot du contrat, c'est le modèle qui le fait.</p></div>
+        </div>
+      </div>
+      <div class="fiche-pied"><span class="src">article 4 · section 4</span><span>Chercher sans mots communs</span></div>
+    </article>
+    <article class="fiche" data-fam="vecteur" data-nom="Résilier">
+      <div class="fiche-haut">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span class="fam"><i></i>CE QUE ÇA GÈRE</span><span class="niv">Exemple 2</span>
+        </div>
+        <div class="kick"><b>Le cas</b><span>Le mot du client, celui du contrat</span></div>
+      </div>
+      <div class="trait"></div>
+      <div class="fiche-corps">
+        <div>
+          <h3>« comment je résilie » retrouve « procédure de fin de contrat »</h3>
+          <p class="st">Le client parle comme il parle. Le contrat parle comme un contrat.</p>
+          <div class="vitaux" style="grid-template-columns:repeat(3,1fr)"><div><span>Mots en commun</span><b class="cher">Aucun</b></div><div><span>Ctrl-F</span><b class="cher">Zéro résultat</b></div><div><span>Par le sens</span><b class="bon">Trouvé</b></div></div>
+          <div class="flux">
+            <div class="zone"><span>La question</span><div class="pilule entree">« comment je résilie »</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone milieu"><span>La méthode</span><div class="pilule methode">deux vecteurs,<br>un cosinus</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone"><span>Le passage retrouvé</span><div class="pilule sortie">« procédure de fin de contrat »</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="lignes"><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span><div><b>Pourquoi ça marche</b><p>« Résilier » et « fin de contrat » ont été vus des millions de fois dans les mêmes contextes. Le modèle les a rangés côte à côte.</p></div></div><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span><div><b>Le même pont, partout</b><p>« Frais » retrouve « cotisation ». « Coût mensuel » retrouve « prime ». « Je veux arrêter » retrouve la même procédure.</p></div></div><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></span><div><b>Sans dictionnaire</b><p>Au module 02, il fallait écrire la table de synonymes à la main, et la maintenir. Ici, personne ne l'écrit.</p></div></div></div>
+          <div class="alerte"><b>À retenir</b><p>C'est ce qui frappe à la première démonstration : le lecteur n'a pas besoin de deviner le vocabulaire du document.</p></div>
+        </div>
+      </div>
+      <div class="fiche-pied"><span class="src">module 03 · 3.2</span><span>Le vocabulaire du client</span></div>
+    </article>
+    <article class="fiche" data-fam="vecteur" data-nom="Les fautes">
+      <div class="fiche-haut">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span class="fam"><i></i>CE QUE ÇA GÈRE</span><span class="niv">Exemple 3</span>
+        </div>
+        <div class="kick"><b>Le cas</b><span>Les fautes de frappe</span></div>
+      </div>
+      <div class="trait"></div>
+      <div class="fiche-corps">
+        <div>
+          <h3>« assurence » tombe encore à côté de « assurance »</h3>
+          <p class="st">Et « resiliation » sans accent trouve la bonne page.</p>
+          <div class="vitaux" style="grid-template-columns:repeat(3,1fr)"><div><span>Orthographe</span><b class="cher">Fausse</b></div><div><span>Ctrl-F</span><b class="cher">Zéro résultat</b></div><div><span>Par le sens</span><b class="bon">Trouvé</b></div></div>
+          <div class="flux">
+            <div class="zone"><span>La question</span><div class="pilule entree">« resiliation assurence »</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone milieu"><span>La méthode</span><div class="pilule methode">deux vecteurs,<br>un cosinus</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone"><span>Le passage retrouvé</span><div class="pilule sortie">« Résiliation du contrat d'assurance »</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="lignes"><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span><div><b>Pourquoi ça marche</b><p>Les modèles ont été entraînés sur du texte web, plein de fautes. « assurence » y côtoie « assurance », dans les mêmes phrases.</p></div></div><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span><div><b>Ce que la regex faisait</b><p>Le fuzzy du module 02 attrapait la faute, à condition de fixer une distance. Ici la tolérance vient avec le modèle.</p></div></div><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></span><div><b>La limite</b><p>Une faute qui change le sens n'est pas rattrapée : « prime » et « prise » sont deux mots, pas une faute.</p></div></div></div>
+          <div class="alerte"><b>À retenir</b><p>La faute de frappe n'est plus un cas à traiter. C'est le texte tel qu'il arrive qui est encodé.</p></div>
+        </div>
+      </div>
+      <div class="fiche-pied"><span class="src">module 03 · 3.2</span><span>Le texte tel qu'il arrive</span></div>
+    </article>
+    <article class="fiche" data-fam="vecteur" data-nom="Deux langues">
+      <div class="fiche-haut">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span class="fam"><i></i>CE QUE ÇA GÈRE</span><span class="niv">Exemple 4</span>
+        </div>
+        <div class="kick"><b>Le cas</b><span>Une langue vers une autre</span></div>
+      </div>
+      <div class="trait"></div>
+      <div class="fiche-corps">
+        <div>
+          <h3>« Green Card » retrouve « carte verte »</h3>
+          <p class="st">Une question en français retrouve un passage anglais sur le même sujet.</p>
+          <div class="vitaux" style="grid-template-columns:repeat(3,1fr)"><div><span>Mots en commun</span><b class="cher">Aucun</b></div><div><span>Langues</span><b class="neutre">Deux</b></div><div><span>Par le sens</span><b class="bon">Trouvé</b></div></div>
+          <div class="flux">
+            <div class="zone"><span>La question</span><div class="pilule entree">« Green Card »</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone milieu"><span>La méthode</span><div class="pilule methode">un modèle<br>multilingue</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone"><span>Le passage retrouvé</span><div class="pilule sortie">« la carte verte, certificat international d'assurance »</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="lignes"><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span><div><b>Pourquoi ça marche</b><p>Un modèle multilingue place « carte verte » et « Green Card » au même endroit : le sens est encodé, pas la langue.</p></div></div><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span><div><b>Où ça sert</b><p>Un corpus qui mélange contrats français et correspondance anglaise, une réclamation en anglais sur un contrat en français.</p></div></div><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></span><div><b>La condition</b><p>Le modèle doit être multilingue. Un modèle anglais seul range le français n'importe où.</p></div></div></div>
+          <div class="alerte"><b>À retenir</b><p>La langue de la question et celle du document n'ont plus à être les mêmes.</p></div>
+        </div>
+      </div>
+      <div class="fiche-pied"><span class="src">article 4 · section 4</span><span>Le sens, pas la langue</span></div>
+    </article>
+    <article class="fiche" data-fam="stat" data-nom="Ce que ça pèse">
+      <div class="fiche-haut">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span class="fam"><i></i>MESURÉ</span><span class="niv">Exemple 5</span>
+        </div>
+        <div class="kick"><b>Le cas</b><span>Sur un corpus de contrats</span></div>
+      </div>
+      <div class="trait"></div>
+      <div class="fiche-corps">
+        <div>
+          <h3>La bonne page dans les dix premiers résultats : 33 %, 83 %, 92 %</h3>
+          <p class="st">Mots-clés seuls, embeddings seuls, les deux ensemble.</p>
+          <div class="vitaux" style="grid-template-columns:repeat(3,1fr)"><div><span>Mots-clés</span><b class="cher">33 %</b></div><div><span>Embeddings</span><b class="moyen">83 %</b></div><div><span>Les deux</span><b class="bon">92 %</b></div></div>
+          <div class="flux">
+            <div class="zone"><span>La question</span><div class="pilule entree">une question<br>d'assuré</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone milieu"><span>La méthode</span><div class="pilule methode">mots-clés<br>+ vecteurs</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone"><span>Le passage retrouvé</span><div class="pilule sortie">la bonne page,<br>dans les dix premières</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="lignes"><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span><div><b>Ce que dit la mesure</b><p>Les embeddings font le gros du chemin. Les mots-clés rattrapent ce qui leur échappe : un code, une référence, un nom propre.</p></div></div><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span><div><b>Pourquoi les deux</b><p>Un numéro de contrat n'a aucun sens pour un modèle, et tout pour une recherche exacte. Les deux recherches ne ratent pas les mêmes choses.</p></div></div><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></span><div><b>Où ça mène</b><p>C'est la brique « chercher » du RAG, section 6 : on filtre vite et pour presque rien, et le modèle répond sur les passages retenus.</p></div></div></div>
+          <div class="alerte"><b>À retenir</b><p>Ni l'un ni l'autre seul. La recherche qui marche combine le sens et l'exact.</p></div>
+        </div>
+      </div>
+      <div class="fiche-pied"><span class="src">article 7 · section 3</span><span>Le sens et l'exact, ensemble</span></div>
+    </article>
+    <article class="fiche" data-fam="llm" data-nom="Le piège">
+      <div class="fiche-haut">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span class="fam"><i></i>LE PIÈGE</span><span class="niv">Exemple 6</span>
+        </div>
+        <div class="kick"><b>Le cas</b><span>Une ressemblance, pas une réponse</span></div>
+      </div>
+      <div class="trait"></div>
+      <div class="fiche-corps">
+        <div>
+          <h3>« Capitale de la France ? » est très proche de « Capitale de l'Italie ? »</h3>
+          <p class="st">Même forme, réponses différentes.</p>
+          <div class="vitaux" style="grid-template-columns:repeat(3,1fr)"><div><span>Mots en commun</span><b class="neutre">Presque tous</b></div><div><span>Par le sens</span><b class="cher">Très proche</b></div><div><span>Réponse</span><b class="cher">Fausse</b></div></div>
+          <div class="flux">
+            <div class="zone"><span>La question</span><div class="pilule entree">« Capitale de la France ? »</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone milieu"><span>La méthode</span><div class="pilule methode">deux vecteurs,<br>un cosinus</div></div>
+            <div class="fleche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            <div class="zone"><span>Le passage retrouvé</span><div class="pilule sortie">« Capitale de l'Italie ? »</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="lignes"><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span><div><b>Pourquoi ça rate</b><p>Un embedding mesure une ressemblance. Deux questions de même forme se ressemblent, quelle que soit la réponse.</p></div></div><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span><div><b>En assurance</b><p>« Franchise bris de glace » et « franchise vol » se ressemblent autant. Le passage remonté peut être celui de l'autre garantie.</p></div></div><div class="l"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.5 1 2.5h6c0-1 .4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></span><div><b>La parade</b><p>Les embeddings filtrent, le grand modèle lit les passages retenus et répond. La répartition des rôles est à la section 6, le RAG.</p></div></div></div>
+          <div class="alerte"><b>À retenir</b><p>Un embedding dit « ça parle de la même chose ». Il ne dit jamais « c'est la réponse ».</p></div>
+        </div>
+      </div>
+      <div class="fiche-pied"><span class="src">articles 4 et 7</span><span>Ressembler n'est pas répondre</span></div>
+    </article>
   </div>
+  <!-- /exemples-embeddings -->
 
   <h3 style="margin:34px 0 6px">3.3 Ce que ça ne gère pas, et qu'un modèle plus gros ne répare pas</h3>
   <p>Chacun de ces cas est la règle, pas l'exception, sur un corpus d'entreprise. Ils sont reproductibles, et le classement obtenu ne dépend pas du budget qu'on met dans le modèle.</p>
