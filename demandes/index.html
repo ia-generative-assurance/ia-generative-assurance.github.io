@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demandes clients · démonstration</title>
+<link rel="stylesheet" href="shared/style.css">
+<style>
+  body:has(.app-nav) { display: flex; flex-direction: column; height: 100vh; margin: 0; }
+  body:has(.app-nav) > .app-nav { flex: none; }
+  body:has(.app-nav) > .an-vue { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .dm-vue { padding: 14px 18px; height: 100%; overflow-y: auto; box-sizing: border-box; }
+  .dm-vue.plein { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+  @media (max-width: 900px) {
+    body:has(.app-nav) { height: auto; }
+    body:has(.app-nav) > .an-vue { display: block; }
+    .dm-vue.plein { display: block; }
+  }
+
+  /* --- la file --- */
+  .dm-filtres { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
+  .dm-filtre {
+    border: 1px solid var(--line); background: var(--card); color: var(--muted);
+    border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 12px; cursor: pointer;
+  }
+  .dm-filtre b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .dm-filtre.on { border-color: var(--accent); background: var(--accent-bg); color: var(--accent); }
+  .dm-filtre.on b { color: var(--accent); }
+  .dm-filtre:disabled { opacity: .45; cursor: default; }
+  .dm-sel { padding: 3px 6px; border: 1px solid var(--line); border-radius: 6px;
+            background: var(--card); font: inherit; font-size: 12px; color: var(--ink); }
+  .dm-filtres .dm-sel { flex: 0 0 auto; max-width: 240px; }
+  .dm-cherche {
+    margin-left: auto; height: 28px; padding: 0 10px; min-width: 230px; flex: 0 0 auto;
+    border: 1px solid var(--line); border-radius: 6px; font: inherit; font-size: 12.5px;
+    background: var(--card);
+  }
+  .dm-grille { flex: 1; min-height: 320px; }
+  .dm-arret { font-size: 11.5px; color: var(--muted); }
+
+  /* --- une couleur par equipe, et une seule --- */
+  .dm-chip {
+    display: inline-block; font-size: 11px; font-weight: 600; border-radius: 999px;
+    padding: 1px 8px; margin: 1px 3px 1px 0; border: 1px solid transparent; white-space: nowrap;
+  }
+  .dm-chip.contrats { background: #eef2ff; color: #3730a3; }
+  .dm-chip.encaissement { background: #ecfdf5; color: #065f46; }
+  .dm-chip.relation { background: #f0f9ff; color: #075985; }
+  .dm-chip.sinistres { background: #fff7ed; color: #9a3412; }
+  .dm-chip.fidelisation { background: #fdf2f8; color: #9d174d; }
+  .dm-chip.reclamations { background: #fef2f2; color: #991b1b; }
+  .dm-chip.qualification { background: var(--line-soft); color: var(--muted); }
+  .dm-chip .c { opacity: .7; font-weight: 500; margin-left: 4px; }
+  .dm-chip.faible { border-style: dashed; border-color: currentColor; opacity: .85; }
+  .dm-sortie { font-weight: 600; }
+  .dm-sortie.routee { color: #047857; }
+  .dm-sortie.a_qualifier { color: #b45309; }
+  .dm-canal { display: inline-block; font-size: 10.5px; font-weight: 700; border-radius: 999px;
+              padding: 1px 7px; margin-left: 6px; background: #eef2ff; color: #3730a3; }
+
+  /* --- la demande : la source a gauche, la lecture a droite --- */
+  .dm-tete { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .dm-titre { margin: 0; font-size: 16px; font-weight: 600; }
+  .dm-sous { margin: 0; color: var(--muted); font-size: 12.5px; }
+  .dm-deux { display: grid; grid-template-columns: minmax(0, 1fr) minmax(420px, 50%);
+             gap: 14px; align-items: start; }
+  @media (max-width: 1100px) { .dm-deux { grid-template-columns: 1fr; } }
+  .dm-gauche { position: sticky; top: 0; display: flex; flex-direction: column; gap: 8px;
+               max-height: calc(100vh - 120px); }
+  .dm-onglets { display: flex; gap: 6px; flex-wrap: wrap; }
+  .dm-onglet {
+    border: 1px solid var(--line); background: var(--card); color: var(--muted);
+    border-radius: 999px; padding: 4px 12px; font: inherit; font-size: 12px; cursor: pointer;
+  }
+  .dm-onglet.on { border-color: var(--accent); background: var(--accent-bg); color: var(--accent); }
+  .dm-onglet.douteux { border-left: 3px solid #7c3aed; }
+  .dm-mail { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+             overflow-y: auto; min-height: 0; }
+  .dm-part { padding: 10px 14px; border-bottom: 1px solid var(--line-soft); }
+  .dm-part:last-child { border-bottom: 0; }
+  .dm-part .quoi { font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em;
+                   color: var(--muted); margin-bottom: 3px; }
+  .dm-part .texte { font-size: 13px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .dm-part mark { border-radius: 2px; padding: 0 1px; background: #fde68a; }
+  .dm-part mark.on { background: #fb923c; color: #fff; }
+  .dm-vide-texte { color: var(--muted); font-style: italic; }
+  .dm-visionneuse { flex: 1; min-height: 520px; border: 1px solid var(--line);
+                    border-radius: 10px; background: var(--card); overflow: hidden; }
+  .dm-client { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+               padding: 12px 14px; overflow-y: auto; font-size: 12.5px; }
+  .dm-client dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; margin: 0; }
+  .dm-client dt { color: var(--muted); } .dm-client dd { margin: 0; }
+  .dm-client h4 { margin: 12px 0 5px; font-size: 12px; }
+  .dm-client table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .dm-client td, .dm-client th { padding: 3px 6px; border-bottom: 1px solid var(--line-soft);
+                                  text-align: left; }
+  .dm-droite { min-width: 0; }
+
+  .dm-bar {
+    display: flex; align-items: flex-start; gap: 18px; flex-wrap: wrap;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 16px; margin-bottom: 10px;
+  }
+  .dm-score { font-size: 30px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; }
+  .dm-score.hi { color: #047857; } .dm-score.md { color: #b45309; } .dm-score.lo { color: #b91c1c; }
+  .dm-formule { font-size: 11px; color: var(--muted); margin-top: 4px; max-width: 420px; }
+  .dm-conclu { flex: 1; min-width: 220px; font-size: 12.5px; }
+  .dm-conclu .m { color: var(--muted); }
+  .dm-h { margin: 14px 0 6px; font-size: 12.5px; font-weight: 700; }
+  .dm-h .aide { font-weight: 400; color: var(--muted); }
+  .dm-note { font-size: 12px; color: var(--muted); margin: 6px 0 10px; }
+  .dm-fait { background: #f0fdf4; border: 1px solid #a7f3d0; color: #065f46;
+             border-radius: 8px; padding: 8px 12px; font-size: 12.5px; margin-bottom: 8px; }
+  .dm-alerte { background: #fff8e6; border: 1px solid #fde68a; color: #92400e;
+               border-radius: 8px; padding: 8px 12px; font-size: 12.5px; margin-bottom: 8px; }
+
+  /* --- les sous-scores, en colonne --- */
+  .dm-s {
+    display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 10px; align-items: baseline;
+    background: var(--card); border: 1px solid var(--line); border-left-width: 3px;
+    border-radius: 8px; padding: 7px 12px; font-size: 12.5px; margin-bottom: 5px;
+  }
+  .dm-s.plein { border-left-color: #10b981; } .dm-s.partiel { border-left-color: #f59e0b; }
+  .dm-s.vide { border-left-color: #dc2626; }
+  .dm-s .pts { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .dm-s.plein .pts { color: #047857; } .dm-s.partiel .pts { color: #b45309; } .dm-s.vide .pts { color: #b91c1c; }
+  .dm-s .obs { display: block; color: var(--muted); font-size: 12px; }
+
+  /* --- les etiquettes et leur preuve --- */
+  .dm-et {
+    background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 12px; margin-bottom: 6px; font-size: 12.5px;
+  }
+  .dm-et .l { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .dm-et .conf { font-variant-numeric: tabular-nums; font-weight: 700; }
+  .dm-et .eq { color: var(--muted); font-size: 11.5px; }
+  .dm-et .retirer { margin-left: auto; border: 1px solid var(--line); background: var(--bg);
+                    border-radius: 6px; font: inherit; font-size: 11px; padding: 2px 8px;
+                    cursor: pointer; color: var(--muted); }
+  .dm-et .retirer:hover { color: #b91c1c; border-color: #b91c1c; }
+  .dm-preuves { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
+  .dm-preuve { border: 1px solid #fde68a; background: #fffbeb; color: #78350f; border-radius: 6px;
+               padding: 1px 7px; font-size: 11.5px; cursor: pointer; font-family: inherit; }
+  .dm-preuve:hover { background: #fde68a; }
+  .dm-preuve.piece { border-color: #ddd6fe; background: #f5f3ff; color: #4c1d95; }
+  .dm-ajout { display: flex; gap: 6px; align-items: center; margin: 6px 0; }
+  .dm-gestes { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+  .dm-gestes button, .dm-btn {
+    border: 1px solid var(--line); background: var(--card); color: var(--ink);
+    border-radius: 8px; padding: 7px 14px; font: inherit; font-size: 12.5px; cursor: pointer;
+  }
+  .dm-gestes button:hover, .dm-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .dm-gestes button.on, .dm-btn.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .dm-gestes button.valider, .dm-btn.valider { background: #047857; border-color: #047857; color: #fff; }
+  .dm-gestes button:disabled, .dm-btn:disabled { opacity: .45; cursor: default; }
+
+  /* --- l'extraction par etiquette --- */
+  .dm-lect { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+             padding: 12px 14px; margin-bottom: 10px; }
+  .dm-lect .tete { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .dm-etat { font-size: 11px; font-weight: 700; border-radius: 999px; padding: 1px 8px; }
+  .dm-etat.a_extraire { background: var(--line-soft); color: var(--muted); }
+  .dm-etat.a_verifier { background: #fff8e6; color: #92400e; }
+  .dm-etat.bloque { background: #fef2f2; color: #991b1b; }
+  .dm-etat.pret { background: #ecfdf5; color: #065f46; }
+  .dm-etat.validee { background: #047857; color: #fff; }
+  .dm-etat.traitee { background: #1e293b; color: #fff; }
+  .dm-etat.sans_extraction { background: var(--line-soft); color: var(--muted); }
+  .dm-champs { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 8px; }
+  .dm-champs th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em;
+                  color: var(--muted); padding: 4px 6px; border-bottom: 1px solid var(--line); font-weight: 600; }
+  .dm-champs td { padding: 4px 6px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  .dm-champs td.var { font-family: var(--mono, monospace); font-size: 11.5px; color: var(--muted);
+                      white-space: nowrap; }
+  .dm-champs input { width: 100%; box-sizing: border-box; font: inherit; font-size: 12.5px;
+                     padding: 3px 6px; border: 1px solid var(--line); border-radius: 5px;
+                     background: var(--bg); }
+  .dm-champs input:disabled { background: transparent; border-color: transparent; color: var(--ink); }
+  .dm-champs .src { font-size: 11px; color: var(--accent); cursor: pointer; }
+  .dm-ctrl { display: grid; gap: 4px; margin-top: 8px; }
+  .dm-c { display: grid; grid-template-columns: 18px 1fr; gap: 8px; font-size: 12px; }
+  .dm-c .m { font-weight: 700; }
+  .dm-c.ok .m { color: #047857; } .dm-c.ko .m { color: #b91c1c; } .dm-c.na .m { color: var(--muted); }
+  .dm-c.ko { color: #991b1b; }
+  .dm-c .att { color: var(--muted); }
+  details.dm-json { margin-top: 8px; font-size: 12px; }
+  details.dm-json pre { background: var(--bg); border: 1px solid var(--line); border-radius: 6px;
+                        padding: 8px 10px; font-size: 11.5px; overflow-x: auto; margin: 6px 0 0; }
+  .dm-ret { background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 8px; padding: 10px 12px;
+            margin-top: 8px; font-size: 12.5px; }
+  .dm-ret .sc { font-size: 22px; font-weight: 700; color: #9d174d; font-variant-numeric: tabular-nums; }
+  .dm-ret .t { display: grid; grid-template-columns: 52px 1fr; gap: 2px 8px; margin-top: 4px; font-size: 12px; }
+  .dm-ret .act { margin-top: 6px; font-weight: 650; }
+
+  /* --- les equipes --- */
+  .dm-equipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+  .dm-eq { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+           padding: 12px 14px; cursor: pointer; text-align: left; font: inherit; }
+  .dm-eq:hover { border-color: var(--accent); }
+  .dm-eq b { font-size: 14px; }
+  .dm-eq .n { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .dm-eq .q { font-size: 11.5px; color: #b45309; }
+  .dm-eq .ets { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+  .dm-vide { color: var(--muted); font-style: italic; padding: 22px; text-align: center; }
+</style>
+</head>
+
+<body>
+
+<section id="vueDemandes" class="an-vue">
+  <div class="dm-vue plein" id="dmNiveaux">
+    <p class="status"><span class="spin"></span> Lecture des demandes…</p>
+  </div>
+</section>
+<section id="vueEquipes" class="an-vue" hidden></section>
+<section id="vueReglage" class="an-vue" hidden></section>
+<section id="vueSuivi" class="an-vue" hidden></section>
+<section id="vueParametres" class="an-vue" hidden></section>
+<section id="vueDev" class="an-vue" hidden></section>
+
+<script src="shared/vendor/ag-grid-community.min.js"></script>
+<link rel="stylesheet" href="shared/vendor/ag-grid.css">
+<link rel="stylesheet" href="shared/vendor/ag-theme-quartz.css">
+<script src="shared/icons.js"></script>
+<script src="shared/session.js"></script>
+<script src="shared/pdf-viewer.js"></script>
+<script src="shared/route.js"></script>
+<script src="shared/app-nav.js"></script>
+<script src="data.js"></script>
+<script src="shim.js"></script>
+<script src="assets/app.js"></script>
+<script>
+AppNav.monter({
+  app: "Demandes clients",
+  icone: "🏷️",
+  vues: [
+    { cle: "demandes", label: "Les demandes", hote: "#vueDemandes" },
+    { cle: "equipes", label: "Les équipes", hote: "#vueEquipes",
+      monter: (h) => Demandes.monterEquipes(h), rafraichir: (h) => Demandes.monterEquipes(h) },
+    { cle: "reglage", label: "Réglage", hote: "#vueReglage",
+      monter: (h) => Demandes.monterReglage(h), rafraichir: (h) => Demandes.monterReglage(h) },
+  ],
+});
+</script>
+<style>body{padding-bottom:36px !important}.an-lanceur,.app-nav select{display:none !important}</style><div style="position:fixed;left:0;right:0;bottom:0;z-index:2147483647;background:#fff8e6;border-top:1px solid #fde68a;color:#78350f;font:12.5px/1.6 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;padding:7px 16px;display:flex;gap:14px;align-items:center;justify-content:space-between"><span><b>Démonstration statique</b> · l’écran réel de l’app, avec quarante demandes fictives enregistrées et leurs extractions. Aucun serveur : ce que vous validez ne survit pas au rechargement.</span><a href="../index.html" style="color:#b45309;white-space:nowrap">← le site</a></div></body>
+</html>
