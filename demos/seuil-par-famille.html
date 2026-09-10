@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le seuil, famille par famille : ce qu'on automatise, ce que ça coûte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#13264A; --crimson:#BA1C3A; --steel:#3B547D; --teal:#1F6F6B; --amber:#92661D;
+    --sand:#E9E4E1; --sand-l:#F7F4F2; --line:#dcd8d4; --ink:#1f2733; --soft:#4a5567; --muted:#78828f;
+    --display:"Manrope","Segoe UI",sans-serif; --sans:"Inter","Segoe UI",Arial,sans-serif;
+    --mono:"JetBrains Mono",Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink);background:var(--sand-l);padding:14px 14px 26px;font-size:14.5px}
+  .wrap{max-width:1180px;margin:0 auto}
+
+  .top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--navy);color:#fff;
+       border-radius:12px;padding:11px 16px;margin-bottom:12px}
+  .top .logo{width:30px;height:30px;border-radius:8px;background:var(--crimson);color:#fff;display:grid;
+             place-items:center;font-family:var(--display);font-weight:800;font-size:.95rem;flex:none}
+  .top b{font-family:var(--display);font-size:.98rem;display:block;line-height:1.15}
+  .top .qui{display:flex;align-items:center;gap:10px}
+  .top .qui span{font-size:.76rem;color:#a9b7cc}
+  .top .mode{margin-left:auto;font-size:.78rem;color:#c6d1e2;max-width:430px;line-height:1.45}
+
+  .carte{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+         box-shadow:0 1px 2px rgba(19,38,74,.05),0 6px 18px rgba(19,38,74,.045)}
+  .carte h2{font-family:var(--display);font-size:.95rem;margin:0 0 3px;color:var(--navy)}
+  .carte .sub{margin:0 0 11px;font-size:.79rem;color:var(--muted);line-height:1.45}
+  .lab{font-family:var(--display);font-size:.68rem;font-weight:800;letter-spacing:.12em;
+       text-transform:uppercase;color:var(--muted)}
+
+  /* 1. le bandeau des totaux */
+  .totaux{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
+  @media(max-width:760px){.totaux{grid-template-columns:1fr 1fr}}
+  .tot{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .tot.fort{background:var(--navy);border-color:var(--navy)}
+  .tot.fort .lab,.tot.fort .u{color:#a9b7cc}
+  .tot.fort .v{color:#fff}
+  .tot.mal{border-color:#f0c9d2;background:#fdf6f8}
+  .tot .v{font-family:var(--display);font-weight:800;font-size:1.55rem;color:var(--navy);line-height:1.1;margin-top:5px}
+  .tot .v.rouge{color:var(--crimson)}
+  .tot .u{font-size:.75rem;color:var(--muted);margin-top:2px;line-height:1.4}
+
+  /* 2. les trois manettes globales */
+  .manettes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+  @media(max-width:860px){.manettes{grid-template-columns:1fr}}
+  .man{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;
+       flex-direction:column;gap:7px}
+  .man .t{font-family:var(--display);font-weight:800;font-size:.87rem;color:var(--navy)}
+  .man .d{font-size:.77rem;color:var(--muted);line-height:1.5;flex:1}
+  .man .r{font-size:.78rem;color:var(--teal);font-weight:600;min-height:1.35em;line-height:1.4}
+  .bascule{display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-size:.82rem;color:var(--soft)}
+  .bascule input{width:0;height:0;opacity:0;position:absolute}
+  .bascule .piste{width:40px;height:22px;border-radius:999px;background:var(--sand);border:1px solid var(--line);
+                  position:relative;transition:background .15s;flex:none}
+  .bascule .piste::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;
+                         background:#fff;box-shadow:0 1px 3px rgba(19,38,74,.3);transition:left .15s}
+  .bascule input:checked + .piste{background:var(--teal);border-color:var(--teal)}
+  .bascule input:checked + .piste::after{left:20px}
+  .bascule input:focus-visible + .piste{outline:2px solid var(--steel);outline-offset:2px}
+  .btn{font:inherit;font-size:.8rem;font-weight:600;background:#fff;border:1px solid var(--line);
+       border-radius:999px;padding:6px 13px;cursor:pointer;color:var(--soft);align-self:flex-start}
+  .btn:hover{border-color:var(--steel);color:var(--navy)}
+  .btn.plein{background:var(--crimson);border-color:var(--crimson);color:#fff}
+  .btn.plein:hover{background:#d42749}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer}
+  input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:var(--sand)}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;
+        background:var(--navy);border:2px solid #fff;box-shadow:0 1px 3px rgba(19,38,74,.4);margin-top:-6px}
+  input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:var(--sand)}
+  input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:var(--navy);
+        border:2px solid #fff;box-shadow:0 1px 3px rgba(19,38,74,.4)}
+  input[type=range]:focus-visible{outline:2px solid var(--steel);outline-offset:2px;border-radius:4px}
+
+  /* 3. la grille : le tableau des familles, et la courbe */
+  .grille{display:grid;grid-template-columns:1.35fr 1fr;gap:12px;align-items:start}
+  @media(max-width:980px){.grille{grid-template-columns:1fr}}
+
+  table{width:100%;border-collapse:collapse;font-size:.8rem}
+  thead th{text-align:right;font-family:var(--display);font-size:.66rem;font-weight:800;letter-spacing:.07em;
+           text-transform:uppercase;color:var(--muted);padding:0 6px 7px;border-bottom:1px solid var(--line);
+           white-space:nowrap;vertical-align:bottom}
+  thead th:first-child,thead th:nth-child(2){text-align:left}
+  tbody td{padding:7px 6px;border-bottom:1px solid var(--sand-l);text-align:right;vertical-align:middle}
+  tbody td:first-child,tbody td:nth-child(2){text-align:left}
+  tbody tr{cursor:pointer}
+  tbody tr:hover{background:var(--sand-l)}
+  tbody tr.on{background:#eef1f6}
+  tbody tr.on td:first-child{box-shadow:inset 3px 0 0 var(--navy)}
+  .nom{font-weight:600;color:var(--navy);line-height:1.3}
+  .dom{font-size:.7rem;color:var(--muted)}
+  .crit{display:inline-block;font-size:.66rem;font-weight:700;border-radius:999px;padding:2px 8px;white-space:nowrap}
+  .crit.c1{background:var(--sand-l);color:var(--muted)}
+  .crit.c2{background:#fdf3e2;color:var(--amber)}
+  .crit.c3{background:#fbeef1;color:var(--crimson)}
+  .num{font-family:var(--mono);font-size:.78rem}
+  .num.mal{color:var(--crimson);font-weight:500}
+  .num.zero{color:var(--muted)}
+  .seuilcell{width:132px}
+  .seuilcell input{width:88px;vertical-align:middle}
+  .seuilcell b{font-family:var(--mono);font-size:.76rem;color:var(--navy);margin-left:6px}
+  .barre{height:5px;border-radius:3px;background:var(--sand);overflow:hidden;margin-top:3px}
+  .barre i{display:block;height:100%;background:var(--steel)}
+
+  .legende{display:flex;gap:14px;flex-wrap:wrap;font-size:.76rem;color:var(--soft);margin:8px 0 0}
+  .legende span{display:inline-flex;align-items:center;gap:6px}
+  .legende svg{flex:none}
+  .phrase{margin:11px 0 0;font-size:.8rem;color:var(--soft);line-height:1.55;border-left:3px solid var(--crimson);
+          padding-left:11px}
+  .pied{margin:14px 0 0;font-size:.76rem;color:var(--muted);line-height:1.6}
+  .pied b{color:var(--soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="qui">
+      <div class="logo">T</div>
+      <div><b>Console de tri du courrier</b><span>dix familles, un seuil par famille</span></div>
+    </div>
+    <div class="mode">Déplacez un seuil : au-dessus, le mail est traité tout seul ; en dessous, il revient à l'équipe. Tout se recalcule.</div>
+  </div>
+
+  <div class="totaux">
+    <div class="tot fort">
+      <div class="lab">Traité sans intervention</div>
+      <div class="v" id="t-auto">—</div>
+      <div class="u" id="t-auto-u">du courrier de l'année</div>
+    </div>
+    <div class="tot">
+      <div class="lab">Erreurs automatiques</div>
+      <div class="v" id="t-err">—</div>
+      <div class="u">par an, parmi les mails traités seuls</div>
+    </div>
+    <div class="tot mal">
+      <div class="lab">Dont vers le client</div>
+      <div class="v rouge" id="t-crit">—</div>
+      <div class="u">une action partie au mauvais destinataire</div>
+    </div>
+    <div class="tot">
+      <div class="lab">Temps épargné</div>
+      <div class="v" id="t-etp">—</div>
+      <div class="u">équivalents temps plein, à 4 min par mail</div>
+    </div>
+  </div>
+
+  <div class="manettes">
+    <div class="man">
+      <div class="t">Regrouper les familles proches</div>
+      <div class="d">Viser l'équipe plutôt que le motif exact. Se tromper entre deux motifs de santé n'est plus une erreur si le mail arrive à l'équipe santé.</div>
+      <label class="bascule"><input type="checkbox" id="m-groupe"><span class="piste"></span><span>Regroupé par domaine</span></label>
+      <div class="r" id="r-groupe"></div>
+    </div>
+    <div class="man">
+      <div class="t">Contrôle aléatoire</div>
+      <div class="d">Une part des mails jugés corrects repasse quand même devant un humain. Ça reprend du gain, et ça détecte une dérive du modèle.</div>
+      <input type="range" id="m-controle" min="0" max="30" step="1" value="5" aria-label="Part de contrôle aléatoire">
+      <div class="r" id="r-controle"></div>
+    </div>
+    <div class="man">
+      <div class="t">Le modèle s'améliore</div>
+      <div class="d">Plus de données, un meilleur modèle. Les seuils ne bougent pas. Regardez ce que l'automatisation y gagne.</div>
+      <button class="btn" id="m-mieux" type="button">Améliorer le modèle</button>
+      <div class="r" id="r-mieux"></div>
+    </div>
+  </div>
+
+  <div class="grille">
+
+    <div class="carte">
+      <h2>Les dix familles de la boîte partagée</h2>
+      <p class="sub">Une ligne par famille, son seuil, et ce qu'il produit. Cliquez une ligne pour la voir en courbe.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Famille</th><th>Criticité</th><th>Volume</th><th>Justesse</th>
+            <th>Seuil</th><th>Automatisé</th><th>Erreurs</th>
+          </tr>
+        </thead>
+        <tbody id="lignes"></tbody>
+      </table>
+      <p class="pied">La <b>justesse</b> est la part des mails que le modèle classe bien, tous seuils confondus. La colonne <b>erreurs</b> ne compte que les mails traités automatiquement et mal classés : ceux qui sont revenus à l'équipe ne coûtent qu'un reclassement.</p>
+    </div>
+
+    <div class="carte">
+      <h2 id="c-titre">La courbe de la famille choisie</h2>
+      <p class="sub" id="c-sous">Le seuil en abscisse, de 50 à 99.</p>
+      <svg id="courbe" viewBox="0 -6 470 266" role="img" aria-labelledby="c-desc" style="width:100%;height:auto">
+        <desc id="c-desc">Deux courbes décroissantes en fonction du seuil : la part automatisée et le taux d'erreur parmi les mails automatisés.</desc>
+      </svg>
+      <div class="legende">
+        <span><svg width="26" height="10"><line x1="1" y1="5" x2="25" y2="5" stroke="#13264A" stroke-width="2.4"/></svg> part automatisée, échelle de gauche</span>
+        <span><svg width="26" height="10"><line x1="1" y1="5" x2="25" y2="5" stroke="#BA1C3A" stroke-width="2.4" stroke-dasharray="5 3"/></svg> taux d'erreur parmi elle, échelle de droite</span>
+      </div>
+      <p class="phrase">Monter le seuil réduit les erreurs et réduit l'automatisation dans le même mouvement. On ne choisit pas entre les deux, on choisit un point sur une courbe.</p>
+    </div>
+
+  </div>
+
+  <p class="pied"><b>Simulation, pas une mesure.</b> Les familles, les volumes et la qualité du modèle sont inventés, du même ordre de grandeur que ce qu'on rencontre. Le mécanisme, lui, est celui d'une vraie console de tri : un seuil par famille, une criticité par famille, et un compromis qui ne se supprime pas.</p>
+
+</div>
+
+<script>
+// ---------------------------------------------------------------------------
+// Le sujet de cette demonstration est la DECISION qui suit la prediction, pas
+// la prediction. Il n'y a donc aucun texte a classer ici, aucun modele appele :
+// on se donne la qualite d'un modele, et on regle ce qu'on en fait.
+//
+// SIMULATION, PAS UNE MESURE. Pour chaque famille on se donne deux
+// distributions de confiance : celle des predictions justes, centree haut,
+// celle des predictions fausses, centree plus bas. La part des mails au-dessus
+// du seuil et le taux d'erreur parmi elle s'en deduisent chacun en une ligne.
+// Les nombres sont inventes ; les formes de courbe, elles, sont celles qu'on
+// observe en vrai, et c'est tout ce que la demonstration enseigne.
+// ---------------------------------------------------------------------------
+
+// dom       : le domaine, donc l'equipe qui traite
+// vol       : volume annuel de mails
+// just      : part des mails bien classes, tous seuils confondus
+// mu1, mu0  : confiance moyenne des predictions justes, et des fausses
+// intra     : part des erreurs qui restent dans le domaine (donc rattrapables
+//             par un regroupement : le mail arrive quand meme a la bonne equipe)
+// crit      : 1 benigne, 2 visible du client, 3 une action part vers le client
+// note      : ce qui explique la qualite du modele sur cette famille
+const FAMILLES = [
+  {dom:"Santé", nom:"Remboursement de soins", vol:5200, just:.93, mu1:.88, mu0:.74, intra:.72, crit:1,
+   note:"gros volume, formulations très répétitives"},
+  {dom:"Santé", nom:"Prise en charge hospitalière", vol:1400, just:.86, mu1:.83, mu0:.71, intra:.70, crit:2,
+   note:"souvent confondue avec le remboursement de soins"},
+  {dom:"Santé", nom:"Carte de tiers payant", vol:2600, just:.95, mu1:.91, mu0:.76, intra:.75, crit:1,
+   note:"demande courte, vocabulaire fermé"},
+  {dom:"Épargne et prévoyance", nom:"Rachat partiel", vol:900, just:.82, mu1:.80, mu0:.70, intra:.55, crit:3,
+   note:"écrite en langage libre, chaque mail est différent"},
+  {dom:"Épargne et prévoyance", nom:"Changement de bénéficiaire", vol:600, just:.79, mu1:.78, mu0:.69, intra:.52, crit:3,
+   note:"faible volume, donc peu d'exemples pour apprendre"},
+  {dom:"Auto", nom:"Déclaration de sinistre", vol:3100, just:.88, mu1:.85, mu0:.72, intra:.62, crit:2,
+   note:"récits libres, longueur très variable"},
+  {dom:"Auto", nom:"Envoi de constat et de pièces", vol:2200, just:.90, mu1:.87, mu0:.74, intra:.65, crit:1,
+   note:"reconnaissable à ses pièces jointes"},
+  {dom:"Vie du contrat", nom:"Changement d'adresse", vol:4800, just:.97, mu1:.93, mu0:.78, intra:.68, crit:1,
+   note:"générée par l'espace client : format toujours identique"},
+  {dom:"Vie du contrat", nom:"Changement de RIB", vol:1700, just:.91, mu1:.88, mu0:.75, intra:.60, crit:3,
+   note:"une erreur ici touche un virement"},
+  {dom:"Vie du contrat", nom:"Demande d'attestation", vol:3400, just:.94, mu1:.90, mu0:.76, intra:.66, crit:1,
+   note:"formulation stable, réponse automatisable"},
+];
+const CRIT = {1:"bénigne", 2:"visible", 3:"vers le client"};
+const MIN_PAR_MAIL = 4, HEURES_ETP = 1600;
+
+// l'etat : un seuil par famille, plus les trois manettes globales
+const etat = {
+  seuils: FAMILLES.map(() => 80),
+  groupe: false,
+  controle: 5,
+  mieux: 0,          // nombre de fois que le modele a ete ameliore
+  choisie: 0,
+};
+
+// part des mails d'une distribution de confiance qui depasse le seuil
+function auDessus(mu, pente, s){ return 1 / (1 + Math.exp((s - mu) / pente)); }
+
+// Les deux pentes ne sont pas interchangeables. Un score de confiance qui vaut
+// quelque chose concentre les predictions fausses en bas et les coupe net :
+// leur queue haute doit donc decroitre PLUS VITE que celle des justes, soit
+// une pente plus serree. Avec l'inverse, le taux d'erreur parmi les mails
+// automatises remonte aux seuils eleves, et la demonstration enseignerait le
+// contraire de ce qu'elle veut dire.
+const PENTE_JUSTE = .075, PENTE_FAUSSE = .055;
+
+// ce qu'un seuil produit sur une famille, dans l'etat courant des manettes
+function calc(f, seuil){
+  // le regroupement rattrape les erreurs qui restaient dans le domaine, et
+  // remonte la confiance : celle du groupe est la somme de ses membres
+  let just = etat.groupe ? f.just + (1 - f.just) * f.intra : f.just;
+  let mu1 = f.mu1 + (etat.groupe ? .04 : 0);
+  let mu0 = f.mu0;
+  // un meilleur modele se trompe moins ET doute davantage quand il se trompe.
+  // Sa confiance sur les cas justes, elle, bouge a peine : c'est pour cela que
+  // l'automatisation ne monte pas si on laisse le seuil ou il est.
+  for (let i = 0; i < etat.mieux; i++){ just += (1 - just) * .45; mu0 -= .05; }
+  const s = seuil / 100;
+  const p1 = auDessus(mu1, PENTE_JUSTE, s), p0 = auDessus(mu0, PENTE_FAUSSE, s);
+  const brut = just * p1 + (1 - just) * p0;      // part du volume au-dessus du seuil
+  const faux = (1 - just) * p0;                  // part du volume automatisee ET fausse
+  const c = etat.controle / 100;
+  return {
+    just,
+    auto: brut * (1 - c),                        // le controle aleatoire reprend sa part
+    erreurs: f.vol * faux,
+    partent: f.vol * faux * (1 - c),             // celles que le controle ne rattrape pas
+    tauxErr: brut > 1e-6 ? faux / brut : 0,
+    brut,
+  };
+}
+
+const fr = new Intl.NumberFormat("fr-FR");
+const n0 = x => fr.format(Math.round(x));
+const pc = x => (x * 100).toFixed(x < .1 ? 1 : 0).replace(".", ",") + " %";
+
+// ---- le tableau ----------------------------------------------------------
+const tbody = document.getElementById("lignes");
+FAMILLES.forEach((f, i) => {
+  const tr = document.createElement("tr");
+  tr.innerHTML =
+    `<td><div class="nom">${f.nom}</div><div class="dom">${f.dom} · ${f.note}</div></td>` +
+    `<td><span class="crit c${f.crit}">${CRIT[f.crit]}</span></td>` +
+    `<td class="num">${n0(f.vol)}</td>` +
+    `<td class="num" data-r="just"></td>` +
+    `<td class="seuilcell"><input type="range" min="50" max="99" step="1" value="${etat.seuils[i]}" ` +
+    `aria-label="Seuil de ${f.nom}"><b data-r="seuil"></b></td>` +
+    `<td class="num" data-r="auto"></td>` +
+    `<td class="num" data-r="err"></td>`;
+  tr.querySelector("input").addEventListener("input", e => {
+    etat.seuils[i] = +e.target.value;
+    etat.choisie = i;
+    dessine();
+  });
+  tr.addEventListener("click", e => {
+    if (e.target.tagName !== "INPUT"){ etat.choisie = i; dessine(); }
+  });
+  tbody.appendChild(tr);
+});
+
+// ---- la courbe -----------------------------------------------------------
+const SVG = "http://www.w3.org/2000/svg";
+const G = {x0:44, x1:404, y0:26, y1:206, s0:50, s1:99};
+const px = s => G.x0 + (s - G.s0) / (G.s1 - G.s0) * (G.x1 - G.x0);
+const py = v => G.y1 - v * (G.y1 - G.y0);
+
+function el(nom, attrs, texte){
+  const e = document.createElementNS(SVG, nom);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (texte != null) e.textContent = texte;
+  return e;
+}
+
+// Deux axes verticaux, et il faut le dire. Le taux d'erreur vaut quelques
+// pour cent quand l'automatisation vaut des dizaines : sur une echelle
+// commune, la courbe d'erreur serait collee a zero et n'apprendrait rien.
+// Elle a donc sa propre echelle, a droite, en rouge comme son trace.
+const PALIERS = [.005, .01, .02, .05, .1, .2, .5, 1];
+function echelleErreur(f){
+  let m = 0;
+  for (let s = G.s0; s <= G.s1; s += 1) m = Math.max(m, calc(f, s).tauxErr);
+  return PALIERS.find(p => p >= m) || 1;
+}
+
+function courbe(){
+  const svg = document.getElementById("courbe");
+  while (svg.childNodes.length > 1) svg.removeChild(svg.lastChild);
+  const f = FAMILLES[etat.choisie], seuil = etat.seuils[etat.choisie];
+  const eMax = echelleErreur(f);
+  const pyErr = v => G.y1 - (v / eMax) * (G.y1 - G.y0);
+
+  // la grille, l'echelle de gauche (automatisation), celle de droite (erreur)
+  for (let v = 0; v <= 1.001; v += .25){
+    svg.appendChild(el("line", {x1:G.x0, y1:py(v), x2:G.x1, y2:py(v),
+      stroke:v === 0 ? "#dcd8d4" : "#eeeae7", "stroke-width":1}));
+    svg.appendChild(el("text", {x:G.x0 - 8, y:py(v) + 4, "text-anchor":"end",
+      "font-size":9.5, fill:"#13264A"}, (v * 100) + " %"));
+    // meme nombre de decimales sur toute la graduation, sinon « 7,5 % » puis
+    // « 10 % » se lisent comme deux echelles differentes
+    const dec = eMax <= .1 ? 1 : 0;
+    svg.appendChild(el("text", {x:G.x1 + 8, y:py(v) + 4, "text-anchor":"start",
+      "font-size":9.5, fill:"#BA1C3A"}, (v * eMax * 100).toFixed(dec).replace(".", ",") + " %"));
+  }
+  for (let s = 50; s <= 99; s += 10){
+    svg.appendChild(el("text", {x:px(s), y:G.y1 + 17, "text-anchor":"middle",
+      "font-size":9.5, fill:"#78828f"}, s));
+  }
+  svg.appendChild(el("text", {x:(G.x0 + G.x1) / 2, y:G.y1 + 33, "text-anchor":"middle",
+    "font-size":9.5, fill:"#78828f"}, "seuil de confiance"));
+
+  // les deux traces : plein pour l'automatisation, tirete pour l'erreur
+  const pts = {auto:[], err:[]};
+  for (let s = G.s0; s <= G.s1; s += .5){
+    const r = calc(f, s);
+    pts.auto.push([px(s), py(r.brut * (1 - etat.controle / 100))]);
+    pts.err.push([px(s), pyErr(r.tauxErr)]);
+  }
+  const d = a => "M" + a.map(p => p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" L");
+  svg.appendChild(el("path", {d:d(pts.auto), fill:"none", stroke:"#13264A", "stroke-width":2.4}));
+  svg.appendChild(el("path", {d:d(pts.err), fill:"none", stroke:"#BA1C3A", "stroke-width":2.4,
+    "stroke-dasharray":"5 3"}));
+
+  // le point choisi, sur les deux courbes
+  const r = calc(f, seuil);
+  svg.appendChild(el("line", {x1:px(seuil), y1:G.y0 - 4, x2:px(seuil), y2:G.y1,
+    stroke:"#3B547D", "stroke-width":1, "stroke-dasharray":"3 3"}));
+  svg.appendChild(el("circle", {cx:px(seuil), cy:py(r.auto), r:4.5, fill:"#13264A",
+    stroke:"#fff", "stroke-width":1.6}));
+  svg.appendChild(el("circle", {cx:px(seuil), cy:pyErr(r.tauxErr), r:4.5, fill:"#BA1C3A",
+    stroke:"#fff", "stroke-width":1.6}));
+  svg.appendChild(el("text", {x:px(seuil), y:G.y0 - 10, "text-anchor":"middle",
+    "font-size":10.5, "font-weight":700, fill:"#3B547D"}, "seuil " + seuil));
+
+  document.getElementById("c-titre").textContent = f.nom;
+  document.getElementById("c-sous").textContent =
+    `${f.dom} · ${n0(f.vol)} mails par an · au seuil ${seuil}, ` +
+    `${pc(r.auto)} traités seuls et ${pc(r.tauxErr)} d'erreur parmi eux.`;
+}
+
+// ---- tout redessiner -----------------------------------------------------
+function dessine(){
+  let vol = 0, volAuto = 0, err = 0, crit = 0;
+  FAMILLES.forEach((f, i) => {
+    const r = calc(f, etat.seuils[i]);
+    vol += f.vol; volAuto += f.vol * r.auto; err += r.partent;
+    if (f.crit === 3) crit += r.partent;
+    const tr = tbody.children[i];
+    tr.classList.toggle("on", i === etat.choisie);
+    tr.querySelector('[data-r="just"]').textContent = pc(r.just);
+    tr.querySelector('[data-r="seuil"]').textContent = etat.seuils[i];
+    const a = tr.querySelector('[data-r="auto"]');
+    a.innerHTML = pc(r.auto) + `<div class="barre"><i style="width:${(r.auto * 100).toFixed(0)}%"></i></div>`;
+    const e = tr.querySelector('[data-r="err"]');
+    e.textContent = n0(r.partent);
+    e.className = "num" + (r.partent < .5 ? " zero" : f.crit === 3 ? " mal" : "");
+  });
+
+  document.getElementById("t-auto").textContent = pc(volAuto / vol);
+  document.getElementById("t-auto-u").textContent = n0(volAuto) + " mails sur " + n0(vol) + " par an";
+  document.getElementById("t-err").textContent = n0(err);
+  document.getElementById("t-crit").textContent = n0(crit);
+  document.getElementById("t-etp").textContent =
+    (volAuto * MIN_PAR_MAIL / 60 / HEURES_ETP).toFixed(1).replace(".", ",");
+  courbe();
+}
+
+// ---- les manettes --------------------------------------------------------
+document.getElementById("m-groupe").addEventListener("change", e => {
+  etat.groupe = e.target.checked;
+  document.getElementById("r-groupe").textContent = etat.groupe
+    ? "Se tromper à l'intérieur d'un domaine ne compte plus : les erreurs qui coûtent cher s'effondrent."
+    : "";
+  dessine();
+});
+const ctrl = document.getElementById("m-controle");
+function majControle(){
+  etat.controle = +ctrl.value;
+  document.getElementById("r-controle").textContent = etat.controle === 0
+    ? "Aucun contrôle : rien ne signalera une dérive du modèle."
+    : `${etat.controle} % repassent devant un humain, et rattrapent autant d'erreurs.`;
+  dessine();
+}
+ctrl.addEventListener("input", majControle);
+document.getElementById("m-mieux").addEventListener("click", () => {
+  if (etat.mieux >= 3) return;
+  etat.mieux++;
+  const b = document.getElementById("m-mieux");
+  b.textContent = etat.mieux >= 3 ? "Modèle au maximum" : "Améliorer encore";
+  b.disabled = etat.mieux >= 3;
+  document.getElementById("r-mieux").textContent =
+    "Les erreurs baissent, l'automatisation à peine. Baissez les seuils pour encaisser le gain.";
+  dessine();
+});
+
+majControle();
+</script>
+</body>
+</html>

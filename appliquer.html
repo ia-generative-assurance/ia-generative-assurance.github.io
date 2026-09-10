@@ -656,6 +656,34 @@ response_format={"type": "json_object"},</div>
     </div>
   </div>
 
+  <p class="reveal">Ces six repères se disent en une minute et se comprennent en les touchant. La console ci-dessous tient dix familles inventées, chacune avec son volume, sa criticité et sa qualité de modèle. Déplacez un seuil, et regardez les deux nombres qui comptent : ce qui part tout seul, et ce qui part au mauvais destinataire.</p>
+
+  <div class="demo-embed demo-shot reveal">
+    <div class="demo-head"><span><b>La console de tri</b> · un seuil par famille, et ce qu'il coûte : essayez de monter la part automatisée sans faire monter les erreurs qui partent vers le client</span><a href="demos/seuil-par-famille.html" target="_blank" rel="noopener">Ouvrir en plein écran</a></div>
+    <div class="demo-steps">
+      <figure>
+        <a href="demos/seuil-par-famille.html" target="_blank" rel="noopener"><img src="assets/demo_seuil_par_famille_1.png" width="1640" height="1120" alt="Dix familles, un seuil chacune : ce qui part tout seul et ce que ça coûte" loading="lazy"></a>
+        <figcaption><b>1</b> Dix familles, un seuil chacune : ce qui part tout seul et ce que ça coûte</figcaption>
+      </figure>
+      <figure>
+        <a href="demos/seuil-par-famille.html" target="_blank" rel="noopener"><img src="assets/demo_seuil_par_famille_2.png" width="1640" height="1120" alt="La courbe d'une famille : monter le seuil réduit les erreurs et l'automatisation ensemble" loading="lazy"></a>
+        <figcaption><b>2</b> La courbe d'une famille : monter le seuil réduit les erreurs et l'automatisation ensemble</figcaption>
+      </figure>
+    </div>
+    <a class="demo-cta" href="demos/seuil-par-famille.html" target="_blank" rel="noopener">Ouvrir la démonstration <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <div class="print-note">Démonstration interactive sur le site (demos/seuil-par-famille.html). Dix familles inventées, un curseur de seuil par famille, et trois manettes globales : regrouper les familles proches, la part de contrôle aléatoire, et l'amélioration du modèle. Ce qu'on y voit : monter un seuil réduit les erreurs et l'automatisation ensemble ; à seuil égal, les familles ne rendent pas du tout la même chose ; améliorer le modèle sans rebaisser les seuils ne rapporte presque rien ; regrouper les familles proches rapporte plus qu'un réentraînement. Les volumes et les taux sont simulés, pas mesurés.</div>
+  </div>
+
+  <div class="try reveal">
+    <span class="label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg> À vous, dans la console</span>
+    <p>Trois manipulations, deux minutes. Mettez tous les seuils à 60, puis à 97, et regardez les deux totaux bouger en sens inverse. Cliquez « Améliorer le modèle » sans toucher aux seuils. Puis activez « Regrouper les familles proches ».</p>
+    <details class="answer"><summary>Ce qu'on observe en général</summary>
+      <p>À 60, presque tout part tout seul et les erreurs explosent ; à 97, il n'y a presque plus d'erreurs et presque plus d'automatisation. Entre les deux, il n'y a pas de bon réglage, il y a un point à choisir, et il n'est pas le même pour un changement d'adresse et pour un changement de bénéficiaire.</p>
+      <p>Améliorer le modèle sans rebaisser les seuils ne gagne qu'un point d'automatisation : le gain est là, mais il est bloqué par le seuil. Ce sont les erreurs qui s'effondrent. Il faut ensuite descendre les seuils pour encaisser le gain, et c'est exactement l'inverse de l'intuition courante, qui attend qu'un seuil monte tout seul avec l'usage.</p>
+      <p>Le regroupement est le plus contre-intuitif : en acceptant de viser l'équipe plutôt que le motif exact, l'automatisation monte et les erreurs qui partent vers le client s'effondrent. Les familles proches sont précisément celles où le modèle hésite : les fusionner supprime les erreurs qui coûtent cher, sans une ligne de code de modèle.</p>
+    </details>
+  </div>
+
   <h3 style="margin:40px 0 10px">Du mail au dossier : ranger le mail n'est que le premier geste</h3>
   <p>Un mail de service n'arrive jamais seul. Il porte des pièces, et ces pièces portent les informations qui remplissent le dossier. Le classer dans une famille dit où l'envoyer ; cela ne dit ni de quel dossier on parle, ni ce qu'on peut faire ensuite. Le processus complet tient en six temps, et le premier piège est là : <strong>un fichier n'est pas un document</strong>.</p>
 
