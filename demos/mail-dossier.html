@@ -191,7 +191,7 @@
 
       <div class="carte eteint" id="c2">
         <h2><span class="n">2 · 3</span> Les pages, une par une <span class="tag ia">IA</span> <span class="tag humain">Humain</span></h2>
-        <p class="sub">L'unité n'est pas le fichier, c'est la page : un seul PDF contient souvent plusieurs documents. Chaque page reçoit un type et une confiance. Choisissez le bon type dans la liste : le recollage, l'extraction, le dossier et les actions se refont.</p>
+        <p class="sub">L'unité n'est pas le fichier, c'est la page : un seul PDF contient souvent plusieurs documents. Un constat mélange à lui seul du texte imprimé, du manuscrit, des croix et un croquis. Chaque page reçoit un type et une confiance. Choisissez le bon type dans la liste : le recollage, l'extraction, le dossier et les actions se refont.</p>
         <div class="pages" id="pages"></div>
         <div class="aide" id="aide-pages"></div>
       </div>
@@ -228,7 +228,7 @@
   </div>
 
   <p class="note"><b>Trois mails fictifs, aucun assuré réel, aucun appel à un modèle depuis cette page.</b>
-  Le classement des pages est rejoué tel qu'un modèle le rend sur ce genre de pièces ; le reste tourne pour de vrai : les motifs qui repèrent un numéro de sinistre ou un IBAN, le recollage des pages, le remplissage du dossier et les conditions des actions. Le détail du parsing et de l'extraction est dans la section « Lire un document » du module 03.</p>
+  Le constat suit le formulaire européen réel, quinze rubriques et dix-sept cases de circonstances, avec sa case de totalisation. Le classement des pages est rejoué tel qu'un modèle le rend sur ce genre de pièces ; le reste tourne pour de vrai : les motifs qui repèrent un numéro de sinistre ou un IBAN, le recollage des pages, le remplissage du dossier et les conditions des actions. Le détail du parsing et de l'extraction est dans la section « Lire un document » du module 03.</p>
 </div>
 
 <script>
@@ -255,8 +255,8 @@
       objet:"Accident ce matin, constat joint",
       corps:"Bonjour,\n\nJ'ai eu un accident ce matin sur le parking d'un centre commercial. L'autre conducteur a rayé toute l'aile avant.\nMon contrat est le CTR-4471902, le véhicule immatriculé LX 4471.\n\nLe constat est rempli et signé, la facture du garage suit. Merci de me dire ce qu'il faut de plus.\n\nJean Leroux",
       pages:[
-        {f:"constat_amiable.pdf", np:1, type:"constat", conf:96, txt:"CONSTAT AMIABLE D'ACCIDENT AUTOMOBILE\n1. date de l'accident : 12/03/2026\n2. lieu : Luxembourg, parking\n3. blesses meme legers : non\nVehicule A  immatriculation LX 4471", champs:{survenance:"12/03/2026", immat:"LX 4471", circonstances:"stationnement, choc latéral"}},
-        {f:"constat_amiable.pdf", np:2, type:"constat", conf:93, txt:"croquis de l'accident\nobservations vehicule A\nsignature A          signature B\nassureur B : police 88-2201", champs:{tiers:"police tiers 88-2201"}},
+        {f:"constat_amiable.pdf", np:1, type:"constat", conf:96, txt:"CONSTAT AMIABLE D'ACCIDENT AUTOMOBILE\n1. date de l'accident 12/03/2026  heure 08:15\n2. localisation  Luxembourg, parking\n3. blesses meme legers  non\n12. CIRCONSTANCES   A |          | B\n  2 quittait un stationnement   [ ] [X]\n 13 virait a gauche             [X] [ ]\n  nombre de cases cochees   1  |  1", champs:{survenance:"12/03/2026", heure:"08:15", lieu:"Luxembourg, parking", blesses:"non", immat:"LX 4471", circonstances:"B quittait un stationnement (case 2), A virait à gauche (case 13)", croix:"1 croix côté A, 1 côté B ; totaux déclarés 1 et 1"}},
+        {f:"constat_amiable.pdf", np:2, type:"constat", conf:93, txt:"DECLARATION - a transmettre sous cinq jours\n5. vehicule assure, expertise des degats\nreparateur : Carrosserie du Nord\n3. circonstances de l'accident (texte libre)\nsignature de l'assure", champs:{tiers:"police du tiers 88-2201", reparateur:"Carrosserie du Nord"}},
         {f:"garage_devis.pdf", np:1, type:"facture", conf:91, txt:"CARROSSERIE DU NORD\nfacture n. 2026-0412\naile avant droite      840,00\nmain d'oeuvre 4 h     260,00\nTOTAL TTC           1 287,00 EUR", champs:{montant:"1 287,00 €", prestataire:"Carrosserie du Nord"}},
         {f:"degat.jpg", np:1, type:"photo", conf:88, txt:"", champs:{}}
       ]
@@ -276,8 +276,8 @@
       objet:"Documents",
       corps:"Bonjour, vous trouverez ci-joint les documents demandés pour le sinistre SIN-2026-04412, déclaré le 09/03/2026. L'accident date du 07/03/2026.\n\nCordialement",
       pages:[
-        {f:"scan001.pdf", np:1, type:"constat", conf:71, txt:"CONSTAT AMIABLE D'ACCIDENT AUTOMOBILE\ndate de l'accident : 07/03/2026\nvehicule A  immatriculation LX 9902", champs:{survenance:"07/03/2026", immat:"LX 9902"}},
-        {f:"scan001.pdf", np:2, type:"constat", conf:66, txt:"croquis\nobservations\nsignatures des deux conducteurs", champs:{}},
+        {f:"scan001.pdf", np:1, type:"constat", conf:71, txt:"CONSTAT AMIABLE D'ACCIDENT AUTOMOBILE\n1. date de l'accident 07/03/2026  heure 17:40\n2. localisation  Esch-sur-Alzette, N4\n7. vehicule A  immatriculation LX 9902\n12. CIRCONSTANCES  cases cochees cote B :\n 10 changeait de file   [X]\n 11 doublait            [X]\n  nombre de cases cochees   1", champs:{survenance:"07/03/2026", heure:"17:40", lieu:"Esch-sur-Alzette, N4", immat:"LX 9902", croix:"2 croix détectées côté B, total déclaré : 1", circonstances:"B changeait de file (case 10) et doublait (case 11)"}},
+        {f:"scan001.pdf", np:2, type:"constat", conf:66, txt:"13. croquis de l'accident\n14. mes observations (manuscrit)\n15. signature des conducteurs\nA : signee     B : signee", champs:{signatures:"les deux conducteurs ont signé"}},
         {f:"scan001.pdf", np:3, type:"vide", conf:98, txt:"", champs:{}},
         {f:"scan001.pdf", np:4, type:"facture", vu:"releve", conf:58, txt:"GARAGE CENTRAL\nremplacement pare-brise\nTOTAL TTC   612,50 EUR", champs:{montant:"612,50 €", prestataire:"Garage Central"}},
         {f:"scan001.pdf", np:5, type:"rib", conf:83, txt:"RELEVE D'IDENTITE BANCAIRE\ntitulaire : P. Schmit\nIBAN LU28 0019 4006 4475 0000", champs:{iban:"LU28 0019 4006 4475 0000"}}
@@ -360,7 +360,9 @@
   function nomInfo(cle){
     var t = MOTIFS.concat(DATES).filter(function(p){ return p.cle === cle; })[0];
     if (t) return t.nom;
-    return {survenance:"Date de survenance", immat:"Immatriculation", circonstances:"Circonstances",
+    return {survenance:"Date de survenance", heure:"Heure", lieu:"Lieu", blesses:"Blessés",
+            croix:"Cases de circonstances", signatures:"Signatures", reparateur:"Réparateur",
+            immat:"Immatriculation", circonstances:"Circonstances",
             montant:"Montant", prestataire:"Prestataire", tiers:"Tiers identifié", soins:"Date des soins",
             pris_en_charge:"Part prise en charge", reste:"Reste à charge", iban:"IBAN"}[cle] || cle;
   }
@@ -478,6 +480,12 @@
     var actions = [];
     actions.push({e:"ok", t:"Attacher les pièces au dossier",
                   d:docs.filter(function(d){ return d.type !== "vide"; }).length + " document(s) rattachés, chacun avec sa page d'origine."});
+    // le constat porte sa propre somme de controle : « indiquer le nombre de
+    // cases marquees d'une croix ». Quand le compte ne tombe pas, la piece part
+    // en revue, et c'est le formulaire qui l'a demande, pas le modele.
+    if (infos.croix && infos.croix.v.indexOf("total déclaré") >= 0)
+      actions.push({e:"humain", t:"Vérifier les cases du constat",
+                    d:"Le constat déclare un nombre de croix différent de ce qui est détecté (" + infos.croix.v + "). Les cases décident du partage de responsabilité : un gestionnaire tranche."});
     if (illisibles) actions.push({e:"humain", t:"Mettre en revue humaine",
                   d:illisibles + " pièce(s) illisibles par la machine. Un gestionnaire les lit, sa lecture est stockée comme les autres."});
     if (cat.d.cle === "declaration")
