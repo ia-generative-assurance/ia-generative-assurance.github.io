@@ -27,8 +27,11 @@ body { margin: 0; background: #0d1830; color: var(--ink);
    1280 x 720 dans la mise en page, et debordait sous la barre du bas. Le cadre
    porte donc la taille REELLE apres mise a l'echelle (posee par diapos.js), et
    la scene s'y accroche en haut a gauche. Plus rien ne se chevauche. */
+/* Le remplissage est reduit au minimum : chaque pixel rendu ici agrandit la
+   scene d'autant (retour du 10 septembre, « la fenetre principale doit prendre
+   le plus de place possible »). */
 .pupitre { flex: 1; display: flex; align-items: center; justify-content: center;
-  min-height: 0; padding: 8px 14px; }
+  min-height: 0; padding: 4px 8px; }
 .cadre { position: relative; }
 .scene { width: var(--scene-l); height: var(--scene-h); position: absolute; top: 0; left: 0;
   background: #fff; border-radius: 14px; overflow: hidden;
@@ -146,24 +149,27 @@ body { margin: 0; background: #0d1830; color: var(--ink);
    caches »). Elle devient une vraie barre : un fond plus clair, un filet qui la
    detache de la scene, des boutons contrastes, et le bouton Suivant en rouge,
    parce que c'est le geste qu'on fait cent fois. */
-.pilote { flex: none; display: flex; align-items: center; gap: 12px;
-  padding: 11px 24px; background: #182848; border-top: 1px solid rgba(255, 255, 255, .14);
-  color: #e6ecf6; font-size: .88rem; }
-.pilote button { font: inherit; font-family: var(--display); font-weight: 800; font-size: .88rem;
+/* Elle avait grossi pour se voir ; elle voyait trop grand. La hauteur passe de
+   66 a une quarantaine de pixels, rendus a la scene, sans perdre le contraste
+   qui l'avait fait grossir : fond clair, filet, bouton Suivant en rouge. */
+.pilote { flex: none; display: flex; align-items: center; gap: 9px;
+  padding: 5px 14px; background: #182848; border-top: 1px solid rgba(255, 255, 255, .14);
+  color: #e6ecf6; font-size: .78rem; }
+.pilote button { font: inherit; font-family: var(--display); font-weight: 800; font-size: .76rem;
   color: #fff; background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .3);
-  border-radius: 10px; padding: 9px 16px; cursor: pointer; display: inline-flex;
-  align-items: center; gap: 8px; }
+  border-radius: 8px; padding: 5px 11px; cursor: pointer; display: inline-flex;
+  align-items: center; gap: 6px; }
 .pilote button:hover { background: rgba(255, 255, 255, .26); }
 .pilote button.suiv { background: var(--crimson); border-color: var(--crimson); }
 .pilote button.suiv:hover { background: #d42749; }
 .pilote button[disabled] { opacity: .3; cursor: default; }
-.pilote svg { width: 16px; height: 16px; }
-.pilote .rang { font-family: var(--mono); font-size: .86rem; color: #fff; min-width: 5.5em;
+.pilote svg { width: 13px; height: 13px; }
+.pilote .rang { font-family: var(--mono); font-size: .76rem; color: #fff; min-width: 5em;
   text-align: center; }
 .pilote .ou { color: #a9b7cc; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pilote .droite { margin-left: auto; display: flex; align-items: center; gap: 12px; }
-.pilote .aide { color: #7d8ea9; font-size: .78rem; white-space: nowrap; }
-.pilote a { color: #cfd9ea; text-decoration: none; font-size: .84rem; font-weight: 600; }
+.pilote .aide { color: #7d8ea9; font-size: .7rem; white-space: nowrap; }
+.pilote a { color: #cfd9ea; text-decoration: none; font-size: .76rem; font-weight: 600; }
 .pilote a:hover { color: #fff; text-decoration: underline; }
 
 .jauge { position: fixed; left: 0; top: 0; height: 3px; background: var(--crimson);

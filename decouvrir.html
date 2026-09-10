@@ -67,53 +67,76 @@
     <p class="lede">ChatGPT en 2022, c'était uniquement cela : un grand modèle de langue (LLM) qui, à partir de votre texte, génère la suite mot après mot. Pas de recherche, pas de calcul, pas de mémoire. Et c'était déjà une révolution : pour la première fois, la machine comprend le langage humain, et c'est vous, le métier, qui la commandez.</p>
   </div>
 
-  <figure class="figure-frame">
-    <div class="fig-scroll"><svg viewBox="0 0 892 514" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Le moteur ajoute un mot, relit tout, et recommence">
+  <figure class="figure-frame" id="fig-generation">
+    <div class="fig-scroll"><svg viewBox="0 0 892 460" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Segoe UI, sans-serif" role="img" aria-label="Le moteur relit tout le texte, anticipe le mot le plus probable, l'ajoute au texte, et recommence">
       <!-- Convention des schemas : voir nlp/site/SCHEMAS.md. Premier schema du
-           parcours, dans le module ou l'on teste : UNE seule idee, la phrase
-           qui grandit d'un mot a chaque tour. Les tokens, les probabilites et
-           la taille du modele sont au module 02, pas ici. -->
+           parcours, dans le module ou l'on teste : UNE seule idee, la boucle.
+           Le mot choisi rejoint le texte et tout repart du debut. La version
+           precedente repetait trois fois le meme pipeline sans dessiner la
+           boucle (retour de Kezhan, 10 septembre : « ce schema la est mal
+           fait pour montrer la generation »). L'etat dessine est le tour 3 ;
+           le script en bas du fragment fait tourner la boucle au clic. -->
       <defs>
         <marker id="mo" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#13264A"/></marker>
+        <marker id="mo-r" markerWidth="9" markerHeight="9" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#BA1C3A"/></marker>
         <filter id="omb" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="1.5" dy="2" stdDeviation="2" flood-color="#13264A" flood-opacity="0.16"/></filter>
       </defs>
 
-      <text x="446" y="45.9515" text-anchor="middle" font-size="19" font-weight="700" fill="#13264A">Il ajoute un mot, puis il recommence</text>
+      <text x="446" y="40" text-anchor="middle" font-size="19" font-weight="700" fill="#13264A">Un mot par tour, et tout recommence</text>
 
-      <text x="27.0303" y="75.6848" font-size="12.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">TOUR 1</text>
-      <g filter="url(#omb)"><rect x="27.0303" y="86.497" width="529.794" height="62.1697" rx="14.8667" fill="#f6e3bf" stroke="#92661D" stroke-width="2.02727"/></g>
-      <text x="48.6545" y="125.691" font-size="14.5"><tspan fill="#78500f">J'ai eu un dégât des eaux, je veux</tspan></text>
-      <path d="M559.527 116.23 L573.042 116.23" stroke="#13264A" stroke-width="2.97333" marker-end="url(#mo)"/>
-      <rect x="581.152" y="93.2545" width="129.745" height="45.9515" rx="12.1636" fill="#13264A"/>
-      <text x="646.024" y="122.988" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">le moteur</text>
-      <path d="M713.6 116.23 L729.818 116.23" stroke="#13264A" stroke-width="2.97333" marker-end="url(#mo)"/>
-      <g filter="url(#omb)"><rect x="737.927" y="89.2" width="127.042" height="54.0606" rx="13.5152" fill="#bfe0dd" stroke="#1F6F6B" stroke-width="2.02727"/></g>
-      <text x="801.448" y="124.339" text-anchor="middle" font-size="16" font-weight="700" fill="#0f4b48">déclarer</text>
+      <!-- les trois bandes -->
+      <rect x="20" y="62" width="320" height="200" rx="14" fill="#fdf3e2"/>
+      <rect x="398" y="62" width="226" height="200" rx="14" fill="#eef1f6"/>
+      <rect x="682" y="62" width="190" height="200" rx="14" fill="#e8f3f2"/>
+      <text x="44" y="84" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">CE QUI ENTRE</text>
+      <text x="422" y="84" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">CE QUI CALCULE</text>
+      <text x="706" y="84" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">CE QUI SORT</text>
 
-      <text x="27.0303" y="181.103" font-size="12.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">TOUR 2</text>
-      <g filter="url(#omb)"><rect x="27.0303" y="191.915" width="529.794" height="62.1697" rx="14.8667" fill="#f6e3bf" stroke="#92661D" stroke-width="2.02727"/></g>
-      <text x="48.6545" y="231.109" font-size="14.5"><tspan fill="#78500f">J'ai eu un dégât des eaux, je veux</tspan><tspan fill="#0f4b48" font-weight="700"> déclarer</tspan></text>
-      <path d="M559.527 221.648 L573.042 221.648" stroke="#13264A" stroke-width="2.97333" marker-end="url(#mo)"/>
-      <rect x="581.152" y="198.673" width="129.745" height="45.9515" rx="12.1636" fill="#13264A"/>
-      <text x="646.024" y="228.406" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">le moteur</text>
-      <path d="M713.6 221.648 L729.818 221.648" stroke="#13264A" stroke-width="2.97333" marker-end="url(#mo)"/>
-      <g filter="url(#omb)"><rect x="737.927" y="194.618" width="127.042" height="54.0606" rx="13.5152" fill="#bfe0dd" stroke="#1F6F6B" stroke-width="2.02727"/></g>
-      <text x="801.448" y="229.758" text-anchor="middle" font-size="16" font-weight="700" fill="#0f4b48">un</text>
+      <!-- ce qui entre : votre demande, puis ce qu'il a deja ecrit -->
+      <g filter="url(#omb)"><rect x="44" y="104" width="272" height="102" rx="12" fill="#f6e3bf" stroke="#92661D" stroke-width="2"/></g>
+      <text x="56" y="134" font-size="14.5" fill="#78500f">J'ai eu un dégât des eaux, je veux</text>
+      <text id="gen-l2" x="56" y="160" font-size="14.5" font-weight="700" fill="#0f4b48">déclarer un</text>
+      <text id="gen-l3" x="56" y="186" font-size="14.5" font-weight="700" fill="#0f4b48"></text>
+      <text x="44" y="236" font-size="13.5" font-style="italic" fill="#6C7683">votre demande, puis ce qu'il a déjà écrit</text>
 
-      <text x="27.0303" y="286.521" font-size="12.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">TOUR 3</text>
-      <g filter="url(#omb)"><rect x="27.0303" y="297.333" width="529.794" height="62.1697" rx="14.8667" fill="#f6e3bf" stroke="#92661D" stroke-width="2.02727"/></g>
-      <text x="48.6545" y="336.527" font-size="14.5"><tspan fill="#78500f">J'ai eu un dégât des eaux, je veux</tspan><tspan fill="#0f4b48" font-weight="700"> déclarer</tspan><tspan fill="#0f4b48" font-weight="700"> un</tspan></text>
-      <path d="M559.527 327.067 L573.042 327.067" stroke="#13264A" stroke-width="2.97333" marker-end="url(#mo)"/>
-      <rect x="581.152" y="304.091" width="129.745" height="45.9515" rx="12.1636" fill="#13264A"/>
-      <text x="646.024" y="333.824" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">le moteur</text>
-      <path d="M713.6 327.067 L729.818 327.067" stroke="#13264A" stroke-width="2.97333" marker-end="url(#mo)"/>
-      <g filter="url(#omb)"><rect x="737.927" y="300.036" width="127.042" height="54.0606" rx="13.5152" fill="#bfe0dd" stroke="#1F6F6B" stroke-width="2.02727"/></g>
-      <text x="801.448" y="335.176" text-anchor="middle" font-size="16" font-weight="700" fill="#0f4b48">sinistre</text>
+      <path d="M316 155 L414 155" stroke="#13264A" stroke-width="2.6" marker-end="url(#mo)"/>
+      <g filter="url(#omb)"><rect x="315" y="142" width="100" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
+      <text x="365" y="160" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">tout le texte</text>
 
-      <text x="446" y="427.079" text-anchor="middle" font-size="15" fill="#4a5567">À chaque tour, il relit toute la phrase et ajoute un mot.</text>
-      <text x="446" y="462.218" text-anchor="middle" font-size="15" fill="#4a5567">Puis il recommence. C’est tout ce qu’il fait.</text>
+      <!-- ce qui calcule : le moteur, et ce qu'il anticipe -->
+      <rect x="422" y="104" width="178" height="36" rx="11" fill="#13264A"/>
+      <text x="511" y="128" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">le moteur</text>
+      <text x="422" y="164" font-size="13.5" font-style="italic" fill="#6C7683">il anticipe la suite :</text>
+      <text id="gen-c1" x="430" y="188" font-size="14.5" font-weight="700" fill="#0f4b48">sinistre</text><rect id="gen-b1" x="496" y="177" width="63.36" height="14" rx="3" fill="#1F6F6B"/><text id="gen-p1" x="596" y="188" text-anchor="end" font-size="13.5" fill="#6C7683">88 %</text>
+      <text id="gen-c2" x="430" y="212" font-size="14.5" font-weight="700" fill="#4a5567">dossier</text><rect id="gen-b2" x="496" y="201" width="4.32" height="14" rx="3" fill="#d7dfeb"/><text id="gen-p2" x="596" y="212" text-anchor="end" font-size="13.5" fill="#6C7683">6 %</text>
+      <text id="gen-c3" x="430" y="236" font-size="14.5" font-weight="700" fill="#4a5567">dégât</text><rect id="gen-b3" x="496" y="225" width="2.16" height="14" rx="3" fill="#d7dfeb"/><text id="gen-p3" x="596" y="236" text-anchor="end" font-size="13.5" fill="#6C7683">3 %</text>
+
+      <path d="M600 155 L698 155" stroke="#13264A" stroke-width="2.6" marker-end="url(#mo)"/>
+      <g filter="url(#omb)"><rect x="599" y="142" width="100" height="26" rx="13" fill="#fff" stroke="#dcd8d4"/></g>
+      <text x="649" y="160" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#4a5567">le mot choisi</text>
+
+      <!-- ce qui sort : un mot, un seul -->
+      <g filter="url(#omb)"><rect x="706" y="118" width="142" height="74" rx="13" fill="#bfe0dd" stroke="#1F6F6B" stroke-width="2"/></g>
+      <text id="gen-out" x="777" y="152" text-anchor="middle" font-size="18" font-weight="700" fill="#0f4b48">sinistre</text>
+      <text id="gen-tour" x="777" y="178" text-anchor="middle" font-size="13.5" font-weight="800" fill="#BA1C3A">tour 3</text>
+
+      <!-- la boucle : le mot rejoint le texte, et on repart du debut -->
+      <path d="M777 192 L777 290 L32 290 L32 155 L40 155" fill="none" stroke="#BA1C3A" stroke-width="2.4" marker-end="url(#mo-r)"/>
+      <g filter="url(#omb)"><rect x="300" y="277" width="330" height="26" rx="13" fill="#fff" stroke="#f2c3cd"/></g>
+      <text x="465" y="295" text-anchor="middle" font-size="14" font-style="italic" font-weight="700" fill="#BA1C3A">le mot rejoint le texte, et tout repart du début</text>
+
+      <!-- la reponse, tour apres tour -->
+      <text x="44" y="330" font-size="13.5" font-weight="800" letter-spacing=".1em" fill="#6C7683">LA RÉPONSE, TOUR APRÈS TOUR</text>
+      <text x="87" y="345" text-anchor="middle" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">1</text><rect id="gen-tr1" x="44" y="352" width="86" height="36" rx="9" fill="#bfe0dd" stroke="#1F6F6B" stroke-width="1.6"/><text id="gen-tm1" x="87" y="375" text-anchor="middle" font-size="14.5" font-weight="700" fill="#0f4b48">déclarer</text><text x="162" y="345" text-anchor="middle" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">2</text><rect id="gen-tr2" x="140" y="352" width="44" height="36" rx="9" fill="#bfe0dd" stroke="#1F6F6B" stroke-width="1.6"/><text id="gen-tm2" x="162" y="375" text-anchor="middle" font-size="14.5" font-weight="700" fill="#0f4b48">un</text><text x="236" y="345" text-anchor="middle" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">3</text><rect id="gen-tr3" x="194" y="352" width="84" height="36" rx="9" fill="#bfe0dd" stroke="#BA1C3A" stroke-width="2.4"/><text id="gen-tm3" x="236" y="375" text-anchor="middle" font-size="14.5" font-weight="700" fill="#0f4b48">sinistre</text><text x="326" y="345" text-anchor="middle" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">4</text><rect id="gen-tr4" x="288" y="352" width="76" height="36" rx="9" fill="#fff" stroke="#dcd8d4" stroke-width="1.6" stroke-dasharray="4 3"/><text id="gen-tm4" x="326" y="375" text-anchor="middle" font-size="14.5" font-weight="700" fill="#0f4b48"></text><text x="396" y="345" text-anchor="middle" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">5</text><rect id="gen-tr5" x="374" y="352" width="44" height="36" rx="9" fill="#fff" stroke="#dcd8d4" stroke-width="1.6" stroke-dasharray="4 3"/><text id="gen-tm5" x="396" y="375" text-anchor="middle" font-size="14.5" font-weight="700" fill="#0f4b48"></text><text x="456" y="345" text-anchor="middle" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">6</text><rect id="gen-tr6" x="428" y="352" width="56" height="36" rx="9" fill="#fff" stroke="#dcd8d4" stroke-width="1.6" stroke-dasharray="4 3"/><text id="gen-tm6" x="456" y="375" text-anchor="middle" font-size="14.5" font-weight="700" fill="#0f4b48"></text><text x="538" y="345" text-anchor="middle" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">7</text><rect id="gen-tr7" x="494" y="352" width="88" height="36" rx="9" fill="#fff" stroke="#dcd8d4" stroke-width="1.6" stroke-dasharray="4 3"/><text id="gen-tm7" x="538" y="375" text-anchor="middle" font-size="14.5" font-weight="700" fill="#0f4b48"></text><text x="602" y="376" font-size="16" font-weight="700" fill="#6C7683">…</text><text x="676" y="345" text-anchor="middle" font-size="12.8" font-family="JetBrains Mono, Consolas, monospace" fill="#6C7683">100</text><rect x="632" y="352" width="88" height="36" rx="9" fill="#fff" stroke="#dcd8d4" stroke-width="1.6" stroke-dasharray="4 3"/>
+
+      <text x="446" y="436" text-anchor="middle" font-size="15" fill="#4a5567">Cent mots de réponse, c'est cent tours de ce calcul. Il n'en fait jamais un autre.</text>
     </svg></div>
-    <figcaption>Le moteur ne répond pas d’un bloc. Il ajoute un mot, relit tout depuis le début, ajoute le suivant. Une réponse de cent mots, c’est cent tours.</figcaption>
+    <div class="fig-ctrl">
+      <button type="button" id="gen-next">Tour suivant</button>
+      <button type="button" id="gen-reset">Recommencer</button>
+      <span class="hint" id="gen-hint">Cliquez : le mot choisi rejoint le texte, le moteur relit tout et anticipe le suivant.</span>
+    </div>
+    <figcaption>Le moteur ne répond pas d'un bloc. À chaque tour il relit tout le texte, le vôtre et ce qu'il a déjà écrit, anticipe le mot le plus probable, l'ajoute, et repart du début. Il ne fait rien d'autre : une réponse de cent mots, c'est cent tours.</figcaption>
   </figure>
 
   <div class="grid grid-2">
@@ -662,6 +685,60 @@
 </div>
 </div>
 
+<!-- generation-js -->
+<script>
+(function(){
+  var fig = document.getElementById("fig-generation"); if (!fig) return;
+  // les tours, avec ce que le moteur anticipe a chacun : le premier de la
+  // liste est choisi, c'est le plus probable
+  var TOURS = [
+    {mot:"déclarer", cand:[["déclarer",62],["signaler",21],["obtenir",9]]},
+    {mot:"un",       cand:[["un",71],["le",14],["mon",8]]},
+    {mot:"sinistre", cand:[["sinistre",88],["dossier",6],["dégât",3]]},
+    {mot:"auprès",   cand:[["auprès",44],["à",31],["et",12]]},
+    {mot:"de",       cand:[["de",97],["du",2],["chez",1]]},
+    {mot:"mon",      cand:[["mon",83],["l'",9],["votre",5]]},
+    {mot:"assureur", cand:[["assureur",79],["assurance",15],["agence",4]]}
+  ];
+  var k = 3, $ = function(id){ return document.getElementById(id); };
+  function peindre(){
+    var t = TOURS[k - 1], deja = TOURS.slice(0, k - 1).map(function(x){ return x.mot; });
+    // le texte deja ecrit, sur deux lignes au plus
+    var l2 = [], l3 = [];
+    deja.forEach(function(m){ ((l2.join(" ") + " " + m).length <= 30 && !l3.length ? l2 : l3).push(m); });
+    $("gen-l2").textContent = l2.join(" "); $("gen-l3").textContent = l3.join(" ");
+    t.cand.forEach(function(c, i){
+      $("gen-c" + (i + 1)).textContent = c[0];
+      $("gen-c" + (i + 1)).setAttribute("fill", i ? "#4a5567" : "#0f4b48");
+      $("gen-b" + (i + 1)).setAttribute("width", c[1] * 0.72);
+      $("gen-b" + (i + 1)).setAttribute("fill", i ? "#d7dfeb" : "#1F6F6B");
+      $("gen-p" + (i + 1)).textContent = c[1] + " %";
+    });
+    $("gen-out").textContent = t.mot;
+    $("gen-tour").textContent = "tour " + k;
+    TOURS.forEach(function(x, i){
+      var n = i + 1, fait = n <= k, r = $("gen-tr" + n);
+      $("gen-tm" + n).textContent = fait ? x.mot : "";
+      r.setAttribute("fill", fait ? "#bfe0dd" : "#fff");
+      r.setAttribute("stroke", n === k ? "#BA1C3A" : (fait ? "#1F6F6B" : "#dcd8d4"));
+      r.setAttribute("stroke-width", n === k ? "2.4" : "1.6");
+      if (fait) r.removeAttribute("stroke-dasharray"); else r.setAttribute("stroke-dasharray", "4 3");
+    });
+    $("gen-next").textContent = k < TOURS.length ? "Tour suivant" : "Recommencer";
+    $("gen-hint").textContent = k < TOURS.length
+      ? "Tour " + k + " : « " + t.mot + " » est le plus probable après « " + (deja.length ? deja.slice(-2).join(" ") : "je veux") + " ». Il rejoint le texte, et tout repart du début."
+      : "Sept tours pour sept mots. Une vraie réponse en compte cent, et chacun est calculé comme celui-ci.";
+  }
+  function suivant(){ k = k < TOURS.length ? k + 1 : 1; peindre(); }
+  $("gen-next").addEventListener("click", suivant);
+  $("gen-reset").addEventListener("click", function(){ k = 1; peindre(); });
+  fig.querySelector("svg").addEventListener("click", suivant);
+  fig.querySelector("svg").style.cursor = "pointer";
+  peindre();
+})();
+</script>
+<!-- /generation-js -->
+
 
 <footer class="site-footer">
   <div class="wrap">
@@ -677,6 +754,31 @@
   if (hb) hb.addEventListener('click', function(e){ e.stopPropagation(); header.classList.toggle('open'); });
   // les sous-menus s'ouvrent au survol (CSS) ; le bouton de module est un
   // lien, le clic mene au haut de la page du module
+
+  // Basculer vers les diapositives doit tomber au meme endroit : le lien vise
+  // la section qu'on est en train de lire, pas le haut du deck. On garde la
+  // derniere section dont le haut est passe sous la barre de navigation, ce
+  // qui donne la meme reponse que l'oeil du lecteur.
+  var versDiapos = document.querySelector('.lien-diapos');
+  if (versDiapos) {
+    var baseDiapos = versDiapos.getAttribute('href').split('#')[0];
+    var sections = [].slice.call(document.querySelectorAll('section[id]'));
+    if (sections.length) {
+      var suivre = function () {
+        var repere = 140, vu = '';
+        for (var k = 0; k < sections.length; k++) {
+          if (sections[k].getBoundingClientRect().top <= repere) { vu = sections[k].id; }
+        }
+        versDiapos.setAttribute('href', baseDiapos + (vu ? '#' + vu : ''));
+      };
+      var attente = null;
+      window.addEventListener('scroll', function () {
+        if (attente) { return; }
+        attente = setTimeout(function () { attente = null; suivre(); }, 120);
+      }, {passive: true});
+      suivre();
+    }
+  }
 
   // apparition au defilement
   var els = document.querySelectorAll('.reveal');

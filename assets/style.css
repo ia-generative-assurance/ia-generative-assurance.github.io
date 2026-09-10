@@ -395,6 +395,14 @@ figure img { display: block; width: 100%; height: auto; border-radius: var(--rad
 figcaption { font-size: .86rem; color: var(--ink-mute); margin-top: 12px; }
 .figure-frame { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); }
 .figure-frame.dark { background: var(--navy); border-color: var(--navy); }
+/* un rang de commandes sous un schema qui se fait tourner au clic (le moteur du
+   module 01) ; a l'impression le schema montre son etat dessine, sans boutons */
+.fig-ctrl { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.fig-ctrl button { font: inherit; font-size: .86rem; font-weight: 700; border-radius: 20px; border: 1.5px solid var(--line); background: #fff; color: var(--navy); padding: 6px 14px; cursor: pointer; }
+.fig-ctrl button:hover { background: var(--sand-l); }
+.fig-ctrl button:first-child { background: var(--navy); border-color: var(--navy); color: #fff; }
+.fig-ctrl .hint { font-size: .86rem; color: var(--ink-soft); line-height: 1.45; }
+@media print { .fig-ctrl { display: none; } }
 .figure-frame.dark figcaption { color: #a9b7cc; }
 /* Il y avait ici deux regles qui bridaient un schema a 560 px et resserraient
    son cadre autour. Retirees le 7 septembre : la toile d'un schema fait

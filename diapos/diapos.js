@@ -63,6 +63,9 @@
     }
   }
 
+  var versPage = document.querySelector('.pilote .vers-page');
+  var basePage = versPage ? versPage.getAttribute('href').split('#')[0] : '';
+
   // 3. la navigation
   function montrer(n, pousser) {
     n = Math.max(0, Math.min(diapos.length - 1, n));
@@ -78,6 +81,12 @@
       sommaire.querySelectorAll('button[data-n]').forEach(function (b) {
         b.classList.toggle('is-on', +b.getAttribute('data-n') === i);
       });
+    }
+    // le lien de retour vise la section de la diapositive courante : on
+    // rouvre la page au meme endroit, pas en haut
+    if (versPage) {
+      var ancre = diapos[i].getAttribute('data-ancre') || '';
+      versPage.setAttribute('href', basePage + (ancre ? '#' + ancre : ''));
     }
     if (pousser !== false) {
       history.replaceState(null, '', '#d' + (i + 1));
@@ -123,12 +132,21 @@
   window.addEventListener('resize', function () { poserEchelle(); ajuster(diapos[i]); });
   window.addEventListener('load', function () { poserEchelle(); ajuster(diapos[i]); });
 
-  // le numero dans l'adresse : #d12, ou #fin quand on arrive en marche arriere
+  // le numero dans l'adresse : #d12, ou #fin quand on arrive en marche arriere.
+  // Une ancre de section (#embeddings) est acceptee aussi : c'est ce que la
+  // page envoie quand on bascule depuis elle, et on ouvre alors la premiere
+  // diapositive de cette section.
   var depart = 0;
   if (location.hash === '#fin') { depart = diapos.length - 1; }
   else {
     var m = /^#d(\d+)$/.exec(location.hash);
     if (m) { depart = Math.max(0, Math.min(diapos.length - 1, +m[1] - 1)); }
+    else if (location.hash.length > 1) {
+      var cible = location.hash.slice(1);
+      for (var j = 0; j < diapos.length; j++) {
+        if (diapos[j].getAttribute('data-ancre') === cible) { depart = j; break; }
+      }
+    }
   }
   poserEchelle();
   montrer(depart, false);

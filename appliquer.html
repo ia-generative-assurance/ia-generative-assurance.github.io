@@ -1392,6 +1392,31 @@ response_format={"type": "json_object"},</div>
   // les sous-menus s'ouvrent au survol (CSS) ; le bouton de module est un
   // lien, le clic mene au haut de la page du module
 
+  // Basculer vers les diapositives doit tomber au meme endroit : le lien vise
+  // la section qu'on est en train de lire, pas le haut du deck. On garde la
+  // derniere section dont le haut est passe sous la barre de navigation, ce
+  // qui donne la meme reponse que l'oeil du lecteur.
+  var versDiapos = document.querySelector('.lien-diapos');
+  if (versDiapos) {
+    var baseDiapos = versDiapos.getAttribute('href').split('#')[0];
+    var sections = [].slice.call(document.querySelectorAll('section[id]'));
+    if (sections.length) {
+      var suivre = function () {
+        var repere = 140, vu = '';
+        for (var k = 0; k < sections.length; k++) {
+          if (sections[k].getBoundingClientRect().top <= repere) { vu = sections[k].id; }
+        }
+        versDiapos.setAttribute('href', baseDiapos + (vu ? '#' + vu : ''));
+      };
+      var attente = null;
+      window.addEventListener('scroll', function () {
+        if (attente) { return; }
+        attente = setTimeout(function () { attente = null; suivre(); }, 120);
+      }, {passive: true});
+      suivre();
+    }
+  }
+
   // apparition au defilement
   var els = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
