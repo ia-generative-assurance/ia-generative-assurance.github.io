@@ -75,7 +75,12 @@ a:hover { text-decoration: underline; }
 strong { font-weight: 650; color: var(--navy); }
 code { font-family: var(--mono); font-size: .85em; background: var(--sand-l); border: 1px solid var(--line); border-radius: 5px; padding: .08em .38em; color: var(--navy-700); }
 .lede { font-size: 1.125rem; line-height: 1.55; color: var(--ink-soft); }
-.eyebrow { font-family: var(--display); font-size: .74rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--crimson); margin-bottom: .8em; }
+.eyebrow { font-family: var(--display); font-size: .74rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--crimson); margin-bottom: 14px; }
+/* la marge etait declaree en em : sur une police de 11,8 px cela faisait 9 px,
+   et le surtitre venait toucher le titre (retour de Kezhan, 10 septembre,
+   capture a l'appui). Elle est en pixels comme tout le reste du site, et
+   reste sous la hauteur de ligne du surtitre, 19 px : les deux restent un
+   seul bloc, ils ne se collent plus. */
 .eyebrow-light { color: var(--crimson-l); }
 
 /* ---------- Animations d'apparition ---------- */
@@ -540,7 +545,6 @@ ul.clean li::before { content: "\203A"; position: absolute; left: 4px; top: -1px
    entre deux puces, le mot qui porte la logique (mais, et, d'ou, puis, enfin)
    ou un « + » quand les pieces s'additionnent. Passe a la ligne sans deborder. */
 .fil-wrap { margin-top: 26px; }
-.fil-wrap .eyebrow { margin-bottom: 10px; }
 .fil { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px 0; }
 .fil > li { display: flex; align-items: center; }
 .fil em { font-style: normal; font-family: var(--display); font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--crimson); padding: 0 8px 0 10px; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
